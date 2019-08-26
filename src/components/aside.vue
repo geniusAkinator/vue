@@ -34,16 +34,26 @@
             <span slot="title">实时监控</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="form">实时监控</el-menu-item>
+            <el-menu-item index="realtime">实时监控</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-video-camera"></i>
+            <span slot="title">信息管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="factory">工厂信息管理</el-menu-item>
+            <el-menu-item index="sensor">传感器信息管理</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="4">
           <template slot="title">
             <i class="el-icon-data-analysis"></i>
             <span slot="title">统计分析</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="page">统计分析</el-menu-item>
+            <el-menu-item index="statistic">统计分析</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

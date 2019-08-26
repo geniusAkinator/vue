@@ -36,7 +36,6 @@
         </el-row>
       </div>
     </el-card>
-
     <el-card class="box-card" style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>下属设备及探测器</span>
@@ -100,7 +99,7 @@
 </template>
 
 <script>
-import MyAddPage from "@/views/form/add";
+import MyAddPage from "@/views/realtime/add";
 export default {
   data() {
     return {
