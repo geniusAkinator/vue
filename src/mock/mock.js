@@ -42,9 +42,10 @@ Mock.mock('/factory/map', 'get', mdata)
 let cdata = [];
 cdata = Mock.mock({
   'code': 0,
-  'data|10-20': [
+  'data|10-100': [
     {
       'id|+1': 1,
+      'cid': '@id',
       'reportCount|0-1':0,
       'errorCount|0-1':0,
       'outlineCount|0-1':0,
@@ -94,3 +95,23 @@ sdata = Mock.mock({
 })
 
 Mock.mock('/sensor/data', 'get', sdata)
+
+
+let rdata = [];
+rdata = Mock.mock({
+  'code':0,
+  'data|10-30':[
+    {
+      'id':'@increment',   //传感器ID
+      'name':'@cword(3, 5)',       //传感器名称
+      'type|0-5':0,             //类型
+      'lng|100-120.5': 100.00000, //经度
+      'lat|22-40.5': 22.22222,   //纬度
+      'battery|0-100':0, //电量
+      'expires':'@date("yyyy-MM-dd")',
+      'status|0-3':0   //状态
+    }
+  ],
+  'msg': '请求成功'
+})
+Mock.mock('/realtime/data', 'get', rdata)

@@ -9,6 +9,9 @@ import Factory from '@/views/factory/index'
 import Sensor from '@/views/sensor/index'
 import Statistic from '@/views/statistic/index'
 import FactoryAdd from '@/views/factory/add'
+import SensorAdd from '@/views/sensor/add'
+import SensorType from '@/views/sensor/type'
+import SensorTypeAdd from '@/views/sensor/typeAdd'
 
 Vue.use(Router)
 
@@ -70,6 +73,21 @@ export default new Router({
           path: 'factoryAdd',
           name: '工厂添加',
           component: FactoryAdd
+        },
+        {
+          path: 'sensorAdd',
+          name: '传感器添加',
+          component: SensorAdd
+        },
+        {
+          path: 'sensorType',
+          name: '传感器类别',
+          component: SensorType
+        },
+        {
+          path: 'sensorTypeAdd',
+          name: '传感器类别添加',
+          component: SensorTypeAdd
         },
       ]
     },

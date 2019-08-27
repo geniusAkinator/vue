@@ -3,10 +3,12 @@
     <!-- 这里使用的是 2.5 slot 语法，对于新项目请使用 2.6 slot 语法-->
     <template v-slot:dateCell="{date, data}">
       <p :class="data.isSelected ? 'is-selected' : ''">{{data.day.split('-').slice(1)[1]}}</p>
-      <div class="status" :key="index" v-for="(item,index) in clist">
-        <i class="circle warning" v-if="item.reportCount&&isBoolean(data,item)"></i>
-        <i class="circle danger" v-if="item.errorCount&&isBoolean(data,item)"></i>
-        <i class="circle info" v-if="item.outlineCount&&isBoolean(data,item)"></i>
+      <div class="status">
+        <template v-for="item in clist">
+          <i class="circle warning" v-if="item.reportCount&&isBoolean(data,item)"></i>
+          <i class="circle danger" v-if="item.errorCount&&isBoolean(data,item)"></i>
+          <i class="circle info" v-if="item.outlineCount&&isBoolean(data,item)"></i>
+        </template>
       </div>
     </template>
   </el-calendar>
@@ -62,6 +64,7 @@ export default {
   align-items: center;
   max-width: 32px;
   margin: auto;
+  margin-top: 2px;
 }
 .status .circle {
   width: 6px;

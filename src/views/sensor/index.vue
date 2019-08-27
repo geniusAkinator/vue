@@ -4,16 +4,25 @@
     <div class="table-tool">
       <el-button-group>
         <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
-        <el-button type="primary" size="small" icon="el-icon-document">导入</el-button>
-        <el-button type="primary" size="small" icon="el-icon-plus">添加传感器</el-button>
-        <el-dropdown>
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器</el-button>
+        <el-dropdown @command="handleCommand" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-plus">
             添加类型
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>添加传感器类型</el-dropdown-item>
-            <el-dropdown-item>传感器类型列表</el-dropdown-item>
+            <el-dropdown-item command="add">添加传感器类型</el-dropdown-item>
+            <el-dropdown-item command="list" divided>传感器类型列表</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-dropdown @command="handleUpload" trigger="click">
+          <el-button type="primary" size="small" icon="el-icon-document-add">
+            导入
+            <i class="el-icon-arrow-down"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="template">下载Excel模板</el-dropdown-item>
+            <el-dropdown-item command="upload">上传Excel</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-button-group>
@@ -41,7 +50,13 @@
           </el-form>
         </template>
         <template slot="end">
-          <el-button size="small" @click="handleExport">导出</el-button>
+          <el-dropdown size="small" split-button @command="handleClick">
+            导出
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="csv">导出到 Csv 文件</el-dropdown-item>
+              <el-dropdown-item command="excel">导出到 Excel 文件</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           <el-button size="small" @click="handleReset">重置</el-button>
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
@@ -100,8 +115,9 @@
   </div>
 </template>
 <script>
-import MyAddPage from "@/views/realtime/add";
 import MySearchTool from "@/components/searchtool";
+import MySensorAdd from "@/views/sensor/add";
+import MySensorTypeAdd from "@/views/sensor/typeAdd";
 import api from "@/api/index";
 export default {
   data() {
@@ -127,7 +143,39 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 900);
-    }
+    },
+    handleAdd() {
+      this.$layer.iframe({
+        content: {
+          content: MySensorAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        shadeClose: false,
+        area: ["800px", "600px"],
+        title: "新增传感器"
+      });
+    },
+    handleCommand(command) {
+      if (command == "add") {
+        this.$layer.iframe({
+          content: {
+            content: MySensorTypeAdd, //传递的组件对象
+            parent: this, //当前的vue对象
+            data: {} //props
+          },
+          shade: true,
+          shadeClose: false,
+          area: ["800px", "600px"],
+          title: "新增传感器类型"
+        });
+      } else if (command == "list") {
+        this.$router.push("sensorType", () => {});
+      }
+    },
+    handleClick() {},
+    handleUpload(){}
   },
   created() {
     api.getSensorData().then(res => {
@@ -148,7 +196,6 @@ export default {
 .table-expand {
   font-size: 0;
 }
-
 .table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;

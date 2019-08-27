@@ -153,8 +153,8 @@ body {
 .table-tool .el-button-group + .query {
   margin-left: 10px;
 }
-.table-tool .table-tool-others{
-  margin-left: auto
+.table-tool .table-tool-others {
+  margin-left: auto;
 }
 .table-tool .table-tool-others .el-inline {
   position: relative;
@@ -169,5 +169,22 @@ body {
   cursor: pointer;
   -webkit-transition: 0.5s all;
   transition: 0.5s all;
+}
+.add-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f8f8f8;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #eee;
+}
+.add-footer .el-button + .el-button {
+  margin-left: 10px;
+}
+.el-button-group .el-dropdown+.el-dropdown button{
+    margin-left: -10px;
 }
 </style>

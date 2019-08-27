@@ -85,7 +85,13 @@
               </el-form>
             </template>
             <template slot="end">
-              <el-button size="small" @click="handleExport">导出</el-button>
+              <el-dropdown size="small" split-button @command="handleClick">
+                导出
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="csv">导出到 Csv 文件</el-dropdown-item>
+                  <el-dropdown-item command="excel">导出到 Excel 文件</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
               <el-button size="small" @click="handleReset">重置</el-button>
               <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
             </template>
@@ -98,10 +104,10 @@
         </div>
         <!-- 表格 -->
         <el-table stripe border :data="tableData" align="center" style="width: 100%">
-          <el-table-column prop="id" label="探测器ID	" width="150"></el-table-column>
-          <el-table-column prop="name" label="探测器区域	"></el-table-column>
-          <el-table-column prop="province" label="探测器位置	"></el-table-column>
-          <el-table-column prop="city" label="探测器状态"></el-table-column>
+          <el-table-column prop="id" label="探测器ID" width="150"></el-table-column>
+          <el-table-column prop="name" label="探测器区域"></el-table-column>
+          <el-table-column prop="province" label="探测器位置"></el-table-column>
+          <el-table-column prop="status" label="探测器状态"></el-table-column>
         </el-table>
         <div class="pagination">
           <el-pagination
@@ -122,6 +128,7 @@
 
 <script>
 import MySearchTool from "@/components/searchtool";
+import api from "@/api/index";
 export default {
   data() {
     return {
@@ -133,6 +140,13 @@ export default {
     };
   },
   methods: {
+    handleClick(command) {
+      if(command=='csv'){
+
+      }else if(command=='excel'){
+       
+      }
+    },
     handleSizeChange() {},
     handleCurrentChange() {},
     handleReset() {
@@ -146,7 +160,13 @@ export default {
       //导出
     }
   },
-  created() {},
+  created() {
+    api.getRealtimeData().then(res => {
+      if (res.code == 0) {
+        this.tableData = res.data;
+      }
+    });
+  },
   components: {
     MySearchTool
   }

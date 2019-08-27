@@ -1,22 +1,24 @@
 <template>
   <div class="query" v-clickoutside="handleClose">
-    <div :class="{'query-picker':true,'active':isActive}" @click="toggle">
+    <div :class="{'query-picker':true,'active':isActive}">
       ==查询条件==
       <i class="el-icon-arrow-down"></i>
     </div>
-    <div class="query-content">
-      <div class="query-form">
-        <slot name="content"></slot>
+    <el-collapse-transition>
+      <div class="query-content" v-show="isActive">
+        <div class="query-form">
+          <slot name="content"></slot>
+        </div>
+        <div class="query-btn-group">
+          <slot name="end"></slot>
+        </div>
       </div>
-      <div class="query-btn-group">
-        <slot name="end"></slot>
-      </div>
-    </div>
+    </el-collapse-transition>
   </div>
 </template>
 
 <script>
-// import clickoutside from '@/directives/clickoutside'
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
@@ -34,9 +36,10 @@ export default {
     }
   },
   mounted() {
-    // this.globalClick(this.close);
+    document
+      .querySelector(".query-picker")
+      .addEventListener("click", utils.decounce(this.toggle, 200));
   }
-  //   directives: { clickoutside }
 };
 </script>
 
@@ -57,7 +60,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   position: relative;
-  z-index: 11;
+  z-index: 10001;
   line-height: 32px;
   display: flex;
   -webkit-touch-callout: none;
@@ -67,6 +70,14 @@ export default {
   -ms-user-select: none;
   user-select: none;
   position: relative;
+  transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  border-bottom: 1px solid #c9c9c9;
+}
+.query-picker.active {
+  border-bottom: 1px solid #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .query-picker i {
   transition: all 0.3s;
@@ -83,20 +94,30 @@ export default {
   -webkit-transform: rotate(180deg); /* Safari å’Œ Chrome */
   -o-transform: rotate(180deg); /* Opera */
 }
-.query-picker.active {
-  border-bottom: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+
+.query-picker::after {
+  content: "";
+  left: 0;
+  right: 0px;
+  bottom: -1px;
+  height: 1px;
+  display: block;
+  background: #c9c9c9;
+  position: absolute;
+  transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  z-index: -1;
 }
 .query-picker.active::after {
   content: "";
   left: 0;
-  right: 0.5px;
+  right: 0px;
   bottom: -1px;
   height: 1px;
   display: block;
   background: #fff;
   position: absolute;
+  z-index: 1;
 }
 .query-content {
   position: absolute;
@@ -108,8 +129,8 @@ export default {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
-  display: none;
-  z-index: 10;
+  display: block;
+  z-index: 10000;
   padding: 20px;
   box-shadow: 2px 2px 5px #ccc;
 }
@@ -122,7 +143,7 @@ export default {
 .el-button + .el-button {
   margin-left: 0;
 }
-.query-form{
-  min-height: 80px
+.query-form {
+  min-height: 80px;
 }
 </style>

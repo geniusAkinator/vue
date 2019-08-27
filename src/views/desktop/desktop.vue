@@ -131,6 +131,7 @@ import MyMap from "@/components/map";
 import MyCalendar from "@/components/calendar";
 import MyFactoryBox from "@/components/factorybox";
 import api from "@/api/index";
+import utils from "@/utils/utils";
 
 export default {
   data() {
@@ -179,18 +180,7 @@ export default {
         }
       ]
     };
-    let decounce = function(fn, delay) {
-      let timer = null;
-      return function() {
-        let _this = this;
-        let args = arguments;
-        clearTimeout(timer); // 每次调用debounce函数都会将前一次的timer清空，确保只执行一次
-        timer = setTimeout(() => {
-          fn.apply(_this, args);
-        }, delay);
-      };
-    };
-    window.addEventListener("resize", decounce(this.resizeChart, 100)); // 调用decounce函数
+    window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
   },
   components: {
     MyMap,

@@ -34,15 +34,12 @@ const mutations = { //同步
                 let len = state.breadcrumbList.length;
                 let index = 0;
                 for (let i = 1; i < len; i++) { //查找最后一个path的根path的索引
-                    console.log(state.breadcrumbList[len - 1])
                     if (state.breadcrumbList[len - 1].path.indexOf(state.breadcrumbList[i].path) == 0 &&
                         state.breadcrumbList[len - 1].path != state.breadcrumbList[i].path) {
                         index = i;
-                        console.log(state.breadcrumbList[len - 1].path, state.breadcrumbList[i].path)
                         break;
                     }
                 }
-                console.log(index)
                 if (!index) {
                     state.breadcrumbList.pop();
                 } else {
