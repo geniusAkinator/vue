@@ -99,7 +99,9 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    toAdd() {},
+    toAdd() {
+       this.$router.push("/factoryAdd", () => {});
+    },
     handleEdit() {},
     handleExport() {},
     handleReset() {

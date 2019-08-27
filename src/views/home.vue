@@ -4,7 +4,7 @@
       <my-aside></my-aside>
       <el-container style="flex-direction:column">
         <my-header></my-header>
-        <my-breadcrumb v-if="isShow"></my-breadcrumb>
+        <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
           <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
           <transition name="fade" mode="out-in">
@@ -29,15 +29,23 @@ export default {
     return {
       username: "",
       isCollapse: false,
-      isUniqueOpen: true,
+      isUniqueOpen: true
     };
   },
   computed: {
-    isShow(){
-      return this.$store.state.home.isBreadcumbShow
+    isShow() {
+      return this.$store.state.home.isBreadcrumbShow;
+    },
+    breadcrumbList() {
+      return this.$store.state.home.breadcrumbList;
     }
   },
-  watch: {},
+  watch: {
+    '$route':function(newVal,oldVal){
+      this.$store.dispatch("home/toggleBreadcrumb", newVal.path);
+      this.$store.dispatch("home/updateBreadcrumb", {newVal,oldVal});
+    }
+  },
   methods: {
     loginOut() {}
   },
@@ -47,18 +55,6 @@ export default {
       this.username = user;
     }
     // this.$message({ message: "欢迎回来", type: "success" });
-  },
-
-  beforeRouteLeave(to, from, next) {
-    console.log(to);
-    next();
-  },
-  beforeRouteEnter(to, from, next) {
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.$store.dispatch("home/updateBreadcrumb", to.path);
-    next();
   },
   components: {
     MyAside,

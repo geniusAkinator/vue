@@ -5,10 +5,10 @@ import Home from '@/views/home'
 import Error from '@/views/error'
 import Desktop from '@/views/desktop/desktop'
 import Realtime from '@/views/realtime/index'
-import Page from '@/views/realtime/page'
 import Factory from '@/views/factory/index'
 import Sensor from '@/views/sensor/index'
 import Statistic from '@/views/statistic/index'
+import FactoryAdd from '@/views/factory/add'
 
 Vue.use(Router)
 
@@ -31,36 +31,58 @@ export default new Router({
       name: '首页',
       component: Home,
       leaf: true,//只有一个节点
-      children:[
+      children: [
         {
-          path:'desktop',
-          name:'桌面',
-          component:Desktop
+          path: 'desktop',
+          name: '桌面',
+          component: Desktop
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '监控管理',
+      component: Home,
+      children: [
+        {
+          path: 'realtime',
+          name: '实时监控',
+          component: Realtime,
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '信息管理',
+      component: Home,
+      children: [
+        {
+          path: 'factory',
+          name: '工厂首页',
+          component: Factory,
         },
         {
-          path:'realtime',
-          name:'测试',
-          component:Realtime
+          path: 'sensor',
+          name: '传感器首页',
+          component: Sensor
         },
         {
-          path:'page',
-          name:'测试2',
-          component:Page
+          path: 'factoryAdd',
+          name: '工厂添加',
+          component: FactoryAdd
         },
+      ]
+    },
+    {
+      path: '/',
+      name: '统计管理',
+      component: Home,
+      leaf: true,//只有一个节点
+      children: [
         {
-          path:'factory',
-          name:'工厂首页',
-          component:Factory
-        },
-        {
-          path:'sensor',
-          name:'传感器首页',
-          component:Sensor
-        },
-        {
-          path:'statistic',
-          name:'统计首页',
-          component:Statistic
+          path: 'statistic',
+          name: '统计首页',
+          component: Statistic
         }
       ]
     },
