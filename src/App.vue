@@ -117,16 +117,17 @@ body {
 .el-calendar-table .el-calendar-day {
   height: auto;
 }
-.el-main{
+.el-main {
   position: relative;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 0
+  padding: 0;
 }
-.vl-notify,.vl-notify-mask{
-  position: absolute
+.vl-notify,
+.vl-notify-mask {
+  position: absolute;
 }
-.vl-notify-mask{
+.vl-notify-mask {
   background-color: #000;
   opacity: 0.2;
   right: 0;
@@ -139,11 +140,34 @@ body {
   width: 90px;
   color: #99a9bf;
 }
-.container{
-  padding: 20px
+.container {
+  padding: 20px;
 }
 
-.el-card{
-  overflow: unset
+.el-card {
+  overflow: unset;
+}
+.table-tool {
+  display: flex;
+}
+.table-tool .el-button-group + .query {
+  margin-left: 10px;
+}
+.table-tool .table-tool-others{
+  margin-left: auto
+}
+.table-tool .table-tool-others .el-inline {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  line-height: 26px;
+  margin-right: 10px;
+  text-align: center;
+  color: #333;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  -webkit-transition: 0.5s all;
+  transition: 0.5s all;
 }
 </style>

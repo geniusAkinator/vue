@@ -61,9 +61,40 @@
         </div>
         <!-- 表格操作 -->
         <div class="table-tool">
-            <my-search-tool>
-              <p>aaaaaaa</p>
-            </my-search-tool>
+          <my-search-tool>
+            <template slot="content">
+              <el-form
+                :label-position="labelPosition"
+                ref="form"
+                :model="searchForm"
+                label-width="80px"
+              >
+                <el-form-item label="名称" size="small">
+                  <el-input v-model="searchForm.name" prefix-icon="el-icon-search"></el-input>
+                </el-form-item>
+                <el-form-item label="时间段" size="small">
+                  <el-date-picker
+                    v-model="searchForm.range"
+                    type="daterange"
+                    range-separator="至"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :clearable="false"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-form>
+            </template>
+            <template slot="end">
+              <el-button size="small" @click="handleExport">导出</el-button>
+              <el-button size="small" @click="handleReset">重置</el-button>
+              <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
+            </template>
+          </my-search-tool>
+          <div class="table-tool-others">
+            <div class="el-inline" title="打印">
+              <i class="el-icon-printer"></i>
+            </div>
+          </div>
         </div>
         <!-- 表格 -->
         <el-table stripe border :data="tableData" align="center" style="width: 100%">
@@ -90,22 +121,32 @@
 </template>
 
 <script>
-import MySearchTool from "@/components/searchtool"
+import MySearchTool from "@/components/searchtool";
 export default {
   data() {
     return {
       tableData: [],
       isPaging: false,
-      currentPage4: 1
+      currentPage4: 1,
+      searchForm: {},
+      labelPosition: "left"
     };
   },
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
+    handleReset() {
+      //重置
+      this.searchForm = {};
+    },
+    handleSearch() {
+      //查询
+    },
+    handleExport() {
+      //导出
+    }
   },
-  created(){
-
-  },
+  created() {},
   components: {
     MySearchTool
   }

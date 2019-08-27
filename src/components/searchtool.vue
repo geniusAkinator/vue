@@ -5,7 +5,12 @@
       <i class="el-icon-arrow-down"></i>
     </div>
     <div class="query-content">
-      <slot></slot>
+      <div class="query-form">
+        <slot name="content"></slot>
+      </div>
+      <div class="query-btn-group">
+        <slot name="end"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -23,15 +28,15 @@ export default {
       this.isActive = !this.isActive;
     },
     handleClose() {
-      if(this.isActive){
-          this.isActive = false
+      if (this.isActive) {
+        this.isActive = false;
       }
     }
   },
   mounted() {
     // this.globalClick(this.close);
-  },
-//   directives: { clickoutside }
+  }
+  //   directives: { clickoutside }
 };
 </script>
 
@@ -49,13 +54,19 @@ export default {
   padding: 0 16px;
   cursor: pointer;
   color: #555;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   position: relative;
   z-index: 11;
   line-height: 32px;
   display: flex;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
 }
 .query-picker i {
   transition: all 0.3s;
@@ -73,14 +84,25 @@ export default {
   -o-transform: rotate(180deg); /* Opera */
 }
 .query-picker.active {
-  border-bottom: 1px solid #fff;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.query-picker.active::after {
+  content: "";
+  left: 0;
+  right: 0.5px;
+  bottom: -1px;
+  height: 1px;
+  display: block;
+  background: #fff;
+  position: absolute;
 }
 .query-content {
   position: absolute;
-  top: 29px;
+  top: 31px;
   left: 0;
-  min-width: 500px;
-  min-height: 180px;
+  min-width: 400px;
   background: #fff;
   border: 1px solid #c9c9c9;
   border-bottom-left-radius: 3px;
@@ -93,5 +115,14 @@ export default {
 }
 .query-picker.active + .query-content {
   display: block;
+}
+.query-btn-group {
+  float: right;
+}
+.el-button + .el-button {
+  margin-left: 0;
+}
+.query-form{
+  min-height: 80px
 }
 </style>
