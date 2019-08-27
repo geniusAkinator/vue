@@ -4,13 +4,8 @@
       <my-aside></my-aside>
       <el-container style="flex-direction:column">
         <my-header></my-header>
+        <my-breadcrumb v-if="isShow"></my-breadcrumb>
         <el-main class="app-body">
-          <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-          </el-breadcrumb> -->
           <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
           <transition name="fade" mode="out-in">
             <keep-alive>
@@ -26,6 +21,7 @@
 <script>
 import MyAside from "@/components/Aside";
 import MyHeader from "@/components/Header";
+import MyBreadcrumb from "@/components/breadcrumb";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
@@ -33,10 +29,14 @@ export default {
     return {
       username: "",
       isCollapse: false,
-      isUniqueOpen: true
+      isUniqueOpen: true,
     };
   },
-  computed: {},
+  computed: {
+    isShow(){
+      return this.$store.state.home.isBreadcumbShow
+    }
+  },
   watch: {},
   methods: {
     loginOut() {}
@@ -50,17 +50,20 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
+    console.log(to);
     next();
   },
   beforeRouteEnter(to, from, next) {
     next();
   },
   beforeRouteUpdate(to, from, next) {
+    this.$store.dispatch("home/updateBreadcrumb", to.path);
     next();
   },
   components: {
     MyAside,
-    MyHeader
+    MyHeader,
+    MyBreadcrumb
   }
 };
 </script>

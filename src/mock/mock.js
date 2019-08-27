@@ -57,14 +57,40 @@ cdata = Mock.mock({
 })
 Mock.mock('/factory/calendar', 'get', cdata)
 
-// let edata = [];
-// edata = Mock.mock({
-//   'code':0,
-//   'data|10-20':{
-//     'id':'@increasement',
-//     'region':'@cword',
-//     'position':'@cword',
-//     'status|0-3':0
-//   }
-// })
-// Mock.mock()
+let fdata = [];
+fdata = Mock.mock({
+  'code':0,
+  'data|10-20':[
+    {
+      'id':'@increment',   //工厂ID
+      'name':'@cword(3, 5)',       //工厂名称
+      'address':'@cword(3, 5)',    //工厂地址
+      'type|0-3':0,        // 工厂类型
+      'images':Random.image('200x100'), //图片
+      'tel':/^((\+86|\+86\-)|(86|86\-)|(0086|0086\-))?1[3|5|7|8]\d{9}$/, //工厂电话
+      'introduction':'@sentence',     //公司简介
+      'lng|100-120.5': 100.00000, //经度
+      'lat|22-40.5': 22.22222,   //纬度
+    }
+  ]
+})
+Mock.mock('/factory/data', 'get', fdata)
+
+let sdata = [];
+sdata = Mock.mock({
+  'code':0,
+  'data|10-30':[
+    {
+      'id':'@increment',   //传感器ID
+      'name':'@cword(3, 5)',       //传感器名称
+      'type|0-5':0,             //类型
+      'lng|100-120.5': 100.00000, //经度
+      'lat|22-40.5': 22.22222,   //纬度
+      'battery|0-100':0, //电量
+      'expires':'@date("yyyy-MM-dd")'
+    }
+  ],
+  'msg': '请求成功'
+})
+
+Mock.mock('/sensor/data', 'get', sdata)

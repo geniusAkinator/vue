@@ -57,15 +57,12 @@ body {
 }
 .table-tool {
   position: relative;
-  z-index: 10;
+  z-index: 15;
   padding: 10px 15px;
   border-top: 1px solid #e7e7e7;
   background-color: #f8f8f8;
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
-}
-.container {
-  margin: 10px 0;
 }
 .pagination {
   border-bottom: 1px solid #e7e7e7;
@@ -122,6 +119,9 @@ body {
 }
 .el-main{
   position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0
 }
 .vl-notify,.vl-notify-mask{
   position: absolute
@@ -129,5 +129,21 @@ body {
 .vl-notify-mask{
   background-color: #000;
   opacity: 0.2;
+  right: 0;
+  height: auto;
+  width: auto;
+  left: 0;
+  bottom: 0;
+}
+.table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.container{
+  padding: 20px
+}
+
+.el-card{
+  overflow: unset
 }
 </style>

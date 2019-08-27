@@ -14,6 +14,7 @@ import 'vue-layer/lib/vue-layer.css'
 import 'element-ui/lib/theme-chalk/base.css'      // fade/zoom 等
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import Router from 'vue-router'
+import Directives from '@/directives/globalDirective'
 
 require('@/mock/mock')
 require('moment')
@@ -40,6 +41,16 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+Vue.prototype.globalClick = function (callback) {
+  document.body.onclick = function (e) {
+      callback(e);
+  };
+};
+
+Object.keys(Directives).forEach(key => {   //全局指令
+  Vue.directive(key, Directives[key])  
+}) 
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {

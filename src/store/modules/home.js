@@ -1,5 +1,5 @@
 const state = {
-    
+    isBreadcumbShow: false
 }
 
 const getters = {
@@ -7,14 +7,19 @@ const getters = {
 }
 
 const actions = { //异步
-    addTab({ commit }, payload) {
+    updateBreadcrumb({ commit }, payload) {
         commit('setTab', payload)
     }
 }
 
 const mutations = { //同步
     setTab(state, payload) {
-        
+        if (payload == '/desktop') {
+            state.isBreadcumbShow = false
+        } else {
+            state.isBreadcumbShow = true
+        }
+
     }
 }
 export default {

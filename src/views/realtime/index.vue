@@ -61,25 +61,16 @@
         </div>
         <!-- 表格操作 -->
         <div class="table-tool">
-          <el-button-group>
-            <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
-            <el-button type="primary" size="small" icon="el-icon-document">导入</el-button>
-            <el-button type="primary" size="small" icon="el-icon-plus" @click="toAdd">添加</el-button>
-          </el-button-group>
+            <my-search-tool>
+              <p>aaaaaaa</p>
+            </my-search-tool>
         </div>
         <!-- 表格 -->
         <el-table stripe border :data="tableData" align="center" style="width: 100%">
-          <el-table-column fixed type="selection" width="55"></el-table-column>
           <el-table-column prop="id" label="探测器ID	" width="150"></el-table-column>
           <el-table-column prop="name" label="探测器区域	"></el-table-column>
           <el-table-column prop="province" label="探测器位置	"></el-table-column>
           <el-table-column prop="city" label="探测器状态"></el-table-column>
-          <el-table-column label="操作" fixed="right" width="180px">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
-            </template>
-          </el-table-column>
         </el-table>
         <div class="pagination">
           <el-pagination
@@ -99,57 +90,24 @@
 </template>
 
 <script>
-import MyAddPage from "@/views/realtime/add";
+import MySearchTool from "@/components/searchtool"
 export default {
   data() {
     return {
-      tableData: [
-        {
-          id:1,
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
-        },
-        {
-          id:2,
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
-        }
-      ],
+      tableData: [],
       isPaging: false,
       currentPage4: 1
     };
   },
   methods: {
-    handleEdit(index, rows) {},
-    handleDelete(index, rows) {
-      rows.splice(index, 1);
-    },
     handleSizeChange() {},
     handleCurrentChange() {},
-    toAdd() {
-      this.$layer.iframe({
-        content: {
-          content: MyAddPage, //传递的组件对象
-          parent: this, //当前的vue对象
-          data: {} //props
-        },
-        offset:['200,60'],
-        area: ["800px", "600px"],
-        title: "editForm",
-        insertNode:".el-main"
-      });
-    }
+  },
+  created(){
+
   },
   components: {
-    MyAddPage
+    MySearchTool
   }
 };
 </script>
