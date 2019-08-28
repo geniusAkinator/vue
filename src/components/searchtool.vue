@@ -1,19 +1,17 @@
 <template>
   <div class="query" v-clickoutside="handleClose">
-    <div :class="{'query-picker':true,'active':isActive}">
+    <div :class="{'query-picker':true,'active':isActive}" @click="toggle">
       ==查询条件==
       <i class="el-icon-arrow-down"></i>
     </div>
-    <el-collapse-transition>
-      <div class="query-content" v-show="isActive">
-        <div class="query-form">
-          <slot name="content"></slot>
-        </div>
-        <div class="query-btn-group">
-          <slot name="end"></slot>
-        </div>
+    <div class="query-content">
+      <div class="query-form">
+        <slot name="content"></slot>
       </div>
-    </el-collapse-transition>
+      <div class="query-btn-group">
+        <slot name="end"></slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,11 +33,7 @@ export default {
       }
     }
   },
-  mounted() {
-    document
-      .querySelector(".query-picker")
-      .addEventListener("click", utils.decounce(this.toggle, 200));
-  }
+  mounted() {}
 };
 </script>
 
@@ -129,7 +123,7 @@ export default {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
-  display: block;
+  display: none;
   z-index: 10000;
   padding: 20px;
   box-shadow: 2px 2px 5px #ccc;
@@ -144,6 +138,9 @@ export default {
   margin-left: 0;
 }
 .query-form {
+  min-height: 80px;
+}
+.query-content {
   min-height: 80px;
 }
 </style>

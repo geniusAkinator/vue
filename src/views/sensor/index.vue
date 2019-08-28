@@ -68,15 +68,7 @@
       </div>
     </div>
     <!-- 表格 -->
-    <el-table
-      stripe
-      border
-      :data="tableData"
-      align="center"
-      style="width: 100%"
-      v-loading="loading"
-      element-loading-text="拼命加载中"
-    >
+    <el-table stripe border :data="tableData" align="center" style="width: 100%">
       <el-table-column fixed type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
@@ -139,11 +131,6 @@ export default {
       this.searchForm = {};
     },
     handleSearch() {},
-    handleLoadingClose() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 900);
-    },
     handleAdd() {
       this.$layer.iframe({
         content: {
@@ -168,25 +155,35 @@ export default {
           shade: true,
           shadeClose: false,
           area: ["800px", "600px"],
-          title: "新增传感器类型"
+          title: "新增传感器类型",
+          
         });
       } else if (command == "list") {
         this.$router.push("sensorType", () => {});
       }
     },
     handleClick() {},
-    handleUpload(){}
+    handleUpload() {}
   },
-  created() {
-    api.getSensorData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
-      this.handleLoadingClose();
+  mounted() {
+    const loading = this.$loading({
+      target: document.querySelector(".el-main.app-body"),
+      lock: true,
+      text: "加载中...",
+      spinner: "loading",
+      background: "rgba(0, 0, 0, 0.7)",
+      customClass: "el-loading"
     });
+    setTimeout(() => {
+      api.getSensorData().then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+        loading.close()
+      });
+    }, 600);
   },
   beforeMount() {},
-  mounted() {},
   components: {
     MySearchTool
   }

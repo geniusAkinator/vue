@@ -103,7 +103,14 @@
           </div>
         </div>
         <!-- 表格 -->
-        <el-table stripe border :data="tableData" align="center" style="width: 100%">
+        <el-table
+          stripe
+          border
+          :data="tableData"
+          align="center"
+          style="width: 100%"
+          @row-click="handleRowClick"
+        >
           <el-table-column prop="id" label="探测器ID" width="150"></el-table-column>
           <el-table-column prop="name" label="探测器区域"></el-table-column>
           <el-table-column prop="province" label="探测器位置"></el-table-column>
@@ -141,10 +148,8 @@ export default {
   },
   methods: {
     handleClick(command) {
-      if(command=='csv'){
-
-      }else if(command=='excel'){
-       
+      if (command == "csv") {
+      } else if (command == "excel") {
       }
     },
     handleSizeChange() {},
@@ -158,6 +163,10 @@ export default {
     },
     handleExport() {
       //导出
+    },
+    handleRowClick(row, column, event) {
+      console.log(row, column, event);
+      this.$router.push('realtimeDetail',()=>{})
     }
   },
   created() {

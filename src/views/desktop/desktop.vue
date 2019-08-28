@@ -118,7 +118,7 @@
               <span>本月隐患</span>
             </div>
             <div class="text item">
-              <chart ref="chart1" :options="orgOptions" :auto-resize="true"></chart>
+              <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart>
             </div>
           </el-card>
         </el-col>
@@ -145,7 +145,7 @@ export default {
   methods: {
     openLayer() {},
     resizeChart() {
-      this.$refs["chart1"].resize();
+      this.$refs["chart"].resize();
     }
   },
   beforeCreate() {},
