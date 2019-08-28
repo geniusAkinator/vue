@@ -123,8 +123,9 @@ export default {
         },
         shade: true,
         shadeClose: false,
-        area: ["800px", "600px"],
-        title: "新增传感器类型"
+        area: ["1200px", "600px"],
+        title: "新增传感器类型",
+        target: ".el-main"
       });
     },
     handleEdit() {},
@@ -140,16 +141,25 @@ export default {
     },
     handleUpload() {}
   },
-  created() {
-    console.log("dasfads");
-    api.getFactoyData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
+  mounted() {
+    const loading = this.$loading({
+      target: document.querySelector(".el-main.app-body"),
+      lock: true,
+      text: "加载中...",
+      spinner: "loading",
+      background: "rgba(0, 0, 0, 0.7)",
+      customClass: "el-loading"
     });
+    setTimeout(() => {
+      api.getFactoyData().then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+        loading.close();
+      });
+    }, 600);
   },
   beforeMount() {},
-  mounted() {},
   components: {
     MySearchTool
   }

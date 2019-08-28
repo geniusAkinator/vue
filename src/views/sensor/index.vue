@@ -141,7 +141,8 @@ export default {
         shade: true,
         shadeClose: false,
         area: ["800px", "600px"],
-        title: "新增传感器"
+        title: "新增传感器",
+        target:".el-main"
       });
     },
     handleCommand(command) {
@@ -156,7 +157,7 @@ export default {
           shadeClose: false,
           area: ["800px", "600px"],
           title: "新增传感器类型",
-          
+          target:".el-main"
         });
       } else if (command == "list") {
         this.$router.push("sensorType", () => {});

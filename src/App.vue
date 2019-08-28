@@ -111,6 +111,9 @@ body {
   align-items: center;
   margin-right: 20px;
 }
+.tips-item:last-child{
+  margin-right: 0
+}
 .el-calendar__body {
   padding: 0;
 }
@@ -190,7 +193,9 @@ body {
 .container.form {
   width: 100%;
 }
-
+.container.form .el-form{
+  padding-bottom: 53px;
+}
 .el-loading-spinner i {
   font-size: 30px;
 }
@@ -289,5 +294,20 @@ body {
   50% {
     transform: scale(1);
   }
+}
+.el-tabs__item.is-active{
+  background: #f8f8f8
+}
+.quill-editor{
+  line-height: initial;
+  position: relative;
+}
+.ql-snow .ql-picker-label{
+  line-height:22px;
+}
+.ql-tooltip.ql-editing.ql-flip{
+  right: 5px !important;
+  left: initial !important;
+  top: 12px !important;
 }
 </style>

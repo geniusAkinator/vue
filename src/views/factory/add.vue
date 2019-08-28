@@ -19,6 +19,16 @@
       <el-form-item label="活动名称">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
+      <el-form-item label="活动名称">
+        <quill-editor
+          v-model="form.content"
+          ref="myQuillEditor"
+          :options="editorOption"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @change="onEditorChange($event)"
+        ></quill-editor>
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -31,7 +41,8 @@
 export default {
   data() {
     return {
-      form: {}
+      form: {},
+      editorOption: config.editorOption
     };
   },
   methods: {
@@ -43,7 +54,10 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
-    }
+    },
+    onEditorBlur() {},
+    onEditorFocus() {},
+    onEditorChange() {}
   }
 };
 </script>

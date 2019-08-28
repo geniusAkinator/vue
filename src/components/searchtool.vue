@@ -82,11 +82,11 @@ export default {
   line-height: 32px;
 }
 .query-picker.active i {
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg); /* IE 9 */
-  -moz-transform: rotate(180deg); /* Firefox */
-  -webkit-transform: rotate(180deg); /* Safari å’Œ Chrome */
-  -o-transform: rotate(180deg); /* Opera */
+  transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg); /* IE 9 */
+  -moz-transform: rotate(-180deg); /* Firefox */
+  -webkit-transform: rotate(-180deg); /* Safari å’Œ Chrome */
+  -o-transform: rotate(-180deg); /* Opera */
 }
 
 .query-picker::after {
