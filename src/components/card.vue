@@ -35,21 +35,16 @@ export default {
 .my-card-header{
     overflow: hidden;
 }
-.my-card-header,.my-card-content{
+.my-card-header{
     width: 100%;
 }
 .my-card-content{
     min-height: 60px;
     position: relative;
-    border: 1px solid #EBEEF5
+    border: 1px solid #EBEEF5;
+    padding: 10px;
+    border-top: 2px solid rgb(12, 157, 255)
 }
-.my-card-content::before{
-    content: '';
-    display: block;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgb(12, 157, 255);
-}
+
 
 </style>

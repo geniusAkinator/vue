@@ -115,3 +115,17 @@ rdata = Mock.mock({
   'msg': '请求成功'
 })
 Mock.mock('/realtime/data', 'get', rdata)
+
+
+let stdata = [];
+stdata = Mock.mock({
+  'code':0,
+  'data|18':[
+    {
+      'id':'@increment', 
+      
+    }
+  ],
+  'msg': '请求成功'
+})
+Mock.mock('/realtime/status', 'get', stdata)

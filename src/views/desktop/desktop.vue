@@ -176,7 +176,9 @@ export default {
         }
       ]
     };
-    window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
+    this.$nextTick(() => {
+      window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
+    });
   },
   components: {
     MyMap,

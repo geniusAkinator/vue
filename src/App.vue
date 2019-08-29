@@ -35,24 +35,24 @@ body {
   bottom: 0;
   left: 0;
 }
-.el-tabs__header {
+.my-tab .el-tabs__header {
   margin: 0;
 }
-.el-tabs--card > .el-tabs__header .el-tabs__nav {
+.my-tab .el-tabs--card > .el-tabs__header .el-tabs__nav {
   border-top: 0;
   border-radius: 0;
 }
-.el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close:hover {
+.my-tab .el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close:hover {
   background: #ff0000;
 }
-.el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close {
+.my-tab .el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close {
   line-height: 14px;
 }
 .el-breadcrumb {
   background-color: #f8f8f8;
   border-bottom: 1px solid #e7e7e7;
 }
-.el-tabs__nav-wrap {
+.my-tab .el-tabs__nav-wrap {
   margin-bottom: 0;
 }
 .table-tool {
@@ -310,4 +310,8 @@ body {
   left: initial !important;
   top: 12px !important;
 }
+.echart-tab .el-tabs__header.is-top{
+
+}
+
 </style>
