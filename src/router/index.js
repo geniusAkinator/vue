@@ -12,6 +12,7 @@ import FactoryAdd from '@/views/factory/add'
 import SensorAdd from '@/views/sensor/add'
 import SensorType from '@/views/sensor/type'
 import SensorTypeAdd from '@/views/sensor/typeAdd'
+import RealtimeDetail from '@/views/realtime/detail'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ export default new Router({
           path: 'realtime',
           name: '实时监控',
           component: Realtime,
+        },
+        {
+          path: 'realtimeDetail',
+          name: '实时监控详情',
+          component: RealtimeDetail,
         },
       ]
     },

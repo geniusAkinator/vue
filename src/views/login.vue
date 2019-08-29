@@ -7,7 +7,7 @@
           <el-input v-model="form.name" placeholder="请输入用户名" clearable></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input  v-model="form.pwd" placeholder="请输入密码" show-password></el-input>
+          <el-input v-model="form.pwd" placeholder="请输入密码" show-password></el-input>
         </el-form-item>
         <el-form-item style="width:100%">
           <el-button type="primary" @click.prevent="login" :loading="logining">登录</el-button>
@@ -40,7 +40,10 @@ export default {
       }, 1000);
     }
   },
-  destroyed() {}
+  destroyed() {
+    this.$store.dispatch("home/initTab");
+    this.$store.dispatch("home/initBreadcrumb");
+  }
 };
 </script>
 

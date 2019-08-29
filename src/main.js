@@ -15,12 +15,17 @@ import 'element-ui/lib/theme-chalk/base.css'      // fade/zoom 等
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import Router from 'vue-router'
 import Directives from '@/directives/globalDirective'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 require('@/mock/mock')
 require('moment')
 
 Vue.prototype.$layer = layer(Vue);
-Vue.use(ElementUI)   //新添加
+Vue.use(ElementUI)  
+Vue.use(VueQuillEditor)
 Vue.config.productionTip = false
 Vue.component('chart', ECharts)
 Vue.component(CollapseTransition.name, CollapseTransition)
@@ -35,7 +40,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  if (to.path == '/') {
+  if (user && to.path == '/') {
     next({ path: '/desktop' })
   } else {
     next()
@@ -44,13 +49,13 @@ router.beforeEach((to, from, next) => {
 
 Vue.prototype.globalClick = function (callback) {
   document.body.onclick = function (e) {
-      callback(e);
+    callback(e);
   };
 };
 
 Object.keys(Directives).forEach(key => {   //全局指令
-  Vue.directive(key, Directives[key])  
-}) 
+  Vue.directive(key, Directives[key])
+})
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {

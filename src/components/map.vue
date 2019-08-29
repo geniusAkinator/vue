@@ -76,11 +76,10 @@
           <span class="right">{{item.info.phone}}</span>
         </p>
         <p>
-          <el-link>
-            查看详情
-          </el-link>
+          <el-link>查看详情</el-link>
         </p>
       </bm-info-window>
+      
     </baidu-map>
     <div class="my-control">
       <el-autocomplete
@@ -113,6 +112,8 @@ import BmMarkerClusterer from "vue-baidu-map/components/extra/MarkerClusterer";
 import BmMarker from "vue-baidu-map/components/overlays/Marker";
 import BmInfoWindow from "vue-baidu-map/components/overlays/InfoWindow";
 import BmLabel from "vue-baidu-map/components/overlays/Label";
+import BmCopyright from "vue-baidu-map/components/controls/copyright";
+
 export default {
   data() {
     return {
@@ -206,7 +207,8 @@ export default {
     BmMarkerClusterer,
     BmMarker,
     BmInfoWindow,
-    BmLabel
+    BmLabel,
+    BmCopyright
   }
 };
 </script>

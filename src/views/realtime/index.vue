@@ -1,42 +1,14 @@
 <template>
   <div class="container">
-    <el-card class="box-card">
+    <el-card class="box-card" shadow="hover">
       <div slot="header" class="clearfix">
         <span>新疆巴州库尔勒市德邦物流分拨中心</span>
       </div>
       <div class="text item">
-        <el-row>
-          <el-col :span="8">
-            <i class="el-icon-office-building"></i>
-            项目识别号：201801110001
-          </el-col>
-          <el-col :span="8">
-            <ul>
-              <li>项目名称:</li>
-              <li>项目识别号:</li>
-              <li>所属客户:</li>
-              <li>地址:</li>
-              <li>建筑面积:</li>
-              <li>消防设施:</li>
-              <li>安全责任人:</li>
-              <li>联系电话:</li>
-            </ul>
-          </el-col>
-          <el-col :span="8">
-            <ul>
-              <li>设备数量:</li>
-              <li>探测器数量:</li>
-              <li>在线设备数量:</li>
-              <li>失联设备数量::</li>
-              <li>报警探测器数量:</li>
-              <li>故障探测器数量:</li>
-              <li>未处理隐患数量:</li>
-            </ul>
-          </el-col>
-        </el-row>
+        <my-factory-box></my-factory-box>
       </div>
     </el-card>
-    <el-card class="box-card" style="margin-top:20px">
+    <el-card class="box-card" shadow="hover" style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>下属设备及探测器</span>
       </div>
@@ -103,7 +75,14 @@
           </div>
         </div>
         <!-- 表格 -->
-        <el-table stripe border :data="tableData" align="center" style="width: 100%">
+        <el-table
+          stripe
+          border
+          :data="tableData"
+          align="center"
+          style="width: 100%"
+          @row-click="handleRowClick"
+        >
           <el-table-column prop="id" label="探测器ID" width="150"></el-table-column>
           <el-table-column prop="name" label="探测器区域"></el-table-column>
           <el-table-column prop="province" label="探测器位置"></el-table-column>
@@ -125,8 +104,8 @@
     </el-card>
   </div>
 </template>
-
 <script>
+import MyFactoryBox from "@/components/factorybox";
 import MySearchTool from "@/components/searchtool";
 import api from "@/api/index";
 export default {
@@ -141,10 +120,8 @@ export default {
   },
   methods: {
     handleClick(command) {
-      if(command=='csv'){
-
-      }else if(command=='excel'){
-       
+      if (command == "csv") {
+      } else if (command == "excel") {
       }
     },
     handleSizeChange() {},
@@ -158,17 +135,33 @@ export default {
     },
     handleExport() {
       //导出
+    },
+    handleRowClick(row, column, event) {
+      console.log(row, column, event);
+      this.$router.push("realtimeDetail", () => {});
     }
   },
-  created() {
-    api.getRealtimeData().then(res => {
-      if (res.code == 0) {
-        this.tableData = res.data;
-      }
+  mounted() {
+    const loading = this.$loading({
+      target: document.querySelector(".el-main.app-body"),
+      lock: true,
+      text: "加载中...",
+      spinner: "loading",
+      background: "rgba(0, 0, 0, 0.7)",
+      customClass: "el-loading"
     });
+    setTimeout(() => {
+      api.getRealtimeData().then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+        loading.close();
+      });
+    }, 600);
   },
   components: {
-    MySearchTool
+    MySearchTool,
+    MyFactoryBox
   }
 };
 </script>

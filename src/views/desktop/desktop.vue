@@ -57,14 +57,14 @@
       </el-row>
       <el-col :md="16">
         <el-col :md="24">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div class="text item" style="height:700px">
               <my-map :list.sync="geoList"></my-map>
             </div>
           </el-card>
         </el-col>
         <el-col :md="24" style="margin-top:10px">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-receiving"></i>
               <span>项目信息</span>
@@ -77,7 +77,7 @@
       </el-col>
       <el-col :md="8">
         <el-col :md="24">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-s-promotion"></i>
               <span>历史</span>
@@ -112,13 +112,13 @@
           </el-card>
         </el-col>
         <el-col :md="24" style="margin-top:10px">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-data-line"></i>
               <span>本月隐患</span>
             </div>
             <div class="text item">
-              <chart ref="chart1" :options="orgOptions" :auto-resize="true"></chart>
+              <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart>
             </div>
           </el-card>
         </el-col>
@@ -139,17 +139,16 @@ export default {
       orgOptions: {},
       test: "name",
       geoList: [],
-      calList: [],
+      calList: []
     };
   },
   methods: {
     openLayer() {},
     resizeChart() {
-      this.$refs["chart1"].resize();
+      this.$refs["chart"].resize();
     }
   },
-  beforeCreate() {},
-  created() {
+  mounted() {
     api.getFactoryGeo().then(res => {
       if (res.code === 0) {
         this.geoList = res.data;
@@ -157,13 +156,10 @@ export default {
     });
     api.getFactoryCal().then(res => {
       if (res.code === 0) {
-        console.log(JSON.parse(JSON.stringify(res.data)));
         this.calList = res.data;
       }
     });
     this.openLayer();
-  },
-  mounted() {
     this.orgOptions = {
       xAxis: {
         type: "category",
@@ -262,5 +258,4 @@ export default {
   font-size: 26px !important;
   color: #606266;
 }
-
 </style>

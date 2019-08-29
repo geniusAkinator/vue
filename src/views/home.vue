@@ -4,6 +4,7 @@
       <my-aside></my-aside>
       <el-container style="flex-direction:column">
         <my-header></my-header>
+        <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
           <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
@@ -21,6 +22,7 @@
 <script>
 import MyAside from "@/components/Aside";
 import MyHeader from "@/components/Header";
+import MyTabs from "@/components/Tabs";
 import MyBreadcrumb from "@/components/breadcrumb";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
@@ -38,12 +40,31 @@ export default {
     },
     breadcrumbList() {
       return this.$store.state.home.breadcrumbList;
+    },
+    tabList() {
+      return this.$store.state.home.tabList;
+    },
+    currentIndex() {
+      return this.$store.state.home.tabIndex;
     }
   },
   watch: {
-    '$route':function(newVal,oldVal){
+    $route: function(newVal, oldVal) {
       this.$store.dispatch("home/toggleBreadcrumb", newVal.path);
-      this.$store.dispatch("home/updateBreadcrumb", {newVal,oldVal});
+      this.$store.dispatch("home/updateBreadcrumb", { newVal, oldVal });
+      this.$store.dispatch("home/addTab", { newVal, oldVal });
+      if (newVal.path.toLowerCase() != oldVal.path.toLowerCase()) {
+        this.$layer.closeAll();
+      }
+    },
+    "$store.state.home.tabIndex": function(newVal, oldVal) {
+      let list = this.tabList;
+      this.$router.push(list[newVal - 1].path, () => {});
+    },
+    "$store.state.home.tabList": function(newVal, oldVal) {
+      let list = this.tabList;
+      this.$router.push(list[this.currentIndex - 1].path, () => {});
+      // this.$router.push(this.currentIndex,()=>{})
     }
   },
   methods: {
@@ -59,6 +80,7 @@ export default {
   components: {
     MyAside,
     MyHeader,
+    MyTabs,
     MyBreadcrumb
   }
 };

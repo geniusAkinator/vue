@@ -111,6 +111,9 @@ body {
   align-items: center;
   margin-right: 20px;
 }
+.tips-item:last-child{
+  margin-right: 0
+}
 .el-calendar__body {
   padding: 0;
 }
@@ -184,7 +187,127 @@ body {
 .add-footer .el-button + .el-button {
   margin-left: 10px;
 }
-.el-button-group .el-dropdown+.el-dropdown button{
-    margin-left: -10px;
+.el-button-group .el-dropdown + .el-dropdown button {
+  margin-left: -10px;
+}
+.container.form {
+  width: 100%;
+}
+.container.form .el-form{
+  padding-bottom: 53px;
+}
+.el-loading-spinner i {
+  font-size: 30px;
+}
+.el-loading .loading{
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  -webkit-animation: rotate 2s infinite linear;
+  -moz-animation: rotate 2s infinite linear;
+  -o-animation: rotate 2s infinite linear;
+  animation: rotate 2s infinite linear;
+  display: block;
+  margin: auto;
+}
+.el-loading .loading::after,
+.el-loading .loading::before {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  background-color: #ffffff;
+  border-radius: 100%;
+  -webkit-animation: bounce 2s infinite ease-in-out;
+  -moz-animation: bounce 2s infinite ease-in-out;
+  -o-animation: bounce 2s infinite ease-in-out;
+  animation: bounce 2s infinite ease-in-out;
+}
+.el-loading .loading::after{
+  top: auto;
+  bottom: 0px;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+.el-loading .el-loading-text{
+  color: #fff;
+  margin-top: 10px;
+  font-size: 12px
+}
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotate {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  100% {
+    -o-transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+}
+@-moz-keyframes bounce {
+  0%,
+  100% {
+    -moz-transform: scale(0);
+  }
+  50% {
+    -moz-transform: scale(1);
+  }
+}
+@-o-keyframes bounce {
+  0%,
+  100% {
+    -o-transform: scale(0);
+  }
+  50% {
+    -o-transform: scale(1);
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+.el-tabs__item.is-active{
+  background: #f8f8f8
+}
+.quill-editor{
+  line-height: initial;
+  position: relative;
+}
+.ql-snow .ql-picker-label{
+  line-height:22px;
+}
+.ql-tooltip.ql-editing.ql-flip{
+  right: 5px !important;
+  left: initial !important;
+  top: 12px !important;
 }
 </style>
