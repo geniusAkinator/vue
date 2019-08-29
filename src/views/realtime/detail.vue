@@ -25,7 +25,7 @@
         <my-card>
           <template slot="title">
             <i class="el-icon-s-operation"></i>
-            探测器基本信息
+            数据监控
           </template>
           <template slot="content">ddddddddd</template>
         </my-card>
