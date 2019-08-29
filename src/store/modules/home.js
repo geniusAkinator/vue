@@ -3,7 +3,54 @@ const state = {
     breadcrumbList: [],  //父页面path必须可以在子页面路由中检索
     isFirst: true,
     tabList: [],
-    tabIndex: "1"
+    tabIndex: "1",
+    nowPath:"",
+    menu: [
+        {
+            name: "首页",
+            icon: "el-icon-house",
+            children: [
+                {
+                    name: "控制面板",
+                    path: "desktop"
+                }
+            ]
+        },
+        {
+            name: "实时监控",
+            icon: "el-icon-video-camera",
+            children: [
+                {
+                    name: "实时监控",
+                    path: "realtime"
+                }
+            ]
+        },
+        {
+            name: "信息管理",
+            icon: "el-icon-document",
+            children: [
+                {
+                    name: "工厂信息管理",
+                    path: "factory"
+                },
+                {
+                    name: "传感器信息管理",
+                    path: "sensor"
+                }
+            ]
+        },
+        {
+            name: "统计分析",
+            icon: "el-icon-data-analysis",
+            children: [
+                {
+                    name: "统计分析",
+                    path: "statistic"
+                }
+            ]
+        }
+    ],
 }
 
 const getters = {
@@ -31,6 +78,9 @@ const actions = { //可异步
     },
     initBreadcrumb({ commit }, payload) {
         commit('initBreadcrumb', payload)
+    },
+    activateTab({commit},payload){
+        commit('activateTab',payload)
     }
 }
 
@@ -40,7 +90,7 @@ const mutations = { //同步
         let list = nowState.breadcrumbList; //tab列表
         let oldVal = payload.oldVal; //旧route信息
         let newVal = payload.newVal; //新route信息
-        let newPath = newVal.path.toLowerCase(); 
+        let newPath = newVal.path.toLowerCase();
         let oldPath = oldVal.path.toLowerCase();
         let newName = newVal.name;
         let v = {};
@@ -81,23 +131,27 @@ const mutations = { //同步
     },
     addTab(state, payload) {
         let newVal = payload.newVal; //新route信息
-        let nowPath = newVal.path.toLowerCase();//传入的路由地址
+        let oldVal = payload.oldVal; //旧route信息
+        let newPath = newVal.path.toLowerCase();//传入的路由地址
+        let oldPath = oldVal.path.toLowerCase();
         let nowState = state;//拷贝
         let list = nowState.tabList; //tab列表
-        if (nowPath != "/") {
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].path == nowPath) {
-                    state.tabIndex = (i + 1).toString();//激活已有tab操作
-                    return
+        if (newPath.indexOf(oldPath) == -1) {
+            if (newPath != "/") {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].path == newPath) {
+                        state.tabIndex = (i + 1).toString();//激活已有tab操作
+                        return
+                    }
                 }
+                let newTab = {};     //构造tab项对象
+                newTab.title = newVal.name; //显示的名称
+                newTab.name = (list.length + 1).toString(); //设定的name，用于tab-remove事件获取
+                newTab.close = "closable";  //除了图标页，其他可关闭
+                newTab.path = newPath;      //存储路由路径用于切换跳转
+                state.tabList.push(newTab);  //新增tab操作
+                state.tabIndex = (list.length).toString(); //更新当前激活tab索引
             }
-            let newTab = {};     //构造tab项对象
-            newTab.title = newVal.name; //显示的名称
-            newTab.name = (list.length + 1).toString(); //设定的name，用于tab-remove事件获取
-            newTab.close = "closable";  //除了图标页，其他可关闭
-            newTab.path = nowPath;      //存储路由路径用于切换跳转
-            state.tabList.push(newTab);  //新增tab操作
-            state.tabIndex = (list.length).toString(); //更新当前激活tab索引
         }
         document.querySelector(".el-main").scrollTop = 0
     },
@@ -141,6 +195,20 @@ const mutations = { //同步
         state.breadcrumbList.push(item);
         state.isBreadcrumbShow = true;
         state.isFirst = true;
+    },
+    activateTab(state,payload){
+        let oldPath = payload.split("/")[1].toLowerCase();
+        let list = state.menu;
+        let parentPath = ''
+        for(let i= 0;i<list.length;i++){
+            for(let j=0;j<list[i].children.length;j++){
+                if(oldPath.indexOf(list[i].children[j].path) == 0){
+                    parentPath = list[i].children[j].path;
+                    break 
+                }
+            }
+        }
+        state.nowPath = parentPath;
     }
 }
 export default {

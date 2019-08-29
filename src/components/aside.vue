@@ -12,6 +12,7 @@
       <el-menu
         router
         unique-opened
+        :default-active="this.$store.state.home.nowPath"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         :collapse="isCollapse"
@@ -19,51 +20,17 @@
         text-color="#BAC6D5"
         active-text-color="#0C9DFF"
       >
-        <!-- <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-house"></i>
-            <span slot="title">首页</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="desktop">首页</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-video-camera"></i>
-            <span slot="title">实时监控</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="realtime">实时监控</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-video-camera"></i>
-            <span slot="title">信息管理</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="factory">工厂信息管理</el-menu-item>
-            <el-menu-item index="sensor">传感器信息管理</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-data-analysis"></i>
-            <span slot="title">统计分析</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="statistic">统计分析</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu> -->
-
         <el-submenu :index="index+1+''" :key="index" v-for="(item,index) in menu">
           <template slot="title">
-            <i class="el-icon-house"></i>
+            <i :class="item.icon"></i>
             <span slot="title">{{item.name}}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item :index="item.path" v-for="(item,index) in item.children" :key="index">{{item.name}}</el-menu-item>
+            <el-menu-item
+              :index="item.path"
+              v-for="(item,index) in item.children"
+              :key="index"
+            >{{item.name}}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -77,52 +44,7 @@ export default {
     return {
       isCollapse: false,
       isRouter: true,
-      menu: [
-        {
-          name: "首页",
-          icon: "el-icon-house",
-          children: [
-            {
-              name: "控制面板",
-              path: "desktop"
-            }
-          ]
-        },
-        {
-          name: "实时监控",
-          icon: "el-icon-video-camera",
-          children: [
-            {
-              name: "实时监控",
-              path: "realtime"
-            }
-          ]
-        },
-        {
-          name: "信息管理",
-          icon: "el-icon-video-camera",
-          children: [
-            {
-              name: "工厂信息管理",
-              path: "factory"
-            },
-            {
-              name: "传感器信息管理",
-              path: "sensor"
-            }
-          ]
-        },
-        {
-          name: "统计分析",
-          icon: "el-icon-data-analysis",
-          children: [
-            {
-              name: "统计分析",
-              path: "statistic"
-            }
-          ]
-        }
-      ]
+      menu: this.$store.state.home.menu,
     };
   },
   methods: {

@@ -56,6 +56,7 @@ export default {
       if (newVal.path.toLowerCase() != oldVal.path.toLowerCase()) {
         this.$layer.closeAll();
       }
+      this.$store.dispatch("home/activateTab", newVal.path);
     },
     "$store.state.home.tabIndex": function(newVal, oldVal) {
       let list = this.tabList;
