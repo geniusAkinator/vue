@@ -125,7 +125,20 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    handleEdit() {},
+    handleEdit() {
+      this.$layer.iframe({
+          content: {
+            content: MySensorTypeAdd, //传递的组件对象
+            parent: this, //当前的vue对象
+            data: {} //props
+          },
+          shade: true,
+          shadeClose: false,
+          area: ["800px", "600px"],
+          title: "新增传感器类型",
+          target: ".el-main"
+        });
+    },
     handleExport() {},
     handleReset() {
       this.searchForm = {};
@@ -142,7 +155,7 @@ export default {
         shadeClose: false,
         area: ["800px", "600px"],
         title: "新增传感器",
-        target:".el-main"
+        target: ".el-main"
       });
     },
     handleCommand(command) {
@@ -157,7 +170,7 @@ export default {
           shadeClose: false,
           area: ["800px", "600px"],
           title: "新增传感器类型",
-          target:".el-main"
+          target: ".el-main"
         });
       } else if (command == "list") {
         this.$router.push("sensorType", () => {});
@@ -180,7 +193,7 @@ export default {
         if (res.code === 0) {
           this.tableData = res.data;
         }
-        loading.close()
+        loading.close();
       });
     }, 600);
   },

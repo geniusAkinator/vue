@@ -10,7 +10,7 @@
 export default {
   data() {
     return {};
-  }
+  },
 };
 </script>
 
@@ -111,8 +111,8 @@ body {
   align-items: center;
   margin-right: 20px;
 }
-.tips-item:last-child{
-  margin-right: 0
+.tips-item:last-child {
+  margin-right: 0;
 }
 .el-calendar__body {
   padding: 0;
@@ -193,13 +193,13 @@ body {
 .container.form {
   width: 100%;
 }
-.container.form .el-form{
+.container.form .el-form {
   padding-bottom: 53px;
 }
 .el-loading-spinner i {
   font-size: 30px;
 }
-.el-loading .loading{
+.el-loading .loading {
   width: 40px;
   height: 40px;
   position: relative;
@@ -227,16 +227,16 @@ body {
   -o-animation: bounce 2s infinite ease-in-out;
   animation: bounce 2s infinite ease-in-out;
 }
-.el-loading .loading::after{
+.el-loading .loading::after {
   top: auto;
   bottom: 0px;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
-.el-loading .el-loading-text{
+.el-loading .el-loading-text {
   color: #fff;
   margin-top: 10px;
-  font-size: 12px
+  font-size: 12px;
 }
 @-webkit-keyframes rotate {
   100% {
@@ -295,23 +295,33 @@ body {
     transform: scale(1);
   }
 }
-.el-tabs__item.is-active{
-  background: #f8f8f8
+.el-tabs__item.is-active {
+  background: #f8f8f8;
 }
-.quill-editor{
+.quill-editor {
   line-height: initial;
   position: relative;
 }
-.ql-snow .ql-picker-label{
-  line-height:22px;
+.ql-snow .ql-picker-label {
+  line-height: 22px;
 }
-.ql-tooltip.ql-editing.ql-flip{
+.ql-tooltip.ql-editing.ql-flip {
   right: 5px !important;
   left: initial !important;
   top: 12px !important;
 }
-.echart-tab .el-tabs__header.is-top{
 
+
+@keyframes fadein {
+	0% {
+		opacity: 0;
+		transform: scale(.1) translate(-100%, -100%)
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1) translate(-50%, -50%)
+	}
 }
 
 </style>

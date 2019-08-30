@@ -60,6 +60,7 @@ export default {
     },
     handleClick(command) {
       if (command == "reload") {
+        this.reload()
       } else if (command == "closeCurrent") {
         this.$store.dispatch("home/removeTab", this.nowTabIndex);
       } else if (command == "closeNonCurrent") {
@@ -68,7 +69,8 @@ export default {
         this.$store.dispatch("home/closeAllTabs");
       }
     }
-  }
+  },
+  inject: ["reload"]
 };
 </script>
 

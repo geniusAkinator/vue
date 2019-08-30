@@ -10,7 +10,7 @@
           <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
           <transition name="fade" mode="out-in">
             <keep-alive>
-              <router-view></router-view>
+              <router-view v-if="isRouterAlive"></router-view>
             </keep-alive>
           </transition>
         </el-main>
@@ -31,7 +31,13 @@ export default {
     return {
       username: "",
       isCollapse: false,
-      isUniqueOpen: true
+      isUniqueOpen: true,
+      isRouterAlive: true
+    };
+  },
+  provide() {
+    return {
+      reload: this.reload
     };
   },
   computed: {
@@ -69,7 +75,13 @@ export default {
     }
   },
   methods: {
-    loginOut() {}
+    loginOut() {},
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    }
   },
   mounted: function() {
     let user = sessionStorage.getItem("user");

@@ -184,7 +184,7 @@ export default {
     MyMap,
     MyCalendar,
     MyFactoryBox
-  }
+  },
 };
 </script>
 

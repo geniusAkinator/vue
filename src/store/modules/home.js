@@ -221,8 +221,15 @@ const mutations = { //同步
         state.nowPath = parentPath;
     },
     closeNonCurrentTabs(state, payload) { //关闭非当前页面
-        console.log(payload);
-        
+        let nowState = state;//拷贝state
+        let list = nowState.tabList; //tab列表
+        for (let i = list.length - 1; i > 0; i--) {
+            if (list[i].name != payload) {
+                list.splice(i,1)
+            }
+        }
+        list[1].name = "2";
+        state.tabIndex = "2";
     },
     closeAllTabs(state) { //关闭所有的页面
         let nowState = state;//拷贝state
