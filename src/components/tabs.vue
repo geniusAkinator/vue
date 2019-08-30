@@ -63,7 +63,9 @@ export default {
       } else if (command == "closeCurrent") {
         this.$store.dispatch("home/removeTab", this.nowTabIndex);
       } else if (command == "closeNonCurrent") {
+        this.$store.dispatch("home/closeNonCurrentTabs", this.nowTabIndex);
       } else if (command == "closeAll") {
+        this.$store.dispatch("home/closeAllTabs");
       }
     }
   }

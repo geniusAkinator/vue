@@ -4,7 +4,7 @@ const state = {
     isFirst: true,
     tabList: [],
     tabIndex: "1",
-    nowPath:"",
+    nowPath: "",
     menu: [
         {
             name: "首页",
@@ -79,8 +79,14 @@ const actions = { //可异步
     initBreadcrumb({ commit }, payload) {
         commit('initBreadcrumb', payload)
     },
-    activateTab({commit},payload){
-        commit('activateTab',payload)
+    activateTab({ commit }, payload) {
+        commit('activateTab', payload)
+    },
+    closeNonCurrentTabs({ commit }, payload) {
+        commit('closeNonCurrentTabs', payload)
+    },
+    closeAllTabs({ commit }) {
+        commit('closeAllTabs')
     }
 }
 
@@ -157,7 +163,7 @@ const mutations = { //同步
     },
     removeTab(state, payload) {
         let name = payload; //传入的tab的名称
-        if(payload == "1"){
+        if (payload == "1") {
             return
         }
         let nowState = state;//拷贝state
@@ -200,19 +206,32 @@ const mutations = { //同步
         state.isBreadcrumbShow = true;
         state.isFirst = true;
     },
-    activateTab(state,payload){
+    activateTab(state, payload) {
         let oldPath = payload.split("/")[1].toLowerCase();
         let list = state.menu;
         let parentPath = ''
-        for(let i= 0;i<list.length;i++){
-            for(let j=0;j<list[i].children.length;j++){
-                if(oldPath.indexOf(list[i].children[j].path) == 0){
+        for (let i = 0; i < list.length; i++) {
+            for (let j = 0; j < list[i].children.length; j++) {
+                if (oldPath.indexOf(list[i].children[j].path) == 0) {
                     parentPath = list[i].children[j].path;
-                    break 
+                    break
                 }
             }
         }
         state.nowPath = parentPath;
+    },
+    closeNonCurrentTabs(state, payload) { //关闭非当前页面
+        console.log(payload);
+        
+    },
+    closeAllTabs(state) { //关闭所有的页面
+        let nowState = state;//拷贝state
+        let list = nowState.tabList; //tab列表
+        let len = list.length;
+        let index = 1;
+        list.splice(index, len - index);
+        state.nowPath = "desktop";
+        state.tabIndex = "1"
     }
 }
 export default {
