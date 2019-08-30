@@ -21,15 +21,15 @@
     <div class="tab-next">
       <i class="el-icon-d-arrow-right"></i>
     </div>
-    <el-dropdown class="tab-more" :hide-on-click="false">
+    <el-dropdown class="tab-more" :hide-on-click="false" @command="handleClick">
       <span class="el-dropdown-link">
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>刷新当前页</el-dropdown-item>
-        <el-dropdown-item>关闭当前页</el-dropdown-item>
-        <el-dropdown-item>关闭非当前</el-dropdown-item>
-        <el-dropdown-item>关闭非全部</el-dropdown-item>
+        <el-dropdown-item command="reload">刷新当前页</el-dropdown-item>
+        <el-dropdown-item command="closeCurrent">关闭当前页</el-dropdown-item>
+        <el-dropdown-item command="closeNonCurrent">关闭非当前</el-dropdown-item>
+        <el-dropdown-item command="closeAll">关闭全部页</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -45,38 +45,26 @@ export default {
     tabList: {},
     currentIndex: ""
   },
-  computed: {
-    // nowTabIndex() {
-    //   return this.$store.state.home.tabIndex;
-    // }
-  },
+  computed: {},
   watch: {
     currentIndex: function(newVal, oldVal) {
-      //监听props中的属性
       this.nowTabIndex = newVal;
     }
   },
   methods: {
     removeTab(targetName) {
-      // console.log(targetName);
-      // let tabs = this.tabList;
-      // let activeName = this.nowTabIndex;
-      // if (activeName === targetName) {
-      //   tabs.forEach((tab, index) => {
-      //     if (tab.name === targetName) {
-      //       let nextTab = tabs[index + 1] || tabs[index - 1];
-      //       if (nextTab) {
-      //         activeName = nextTab.name;
-      //       }
-      //     }
-      //   });
-      // }
-      // this.nowTabIndex = activeName;
-      // this.tabList = tabs.filter(tab => tab.name !== targetName);
       this.$store.dispatch("home/removeTab", targetName);
     },
     clickTab(tab, event) {
       this.$store.dispatch("home/updateIndex", this.nowTabIndex);
+    },
+    handleClick(command) {
+      if (command == "reload") {
+      } else if (command == "closeCurrent") {
+        this.$store.dispatch("home/removeTab", this.nowTabIndex);
+      } else if (command == "closeNonCurrent") {
+      } else if (command == "closeAll") {
+      }
     }
   }
 };
@@ -117,8 +105,7 @@ export default {
 .el-tabs.el-tabs--card.el-tabs--top {
   flex: 1;
 }
-.el-tabs__item{
-  outline: none
+.el-tabs__item {
+  outline: none;
 }
-
 </style>

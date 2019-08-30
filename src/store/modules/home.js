@@ -157,6 +157,9 @@ const mutations = { //同步
     },
     removeTab(state, payload) {
         let name = payload; //传入的tab的名称
+        if(payload == "1"){
+            return
+        }
         let nowState = state;//拷贝state
         let list = nowState.tabList; //tab列表
         let idx = 0;    //tab项符合条件的索引
@@ -185,6 +188,7 @@ const mutations = { //同步
         state.tabList = [];
         state.tabList.push(item);
         state.tabIndex = idx;
+        state.nowPath = "desktop"
     },
     initBreadcrumb(state, payload) {
         let item = {
