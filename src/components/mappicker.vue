@@ -1,19 +1,13 @@
 <template>
   <div class="map-picker">
-    <baidu-map :center="{lng: 116.403765, lat: 39.914850}" :zoom="11" :ak="ak">
+    <baidu-map
+      :center="{lng: mapConf.center.lng, lat: mapConf.center.lat}"
+      :zoom="11"
+      :ak="ak"
+      @click="handleClick"
+    >
       <bm-view class="map"></bm-view>
-      <bm-control>
-        <bm-auto-complete
-          v-model="keyword"
-          :sugStyle="{zIndex: 1}"
-          @confirm="handleConfirm"
-          @searchcomplete="handleComplete"
-        >
-          <input class="map-search" type="text" placeholder="请输入关键字" />
-          <!-- 这里指代一个自定义搜索框组件 -->
-        </bm-auto-complete>
-      </bm-control>
-      <bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="true"></bm-marker>
+      <bm-marker :position="{lng: marker.lng, lat: marker.lat}" :dragging="false"></bm-marker>
     </baidu-map>
   </div>
 </template>
@@ -29,22 +23,33 @@ export default {
   data() {
     return {
       ak: config.baiduMap.ak,
-      keyword: ""
+      keyword: "",
+      mapConf: {
+        center: {
+          lng: "116.297334",
+          lat: "40.048286"
+        }
+      },
+      marker: {
+        lng: "116.297334",
+        lat: "40.048286"
+      }
     };
   },
   methods: {
-    handleConfirm({ type, target, item }) {
-      console.log(type, target, item);
+    handleConfirm() {
+      
     },
     handleComplete(AutocompleteResult) {
       // console.log(AutocompleteResult)
+    },
+    handleClick(e) {
+      this.marker.lng = e.point.lng;
+      this.marker.lat = e.point.lat;
     }
   },
   components: {
     BaiduMap,
-    BmLocalSearch,
-    BmControl,
-    BmAutoComplete,
     BmView,
     BmMarker
   }
