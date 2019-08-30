@@ -132,8 +132,7 @@ export default {
             parent: this, //当前的vue对象
             data: {} //props
           },
-          shade: true,
-          shadeClose: false,
+          shade: false,
           area: ["800px", "600px"],
           title: "新增传感器类型",
           target: ".el-main"
@@ -151,8 +150,7 @@ export default {
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: true,
-        shadeClose: false,
+        shade: false,
         area: ["800px", "600px"],
         title: "新增传感器",
         target: ".el-main"
@@ -189,11 +187,11 @@ export default {
       customClass: "el-loading"
     });
     setTimeout(() => {
+      loading.close();
       api.getSensorData().then(res => {
         if (res.code === 0) {
           this.tableData = res.data;
         }
-        loading.close();
       });
     }, 600);
   },

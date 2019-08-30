@@ -3,7 +3,7 @@
     <baidu-map
       :style="{width:mapConf.width,height:mapConf.height}"
       class="map"
-      ak="xHGFG3L3psZuUrFzM4TPgaShrI9IIWVG"
+      :ak="ak"
       :zoom="mapConf.zoom"
       :center="{lng: mapConf.center.lng, lat: mapConf.center.lat}"
       @ready="handler"
@@ -117,6 +117,7 @@ import BmCopyright from "vue-baidu-map/components/controls/copyright";
 export default {
   data() {
     return {
+      ak: config.baiduMap.ak,
       mapConf: {
         width: "100%",
         height: "100%",

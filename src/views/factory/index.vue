@@ -115,20 +115,33 @@ export default {
     handleSizeChange() {},
     handleCurrentChange() {},
     handleAdd() {
-      this.$layer.iframe({
+      var index = this.$layer.iframe({
         content: {
           content: MyFactoryAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: true,
-        shadeClose: false,
+        shade: false,
         area: ["1200px", "600px"],
-        title: "新增传感器类型",
+        title: "新增工厂信息",
         target: ".el-main"
       });
+      this.$layer.full(index)
     },
-    handleEdit() {},
+    handleEdit() {
+      var index = this.$layer.iframe({
+        content: {
+          content: MyFactoryAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "编辑工厂信息",
+        target: ".el-main"
+      });
+      this.$layer.full(index)
+    },
     handleExport() {},
     handleReset() {
       this.searchForm = {};
@@ -151,11 +164,11 @@ export default {
       customClass: "el-loading"
     });
     setTimeout(() => {
+      loading.close();
       api.getFactoyData().then(res => {
         if (res.code === 0) {
           this.tableData = res.data;
         }
-        loading.close();
       });
     }, 600);
   },

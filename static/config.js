@@ -3,7 +3,7 @@
  * 
  *   
  */
-const config = { 
+const config = {
     editorOption: {
         debug: "info",
         modules: {
@@ -34,5 +34,8 @@ const config = {
         },
         placeholder: "请输入内容",
         theme: "snow"
+    },
+    baiduMap: {
+        ak: "xHGFG3L3psZuUrFzM4TPgaShrI9IIWVG"
     }
 }

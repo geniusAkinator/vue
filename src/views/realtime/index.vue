@@ -151,11 +151,11 @@ export default {
       customClass: "el-loading"
     });
     setTimeout(() => {
+      loading.close();
       api.getRealtimeData().then(res => {
         if (res.code === 0) {
           this.tableData = res.data;
         }
-        loading.close();
       });
     }, 600);
   },

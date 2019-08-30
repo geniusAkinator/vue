@@ -194,7 +194,7 @@ body {
   width: 100%;
 }
 .container.form .el-form {
-  padding-bottom: 53px;
+  padding-bottom: 83px;
 }
 .el-loading-spinner i {
   font-size: 30px;
@@ -315,7 +315,7 @@ body {
 @keyframes fadein {
 	0% {
 		opacity: 0;
-		transform: scale(.1) translate(-100%, -100%)
+		transform: scale(.5) translate(-85%, -85%)
 	}
 
 	to {
