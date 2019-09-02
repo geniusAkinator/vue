@@ -2,7 +2,39 @@
   <div class="container form">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="经纬度">
-        <my-map-picker></my-map-picker>
+        <el-row class="form-map-picker">
+          <el-col :span="6">
+            <el-input
+              placeholder
+              v-model="form.lat"
+              type="number"
+              oninput="value=value.replace(/[^\d.]/g,'')"
+              :readonly="true"
+            >
+              <template slot="prepend">经度</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input
+              placeholder
+              v-model="form.lng"
+              type="number"
+              oninput="value=value.replace(/[^\d.]/g,'')"
+              :readonly="true"
+            >
+              <template slot="prepend">纬度</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <i
+              :class="isShow ? 'el-icon-map-location toggleMap active' : 'el-icon-map-location toggleMap'"
+              @click="isShow=!isShow"
+            ></i>
+          </el-col>
+        </el-row>
+        <el-collapse-transition>
+          <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
+        </el-collapse-transition>
       </el-form-item>
       <el-form-item label="工厂名称">
         <el-input v-model="form.name"></el-input>
@@ -23,14 +55,14 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="活动名称">
-        <quill-editor
+        <!-- <quill-editor
           v-model="form.content"
           ref="myQuillEditor"
           :options="editorOption"
           @blur="onEditorBlur($event)"
           @focus="onEditorFocus($event)"
           @change="onEditorChange($event)"
-        ></quill-editor>
+        ></quill-editor>-->
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit">提交</el-button>
@@ -45,8 +77,12 @@ import MyMapPicker from "@/components/mappicker";
 export default {
   data() {
     return {
-      form: {},
-      editorOption: config.editorOption
+      form: {
+        lat: "",
+        lng: ""
+      },
+      editorOption: config.editorOption,
+      isShow: false
     };
   },
   methods: {
@@ -61,7 +97,11 @@ export default {
     },
     onEditorBlur() {},
     onEditorFocus() {},
-    onEditorChange() {}
+    onEditorChange() {},
+    getPoint(e) {
+      this.form.lat = e.lat;
+      this.form.lng = e.lng;
+    }
   },
   components: {
     MyMapPicker

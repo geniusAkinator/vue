@@ -1,8 +1,3 @@
-/**
- * 
- * 
- *   
- */
 const config = {
     editorOption: {
         debug: "info",
@@ -36,6 +31,6 @@ const config = {
         theme: "snow"
     },
     baiduMap: {
-        ak: "xHGFG3L3psZuUrFzM4TPgaShrI9IIWVG"
+        ak: "yvHBN7cRIeYG9TIWMfOuVMk4Z2w1uXnK"
     }
 }

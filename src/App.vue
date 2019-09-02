@@ -10,7 +10,7 @@
 export default {
   data() {
     return {};
-  },
+  }
 };
 </script>
 
@@ -311,17 +311,56 @@ body {
   top: 12px !important;
 }
 
-
 @keyframes fadein {
-	0% {
-		opacity: 0;
-		transform: scale(.5) translate(-85%, -85%)
-	}
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translate(-85%, -85%);
+  }
 
-	to {
-		opacity: 1;
-		transform: scale(1) translate(-50%, -50%)
-	}
+  to {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
 }
-
+.toggleMap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  line-height: 38px;
+  margin-right: 10px;
+  text-align: center;
+  color: #333;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  -webkit-transition: 0.5s all;
+  transition: 0.5s all;
+  font-size: 16px;
+  margin-left: 20px;
+  border-radius: 4px;
+}
+.toggleMap.active {
+  color: #fff;
+  background: #409eff;
+  border: 1px solid #409eff;
+}
+.el-row + .map-picker {
+  margin-top: 20px;
+}
+.form-map-picker .el-col:nth-child(2) {
+  margin-left: 20px;
+}
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.form-map-picker input[readonly="readonly"] {
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
+}
 </style>

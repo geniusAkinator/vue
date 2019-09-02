@@ -19,13 +19,18 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import axios from "axios"
+import vueJsonp from 'vue-jsonp'
 
 require('@/mock/mock')
 require('moment')
 
-Vue.prototype.$layer = layer(Vue);
+Vue.prototype.$layer = layer(Vue)
+Vue.prototype.$axios = axios;
+
 Vue.use(ElementUI)  
 Vue.use(VueQuillEditor)
+Vue.use(vueJsonp)
 Vue.config.productionTip = false
 Vue.component('chart', ECharts)
 Vue.component(CollapseTransition.name, CollapseTransition)

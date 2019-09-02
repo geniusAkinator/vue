@@ -1,17 +1,17 @@
 const Utils = {
-    decounce(fn, t) { //防抖
+    decounce(fn, t) { //函数防抖
         let delay = t || 500;
         let timer = null;
         return function () {
             let _this = this;
             let args = arguments;
-            clearTimeout(timer); 
+            clearTimeout(timer);
             timer = setTimeout(() => {
                 fn.apply(_this, args);
             }, delay);
         };
     },
-    Throttle(fn, t) { //节流
+    Throttle(fn, t) { //函数节流
         let last;
         let timer;
         let interval = t || 500;
@@ -29,6 +29,14 @@ const Utils = {
                 fn.apply(this, args);
             }
         }
+    },
+    param(data) {
+        let url = ''
+        for (var k in data) {
+            let value = data[k] !== undefined ? data[k] : ''
+            url += '&' + k + '=' + encodeURIComponent(value)
+        }
+        return url ? url.substring(1) : ''
     }
 }
 export default Utils

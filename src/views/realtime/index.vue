@@ -107,7 +107,6 @@
 <script>
 import MyFactoryBox from "@/components/factorybox";
 import MySearchTool from "@/components/searchtool";
-import api from "@/api/index";
 export default {
   data() {
     return {
