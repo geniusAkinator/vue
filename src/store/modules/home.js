@@ -45,7 +45,7 @@ const state = {
             icon: "el-icon-data-analysis",
             children: [
                 {
-                    name: "统计分析",
+                    name: "统计报表",
                     path: "statistic"
                 }
             ]

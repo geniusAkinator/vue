@@ -7,7 +7,19 @@
             <i class="el-icon-s-comment"></i>
             探测器基本信息
           </template>
-          <template slot="content">ddddddddd</template>
+          <template slot="content">
+            <ul>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+              <li>基本信息</li>
+            </ul>
+          </template>
         </my-card>
       </el-col>
       <el-col :span="10">
@@ -47,7 +59,7 @@
       <el-col :span="24">
         <my-card>
           <template slot="title">
-            <i class="el-icon-s-operation"></i>
+            <i class="el-icon-data-line"></i>
             实时数据
           </template>
           <template slot="content">
@@ -133,7 +145,7 @@ export default {
   methods: {
     handleClick() {},
     handleEdit() {},
-    resizeChart(){
+    resizeChart() {
       this.$refs["chart"].resize();
     }
   },
@@ -144,7 +156,7 @@ export default {
       }
     });
     var base = +new Date(2019, 7, 28, 0, 0, 0);
-    var onMin = 1000 * 60; //
+    var onMin = 1000 * 60; //一分钟刷新一次
     var date = [];
     var date2 = [];
     var data = [Math.random() * 300];

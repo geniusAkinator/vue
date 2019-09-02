@@ -163,7 +163,7 @@ export default {
     this.orgOptions = {
       xAxis: {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        data: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
       },
       yAxis: {
         type: "value"
@@ -172,7 +172,10 @@ export default {
         {
           data: [820, 932, 901, 934, 1290, 1330, 1320],
           type: "line",
-          smooth: true
+        },
+        {
+          data: [111, 222, 22, 21, 121, 121, 1212],
+          type: "line",
         }
       ]
     };
