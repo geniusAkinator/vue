@@ -19,6 +19,9 @@ import Syslog from '@/views/syslog/index'
 import Sysset from '@/views/sysset/index'
 import Update from '@/views/update/index'
 import Help from '@/views/help/index'
+import Worker from '@/views/worker/index'
+import Member from '@/views/member/index'
+import Bind from '@/views/bind/index'
 
 Vue.use(Router)
 
@@ -105,6 +108,23 @@ export default new Router({
     },
     {
       path: '/',
+      name: '成员管理',
+      component: Home,
+      children: [
+        {
+          path: 'member',
+          name: '成员管理',
+          component: Member,
+        },
+        {
+          path: 'bind',
+          name: '绑定管理',
+          component: Bind,
+        },
+      ]
+    },
+    {
+      path: '/',
       name: '统计管理',
       component: Home,
       leaf: true,//只有一个节点
@@ -139,8 +159,13 @@ export default new Router({
         },
         {
           path: 'sysset',
-          name: '角色管理',
+          name: '系统配置',
           component: Sysset
+        },
+        {
+          path: 'worker',
+          name: '计划任务',
+          component: Worker
         },
         {
           path: 'update',
@@ -149,7 +174,7 @@ export default new Router({
         },
         {
           path: 'help',
-          name: '角色管理',
+          name: '系统帮助',
           component: Help
         },
       ]

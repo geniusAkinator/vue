@@ -385,4 +385,10 @@ body {
   font-size: 18px;
   text-align: center
 }
+.help-block{
+  color: #999;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+}
 </style>

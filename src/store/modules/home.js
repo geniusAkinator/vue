@@ -203,16 +203,6 @@ const mutations = { //同步
         let list = nowState.menu;
         list = [
             {
-                name: "首页",
-                icon: "el-icon-house",
-                children: [
-                    {
-                        name: "控制面板",
-                        path: "desktop"
-                    }
-                ]
-            },
-            {
                 name: "实时监控",
                 icon: "el-icon-video-camera",
                 children: [
@@ -233,6 +223,20 @@ const mutations = { //同步
                     {
                         name: "传感器信息管理",
                         path: "sensor"
+                    }
+                ]
+            },
+            {
+                name: "成员管理",
+                icon: "el-icon-user",
+                children: [
+                    {
+                        name: "成员管理",
+                        path: "member"
+                    },
+                    {
+                        name: "绑定管理",
+                        path: "bind"
                     }
                 ]
             },
@@ -260,6 +264,10 @@ const mutations = { //同步
                     {
                         name: "系统日志",
                         path: "syslog"
+                    },
+                    {
+                        name: "计划任务",
+                        path: "worker"
                     },
                     {
                         name: "系统配置",

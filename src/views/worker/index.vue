@@ -24,18 +24,18 @@
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
       </my-search-tool>
-      <div class="table-tool-others">
-      
-      </div>
+      <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
-      <el-table-column prop="title" label="帮助主题"></el-table-column>
-      <el-table-column prop="column" label="帮助栏目"></el-table-column>
-      <el-table-column prop="type" label="帮助类型"></el-table-column>
-      <el-table-column prop="createTime" label="创建时间"></el-table-column>
+      <el-table-column prop="task" label="任务主体"></el-table-column>
+      <el-table-column prop="leader" label="所属主体"></el-table-column>
+      <el-table-column prop="executionStatus" label="执行状态"></el-table-column>
+      <el-table-column prop="createTime" label="开始执行时间"></el-table-column>
+      <el-table-column prop="status" label="状态"></el-table-column>
+      <el-table-column prop="remarks" label="备注"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
