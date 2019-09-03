@@ -42,7 +42,7 @@
                 label-width="80px"
               >
                 <el-form-item label="名称" size="small">
-                  <el-input v-model="searchForm.name" prefix-icon="el-icon-search"></el-input>
+                  <el-input v-model="searchForm.name"></el-input>
                 </el-form-item>
                 <el-form-item label="时间段" size="small">
                   <el-date-picker

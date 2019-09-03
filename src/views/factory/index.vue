@@ -25,7 +25,7 @@
             label-width="80px"
           >
             <el-form-item label="名称" size="small">
-              <el-input v-model="searchForm.name" prefix-icon="el-icon-search"></el-input>
+              <el-input v-model="searchForm.name"></el-input>
             </el-form-item>
             <el-form-item label="时间段" size="small">
               <el-date-picker
@@ -52,9 +52,7 @@
         </template>
       </my-search-tool>
       <div class="table-tool-others">
-        <div class="el-inline" title="打印">
-          <i class="el-icon-printer"></i>
-        </div>
+      
       </div>
     </div>
     <!-- 表格 -->
@@ -88,7 +86,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
-        :current-page="currentPage4"
+        :current-page="currentPage"
         :page-sizes="[100, 200, 300, 400]"
         :page-size="100"
         layout="prev,pager,next,jumper,total,sizes"
@@ -106,7 +104,7 @@ export default {
     return {
       tableData: [],
       isPaging: false,
-      currentPage4: 1,
+      currentPage: 1,
       searchForm: {},
       labelPosition: "left"
     };
@@ -126,7 +124,7 @@ export default {
         title: "新增工厂信息",
         target: ".el-main"
       });
-      this.$layer.full(index)
+      this.$layer.full(index);
     },
     handleEdit() {
       var index = this.$layer.iframe({
@@ -140,7 +138,7 @@ export default {
         title: "编辑工厂信息",
         target: ".el-main"
       });
-      this.$layer.full(index)
+      this.$layer.full(index);
     },
     handleExport() {},
     handleReset() {
