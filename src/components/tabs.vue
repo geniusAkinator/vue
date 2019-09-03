@@ -1,9 +1,6 @@
 <!-- 自定义导航栏 -->
 <template>
   <div class="my-tab">
-    <div class="tab-prev">
-      <i class="el-icon-d-arrow-left"></i>
-    </div>
     <el-tabs v-model="nowTabIndex" type="card" @tab-remove="removeTab" @tab-click="clickTab">
       <el-tab-pane
         v-for="(item,index) in tabList"
@@ -18,9 +15,6 @@
         </span>
       </el-tab-pane>
     </el-tabs>
-    <div class="tab-next">
-      <i class="el-icon-d-arrow-right"></i>
-    </div>
     <el-dropdown class="tab-more" :hide-on-click="false" @command="handleClick">
       <span class="el-dropdown-link">
         <i class="el-icon-arrow-down el-icon--right"></i>
@@ -60,7 +54,7 @@ export default {
     },
     handleClick(command) {
       if (command == "reload") {
-        this.reload()
+        this.reload();
       } else if (command == "closeCurrent") {
         this.$store.dispatch("home/removeTab", this.nowTabIndex);
       } else if (command == "closeNonCurrent") {
@@ -78,8 +72,7 @@ export default {
 .el-tabs__header {
   margin: 0;
 }
-.tab-prev,
-.tab-next,
+
 .tab-more {
   width: 40px;
   display: flex;
@@ -88,11 +81,15 @@ export default {
   font-size: 18px;
   border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
-}
-.tab-next,
-.tab-more {
+  height: 40px;
+  position: absolute;
+  top: 60px;
+  right: 0;
   border-left: 1px solid #e6e6e6;
+  z-index: 10;
+  background: #ffffff;
 }
+
 .tab-more span {
   width: 100%;
   height: 100%;
@@ -104,12 +101,15 @@ export default {
   margin-left: 0;
 }
 .my-tab {
-  display: flex;
 }
 .el-tabs.el-tabs--card.el-tabs--top {
-  flex: 1;
+  padding-right: 40px;
 }
 .el-tabs__item {
   outline: none;
 }
+.el-tabs {
+  position: relative;
+}
+
 </style>

@@ -43,6 +43,7 @@ export default {
   destroyed() {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
+    this.$store.dispatch("home/initAside");
   }
 };
 </script>

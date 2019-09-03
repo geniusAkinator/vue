@@ -1,17 +1,19 @@
 <template>
     <div>
-        报表统计
+        aaaaaaa
     </div>
 </template>
+
 <script>
 export default {
     data(){
-        return{
-            
+        return {
+
         }
     }
 }
 </script>
-<style>
+
+<style scoped>
     
 </style>

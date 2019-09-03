@@ -27,7 +27,7 @@ require('moment')
 
 Vue.prototype.$layer = layer(Vue)
 Vue.prototype.$axios = axios;
-
+Vue.config.devtools = true;
 Vue.use(ElementUI)  
 Vue.use(VueQuillEditor)
 Vue.use(vueJsonp)

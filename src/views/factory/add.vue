@@ -55,14 +55,14 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="活动名称">
-        <!-- <quill-editor
+        <quill-editor
           v-model="form.content"
           ref="myQuillEditor"
           :options="editorOption"
           @blur="onEditorBlur($event)"
           @focus="onEditorFocus($event)"
           @change="onEditorChange($event)"
-        ></quill-editor>-->
+        ></quill-editor>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit">提交</el-button>

@@ -47,6 +47,7 @@ body {
 }
 .my-tab .el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close {
   line-height: 14px;
+  border-radius: 4px
 }
 .el-breadcrumb {
   background-color: #f8f8f8;
@@ -362,5 +363,26 @@ body {
   background: #f5f7fa;
   border-color: #e4e7ed;
   color: #c0c4cc;
+}
+.el-tabs .el-tabs__nav-prev {
+  border-right: 1px solid #e6e6e6;
+  background: #fff;
+  z-index: 10;
+}
+.el-tabs .el-tabs__nav-next {
+  border-left: 1px solid #e6e6e6;
+  background: #fff;
+  z-index: 10;
+}
+.el-tabs .el-tabs__nav-wrap.is-scrollable.is-top .el-tabs__nav-scroll {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.el-tabs .el-tabs__nav-next,
+.el-tabs .el-tabs__nav-prev {
+  width: 40px;
+  display: block;
+  font-size: 18px;
+  text-align: center
 }
 </style>

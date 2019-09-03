@@ -5,52 +5,7 @@ const state = {
     tabList: [],
     tabIndex: "1",
     nowPath: "",
-    menu: [
-        {
-            name: "首页",
-            icon: "el-icon-house",
-            children: [
-                {
-                    name: "控制面板",
-                    path: "desktop"
-                }
-            ]
-        },
-        {
-            name: "实时监控",
-            icon: "el-icon-video-camera",
-            children: [
-                {
-                    name: "实时监控",
-                    path: "realtime"
-                }
-            ]
-        },
-        {
-            name: "信息管理",
-            icon: "el-icon-document",
-            children: [
-                {
-                    name: "工厂信息管理",
-                    path: "factory"
-                },
-                {
-                    name: "传感器信息管理",
-                    path: "sensor"
-                }
-            ]
-        },
-        {
-            name: "统计分析",
-            icon: "el-icon-data-analysis",
-            children: [
-                {
-                    name: "统计报表",
-                    path: "statistic"
-                }
-            ]
-        }
-    ],
+    menu: [],
 }
 
 const getters = {
@@ -87,6 +42,9 @@ const actions = { //可异步
     },
     closeAllTabs({ commit }) {
         commit('closeAllTabs')
+    },
+    initAside({ commit }) {
+        commit('initAside')
     }
 }
 
@@ -225,7 +183,7 @@ const mutations = { //同步
         let list = nowState.tabList; //tab列表
         for (let i = list.length - 1; i > 0; i--) {
             if (list[i].name != payload) {
-                list.splice(i,1)
+                list.splice(i, 1)
             }
         }
         list[1].name = "2";
@@ -239,6 +197,85 @@ const mutations = { //同步
         list.splice(index, len - index);
         state.nowPath = "desktop";
         state.tabIndex = "1"
+    },
+    initAside(state) {
+        let nowState = state;
+        let list = nowState.menu;
+        list = [
+            {
+                name: "首页",
+                icon: "el-icon-house",
+                children: [
+                    {
+                        name: "控制面板",
+                        path: "desktop"
+                    }
+                ]
+            },
+            {
+                name: "实时监控",
+                icon: "el-icon-video-camera",
+                children: [
+                    {
+                        name: "实时监控",
+                        path: "realtime"
+                    }
+                ]
+            },
+            {
+                name: "信息管理",
+                icon: "el-icon-document",
+                children: [
+                    {
+                        name: "工厂信息管理",
+                        path: "factory"
+                    },
+                    {
+                        name: "传感器信息管理",
+                        path: "sensor"
+                    }
+                ]
+            },
+            {
+                name: "统计分析",
+                icon: "el-icon-data-analysis",
+                children: [
+                    {
+                        name: "统计报表",
+                        path: "statistic"
+                    }
+                ]
+            }, {
+                name: "设置管理",
+                icon: "el-icon-setting",
+                children: [
+                    {
+                        name: "角色管理",
+                        path: "role"
+                    },
+                    {
+                        name: "用户管理",
+                        path: "user"
+                    },
+                    {
+                        name: "系统日志",
+                        path: "syslog"
+                    },
+                    {
+                        name: "系统配置",
+                        path: "sysset"
+                    },
+                    {
+                        name: "系统维护",
+                        path: "update"
+                    },
+                    {
+                        name: "系统帮助",
+                        path: "help"
+                    }
+                ]
+            }]
+        state.menu = list
     }
 }
 export default {

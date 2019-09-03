@@ -125,26 +125,27 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    handleEdit() {
-      this.$layer.iframe({
-          content: {
-            content: MySensorTypeAdd, //传递的组件对象
-            parent: this, //当前的vue对象
-            data: {} //props
-          },
-          shade: false,
-          area: ["800px", "600px"],
-          title: "新增传感器类型",
-          target: ".el-main"
-        });
+    handleEdit() { //编辑
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorTypeAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["800px", "600px"],
+        title: "新增传感器类型",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
     },
     handleExport() {},
     handleReset() {
       this.searchForm = {};
     },
     handleSearch() {},
-    handleAdd() {
-      this.$layer.iframe({
+    handleAdd() { //新增
+      let index = this.$layer.iframe({
         content: {
           content: MySensorAdd, //传递的组件对象
           parent: this, //当前的vue对象
@@ -155,10 +156,11 @@ export default {
         title: "新增传感器",
         target: ".el-main"
       });
+      this.$layer.full(index);
     },
     handleCommand(command) {
       if (command == "add") {
-        this.$layer.iframe({
+        let index = this.$layer.iframe({
           content: {
             content: MySensorTypeAdd, //传递的组件对象
             parent: this, //当前的vue对象
@@ -170,6 +172,7 @@ export default {
           title: "新增传感器类型",
           target: ".el-main"
         });
+        this.$layer.full(index);
       } else if (command == "list") {
         this.$router.push("sensorType", () => {});
       }

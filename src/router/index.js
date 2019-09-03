@@ -13,6 +13,12 @@ import SensorAdd from '@/views/sensor/add'
 import SensorType from '@/views/sensor/type'
 import SensorTypeAdd from '@/views/sensor/typeAdd'
 import RealtimeDetail from '@/views/realtime/detail'
+import Role from '@/views/role/index'
+import User from '@/views/user/index'
+import Syslog from '@/views/syslog/index'
+import Sysset from '@/views/sysset/index'
+import Update from '@/views/update/index'
+import Help from '@/views/help/index'
 
 Vue.use(Router)
 
@@ -105,9 +111,47 @@ export default new Router({
       children: [
         {
           path: 'statistic',
-          name: '统计首页',
+          name: '统计报表',
           component: Statistic
-        }
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '系统管理',
+      component: Home,
+      leaf: true,//只有一个节点
+      children: [
+        {
+          path: 'role',
+          name: '角色管理',
+          component: Role
+        },
+        {
+          path: 'user',
+          name: '用户管理',
+          component: User
+        },
+        {
+          path: 'syslog',
+          name: '系统日志',
+          component: Syslog
+        },
+        {
+          path: 'sysset',
+          name: '角色管理',
+          component: Sysset
+        },
+        {
+          path: 'update',
+          name: '系统维护',
+          component: Update
+        },
+        {
+          path: 'help',
+          name: '角色管理',
+          component: Help
+        },
       ]
     },
     {
