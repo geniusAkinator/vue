@@ -6,8 +6,6 @@ import 'element-ui/lib/theme-chalk/index.css' //新添加，避免后期打包�
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ECharts from 'vue-echarts'
-import 'echarts/lib/chart/line'
 import store from './store/index'
 import layer from 'vue-layer'
 import 'vue-layer/lib/vue-layer.css'
@@ -32,7 +30,6 @@ Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
 Vue.use(vueJsonp)
 Vue.config.productionTip = false
-Vue.component('chart', ECharts)
 Vue.component(CollapseTransition.name, CollapseTransition)
 
 router.beforeEach((to, from, next) => {

@@ -118,7 +118,8 @@
               <span>本月隐患</span>
             </div>
             <div class="text item">
-              <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart>
+              <div id="chart" style="width:100%;height:300px;"></div>
+              <!-- <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart> -->
             </div>
           </el-card>
         </el-col>
@@ -145,7 +146,7 @@ export default {
   methods: {
     openLayer() {},
     resizeChart() {
-      this.$refs["chart"].resize();
+      // this.$refs["chart"].resize();
     }
   },
   mounted() {
@@ -160,10 +161,19 @@ export default {
       }
     });
     this.openLayer();
-    this.orgOptions = {
+    var myChart = echarts.init(document.getElementById("chart"));
+    let orgOptions = {
       xAxis: {
         type: "category",
-        data: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+        data: [
+          "星期日",
+          "星期一",
+          "星期二",
+          "星期三",
+          "星期四",
+          "星期五",
+          "星期六"
+        ]
       },
       yAxis: {
         type: "value"
@@ -171,23 +181,24 @@ export default {
       series: [
         {
           data: [820, 932, 901, 934, 1290, 1330, 1320],
-          type: "line",
+          type: "line"
         },
         {
           data: [111, 222, 22, 21, 121, 121, 1212],
-          type: "line",
+          type: "line"
         }
       ]
     };
+    myChart.setOption(orgOptions);
     this.$nextTick(() => {
-      window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
+      // window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
     });
   },
   components: {
     MyMap,
     MyCalendar,
     MyFactoryBox
-  },
+  }
 };
 </script>
 

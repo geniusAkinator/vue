@@ -2,7 +2,9 @@
 <template>
   <el-header class="app-header">
     <!-- 头部菜单 -->
-    <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect"></el-menu>
+    <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item index="/">看板</el-menu-item>
+    </el-menu>
     <!-- 个人信息 -->
     <div class="app-header-userinfo">
       <el-dropdown trigger="hover" :hide-on-click="false">
@@ -42,7 +44,9 @@ export default {
       console.log(key, keyPath);
     },
     handleSelect(key, keyPath) {
+       var _this = this;
       console.log(key, keyPath);
+      _this.$router.push("/Platform", () => {});
     }
   }
 };

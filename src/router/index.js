@@ -22,6 +22,7 @@ import Help from '@/views/help/index'
 import Worker from '@/views/worker/index'
 import Member from '@/views/member/index'
 import Bind from '@/views/bind/index'
+import Platform from '@/views/platform/index'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ export default new Router({
           component: Desktop
         },
       ]
+    },
+    {
+      path: '/platform',
+      name: '平台',
+      component: Platform,
     },
     {
       path: '/',
@@ -113,7 +119,7 @@ export default new Router({
       children: [
         {
           path: 'member',
-          name: '成员管理',
+          name: '工厂成员管理',
           component: Member,
         },
         {

@@ -7,7 +7,7 @@
     <div class="app-side-logo">
       <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
     </div>
-    <div>
+    <div class="app-side-menu">
       <!-- 菜单 -->
       <el-menu
         router

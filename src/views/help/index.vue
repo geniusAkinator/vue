@@ -17,6 +17,16 @@
             <el-form-item label="帮助主题" size="small">
               <el-input v-model="searchForm.title"></el-input>
             </el-form-item>
+            <el-form-item label="时间段" size="small">
+              <el-date-picker
+                v-model="searchForm.range"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :clearable="false"
+              ></el-date-picker>
+            </el-form-item>
           </el-form>
         </template>
         <template slot="end">
@@ -24,9 +34,7 @@
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
       </my-search-tool>
-      <div class="table-tool-others">
-      
-      </div>
+      <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
@@ -64,7 +72,10 @@ export default {
   data() {
     return {
       tableData: [],
-      searchForm: {},
+      searchForm: {
+          title:"",
+          range:""
+      },
       labelPosition: "left",
       isPaging: false,
       currentPage: 1,

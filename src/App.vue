@@ -47,7 +47,7 @@ body {
 }
 .my-tab .el-tabs--card > .el-tabs__header .el-tabs__item .el-icon-close {
   line-height: 14px;
-  border-radius: 4px
+  border-radius: 4px;
 }
 .el-breadcrumb {
   background-color: #f8f8f8;
@@ -383,12 +383,24 @@ body {
   width: 40px;
   display: block;
   font-size: 18px;
-  text-align: center
+  text-align: center;
 }
-.help-block{
+.help-block {
   color: #999;
   margin-top: 0;
   margin-bottom: 0;
   display: block;
 }
+.el-aside::-webkit-scrollbar {
+  width: 0 !important;
+}
+.el-aside{
+  -ms-overflow-style: none;
+  height: 100%;
+}
+.el-aside{
+  overflow: -moz-scrollbars-none;
+  position: relative;
+}
+
 </style>

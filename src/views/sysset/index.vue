@@ -102,58 +102,109 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="通知模板" name="fourth">
-        <el-form ref="form" :model="form" :label-width="labelWidth">
+        <el-form ref="form" :model="noticeForm" :label-width="labelWidth">
           <el-form-item label="模板标题颜色">
-            <el-input v-model="form.APPID"></el-input>
+            <div class="color-picker">
+              <el-input v-model="noticeForm.titleColor"></el-input>
+              <el-color-picker v-model="noticeForm.titleColor" show-alpha></el-color-picker>
+            </div>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="模板文本颜色">
-            <el-input v-model="form.APPID"></el-input>
+            <div class="color-picker">
+              <el-input v-model="noticeForm.textColor"></el-input>
+              <el-color-picker v-model="styleForm.textColor" show-alpha></el-color-picker>
+            </div>
             <span class="help-block"></span>
           </el-form-item>
-          <el-form-item label="缴费金额颜色">
-            <el-input v-model="form.APPID"></el-input>
+          <el-form-item label="关键字颜色">
+            <div class="color-picker">
+              <el-input v-model="noticeForm.keyColor"></el-input>
+              <el-color-picker v-model="noticeForm.keyColor" show-alpha></el-color-picker>
+            </div>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="XXXX管理通知">
-            <el-input v-model="form.APPID"></el-input>
+            <el-input v-model="noticeForm.noticelid"></el-input>
             <span class="help-block">编号：XXXXX 物业管理通知</span>
           </el-form-item>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="短信设置" name="fifth">
-        <el-form ref="form" :model="form" :label-width="labelWidth">
+        <el-form ref="form" :model="smsForm" :label-width="labelWidth">
           <el-form-item label="绑定验证">
-            <el-input v-model="form.APPID"></el-input>
-            <span class="help-block">编号：XXXXX 管理通知</span>
+            <el-radio-group v-model="smsForm.isbind">
+              <el-radio label="0">验证</el-radio>
+              <el-radio label="1">不验证</el-radio>
+            </el-radio-group>
+            <span class="help-block">验证为手机短信验证，请设置短信验证码模板.此处为总开关，工厂还需单独开启.</span>
           </el-form-item>
           <el-form-item label="邀请验证">
-            <el-input v-model="form.APPID"></el-input>
-            <span class="help-block">编号：XXXXX 管理通知</span>
+            <el-radio-group v-model="smsForm.isinvite">
+              <el-radio label="0">验证</el-radio>
+              <el-radio label="1">不验证</el-radio>
+            </el-radio-group>
+            <span class="help-block">验证为手机短信验证，请设置短信验证码模板.此处为总开关，工厂还需单独开启.</span>
           </el-form-item>
           <el-form-item label="短信服务商">
-            <el-radio v-model="form.smstype" label="1">聚合数据</el-radio>
-            <el-radio v-model="form.smstype" label="2">阿里云短信</el-radio>
-            <el-radio v-model="form.smstype" label="3">阿里云通讯</el-radio>
+            <el-radio-group v-model="smsForm.smstype">
+              <el-radio label="0">聚合数据</el-radio>
+              <el-radio label="1">阿里云短信</el-radio>
+              <el-radio label="2">阿里云通讯</el-radio>
+            </el-radio-group>
           </el-form-item>
-          <el-form-item label="AppKey">
-            <el-input v-model="form.APPID"></el-input>
-            <span class="help-block">请填写聚合数据AppKey 申请</span>
+          <template v-if="smsForm.smstype=='0'">
+            <el-form-item label="AppKey">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">请填写聚合数据AppKey 申请</span>
+            </el-form-item>
+          </template>
+          <template v-if="smsForm.smstype=='1'">
+            <el-form-item label="App code">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">请填写阿里云短信App code 申请</span>
+            </el-form-item>
+            <el-form-item label="签名">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">必须与阿里云短信申请的签名保持一致</span>
+            </el-form-item>
+          </template>
+          <template v-if="smsForm.smstype=='2'">
+            <el-form-item label="Access Key ID">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">请填写阿里云通信Access Key ID 申请</span>
+            </el-form-item>
+            <el-form-item label="Access Key Secret">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">请填写阿里云通信Access Key Secret 申请</span>
+            </el-form-item>
+            <el-form-item label="签名">
+              <el-input v-model="smsForm.tplAppkey" placeholder="请输入AppKey"></el-input>
+              <span class="help-block">必须与阿里云通信申请的签名保持一致</span>
+            </el-form-item>
+          </template>
+          <el-form-item label="验证码模板">
+            <el-input v-model="smsForm.codeTemplate" placeholder="请输入验证码模板"></el-input>
+            <span class="help-block">短信验证码模板.例：XXXXXXXXXX</span>
+          </el-form-item>
+          <el-form-item label="报警通知模板">
+            <el-input v-model="smsForm.quoteTemplate" placeholder="请输入报警通知模板"></el-input>
+            <span class="help-block">报警通知模板.例：XXXXXXXXXX</span>
           </el-form-item>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="微信小程序" name="sixth">
         <el-form ref="form" :model="wxForm" :label-width="labelWidth">
           <el-form-item label="APPID">
-            <el-input v-model="wxForm.appid"></el-input>
+            <el-input v-model="wxForm.appid" placeholder="请输入APPID"></el-input>
             <span class="help-block">微信小程序APPID</span>
           </el-form-item>
           <el-form-item label="访问密钥">
-            <el-input v-model="wxForm.appsecret"></el-input>
+            <el-input v-model="wxForm.appsecret" placeholder="请输入APPSERET"></el-input>
             <span class="help-block">微信小程序APPSERET</span>
           </el-form-item>
           <el-form-item label="商户号">
-            <el-input v-model="wxForm.mchid"></el-input>
+            <el-input v-model="wxForm.mchid" placeholder="请输入微信商户号"></el-input>
             <span class="help-block">对应的商户号</span>
           </el-form-item>
           <el-form-item label="商户支付密钥">
@@ -163,7 +214,7 @@
             <span class="help-block">对应商户支付密钥</span>
           </el-form-item>
           <el-form-item label="小程序标题">
-            <el-input v-model="wxForm.title"></el-input>
+            <el-input v-model="wxForm.title" placeholder="请输入标题"></el-input>
             <span class="help-block">用于打包小程序进入页面的标题</span>
           </el-form-item>
           <el-form-item label="小程序跳转背景">
@@ -173,38 +224,45 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="平台设置" name="seventh">
-        <el-form ref="form" :model="form" :label-width="labelWidth">
+        <el-form ref="form" :model="platformForm" :label-width="labelWidth">
           <el-form-item label="平台状态">
-            <el-input v-model="form.mch_id"></el-input>
-            <span class="help-block">小程序跳转背景图片，可以为空</span>
+            <el-radio-group v-model="platformForm.status">
+              <el-radio label="0">开启</el-radio>
+              <el-radio label="1">关闭</el-radio>
+            </el-radio-group>
+            <span class="help-block">平台状态</span>
           </el-form-item>
-          <el-form-item label="平台状态">
-            <el-input v-model="form.mch_id"></el-input>
+          <el-form-item label="平台服务电话">
+            <el-input v-model="platformForm.tel"></el-input>
             <span class="help-block">平台服务电话</span>
           </el-form-item>
           <el-form-item label="平台看板密码">
-            <el-input v-model="form.mch_id"></el-input>
+            <el-input v-model="platformForm.pwd"></el-input>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="平台LOGO">
-            <el-input v-model="form.mch_id"></el-input>
+            <el-input v-model="platformForm.logo"></el-input>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="版权信息">
-            <el-input v-model="form.mch_id"></el-input>
+            <el-input v-model="platformForm.copyright" type="textarea"></el-input>
             <span class="help-block"></span>
           </el-form-item>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="API接口" name="eighth">
-        <el-form ref="form" :model="form" :label-width="labelWidth">
+        <el-form ref="form" :model="apiForm" :label-width="labelWidth">
           <el-form-item label="API访问">
-            <el-radio v-model="form.api" label="1">开启</el-radio>
-            <el-radio v-model="form.api" label="2">关闭</el-radio>
+            <el-radio-group v-model="apiForm.status">
+              <el-radio label="0">开启</el-radio>
+              <el-radio label="1">关闭</el-radio>
+            </el-radio-group>
             <span class="help-block">关闭后app和小程序都不可访问</span>
           </el-form-item>
           <el-form-item label="访问密钥">
-            <el-input v-model="form.APP_KEY"></el-input>
+            <el-input v-model="apiForm.appkey">
+              <template slot="append">生成秘钥</template>
+            </el-input>
             <span class="help-block">第三方系统访问密钥</span>
           </el-form-item>
         </el-form>
@@ -260,7 +318,31 @@ export default {
         title: "",
         spa: ""
       },
-      form: {},
+      noticeForm: {
+        titleColor: "",
+        textColor: "",
+        keyColor: "",
+        noticelid: ""
+      },
+      smsForm: {
+        isbind: "0",
+        isinvite: "0",
+        smstype: "0",
+        tplAppkey: "",
+        codeTemplate: "",
+        quoteTemplate: ""
+      },
+      apiForm: {
+        status: "0",
+        appkey: ""
+      },
+      platformForm: {
+        status: "0",
+        tel: "",
+        pwd: "",
+        logo: "",
+        copyright: ""
+      },
       labelWidth: "130px"
     };
   },
@@ -288,6 +370,9 @@ export default {
 .color-picker input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+.color-picker .el-input {
+  width: 217px;
 }
 .color-picker .el-color-picker__trigger {
   border-top-left-radius: 0;

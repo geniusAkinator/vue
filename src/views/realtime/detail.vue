@@ -65,7 +65,7 @@
           <template slot="content">
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="echart-tab">
               <el-tab-pane label="剩余电流" name="first">
-                <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart>
+                <!-- <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart> -->
               </el-tab-pane>
               <el-tab-pane label="温度1" name="second">温度1</el-tab-pane>
               <el-tab-pane label="温度2" name="third">温度2</el-tab-pane>
@@ -130,7 +130,7 @@
 <script>
 import MyCard from "@/components/card";
 import api from "@/api/index";
-import echarts from "echarts";
+// import echarts from "echarts";
 import moment from "moment";
 import utils from "@/utils/utils";
 export default {
