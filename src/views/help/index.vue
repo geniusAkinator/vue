@@ -68,13 +68,14 @@
 
 <script>
 import MySearchTool from "@/components/searchtool";
+import MyHelpAdd from "@/views/help/add"
 export default {
   data() {
     return {
       tableData: [],
       searchForm: {
-          title:"",
-          range:""
+        title: "",
+        range: ""
       },
       labelPosition: "left",
       isPaging: false,
@@ -98,7 +99,20 @@ export default {
   methods: {
     handleEdit() {},
     handleDelete() {},
-    handleAdd() {},
+    handleAdd() {
+      var index = this.$layer.iframe({
+        content: {
+          content: MyHelpAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "新增角色",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    },
     handleReset() {},
     handleSearch() {},
     handleClick() {},

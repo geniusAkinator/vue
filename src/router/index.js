@@ -23,6 +23,7 @@ import Worker from '@/views/worker/index'
 import Member from '@/views/member/index'
 import Bind from '@/views/bind/index'
 import Platform from '@/views/platform/index'
+import RoleAdd from '@/views/role/add'
 
 Vue.use(Router)
 
@@ -152,6 +153,11 @@ export default new Router({
           path: 'role',
           name: '角色管理',
           component: Role
+        },
+        {
+          path: 'roleAdd',
+          name: '新增角色',
+          component: RoleAdd
         },
         {
           path: 'user',

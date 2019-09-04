@@ -1,7 +1,5 @@
 <template>
-  <div class="container dark">
-    <div id="echart" style="width:100%px;height:100%"></div>
-  </div>
+  <div id="echart" style="width:100%px;height:100%"></div>
 </template>
 
 <script>
@@ -39,19 +37,34 @@ export default {
               color: "#ED7E41" //"#F58158"
             }
           }
-        }
+        },
+        {
+          name: "合肥",
+          value: [117.165413,31.894283, 2],
+          symbolSize: 2, // 2,
+          itemStyle: {
+            normal: {
+              color: "#ED7E41" //"#F58158"
+            }
+          }
+        },
       ],
       moveLines: [
         {
           fromName: "黑龙江",
           toName: "昆山",
           coords: [[126.661669, 45.742347], [120.973653, 31.402452]]
+        },
+        {
+          fromName: "合肥",
+          toName: "昆山",
+          coords: [[117.165413,31.894283], [120.973653, 31.402452]]
         }
       ]
     };
 
     let option = {
-      backgroundColor: "#404a59",
+      backgroundColor: "rgba(0,0,0,0)",
       legend: {
         show: false,
         orient: "vertical",
@@ -69,11 +82,11 @@ export default {
             show: false
           }
         },
-        roam: true,
+        roam: false,
         itemStyle: {
           normal: {
-            areaColor: "#323c48",
-            borderColor: "#404a59"
+            areaColor: "#004981",
+            borderColor: "#179ace"
           },
           emphasis: {
             areaColor: "#2a333d"

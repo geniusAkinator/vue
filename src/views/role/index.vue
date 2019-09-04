@@ -34,9 +34,7 @@
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
       </my-search-tool>
-      <div class="table-tool-others">
-        
-      </div>
+      <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
@@ -69,6 +67,7 @@
 
 <script>
 import MySearchTool from "@/components/searchtool";
+import MyRoleAdd from "@/views/role/add"
 export default {
   data() {
     return {
@@ -96,7 +95,20 @@ export default {
   methods: {
     handleEdit() {},
     handleDelete() {},
-    handleAdd() {},
+    handleAdd() {
+      var index = this.$layer.iframe({
+        content: {
+          content: MyRoleAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "新增角色",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    },
     handleReset() {},
     handleSearch() {},
     handleClick() {},
