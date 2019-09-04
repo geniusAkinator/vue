@@ -1,9 +1,5 @@
 <template>
   <div class="container form">
-    备注栏目 select
-    备注类别 select
-    备注主题
-    备注内容 富
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="备注栏目">
         <el-select v-model="form.title" placeholder="请选择">
@@ -28,6 +24,16 @@
       <el-form-item label="备注主题">
         <el-input v-model="form.topic"></el-input>
       </el-form-item>
+      <el-form-item label="备注内容">
+        <quill-editor
+          v-model="form.content"
+          ref="myQuillEditor"
+          :options="editorOption"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @change="onEditorChange($event)"
+        ></quill-editor>
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -42,7 +48,8 @@ export default {
   data() {
     return {
       form: {},
-      options: []
+      options: [],
+      editorOption: config.editorOption,
     };
   },
   methods: {
