@@ -1,5 +1,5 @@
 <template>
-  <div id="echart" style="width:100%px;height:100%"></div>
+  <div id="echart" style="width:100%;height:100%"></div>
 </template>
 
 <script>
@@ -65,16 +65,6 @@ export default {
 
     let option = {
       backgroundColor: "rgba(0,0,0,0)",
-      legend: {
-        show: false,
-        orient: "vertical",
-        top: "bottom",
-        left: "right",
-        data: ["地点", "线路"],
-        textStyle: {
-          color: "#fff"
-        }
-      },
       geo: {
         map: "china",
         label: {
@@ -127,9 +117,9 @@ export default {
           effect: {
             show: true,
             constantSpeed: 30,
-            symbol: "pin",
+            symbol: 'arrow',
             symbolSize: 3,
-            trailLength: 0
+            trailLength: 0.02,
           },
           lineStyle: {
             normal: {

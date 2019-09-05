@@ -1,15 +1,15 @@
 <template>
   <el-container>
     <el-main>
-      <el-form ref="form" :model="form" label-width="80px" class="login-container">
-        <div class="title">用户登录</div>
-        <el-form-item label="用户名">
-          <el-input v-model="form.name" placeholder="请输入用户名" clearable></el-input>
+      <el-form ref="form" :model="form" class="login-container">
+        <div class="title">平台登录</div>
+        <el-form-item>
+          <el-input v-model="form.name" placeholder="用户名" clearable></el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="form.pwd" placeholder="请输入密码" show-password></el-input>
+        <el-form-item>
+          <el-input v-model="form.pwd" placeholder="密码" show-password></el-input>
         </el-form-item>
-        <el-form-item style="width:100%">
+        <el-form-item>
           <el-button type="primary" @click.prevent="login" :loading="logining">登录</el-button>
         </el-form-item>
         <el-form-item>
@@ -17,7 +17,7 @@
         </el-form-item>
       </el-form>
     </el-main>
-    <el-footer>@copy-right</el-footer>
+    <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
   </el-container>
 </template>
 
@@ -49,9 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.el-header,
 .el-footer {
-  background-color: #b3c0d1;
   color: #333;
   text-align: center;
   line-height: 60px;
@@ -75,7 +73,7 @@ body > .el-container {
   margin-bottom: 40px;
 }
 .login-container {
-  width: 350px;
+  width: 320px;
 }
 .el-main {
   position: absolute;
@@ -104,9 +102,18 @@ body > .el-container {
   width: 100%;
 }
 .title {
-  font-weight: bold;
-  font-size: 32px;
-  padding-left: 80px;
-  height: 120px;
+  width: 100%;
+  height: 80px;
+  float: left;
+  color: #8b949b;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 60px;
+}
+.login-container {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 </style>

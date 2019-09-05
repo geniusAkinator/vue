@@ -1,6 +1,5 @@
 <template>
   <div class="container form">
-    权限
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"></el-input>

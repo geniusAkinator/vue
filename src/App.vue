@@ -408,10 +408,10 @@ body {
 .pointer{
   cursor: pointer;
 }
-.el-menu-item{
+.el-header.app-header .el-menu-item{
   color: rgb(186, 198, 213) !important;
 }
-.el-menu-item:hover{
+.el-header.app-header .el-menu-item:hover{
   background: #314158 !important;
   color: rgb(186, 198, 213) !important;
   
