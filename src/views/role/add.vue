@@ -15,9 +15,9 @@
         <el-input v-model="form.remarks"></el-input>
       </el-form-item>
       <el-form-item label="权限">
-        <el-card class="box-card" shadow="never">
+        <el-card class="box-card permission" shadow="never">
           <div slot="header" class="clearfix">
-            <el-checkbox v-model="form.permission">全选</el-checkbox>
+            <el-checkbox v-model="form.permission">信息管理</el-checkbox>
           </div>
           <div class="text item">
             <div>
@@ -28,6 +28,7 @@
               <el-checkbox v-model="form.permission">查询</el-checkbox>
               <el-checkbox v-model="form.permission">编辑</el-checkbox>
               <el-checkbox v-model="form.permission">导出</el-checkbox>
+              <el-checkbox v-model="form.permission">打印</el-checkbox>
             </div>
             <div>
               <el-checkbox v-model="form.permission">传感器信息管理</el-checkbox>
@@ -36,6 +37,28 @@
               <el-checkbox v-model="form.permission">查询</el-checkbox>
               <el-checkbox v-model="form.permission">查询</el-checkbox>
               <el-checkbox v-model="form.permission">编辑</el-checkbox>
+              <el-checkbox v-model="form.permission">导出</el-checkbox>
+              <el-checkbox v-model="form.permission">打印</el-checkbox>
+            </div>
+          </div>
+        </el-card>
+        <el-card class="box-card permission" shadow="never">
+          <div slot="header" class="clearfix">
+            <el-checkbox v-model="form.permission">成员管理</el-checkbox>
+          </div>
+          <div class="text item">
+            <div>
+              <el-checkbox v-model="form.permission">成员管理</el-checkbox>
+              <el-checkbox v-model="form.permission">删除</el-checkbox>
+              <el-checkbox v-model="form.permission">查询</el-checkbox>
+              <el-checkbox v-model="form.permission">查询</el-checkbox>
+              <el-checkbox v-model="form.permission">导出</el-checkbox>
+            </div>
+            <div>
+              <el-checkbox v-model="form.permission">绑定管理</el-checkbox>
+              <el-checkbox v-model="form.permission">删除</el-checkbox>
+              <el-checkbox v-model="form.permission">查询</el-checkbox>
+              <el-checkbox v-model="form.permission">查询</el-checkbox>
               <el-checkbox v-model="form.permission">导出</el-checkbox>
             </div>
           </div>
@@ -100,4 +123,17 @@ export default {
 </script>
 
 <style>
+.permission+.permission{
+  margin-top: 20px;
+}
+.permission .clearfix{
+  line-height: 20px
+}
+.permission .el-card__header{
+  border-bottom:1px solid #e6e6e6;
+  background: #f2f2f2;
+}
+.permission{
+  border:1px solid #e6e6e6
+}
 </style>
