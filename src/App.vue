@@ -405,4 +405,19 @@ body {
 .ql-toolbar.ql-snow + .ql-container.ql-snow{
   height: 200px;
 }
+.pointer{
+  cursor: pointer;
+}
+.el-menu-item{
+  color: rgb(186, 198, 213) !important;
+}
+.el-menu-item:hover{
+  background: #314158 !important;
+  color: rgb(186, 198, 213) !important;
+  
+}
+.el-menu--horizontal>.el-menu-item{
+  height: 58px;
+  border: 0 !important
+}
 </style>

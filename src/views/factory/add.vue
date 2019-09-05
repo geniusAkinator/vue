@@ -1,6 +1,21 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form-item label="工厂名称" prop="name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="工厂类型">
+        <el-select v-model="form.region" placeholder="请选择工厂类型">
+          <el-option label="区域一" value="shanghai"></el-option>
+          <el-option label="区域二" value="beijing"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="省/市/区">
+        <el-cascader v-model="form.province" :options="options" @change="handleChange"></el-cascader>
+      </el-form-item>
+      <el-form-item label="工厂地址">
+        <el-input v-model="form.address"></el-input>
+      </el-form-item>
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
           <el-col :span="6">
@@ -36,25 +51,22 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="工厂名称">
+      <el-form-item label="工厂电话">
+        <el-input v-model="form.tel"></el-input>
+      </el-form-item>
+      <el-form-item label="工厂图片">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="活动区域">
-        <el-select v-model="form.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
+      <el-form-item label="工厂负责人">
+        <el-input v-model="form.charger"></el-input>
       </el-form-item>
-      <el-form-item label="活动名称">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="工厂手机号">
+        <el-input v-model="form.phone"></el-input>
       </el-form-item>
-      <el-form-item label="活动名称">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="办公电话">
+        <el-input v-model="form.tel"></el-input>
       </el-form-item>
-      <el-form-item label="活动名称">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
-      <el-form-item label="活动名称">
+      <el-form-item label="公司简介">
         <quill-editor
           v-model="form.content"
           ref="myQuillEditor"
@@ -64,8 +76,9 @@
           @change="onEditorChange($event)"
         ></quill-editor>
       </el-form-item>
+
       <div class="add-footer">
-        <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit">提交</el-button>
+        <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
       </div>
     </el-form>
@@ -79,15 +92,48 @@ export default {
     return {
       form: {
         lat: "",
-        lng: ""
+        lng: "",
+        province: ""
       },
+      options: [
+        {
+          value: "江苏省",
+          label: "江苏省",
+          children: [
+            {
+              value: "苏州市",
+              label: "苏州市",
+              children: [
+                {
+                  value: "昆山",
+                  label: "昆山"
+                },
+                {
+                  value: "吴县",
+                  label: "吴县"
+                }
+              ]
+            }
+          ]
+        }
+      ],
       editorOption: config.editorOption,
-      isShow: false
+      isShow: false,
+      rules: {
+        name: [{ required: true, message: "请输入工厂名称", trigger: "blur" }]
+      }
     };
   },
   methods: {
-    handleSubmit() {
-      this.closeDialog();
+    handleSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.closeDialog();
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     handleBack() {
       this.closeDialog();
@@ -101,7 +147,8 @@ export default {
     getPoint(e) {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
-    }
+    },
+    handleChange() {}
   },
   components: {
     MyMapPicker

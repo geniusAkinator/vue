@@ -209,7 +209,9 @@
           </el-form-item>
           <el-form-item label="商户支付密钥">
             <el-input v-model="wxForm.mchsecret">
-              <template slot="append">生成秘钥</template>
+              <template slot="append">
+                <span class="pointer" @click="handleGenerate">生成秘钥</span>
+              </template>
             </el-input>
             <span class="help-block">对应商户支付密钥</span>
           </el-form-item>
@@ -261,7 +263,9 @@
           </el-form-item>
           <el-form-item label="访问密钥">
             <el-input v-model="apiForm.appkey">
-              <template slot="append">生成秘钥</template>
+              <template slot="append">
+                <span class="pointer" @click="handleGenerate">生成秘钥</span>
+              </template>
             </el-input>
             <span class="help-block">第三方系统访问密钥</span>
           </el-form-item>
@@ -278,7 +282,7 @@
 export default {
   data() {
     return {
-      activeName: "second",
+      activeName: "first",
       commonForm: {
         limitqty: 0, //限制主体数量
         isWap: 0, //
@@ -347,7 +351,8 @@ export default {
     };
   },
   methods: {
-    handleClick() {}
+    handleClick() {},
+    handleGenerate(){}
   }
 };
 </script>

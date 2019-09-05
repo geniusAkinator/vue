@@ -85,8 +85,9 @@
       <el-table-column prop="id" label="传感器ID" width="150"></el-table-column>
       <el-table-column prop="name" label="传感器名称"></el-table-column>
       <el-table-column prop="type" label="传感器类型"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="180px">
+      <el-table-column label="操作" fixed="right" width="240px">
         <template slot-scope="scope">
+          <el-button size="mini" @click="handleSet(scope.$index, tableData)">配置</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
         </template>
@@ -125,7 +126,8 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    handleEdit() { //编辑
+    handleEdit() {
+      //编辑
       let index = this.$layer.iframe({
         content: {
           content: MySensorTypeAdd, //传递的组件对象
@@ -144,7 +146,8 @@ export default {
       this.searchForm = {};
     },
     handleSearch() {},
-    handleAdd() { //新增
+    handleAdd() {
+      //新增
       let index = this.$layer.iframe({
         content: {
           content: MySensorAdd, //传递的组件对象
@@ -168,17 +171,17 @@ export default {
           },
           shade: true,
           shadeClose: false,
-          area: ["800px", "600px"],
+          area: ["500px", "500px"],
           title: "新增传感器类型",
           target: ".el-main"
         });
-        this.$layer.full(index);
       } else if (command == "list") {
         this.$router.push("sensorType", () => {});
       }
     },
     handleClick() {},
-    handleUpload() {}
+    handleUpload() {},
+    handleSet(){}
   },
   mounted() {
     const loading = this.$loading({
