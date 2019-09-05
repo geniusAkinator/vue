@@ -375,8 +375,8 @@ body {
   z-index: 10;
 }
 .el-tabs .el-tabs__nav-wrap.is-scrollable.is-top .el-tabs__nav-scroll {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
 }
 .el-tabs .el-tabs__nav-next,
 .el-tabs .el-tabs__nav-prev {
@@ -402,5 +402,7 @@ body {
   overflow: -moz-scrollbars-none;
   position: relative;
 }
-
+.ql-toolbar.ql-snow + .ql-container.ql-snow{
+  height: 200px;
+}
 </style>
