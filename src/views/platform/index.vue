@@ -4,7 +4,7 @@
       <div class=""> 
         <!-- <my-echart-map></my-echart-map> -->
       </div>
-      <my-echart-earth></my-echart-earth>
+      <!-- <my-echart-earth></my-echart-earth> -->
     </div>
     <!-- <div>
       <div class="gauge-content">

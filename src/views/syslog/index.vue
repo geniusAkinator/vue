@@ -13,8 +13,18 @@
             :model="searchForm"
             label-width="80px"
           >
-            <el-form-item label="角色状态" size="small">
-              <el-select v-model="searchForm.status" placeholder="请选择">
+            <el-form-item label="时间段" size="small">
+              <el-date-picker
+                v-model="searchForm.range"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :clearable="false"
+              ></el-date-picker>
+            </el-form-item>
+            <el-form-item label="类别" size="small">
+              <el-select v-model="searchForm.type" placeholder="请选择类别">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -23,9 +33,6 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="角色名称" size="small">
-              <el-input v-model="searchForm.name"></el-input>
-            </el-form-item>
           </el-form>
         </template>
         <template slot="end">
@@ -33,9 +40,7 @@
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
       </my-search-tool>
-      <div class="table-tool-others">
-       
-      </div>
+      <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
