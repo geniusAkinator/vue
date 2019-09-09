@@ -1,56 +1,102 @@
 <template>
   <div class="container dark">
+    <div class="echart-top">
+      <div class="top-item">
+        <my-echart-gauge :id="chart1"></my-echart-gauge>
+      </div>
+      <div class="top-item">
+        <my-echart-gauge :id="chart2"></my-echart-gauge>
+      </div>
+      <div class="top-item">
+        <my-echart-gauge :id="chart3"></my-echart-gauge>
+      </div>
+      <div class="top-item">
+        <my-clock></my-clock>
+      </div>
+      <div class="top-item">
+        <my-echart-gauge :id="chart4"></my-echart-gauge>
+      </div>
+      <div class="top-item">
+        <my-echart-gauge :id="chart5"></my-echart-gauge>
+      </div>
+      <div class="top-item">
+        <my-echart-gauge :id="chart6"></my-echart-gauge>
+      </div>
+    </div>
+
     <div class="ehart-map-container">
-      <div class=""> 
-        <!-- <my-echart-map></my-echart-map> -->
+      <div class="map-item">
+        <my-echart-map></my-echart-map>
       </div>
       <!-- <my-echart-earth></my-echart-earth> -->
     </div>
-    <!-- <div>
-      <div class="gauge-content">
-        <my-gauge :id="chart1"></my-gauge>
-      </div>
-      <div class="gauge-content">
-        <my-gauge :id="chart2"></my-gauge>
-      </div>
-    </div>-->
-
     <div class="platform-left">
-      <div class="platform-box large"></div>
-      <div class="platform-box large"></div>
+      <div class="platform-box large">
+        <my-echart-pie :id="pieChart"></my-echart-pie>
+      </div>
+      <div class="platform-box large">
+        <my-echart-radar :id="radarChart"></my-echart-radar>
+      </div>
       <div class="platform-box">
         <my-echart-line :id="lineChart"></my-echart-line>
       </div>
     </div>
 
     <div class="platform-right">
-      <div class="platform-box large"></div>
-      <div class="platform-box large"></div>
-      <div class="platform-box"></div>
+      <div class="platform-box large">
+        <my-echart-bar :id="barChart"></my-echart-bar>
+      </div>
+      <div class="platform-box large">
+        <my-horizontal-echart-bar :id="hbar"></my-horizontal-echart-bar>
+      </div>
+      <div class="platform-box">
+        <my-echart-smooth-line :id="sline"></my-echart-smooth-line>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import MyEchartMap from "@/components/emap";
-import MyGauge from "@/components/egauge";
+import MyEchartGauge from "@/components/egauge";
 import MyEchartLine from "@/components/eline";
 import MyEchartEarth from "@/components/earth";
+import MyEchartPie from "@/components/epie";
+import MyClock from "@/components/clock";
+import MyEchartRadar from "@/components/eradar";
+import MyEchartBar from "@/components/ebar";
+import MyHorizontalEchartBar from "@/components/ehbar";
+import MyEchartSmoothLine from "@/components/esline";
 export default {
   data() {
     return {
       chart1: "chart1",
       chart2: "chart2",
-      lineChart: "lchart"
+      chart3: "chart3",
+      chart4: "chart4",
+      chart5: "chart5",
+      chart6: "chart6",
+      lineChart: "lchart",
+      pieChart: "pchart",
+      radarChart: "rchart",
+      barChart: "bchart",
+      hbar:"hbar",
+      sline:"sline"
     };
   },
   methods: {},
   mounted() {},
   components: {
     MyEchartMap,
-    MyGauge,
+    MyEchartGauge,
     MyEchartLine,
-    MyEchartEarth
+    MyEchartEarth,
+    MyEchartPie,
+    MyEchartRadar,
+    MyEchartBar,
+    MyHorizontalEchartBar,
+    MyEchartSmoothLine,
+    MyClock
   }
 };
 </script>
@@ -80,7 +126,7 @@ export default {
   width: 300px;
   position: absolute;
   left: 20px;
-  top: 200px;
+  top: 250px;
   bottom: 0;
   -webkit-animation: bounceInLeft 2s ease 0s 1 both;
 }
@@ -88,19 +134,19 @@ export default {
   width: 300px;
   position: absolute;
   right: 20px;
-  top: 200px;
+  top: 250px;
   bottom: 0;
   -webkit-animation: bounceInRight 2s ease 0s 1 both;
 }
 .platform-box {
   border: 1px solid #afafaf;
-  height: calc((100% - 46px) / 5);
+  height: calc((100% - 26px) / 5);
 }
 .platform-box.large {
-  height: calc((100% - 46px) * 2 / 5);
+  height: calc((100% - 26px) * 2 / 5);
 }
 .platform-box + .platform-box {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 @-webkit-keyframes bounceInLeft {
   0%,
@@ -239,5 +285,26 @@ export default {
 .bounceInRight {
   -webkit-animation-name: bounceInRight;
   animation-name: bounceInRight;
+}
+.map-item {
+  width: 100%;
+  height: 100%;
+}
+.top-item {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.echart-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 11;
 }
 </style>

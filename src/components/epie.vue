@@ -12,7 +12,11 @@ export default {
   props: {
     id: ""
   },
-  methods: {},
+  methods: {
+    resizeChart() {
+      this.myCharts.resize();
+    }
+  },
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
@@ -20,11 +24,11 @@ export default {
         trigger: "item",
         formatter: "{a} <br/>{b}: {c} ({d}%)"
       },
-      legend: {
-        orient: "vertical",
-        x: "left",
-        data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
-      },
+      // legend: {
+      //   orient: "vertical",
+      //   x: "left",
+      //   data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+      // },
       series: [
         {
           name: "访问来源",
@@ -60,6 +64,7 @@ export default {
       ]
     };
     this.myCharts.setOption(option);
+    window.addEventListener("resize", this.resizeChart);
   }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <el-container>
-      <my-aside></my-aside>
+      <my-aside :isCollapse="isCollapse"></my-aside>
       <el-container style="flex-direction:column">
-        <my-header></my-header>
+        <my-header :isCollapse.sync="isCollapse" @parentCollapseChange="collapseChange"></my-header>
         <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
@@ -81,6 +81,9 @@ export default {
       this.$nextTick(function() {
         this.isRouterAlive = true;
       });
+    },
+    collapseChange(val) {
+      this.isCollapse = val;
     }
   },
   mounted: function() {

@@ -125,6 +125,7 @@
         </el-col>
       </el-col>
     </el-row>
+    <el-backtop target=".el-main"></el-backtop>
   </div>
 </template>
 <script>

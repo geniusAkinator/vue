@@ -79,9 +79,11 @@ export default {
             borderColor: "#179ace"
           },
           emphasis: {
-            areaColor: "#2a333d"
+            areaColor: "#a5a5a5"
           }
-        }
+        },
+        bottom:"0",
+        top:"200px"
       },
       series: [
         {

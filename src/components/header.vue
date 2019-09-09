@@ -1,6 +1,10 @@
 <!-- 自定义头部 -->
 <template>
   <el-header class="app-header">
+    <div class="toggle-aside">
+      <i class="el-icon-s-unfold" v-if="isAsideCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
+      <i class="el-icon-s-fold" v-if="!isAsideCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
+    </div>
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="/">看板</el-menu-item>
@@ -26,9 +30,18 @@
 export default {
   data() {
     return {
-      isCollapse: false,
-      username: ""
+      username: "",
+      isAsideCollapse:this.isCollapse
     };
+  },
+  props:{
+     isCollapse: false,
+  },
+  watch:{
+    isAsideCollapse(newVal,oldVal){
+      console.log(newVal,oldVal);
+      this.$emit("parentCollapseChange",newVal);
+    }
   },
   methods: {
     logout: function() {
@@ -44,7 +57,7 @@ export default {
       console.log(key, keyPath);
     },
     handleSelect(key, keyPath) {
-       var _this = this;
+      var _this = this;
       console.log(key, keyPath);
       _this.$router.push("/Platform", () => {});
     }
@@ -82,5 +95,14 @@ export default {
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.7);
+}
+.toggle-aside i {
+  color: #fff;
+  font-size: 14px;
+  line-height: 60px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  width: 48px;
+  text-align: center
 }
 </style>
