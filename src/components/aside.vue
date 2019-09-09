@@ -54,13 +54,13 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let el = document.querySelectorAll(".el-menu-item-group__title");
-      for (let i = 0; i < el.length; i++) {
-        let pNode = el[i].parentNode;
-        // pNode.remove(el[i])
-        console.log(pNode, el[i]);
-        pNode.remove(el[i]);
-      }
+      // let el = document.querySelectorAll(".el-menu-item-group__title");
+      // for (let i = 0; i < el.length; i++) {
+      //   let pNode = el[i].parentNode;
+      //   // pNode.remove(el[i])
+      //   console.log(pNode, el[i]);
+      //   pNode.remove(el[i]);
+      // }
     });
   }
 };

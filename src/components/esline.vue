@@ -20,13 +20,6 @@ export default {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
       color: ["#00ffff", "#00ffa2", "#f0e750"],
-      tooltip: {
-        trigger: "axis",
-        textStyle: {
-          fontSize: 15,
-          color: "#fff"
-        }
-      },
       legend: {
         orient: "horizontal",
         right: "4%",
