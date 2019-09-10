@@ -5,17 +5,22 @@
 export default {
   data() {
     return {
-        myChart:{}
+      myChart: {},
+      myCharts: {}
     };
   },
-  methods: {},
+  methods: {
+    resizeChart() {
+      this.myCharts.resize();
+    }
+  },
   mounted() {
-    var geoCoordMap = {
+    let geoCoordMap = {
       南宁: [108.479, 23.1152],
       广州: [113.5107, 23.2196],
       重庆: [107.7539, 30.1904]
     };
-    var data = [
+    let data = [
       [{ name: "南宁" }, { name: "广州", value: 80 }],
       [{ name: "南宁" }, { name: "重庆", value: 100 }]
     ];
@@ -40,73 +45,14 @@ export default {
       });
       line.push([geoCoordMap[data[i][0].name], geoCoordMap[data[i][1].name]]);
     }
-    let point = [];
-    point.push(
-      {
-        type: "effectScatter",
-        coordinateSystem: "geo",
-        zlevel: 3,
-        rippleEffect: {
-          brushType: "stroke"
-        },
-        label: {
-          fontSize: 24,
-          show: true,
-          position: "right",
-          formatter: "{b}"
-        },
-        itemStyle: {
-          normal: {
-            color: "#f5f802"
-          }
-        },
-        data: pointA
-      },
-      {
-        type: "effectScatter",
-        coordinateSystem: "geo",
-        zlevel: 3,
-        rippleEffect: {
-          brushType: "stroke"
-        },
-        label: {
-          normal: {
-            show: true,
-            position: "left",
-            fontSize: 18,
-            formatter: "{b}"
-          }
-        },
-        itemStyle: {
-          normal: {
-            color: "#ff0000"
-          }
-        },
-        data: pointB
-      }
-    );
-    let series = [];
-    series.push({
-      type: "lines3D",
-      effect: {
-        show: true,
-        period: 3,
-        trailLength: 0.1
-      },
-      lineStyle: {
-        color: "#9ae5fc",
-        width: 1,
-        opacity: 0.6
-      },
-      data: line
-    });
-    var canvas = document.createElement("canvas");
+
+    let canvas = document.createElement("canvas");
     this.myChart = echarts.init(canvas, null, {
-      width: 4096,
-      height: 2048
+      width: 1980,
+      height: 1280
     });
     this.myChart.setOption({
-      backgroundColor: "rgba(3,28,72,0.3)",
+      backgroundColor: "#526376",
       title: {
         show: true
       },
@@ -117,44 +63,106 @@ export default {
         top: 0,
         right: 0,
         bottom: 0,
+        nameMap:config.nameMap,
         boundingCoords: [[-180, 90], [180, -90]],
         zoom: 0,
         roam: false,
         itemStyle: {
           borderColor: "#000d2d",
           normal: {
-            areaColor: "#2455ad",
-            borderColor: "#000c2d"
+            areaColor: "#004981",
+            borderColor: "#179ace"
           },
           emphasis: {
-            areaColor: "#357cf8"
+            areaColor: "#a5a5a5"
           }
         },
         label: {
           fontSize: 24
         }
       },
-      series: point
+      series: [
+        {
+          type: "effectScatter",
+          coordinateSystem: "geo",
+          zlevel: 3,
+          rippleEffect: {
+            brushType: "stroke"
+          },
+          label: {
+            fontSize: 24,
+            show: true,
+            position: "right",
+            formatter: "{b}"
+          },
+          itemStyle: {
+            normal: {
+              color: "#f5f802"
+            }
+          },
+          data: pointA
+        },
+        {
+          type: "effectScatter",
+          coordinateSystem: "geo",
+          zlevel: 3,
+          rippleEffect: {
+            brushType: "stroke"
+          },
+          label: {
+            normal: {
+              show: true,
+              position: "left",
+              fontSize: 18,
+              formatter: "{b}"
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: "#ff0000"
+            }
+          },
+          data: pointB
+        }
+      ]
     });
-    var option = {
+    let option = {
       backgroundColor: "rgba(0,0,0,0)", //canvas的背景颜色
       globe: {
         baseTexture: this.myChart,
-        top: "middle",
+        top: "0",
         left: "center",
         displacementScale: 0,
         environment: "none",
         shading: "color",
         viewControl: {
           distance: 240,
-          autoRotate: true
+          autoRotate: true,
+          targetCoord: [116.46, 39.92]
         }
       },
-      series: series
+      series: [
+        {
+          type: "lines3D",
+          effect: {
+            show: true,
+            period: 3,
+            trailLength: 0.1
+          },
+          lineStyle: {
+            color: "#FFCDB2",
+            width: 1,
+            opacity: 0.6
+          },
+          data: line
+        }
+      ]
     };
-    echarts.init(document.getElementById("earth")).setOption(option, true);
-    
-  }
+    this.myCharts = echarts.init(document.getElementById("earth"));
+    this.myCharts.setOption(option, true);
+    window.addEventListener("resize", this.resizeChart);
+  },
+  beforeDestroy() {}
 };
 </script>
 <style scoped>

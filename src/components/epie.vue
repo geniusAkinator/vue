@@ -20,15 +20,20 @@ export default {
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
-      tooltip: {
-        trigger: "item",
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
+      title: {
+        text: "标题标题标题",
+        show:true,
+        x: "10px",
+        y: "10px",
+        textStyle: {
+          //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+          fontFamily: "Arial, Verdana, sans...",
+          fontSize: "14px",
+          fontStyle: "normal",
+          fontWeight: "normal",
+          color: "#8b969c"
+        }
       },
-      // legend: {
-      //   orient: "vertical",
-      //   x: "left",
-      //   data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
-      // },
       series: [
         {
           name: "访问来源",
@@ -42,10 +47,6 @@ export default {
             },
             emphasis: {
               show: true,
-              textStyle: {
-                fontSize: "30",
-                fontWeight: "bold"
-              }
             }
           },
           labelLine: {
@@ -65,6 +66,9 @@ export default {
     };
     this.myCharts.setOption(option);
     window.addEventListener("resize", this.resizeChart);
+  },
+  beforeDestroy() {
+    this.myCharts.clear();
   }
 };
 </script>

@@ -83,7 +83,10 @@ export default {
     };
     this.myCharts.setOption(option);
     window.addEventListener("resize", this.resizeChart);
-  }
+  },
+  beforeDestroy() {
+    this.myCharts.clear();
+  }    
 };
 </script>
 

@@ -119,7 +119,7 @@ export default {
           des: "afdafdsafdafds"
         }
       ],
-      isMap: true
+      isMap: false
     };
   },
   methods: {},
@@ -320,10 +320,14 @@ export default {
 .top-right::after {
   right: 0;
 }
-.top-right {
+.top-right,
+.top-right::before,
+.top-right::after {
   border-bottom-left-radius: 30px;
 }
-.top-left {
+.top-left,
+.top-left::before,
+.top-left::after {
   border-bottom-right-radius: 30px;
 }
 #swiper .swiper-slide {

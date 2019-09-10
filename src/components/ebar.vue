@@ -9,18 +9,36 @@ export default {
       myCharts: {}
     };
   },
-  methods: {},
   props: {
     id: ""
+  },
+  methods: {
+    resizeChart() {
+      this.myCharts.resize();
+    }
   },
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
+      title: {
+        text: "标题标题标题",
+        show: true,
+        x: "10px",
+        y: "10px",
+        textStyle: {
+          //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+          fontFamily: "Arial, Verdana, sans...",
+          fontSize: "14px",
+          fontStyle: "normal",
+          fontWeight: "normal",
+          color: "#8b969c"
+        }
+      },
       color: ["#3398DB"],
       tooltip: {
         trigger: "axis",
         axisPointer: {
-          type: "shadow" 
+          type: "shadow"
         }
       },
       grid: {
@@ -32,15 +50,42 @@ export default {
       xAxis: [
         {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: ["值1", "值1", "值1", "值1", "值1", "值1", "值1"],
           axisTick: {
             alignWithLabel: true
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#a5a5a5" //轴颜色
+            }
+          },
+          axisLabel: {
+            interval: 0,
+            rotate: 40, //倾斜度
+            show: true,
+            textStyle: {
+              //轴上文字
+              color: "#a5a5a5" //颜色
+            }
           }
         }
       ],
       yAxis: [
         {
-          type: "value"
+          type: "value",
+          axisLine: {
+            lineStyle: {
+              color: "#a5a5a5" //轴颜色
+            }
+          },
+          axisLabel: {
+            interval: 0,
+            show: true,
+            textStyle: {
+              //轴上文字
+              color: "#a5a5a5" //颜色
+            }
+          }
         }
       ],
       series: [
@@ -52,8 +97,11 @@ export default {
         }
       ]
     };
-
     this.myCharts.setOption(option);
+    window.addEventListener("resize", this.resizeChart);
+  },
+  beforeDestroy() {
+    this.myCharts.clear();
   }
 };
 </script>

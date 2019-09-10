@@ -18,6 +18,20 @@ export default {
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
+      title: {
+        text: "标题标题标题",
+        show: true,
+        x: "10px",
+        y: "10px",
+        textStyle: {
+          //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+          fontFamily: "Arial, Verdana, sans...",
+          fontSize: "14px",
+          fontStyle: "normal",
+          fontWeight: "normal",
+          color: "#8b969c"
+        }
+      },
       backgroundColor: "rgba(0,0,0,0)",
       tooltip: {
         trigger: "axis",
@@ -28,15 +42,28 @@ export default {
       grid: {
         left: "1%",
         right: "10%",
-        bottom: "10%",
-        top:"10%",
+        bottom: "5%",
+        top: "13%",
         containLabel: true
       },
       xAxis: {
         type: "value",
         position: "top",
         splitLine: { show: false },
-        boundaryGap: [0, 0.01]
+        boundaryGap: [0, 0.01],
+        axisLine: {
+          lineStyle: {
+            color: "#a5a5a5" //轴颜色
+          }
+        },
+        axisLabel: {
+          interval: 0,
+          show: true,
+          textStyle: {
+            //轴上文字
+            color: "#a5a5a5" //颜色
+          }
+        }
       },
       yAxis: {
         type: "category",
@@ -55,7 +82,20 @@ export default {
           "桂林市",
           "柳州市",
           "南宁市"
-        ]
+        ],
+        axisLine: {
+          lineStyle: {
+            color: "#a5a5a5" //轴颜色
+          }
+        },
+        axisLabel: {
+          interval: 0,
+          show: true,
+          textStyle: {
+            //轴上文字
+            color: "#a5a5a5" //颜色
+          }
+        }
       },
       series: [
         {
@@ -63,7 +103,6 @@ export default {
           itemStyle: {
             normal: {
               color: function(params) {
-                // build a color map as your need.
                 var colorList = [
                   "#C1232B",
                   "#B5C334",
@@ -109,6 +148,9 @@ export default {
     };
     this.myCharts.setOption(option);
     window.addEventListener("resize", this.resizeChart);
+  },
+  beforeDestroy() {
+    this.myCharts.clear();
   }
 };
 </script>
