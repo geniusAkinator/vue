@@ -154,7 +154,7 @@ export default {
     this.myCharts.setOption(option);
     window.addEventListener("resize", this.resizeChart);
   },
-  beforeDestroy() {
+   beforeDestroy() {
     this.myCharts.clear();
   }
 };

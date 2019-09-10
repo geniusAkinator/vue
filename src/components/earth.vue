@@ -31,28 +31,29 @@ export default {
       pointA.push({
         name: data[i][1].name,
         value: geoCoordMap[data[i][1].name],
-        symbolSize: 4
+        symbolSize: 2
       });
       pointB.push({
         name: data[i][0].name,
         value: geoCoordMap[data[i][0].name],
-        symbolSize: 4,
+        symbolSize: 2,
         label: {
           normal: {
             position: "right"
           }
         }
       });
-      line.push([geoCoordMap[data[i][0].name], geoCoordMap[data[i][1].name]]);
+      line.push([geoCoordMap[data[i][1].name], geoCoordMap[data[i][0].name]]);
     }
 
     let canvas = document.createElement("canvas");
     this.myChart = echarts.init(canvas, null, {
       width: 1980,
-      height: 1280
+      height: 1080,
+      devicePixelRatio: 2.5
     });
     this.myChart.setOption({
-      backgroundColor: "#526376",
+      backgroundColor: "#161e27",
       title: {
         show: true
       },
@@ -63,22 +64,23 @@ export default {
         top: 0,
         right: 0,
         bottom: 0,
-        nameMap:config.nameMap,
+        nameMap: config.nameMap,
         boundingCoords: [[-180, 90], [180, -90]],
         zoom: 0,
         roam: false,
         itemStyle: {
-          borderColor: "#000d2d",
+          borderColor: "#405062",
           normal: {
-            areaColor: "#004981",
-            borderColor: "#179ace"
+            areaColor: "#69798d",
+            borderColor: "#405062"
           },
           emphasis: {
-            areaColor: "#a5a5a5"
+            areaColor: "#a5a5a5",
+            color:"#fff",
           }
         },
         label: {
-          fontSize: 24
+          fontSize: 16
         }
       },
       series: [
@@ -90,10 +92,7 @@ export default {
             brushType: "stroke"
           },
           label: {
-            fontSize: 24,
-            show: true,
-            position: "right",
-            formatter: "{b}"
+            show: false
           },
           itemStyle: {
             normal: {
@@ -111,10 +110,7 @@ export default {
           },
           label: {
             normal: {
-              show: true,
-              position: "left",
-              fontSize: 18,
-              formatter: "{b}"
+              show: false
             }
           },
           itemStyle: {
@@ -137,7 +133,7 @@ export default {
         shading: "color",
         viewControl: {
           distance: 240,
-          autoRotate: true,
+          autoRotate: false,
           targetCoord: [116.46, 39.92]
         }
       },
