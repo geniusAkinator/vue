@@ -50,7 +50,7 @@ export default {
     this.myChart = echarts.init(canvas, null, {
       width: 1980,
       height: 1080,
-      devicePixelRatio: 2.5
+      devicePixelRatio: 3
     });
     this.myChart.setOption({
       backgroundColor: "#161e27",
@@ -69,14 +69,14 @@ export default {
         zoom: 0,
         roam: false,
         itemStyle: {
+          color:"#fff",
           borderColor: "#405062",
           normal: {
             areaColor: "#69798d",
             borderColor: "#405062"
           },
           emphasis: {
-            areaColor: "#a5a5a5",
-            color:"#fff",
+            areaColor: "#a5a5a5"
           }
         },
         label: {
@@ -96,7 +96,7 @@ export default {
           },
           itemStyle: {
             normal: {
-              color: "#f5f802"
+              color: "#fda0aa"
             }
           },
           data: pointA
@@ -115,7 +115,7 @@ export default {
           },
           itemStyle: {
             normal: {
-              color: "#ff0000"
+              color: "#fda0aa"
             }
           },
           data: pointB
@@ -128,14 +128,14 @@ export default {
         baseTexture: this.myChart,
         top: "0",
         left: "center",
-        displacementScale: 0,
         environment: "none",
         shading: "color",
         viewControl: {
           distance: 240,
           autoRotate: false,
-          targetCoord: [116.46, 39.92]
-        }
+          targetCoord: [116.46, 39.92],
+          minDistance:140
+        },
       },
       series: [
         {
@@ -147,8 +147,8 @@ export default {
           },
           lineStyle: {
             color: "#FFCDB2",
-            width: 1,
-            opacity: 0.6
+            width: 2,
+            opacity: 0.2
           },
           data: line
         }
@@ -157,6 +157,12 @@ export default {
     this.myCharts = echarts.init(document.getElementById("earth"));
     this.myCharts.setOption(option, true);
     window.addEventListener("resize", this.resizeChart);
+
+    this.myChart.on('click',function(e){
+      if(e.name=="中国"){
+
+      }
+    })
   },
   beforeDestroy() {}
 };
