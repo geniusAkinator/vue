@@ -55,7 +55,7 @@ export default {
     },
     getDate() {
       let date = new Date();
-      let day = date.getDay();
+      let day = date.getDate();
       let month = date.getMonth() + 1;
       let week = date.getDay();
       let w = "";
@@ -106,7 +106,6 @@ export default {
 .clock-container {
   color: #fff;
   background: rgba(0, 0, 0, 0);
-  padding: 20px;
 }
 .column {
   transition: all 0.3s ease-in-out;
@@ -122,18 +121,21 @@ export default {
   font-size: 50px;
   display: block;
   height: 50px;
-  text-shadow: 1px 1px 30px #369;
+  text-shadow: 1px 1px 5px #369;
   line-height: 50px;
 }
 .maohao {
   font-size: 50px;
   display: block;
   line-height: 42px;
-  text-shadow: 1px 1px 30px #369;
+  text-shadow: 1px 1px 5px #369;
 }
 .nowDate {
   display: block;
   text-align: center;
   font-size: 30px;
+}
+.clock-container{
+  padding: 10px 0;
 }
 </style>

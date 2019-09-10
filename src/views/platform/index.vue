@@ -1,40 +1,59 @@
 <template>
   <div class="container dark">
     <div class="echart-top">
-      <div class="top-item">
-        <my-echart-gauge :id="chart1"></my-echart-gauge>
+      <div class="top-left">
+        <div class="top-item">
+          <my-echart-gauge :id="chart1"></my-echart-gauge>
+        </div>
+        <div class="top-item">
+          <my-echart-gauge :id="chart2"></my-echart-gauge>
+        </div>
+        <div class="top-item">
+          <my-echart-gauge :id="chart3"></my-echart-gauge>
+        </div>
+        <div class="top-item">
+          <my-echart-gauge :id="chart4"></my-echart-gauge>
+        </div>
+        <div class="top-item">
+          <my-echart-gauge :id="chart5"></my-echart-gauge>
+        </div>
       </div>
-      <div class="top-item">
-        <my-echart-gauge :id="chart2"></my-echart-gauge>
-      </div>
-      <div class="top-item">
-        <my-echart-gauge :id="chart3"></my-echart-gauge>
-      </div>
-      <div class="top-item">
+      <div class="top-center">
         <my-clock></my-clock>
       </div>
-      <div class="top-item">
-        <my-echart-gauge :id="chart4"></my-echart-gauge>
-      </div>
-      <div class="top-item">
-        <my-echart-gauge :id="chart5"></my-echart-gauge>
-      </div>
-      <div class="top-item">
-        <my-echart-gauge :id="chart6"></my-echart-gauge>
+      <div class="top-right">
+        <div class="top-item">
+          <my-echart-gauge :id="chart6"></my-echart-gauge>
+        </div>
+        <div class="top-item middle">
+          <my-echart-line :id="lchart"></my-echart-line>
+        </div>
+        <div class="top-item"></div>
       </div>
     </div>
-
     <div class="ehart-map-container">
-      <div class="map-item">
+      <div class="border-top"></div>
+      <div class="border-bottom"></div>
+      <div class="map-item" v-if="isMap">
         <my-echart-map></my-echart-map>
       </div>
-      <!-- <my-echart-earth></my-echart-earth> -->
+      <div class="map-item" v-if="!isMap">
+        <my-echart-earth></my-echart-earth>
+      </div>
+      <div class="swiper-container" id="swiper">
+        <div class="swiper-wrapper">
+          <div v-for="(item,index) in swiper" :key="index" class="swiper-slide">
+            <span>{{item.title}}</span>
+            <p>{{item.des}}</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="platform-left">
-      <div class="platform-box large">
+      <div class="platform-box middle">
         <my-echart-pie :id="pieChart"></my-echart-pie>
       </div>
-      <div class="platform-box large">
+      <div class="platform-box middle">
         <my-echart-radar :id="radarChart"></my-echart-radar>
       </div>
       <div class="platform-box">
@@ -43,14 +62,20 @@
     </div>
 
     <div class="platform-right">
-      <div class="platform-box large">
+      <div class="platform-box middle">
         <my-echart-bar :id="barChart"></my-echart-bar>
       </div>
-      <div class="platform-box large">
+      <div class="platform-box middle">
         <my-horizontal-echart-bar :id="hbar"></my-horizontal-echart-bar>
       </div>
-      <div class="platform-box">
-        <my-echart-smooth-line :id="sline"></my-echart-smooth-line>
+      <div class="platform-box"></div>
+    </div>
+    <div class="switch-map">
+      <div :class="isMap?'current':''" @click="isMap=true">
+        <i class="iconfont icon-diqu"></i>
+      </div>
+      <div :class="isMap?'':'current'" @click="isMap=false">
+        <i class="iconfont icon-diqiu"></i>
       </div>
     </div>
   </div>
@@ -66,7 +91,8 @@ import MyClock from "@/components/clock";
 import MyEchartRadar from "@/components/eradar";
 import MyEchartBar from "@/components/ebar";
 import MyHorizontalEchartBar from "@/components/ehbar";
-import MyEchartSmoothLine from "@/components/esline";
+import Swiper from "swiper";
+import "swiper/dist/css/swiper.css";
 export default {
   data() {
     return {
@@ -80,12 +106,34 @@ export default {
       pieChart: "pchart",
       radarChart: "rchart",
       barChart: "bchart",
-      hbar:"hbar",
-      sline:"sline"
+      hbar: "hbar",
+      sline: "sline",
+      lchart: "chart",
+      swiper: [
+        {
+          title: "dsfasf",
+          des: "afdafdsafdafds"
+        },
+        {
+          title: "dsfasf",
+          des: "afdafdsafdafds"
+        }
+      ],
+      isMap: true
     };
   },
   methods: {},
-  mounted() {},
+  mounted() {
+    new Swiper(".swiper-container", {
+      loop: true, // 循环模式选项
+      slidesPerView: 5,
+      direction: "vertical",
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      }
+    });
+  },
   components: {
     MyEchartMap,
     MyEchartGauge,
@@ -95,7 +143,6 @@ export default {
     MyEchartRadar,
     MyEchartBar,
     MyHorizontalEchartBar,
-    MyEchartSmoothLine,
     MyClock
   }
 };
@@ -126,185 +173,193 @@ export default {
   width: 300px;
   position: absolute;
   left: 20px;
-  top: 250px;
-  bottom: 0;
-  -webkit-animation: bounceInLeft 2s ease 0s 1 both;
+
+  -webkit-animation: fadeInLeft 2s ease 0s 1 both;
 }
 .platform-right {
   width: 300px;
   position: absolute;
   right: 20px;
-  top: 250px;
-  bottom: 0;
-  -webkit-animation: bounceInRight 2s ease 0s 1 both;
+
+  -webkit-animation: fadeInRight 2s ease 0s 1 both;
+}
+.platform-left,
+.platform-right {
+  top: 150px;
+  bottom: 40px;
+}
+#swiper {
+  -webkit-animation: fadeInUp 2s ease 0s 1 both;
 }
 .platform-box {
   border: 1px solid #afafaf;
   height: calc((100% - 26px) / 5);
+  background: rgba(0, 0, 0, 0.3);
 }
-.platform-box.large {
+.platform-box.middle {
   height: calc((100% - 26px) * 2 / 5);
 }
 .platform-box + .platform-box {
   margin-top: 10px;
 }
-@-webkit-keyframes bounceInLeft {
-  0%,
-  60%,
-  75%,
-  90%,
-  100% {
-    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(-3000px, 0, 0);
-    transform: translate3d(-3000px, 0, 0);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translate3d(25px, 0, 0);
-    transform: translate3d(25px, 0, 0);
-  }
-  75% {
-    -webkit-transform: translate3d(-10px, 0, 0);
-    transform: translate3d(-10px, 0, 0);
-  }
-  90% {
-    -webkit-transform: translate3d(5px, 0, 0);
-    transform: translate3d(5px, 0, 0);
-  }
-  100% {
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-@keyframes bounceInLeft {
-  0%,
-  60%,
-  75%,
-  90%,
-  100% {
-    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(-3000px, 0, 0);
-    transform: translate3d(-3000px, 0, 0);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translate3d(25px, 0, 0);
-    transform: translate3d(25px, 0, 0);
-  }
-  75% {
-    -webkit-transform: translate3d(-10px, 0, 0);
-    transform: translate3d(-10px, 0, 0);
-  }
-  90% {
-    -webkit-transform: translate3d(5px, 0, 0);
-    transform: translate3d(5px, 0, 0);
-  }
-  100% {
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-.bounceInLeft {
-  -webkit-animation-name: bounceInLeft;
-  animation-name: bounceInLeft;
-}
 
-@-webkit-keyframes bounceInRight {
-  0%,
-  60%,
-  75%,
-  90%,
-  100% {
-    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(3000px, 0, 0);
-    transform: translate3d(3000px, 0, 0);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translate3d(-25px, 0, 0);
-    transform: translate3d(-25px, 0, 0);
-  }
-  75% {
-    -webkit-transform: translate3d(10px, 0, 0);
-    transform: translate3d(10px, 0, 0);
-  }
-  90% {
-    -webkit-transform: translate3d(-5px, 0, 0);
-    transform: translate3d(-5px, 0, 0);
-  }
-  100% {
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-@keyframes bounceInRight {
-  0%,
-  60%,
-  75%,
-  90%,
-  100% {
-    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(3000px, 0, 0);
-    transform: translate3d(3000px, 0, 0);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translate3d(-25px, 0, 0);
-    transform: translate3d(-25px, 0, 0);
-  }
-  75% {
-    -webkit-transform: translate3d(10px, 0, 0);
-    transform: translate3d(10px, 0, 0);
-  }
-  90% {
-    -webkit-transform: translate3d(-5px, 0, 0);
-    transform: translate3d(-5px, 0, 0);
-  }
-  100% {
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none;
-  }
-}
-.bounceInRight {
-  -webkit-animation-name: bounceInRight;
-  animation-name: bounceInRight;
-}
 .map-item {
   width: 100%;
   height: 100%;
 }
 .top-item {
   height: 100%;
-  flex: 1;
+  width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
+  float: left;
+  height: 110px;
+  overflow: hidden;
 }
 .echart-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 220px;
   display: flex;
   justify-content: space-between;
   z-index: 11;
+}
+#swiper {
+  position: absolute;
+  left: 340px;
+  bottom: 40px;
+  color: #fff;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  color: #a5a5a5;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #afafaf;
+}
+.top-left {
+  float: left;
+  width: 40%;
+}
+.top-right {
+  width: 40%;
+  float: left;
+}
+.top-item.middle {
+  width: 60%;
+}
+.border-top {
+  border-top: 1px solid #a5a5a5;
+  position: absolute;
+  left: 20px;
+  top: 130px;
+  right: 20px;
+}
+.border-bottom {
+  border-bottom: 1px solid #a5a5a5;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  right: 20px;
+  -webkit-animation: fadeInUp 2s ease 0s 1 both;
+}
+.border-top,
+.border-bottom {
+  height: 5px;
+  border-left: 1px solid #a5a5a5;
+  border-right: 1px solid #a5a5a5;
+}
+.top-left,
+.top-right {
+  padding-top: 0px;
+  padding-bottom: 10px;
+  background: #1c2525;
+}
+
+.top-left,
+.top-right {
+  position: relative;
+}
+.top-left::before,
+.top-right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: #1c2525;
+}
+
+.top-left::after,
+.top-right::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: #1c2525;
+}
+.top-left::before,
+.top-left::after {
+  background: linear-gradient(190deg, #2da9ff, #060c21, #2da9ff);
+}
+.top-right::before,
+.top-right::after {
+  background: linear-gradient(-190deg, #2da9ff, #060c21, #2da9ff);
+}
+.top-left::before,
+.top-left::after {
+  left: 0;
+}
+.top-right::before,
+.top-right::after {
+  right: 0;
+}
+.top-right {
+  border-bottom-left-radius: 30px;
+}
+.top-left {
+  border-bottom-right-radius: 30px;
+}
+#swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 20px;
+}
+.swiper-slide p {
+  padding: 0;
+  margin: 0;
+}
+.switch-map {
+  position: absolute;
+  right: 360px;
+  top: 150px;
+  color: #a5a5a5;
+}
+.switch-map i {
+  display: block;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #a5a5a5;
+}
+.switch-map > div {
+  float: left;
+}
+.switch-map div + div {
+  margin-left: 10px;
+}
+.switch-map > div.current i {
+  color: #2da9ff;
+  border: 1px solid #2da9ff;
 }
 </style>

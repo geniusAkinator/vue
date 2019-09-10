@@ -359,6 +359,7 @@ body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
+
 .form-map-picker input[readonly="readonly"] {
   background: #f5f7fa;
   border-color: #e4e7ed;

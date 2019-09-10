@@ -20,6 +20,7 @@ import 'quill/dist/quill.bubble.css'
 import axios from "axios"
 import vueJsonp from 'vue-jsonp'
 import '@/assets/css/iconfont.css'
+import "@/assets/css/animate.css"
 
 require('@/mock/mock')
 require('moment')

@@ -1,12 +1,19 @@
 <template>
-  <div :id="id" style="width:100%;height:100%"></div>
+  <div>
+    <div :id="id" class="chart"></div>
+    <span class="others">未接入:200</span>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      myCharts: {}
+      myCharts: {},
+      angle: {
+        startAngle: 225, //开始角度
+        endAngle: -45 //结束角度
+      }
     };
   },
   props: {
@@ -19,128 +26,61 @@ export default {
   },
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
-    var highlight = "#03b7c9";
-    var demoData = {
-      name: "电压",
-      value: 220,
-      unit: "V",
-      range: [0, 400]
-    };
     let option = {
       backgroundColor: "rgba(0,0,0,0)",
+      grid: {
+        top: 10
+      },
       series: [
         {
           type: "gauge",
-          center: ["50%", "50%"],
-          radius: "60%",
-          splitNumber: demoData.splitNum || 10,
-          min: demoData.range[0],
-          max: demoData.range[1],
-          startAngle: 225,
-          endAngle: -45,
-          axisLine: {
-            show: true,
-            lineStyle: {
-              width: 2,
-              shadowBlur: 0,
-              color: [[1, highlight]]
-            }
-          },
+          startAngle: this.angle.startAngle,
+          endAngle: this.angle.endAngle,
+          radius: "100%",
+          center: ["50%", "55%"],
           axisTick: {
-            show: true,
-            lineStyle: {
-              color: highlight,
-              width: 1
-            },
-            length: -5,
-            splitNumber: 10
+            show: false
           },
           splitLine: {
-            show: true,
-            length: -14,
-            lineStyle: {
-              color: highlight
-            }
+            show: false
           },
           axisLabel: {
-            distance: -20,
+            //0-100数字样式
+            show: false
+          },
+          detail: {
+            offsetCenter: [0, 15], //文字
             textStyle: {
-              color: highlight,
-              fontSize: "14",
-              fontWeight: "bold"
+              fontSize: 18,
+              fontWeight: "",
+              color: "#ffffff"
             }
           },
           pointer: {
-            show: 0
-          },
-          detail: {
-            show: 0
-          }
-        },
-
-        // 内侧指针、数值显示
-        {
-          name: demoData.name,
-          type: "gauge",
-          center: ["50%", "50%"],
-          radius: "55%",
-          startAngle: 225,
-          endAngle: -45,
-          min: demoData.range[0],
-          max: demoData.range[1],
-          axisLine: {
-            show: true,
-            lineStyle: {
-              width: 16,
-              color: [[1, "rgba(255,255,255,.1)"]]
-            }
-          },
-          axisTick: {
-            show: 0
-          },
-          splitLine: {
-            show: 0
-          },
-          axisLabel: {
-            show: 0
-          },
-          pointer: {
-            show: true,
-            length: "105%"
-          },
-          detail: {
-            show: true,
-            offsetCenter: [0, "100%"],
-            textStyle: {
-              fontSize: 16,
-              color: "#fff"
-            },
-            formatter: [
-              "{value} " + (demoData.unit || ""),
-              "{name|" + demoData.name + "}"
-            ].join("\n"),
-            rich: {
-              name: {
-                fontSize: 14,
-                lineHeight: 30,
-                color: "#ddd"
-              }
-            }
+            show: false
           },
           itemStyle: {
             normal: {
-              color: highlight
+              color: "#ffffff"
+            }
+          },
+          min: 0,
+          max: 100,
+          axisLine: {
+            lineStyle: {
+              width: 10, //宽度
+              color: [[0.8, "#2da9ff"], [1, "#4f6576"]]
             }
           },
           data: [
             {
-              value: demoData.value
+              name: "111",
+              value: 600
             }
           ]
         }
       ]
     };
-
     this.myCharts.setOption(option);
     window.addEventListener("resize", this.resizeChart);
   }
@@ -148,4 +88,21 @@ export default {
 </script>
 
 <style>
+.others {
+  border: 1px solid #a2adb3;
+  border-radius: 20px;
+  color: #a2adb3;
+  font-size: 12px;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 3px;
+  padding: 2px;
+}
+.chart {
+  width: 80px;
+  height: 80px;
+  display: block;
+  margin: auto;
+}
 </style>

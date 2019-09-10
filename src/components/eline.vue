@@ -20,25 +20,38 @@ export default {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
       grid: {
-        x: 10,
-        y: 10,
-        x2: 10,
-        y2: 25,
-        borderWidth: 1
+        x: 0,
+        y: 60,
+        x2: 0,
+        y2: 2,
       },
       xAxis: {
         type: "category",
-        boundaryGap: false,
-        data: ["日", "一", "二", "三", "四", "五", "六"]
+        show: false
       },
       yAxis: {
         show: false
       },
       series: [
         {
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: [
+            820,
+            932,
+            901,
+            934,
+            1290,
+            1330,
+            1320,
+            820,
+            932,
+            901,
+            934,
+            1290,
+            1330,
+            1320
+          ],
           type: "line",
-          smooth:false,
+          smooth: true,
           areaStyle: {}
         }
       ]

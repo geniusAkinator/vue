@@ -100,8 +100,6 @@ export default {
 .tab-more i {
   margin-left: 0;
 }
-.my-tab {
-}
 .el-tabs.el-tabs--card.el-tabs--top {
   padding-right: 40px;
 }

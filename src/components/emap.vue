@@ -82,8 +82,8 @@ export default {
             areaColor: "#a5a5a5"
           }
         },
-        bottom:"0",
-        top:"200px"
+        bottom:"40px",
+        top:"140px"
       },
       series: [
         {

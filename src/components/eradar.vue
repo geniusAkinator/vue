@@ -53,16 +53,12 @@ export default {
         nameGap: "2",
         indicator: [
           {
-            //[4300, 10000, 28000, 35000, 50000, 19000, 21000]
             name: "资金周转",
             max: 6500
           },
           { name: "其他", max: 16000 },
           { name: "金融理财", max: 30000 },
           { name: "投资", max: 38000 },
-          { name: "个人消费", max: 52000 },
-          { name: "固定资产", max: 25000 },
-          { name: "生产经营", max: 25000 }
         ],
         splitArea: {
           areaStyle: {
