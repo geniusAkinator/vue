@@ -134,7 +134,8 @@ export default {
   display: block;
   text-align: center;
   font-size: 30px;
-  background: rgba(0, 0, 0, 0)
+  background: rgba(0, 0, 0, 0);
+  text-shadow: 1px 1px 5px #369;
 }
 .clock-container{
   padding: 10px 0;

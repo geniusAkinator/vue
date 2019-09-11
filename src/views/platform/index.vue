@@ -119,7 +119,7 @@ export default {
           des: "afdafdsafdafds"
         }
       ],
-      isMap: false
+      isMap: true
     };
   },
   methods: {},
