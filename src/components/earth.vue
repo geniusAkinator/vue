@@ -132,9 +132,9 @@ export default {
         shading: "color",
         viewControl: {
           distance: 240,
-          autoRotate: false,
-          targetCoord: [116.46, 39.92],
-          minDistance:140
+          autoRotate: true,
+          minDistance:140,
+          animationEasingUpdate:"cubicInOut"
         },
       },
       series: [
@@ -158,9 +158,19 @@ export default {
     this.myCharts.setOption(option, true);
     window.addEventListener("resize", this.resizeChart);
 
-    this.myChart.on('click',function(e){
+    let _this = this;
+    _this.myChart.on('click',function(e){
       if(e.name=="中国"){
-
+        console.log("放大")
+        _this.myCharts.setOption({
+          globe: {
+            viewControl: {
+              distance:140,
+              targetCoord: [103.042657,33.772317],
+              autoRotate: false,
+            }
+          }
+        })
       }
     })
   },

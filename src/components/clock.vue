@@ -3,7 +3,7 @@
     <div class="nowDate">{{nowDate}}</div>
     <div class="wraps">
       <div class="column" :style="{transform:hourTensTransform}">
-        <div v-for="index of 6" :key="index">{{index-1}}</div>
+        <div v-for="index of 3" :key="index">{{index-1}}</div>
       </div>
       <div class="column" :style="{transform:hourUnitsTransform}">
         <div v-for="index of 10" :key="index">{{index-1}}</div>

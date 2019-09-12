@@ -27,6 +27,15 @@ export default {
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
+      title: {
+        y:"30%",
+        text: "接入主数站",
+        textStyle: {
+          fontWeight: "normal",
+          fontSize: 12,
+          color: "#fff"
+        }
+      },
       backgroundColor: "rgba(0,0,0,0)",
       grid: {
         top: 10
@@ -74,7 +83,6 @@ export default {
           },
           data: [
             {
-              name: "111",
               value: 600
             }
           ]
@@ -86,7 +94,7 @@ export default {
   },
   beforeDestroy() {
     this.myCharts.clear();
-  }    
+  }
 };
 </script>
 
