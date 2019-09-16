@@ -28,7 +28,9 @@
         <div class="top-item middle">
           <my-echart-line :id="lchart"></my-echart-line>
         </div>
-        <div class="top-item"></div>
+        <div class="top-item">
+          <my-echart-radar :id="radarChart"></my-echart-radar>
+        </div>
       </div>
     </div>
     <div class="ehart-map-container">
@@ -54,7 +56,7 @@
         <my-echart-pie :id="pieChart"></my-echart-pie>
       </div>
       <div class="platform-box middle">
-        <my-echart-radar :id="radarChart"></my-echart-radar>
+        <my-echart-rose :id="roseChart"></my-echart-rose>
       </div>
       <div class="platform-box">
         <my-echart-line :id="lineChart"></my-echart-line>
@@ -91,6 +93,7 @@ import MyClock from "@/components/clock";
 import MyEchartRadar from "@/components/eradar";
 import MyEchartBar from "@/components/ebar";
 import MyHorizontalEchartBar from "@/components/ehbar";
+import MyEchartRose from "@/components/erose";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.css";
 export default {
@@ -109,6 +112,7 @@ export default {
       hbar: "hbar",
       sline: "sline",
       lchart: "chart",
+      roseChart:"roseChart",
       swiper: [
         {
           title: "dsfasf",
@@ -143,6 +147,7 @@ export default {
     MyEchartRadar,
     MyEchartBar,
     MyHorizontalEchartBar,
+    MyEchartRose,
     MyClock
   }
 };

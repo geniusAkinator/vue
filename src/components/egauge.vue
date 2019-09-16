@@ -29,10 +29,11 @@ export default {
     let option = {
       title: {
         y:"30%",
+        x:"14%",
         text: "接入主数站",
         textStyle: {
           fontWeight: "normal",
-          fontSize: 12,
+          fontSize: 10,
           color: "#fff"
         }
       },

@@ -19,48 +19,17 @@ export default {
   mounted() {
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
-      title: {
-        text: "标题标题标题",
-        show:true,
-        x: "10px",
-        y: "10px",
-        textStyle: {
-          //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
-          fontFamily: "Arial, Verdana, sans...",
-          fontSize: 14,
-          fontStyle: "normal",
-          fontWeight: "normal",
-          color: "#8b969c"
-        }
-      },
       backgroundColor: "rgba(0,0,0,0)",
       color: ["#3D91F7", "#61BE67"],
-      tooltip: {},
-      legend: {
-        show: true,
-        icon: "circle",
-        bottom: 30,
-        center: 0,
-        itemWidth: 14,
-        itemHeight: 14,
-        itemGap: 21,
-        orient: "horizontal",
-        data: ["a", "b"],
-        textStyle: {
-          fontSize: "70%",
-          color: "#8C8C8C"
-        }
-      },
       radar: {
-        // shape: 'circle',
-        radius: "80%",
+        radius: "70%",
         triggerEvent: true,
         name: {
           textStyle: {
             color: "#fff",
             fontSize: "12",
             borderRadius: 3,
-            padding: [3, 5]
+            padding: [0, 0]
           }
         },
         nameGap: "2",
@@ -85,11 +54,7 @@ export default {
             ].reverse()
           }
         },
-        // axisLabel:{//展示刻度
-        //     show: true
-        // },
         axisLine: {
-          //指向外圈文本的分隔线样式
           lineStyle: {
             color: "rgba(0,0,0,0)"
           }
@@ -113,7 +78,6 @@ export default {
         {
           name: "一级权重分析",
           type: "radar",
-          //areaStyle: {normal: {}},
           areaStyle: {
             normal: {
               color: "rgba(252,211,3, 0.3)"
