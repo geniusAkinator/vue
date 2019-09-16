@@ -1,11 +1,13 @@
 <template>
   <div class="myUpload">
-    <div class="pre-img" v-for="(item,index) in fileUrl" :key="index">
-      <el-image style="width:100%; height:100%" :src="item" :fit="fit"></el-image>
-      <div class="cover">
-        <i class="el-icon-zoom-in"></i>
-        <i class="el-icon-download"></i>
-        <i class="el-icon-delete" @click="handleDelete(index)"></i>
+    <div class="images" v-viewer="{movable: false,navbar: false,}">
+      <div class="pre-img" v-for="(item,index) in fileUrl" :key="item">
+        <el-image style="width:100%; height:100%" :src="item" :fit="fit" :key="item"></el-image>
+        <div class="cover">
+          <i class="el-icon-zoom-in" @click="handleShow"></i>
+          <i class="el-icon-download"></i>
+          <i class="el-icon-delete" @click="handleDelete(index)"></i>
+        </div>
       </div>
     </div>
     <div class="upload-btn" @click="handleUpload">
@@ -26,7 +28,7 @@ export default {
   data() {
     return {
       fileUrl: [],
-      fit: "cover"
+      fit: "cover",
     };
   },
   methods: {
@@ -47,6 +49,10 @@ export default {
         });
         reader.readAsDataURL(files[i]);
       }
+    },
+    handleShow() {
+      const viewer = this.$el.querySelector(".images").$viewer;
+      viewer.show();
     }
   }
 };
