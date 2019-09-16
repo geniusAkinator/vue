@@ -11,7 +11,14 @@
     <div class="upload-btn" @click="handleUpload">
       <i class="el-icon-plus"></i>
     </div>
-    <input type="file" ref="file" hidden @change="uploadFile" multiple />
+    <input
+      type="file"
+      ref="file"
+      hidden
+      @change="uploadFile"
+      multiple
+      accept="image/png, image/jpeg, image/gif, image/jpg"
+    />
   </div>
 </template>
 <script>
