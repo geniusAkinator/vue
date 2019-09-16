@@ -243,7 +243,7 @@
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="平台LOGO">
-            <el-input v-model="platformForm.logo" :readonly="true"></el-input>
+            <el-input class="readonly" v-model="platformForm.logo" :readonly="true"></el-input>
             <my-upload></my-upload>
             <span class="help-block"></span>
           </el-form-item>
@@ -388,5 +388,10 @@ export default {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
+}
+.readonly>input{
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
 }
 </style>

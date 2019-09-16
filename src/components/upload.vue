@@ -40,7 +40,6 @@ export default {
     },
     uploadFile() {
       let files = this.$refs.file.files;
-      console.log(files);
       if (files.length == 0) {
         this.$message.error("上传文件不能大于5M");
         return;
