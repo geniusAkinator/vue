@@ -174,7 +174,9 @@ export default {
       }
     })
   },
-  beforeDestroy() {}
+  beforeDestroy() {
+     this.myCharts.clear();
+  }
 };
 </script>
 <style scoped>

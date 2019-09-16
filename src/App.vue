@@ -425,4 +425,5 @@ body {
 .el-input+.myUpload{
   margin-top: 10px;
 }
+
 </style>

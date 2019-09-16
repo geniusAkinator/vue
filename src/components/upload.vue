@@ -1,10 +1,10 @@
 <template>
   <div class="myUpload">
     <div class="images" v-viewer="{movable: false,navbar: false,}">
-      <div class="pre-img" v-for="(item,index) in fileUrl" :key="item">
-        <el-image style="width:100%; height:100%" :src="item" :fit="fit" :key="item"></el-image>
+      <div class="pre-img" v-for="(item,index) in fileUrl" :key="index">
+        <el-image style="width:100%; height:100%" :src="item.url" :fit="fit"></el-image>
         <div class="cover">
-          <i class="el-icon-zoom-in" @click="handleShow"></i>
+          <i class="el-icon-zoom-in" @click="handleShow(index)"></i>
           <i class="el-icon-download"></i>
           <i class="el-icon-delete" @click="handleDelete(index)"></i>
         </div>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       fileUrl: [],
-      fit: "cover",
+      fit: "cover"
     };
   },
   methods: {
@@ -39,20 +39,31 @@ export default {
       this.fileUrl.splice(index);
     },
     uploadFile() {
-      console.log(this.$refs.file.files);
       let files = this.$refs.file.files;
+      console.log(files);
+      if (files.length == 0) {
+        this.$message.error("上传文件不能大于5M");
+        return;
+      }
       for (let i = 0; i < files.length; i++) {
+        if (files[i].size > 5 * 1024 * 1024) {
+          this.$message.error("上传文件不能大于5M");
+          return;
+        }
         let reader = new FileReader();
         reader.addEventListener("load", () => {
-          console.log(reader.result);
-          this.fileUrl.push(reader.result);
+          let item = {};
+          item.url = reader.result;
+          item.title = files[i].name;
+          this.fileUrl.push(item);
         });
         reader.readAsDataURL(files[i]);
       }
     },
-    handleShow() {
+    handleShow(index) {
       const viewer = this.$el.querySelector(".images").$viewer;
       viewer.show();
+      viewer.view(index);
     }
   }
 };

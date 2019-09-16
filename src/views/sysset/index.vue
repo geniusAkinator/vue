@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="padding-bottom: 60px;">
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="sysset-tab">
       <el-tab-pane label="功能入口" name="first">
         <ul>
@@ -388,8 +388,5 @@ export default {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
-}
-.el-tab-pane{
-  padding-bottom: 20px;
 }
 </style>
