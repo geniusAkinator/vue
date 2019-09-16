@@ -40,4 +40,7 @@ export default {
 .update {
   margin-top: 20px;
 }
+.el-button+.el-button{
+  margin-left: 0
+}
 </style>

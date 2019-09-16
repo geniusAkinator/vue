@@ -365,6 +365,11 @@ body {
   border-color: #e4e7ed;
   color: #c0c4cc;
 }
+input[readonly="readonly"] {
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
+}
 .el-tabs .el-tabs__nav-prev {
   border-right: 1px solid #e6e6e6;
   background: #fff;
@@ -420,5 +425,8 @@ body {
 .el-menu--horizontal>.el-menu-item{
   height: 58px;
   border: 0 !important
+}
+.el-input+.myUpload{
+  margin-top: 10px;
 }
 </style>

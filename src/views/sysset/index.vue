@@ -243,7 +243,8 @@
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="平台LOGO">
-            <el-input v-model="platformForm.logo"></el-input>
+            <el-input v-model="platformForm.logo" :readonly="true"></el-input>
+            <my-upload></my-upload>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="版权信息">
@@ -279,6 +280,7 @@
 </template>
 
 <script>
+import MyUpload from "@/components/upload";
 export default {
   data() {
     return {
@@ -352,7 +354,10 @@ export default {
   },
   methods: {
     handleClick() {},
-    handleGenerate(){}
+    handleGenerate() {}
+  },
+  components: {
+    MyUpload
   }
 };
 </script>
@@ -383,5 +388,8 @@ export default {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
+}
+.el-tab-pane{
+  padding-bottom: 20px;
 }
 </style>
