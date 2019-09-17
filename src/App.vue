@@ -184,6 +184,7 @@ body {
   display: flex;
   justify-content: flex-end;
   border-top: 1px solid #eee;
+  z-index: 99;
 }
 .add-footer .el-button + .el-button {
   margin-left: 10px;
