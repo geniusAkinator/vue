@@ -4,19 +4,19 @@
       <el-form-item label="工厂名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="工厂类型">
-        <el-select v-model="form.region" placeholder="请选择工厂类型">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
+      <el-form-item label="工厂类型" prop="type">
+        <el-select v-model="form.type" placeholder="请选择工厂类型">
+          <el-option label="类型1" value="1"></el-option>
+          <el-option label="类型2" value="2"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="省/市/区">
+      <el-form-item label="省/市/区" prop="province">
         <el-cascader v-model="form.province" :options="options" @change="handleChange"></el-cascader>
       </el-form-item>
-      <el-form-item label="工厂地址">
+      <el-form-item label="工厂地址" prop="address">
         <el-input v-model="form.address"></el-input>
       </el-form-item>
-      <el-form-item label="经纬度">
+      <el-form-item label="经纬度" prop="pos">
         <el-row class="form-map-picker">
           <el-col :span="6">
             <el-input
@@ -55,7 +55,8 @@
         <el-input v-model="form.tel"></el-input>
       </el-form-item>
       <el-form-item label="工厂图片">
-        <el-input v-model="form.name"></el-input>
+        <el-input class="readonly" v-model="form.img" :readonly="true"></el-input>
+        <my-upload :limited="limited"></my-upload>
       </el-form-item>
       <el-form-item label="工厂负责人">
         <el-input v-model="form.charger"></el-input>
@@ -67,14 +68,14 @@
         <el-input v-model="form.tel"></el-input>
       </el-form-item>
       <el-form-item label="公司简介">
-        <quill-editor
+        <!-- <quill-editor
           v-model="form.content"
           ref="myQuillEditor"
           :options="editorOption"
           @blur="onEditorBlur($event)"
           @focus="onEditorFocus($event)"
           @change="onEditorChange($event)"
-        ></quill-editor>
+        ></quill-editor> -->
       </el-form-item>
 
       <div class="add-footer">
@@ -87,13 +88,27 @@
 
 <script>
 import MyMapPicker from "@/components/mappicker";
+import MyUpload from "@/components/upload";
 export default {
   data() {
+    var validatePos = (rule, value, callback) => {
+      if (this.form.lat === "" || this.form.lat === "") {
+        callback(new Error("请选择经纬度"));
+      } else {
+        callback();
+      }
+    };
     return {
+      limited:1,
       form: {
+        name: "",
+        type: "0",
+        address: "",
         lat: "",
         lng: "",
-        province: ""
+        province: "",
+        tel: "",
+        img: ""
       },
       options: [
         {
@@ -120,7 +135,15 @@ export default {
       editorOption: config.editorOption,
       isShow: false,
       rules: {
-        name: [{ required: true, message: "请输入工厂名称", trigger: "blur" }]
+        name: [{ required: true, message: "请输入工厂名称", trigger: "blur" }],
+        pos: [{ required: true, validator: validatePos, trigger: "change" }],
+        type: [
+          { required: true, message: "请选择工厂类型", trigger: "change" }
+        ],
+        province: [
+          { required: true, message: "请选择省市区", trigger: "change" }
+        ],
+        address: [{ required: true, message: "请输入地址", trigger: "blur" }]
       }
     };
   },
@@ -151,10 +174,16 @@ export default {
     handleChange() {}
   },
   components: {
-    MyMapPicker
+    MyMapPicker,
+    MyUpload
   }
 };
 </script>
 
 <style>
+.readonly > input {
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
+}
 </style>

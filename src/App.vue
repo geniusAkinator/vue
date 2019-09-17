@@ -426,12 +426,16 @@ body {
 .el-input+.myUpload{
   margin-top: 10px;
 }
-.el-form-item.is-error.is-required input{
-  border-color: #ff5722 !important;
+.el-form-item.is-error.is-required .el-input>input{
+  border-color: #ff5722;
   background: #ffe6dd
 }
+.map-picker .el-autocomplete input{
+  border: 1px solid #DCDFE6 !important;
+  background-color:#fff !important
+}
 input:focus,textarea:focus{
-   border-color: #1e9fff !important;
+   border-color: #1e9fff;
   background: #e8f0f8
 }
 .el-input-group__prepend{

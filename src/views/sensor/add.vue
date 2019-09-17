@@ -20,7 +20,7 @@
       <el-form-item label="设备类型" prop="type">
         <el-input v-model="form.type"></el-input>
       </el-form-item>
-      <el-form-item label="经纬度">
+      <el-form-item label="经纬度" prop="pos">
         <el-row class="form-map-picker">
           <el-col :span="6">
             <el-input
@@ -69,6 +69,13 @@
 import MyMapPicker from "@/components/mappicker";
 export default {
   data() {
+    var validatePos = (rule, value, callback) => {
+      if (this.form.lat === "" || this.form.lat === "") {
+        callback(new Error("请选择经纬度"));
+      } else {
+        callback();
+      }
+    };
     return {
       form: {
         id: "",
@@ -86,8 +93,13 @@ export default {
         number: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
         ],
-        main: [{ required: true, message: "请选择所属主体", trigger: "change" }],
-        type:[{ required: true, message: "请选择设备类型", trigger: "change" }]
+        main: [
+          { required: true, message: "请选择所属主体", trigger: "change" }
+        ],
+        type: [
+          { required: true, message: "请选择设备类型", trigger: "change" }
+        ],
+        pos: [{ required: true, validator: validatePos, trigger: "change" }]
       }
     };
   },

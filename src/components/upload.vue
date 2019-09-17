@@ -1,6 +1,6 @@
 <template>
   <div class="myUpload">
-    <div class="images" v-viewer="{movable: false,navbar: false,}">
+    <div class="images" v-viewer="{navbar: false,keyboard:false}">
       <div class="pre-img" v-for="(item,index) in fileUrl" :key="index">
         <el-image style="width:100%; height:100%" :src="item.url" :fit="fit"></el-image>
         <div class="cover">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="upload-btn" @click="handleUpload">
+    <div class="upload-btn" @click="handleUpload" v-if="this.limited>this.fileUrl.length">
       <i class="el-icon-plus"></i>
     </div>
     <input
@@ -18,7 +18,7 @@
       ref="file"
       hidden
       @change="uploadFile"
-      multiple
+      :multiple="this.limited>1?true:false"
       accept="image/png, image/jpeg, image/gif, image/jpg"
     />
   </div>
@@ -31,21 +31,29 @@ export default {
       fit: "cover"
     };
   },
+  props: {
+    limited: {
+      type: Number,
+      default: 9
+    }
+  },
   methods: {
     handleUpload() {
       this.$refs.file.click();
     },
     handleDelete(index) {
-      this.fileUrl.splice(index);
+      this.fileUrl.splice(index, 1);
     },
     uploadFile() {
       let files = this.$refs.file.files;
       if (files.length == 0) {
+        //非空
         this.$message.error("上传文件不能大于5M");
         return;
       }
       for (let i = 0; i < files.length; i++) {
         if (files[i].size > 5 * 1024 * 1024) {
+          //上传文件大小限制
           this.$message.error("上传文件不能大于5M");
           return;
         }
@@ -54,6 +62,10 @@ export default {
           let item = {};
           item.url = reader.result;
           item.title = files[i].name;
+          if (this.fileUrl.length > this.limited - 1) {
+            this.$message.error("上传文件不能超过九个")
+            return;
+          }
           this.fileUrl.push(item);
         });
         reader.readAsDataURL(files[i]);
