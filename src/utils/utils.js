@@ -11,7 +11,7 @@ const Utils = {
             }, delay);
         };
     },
-    Throttle(fn, t) { //函数节流
+    throttle(fn, t) { //函数节流
         let last;
         let timer;
         let interval = t || 500;
