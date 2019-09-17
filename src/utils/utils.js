@@ -37,6 +37,20 @@ const Utils = {
             url += '&' + k + '=' + encodeURIComponent(value)
         }
         return url ? url.substring(1) : ''
+    },
+    closest(el, selector) {      //查找祖先元素
+        var matchesSelector =
+            el.matches ||
+            el.webkitMatchesSelector ||
+            el.mozMatchesSelector ||
+            el.msMatchesSelector;
+        while (el) {
+            if (matchesSelector.call(el, selector)) {
+                break;
+            }
+            el = el.parentElement;
+        }
+        return el;
     }
 }
 export default Utils

@@ -1,6 +1,16 @@
 <!-- 自定义导航栏 -->
 <template>
-  <div class="my-tab">
+  <div class="my-tab" ref="myTab">
+    <dl
+      class="rightMenu"
+      v-clickoutside="closeRightMenu"
+      v-show="isRightMenu"
+      ref="rMenu"
+      :style="{top:this.nowY,left:this.nowX}"
+    >
+      <dd @click="rightMenuCloseNowTab">关闭当前</dd>
+      <dd @click="rightMenuCloseAllTab">关闭全部</dd>
+    </dl>
     <el-tabs v-model="nowTabIndex" type="card" @tab-remove="removeTab" @tab-click="clickTab">
       <el-tab-pane
         v-for="(item,index) in tabList"
@@ -8,6 +18,7 @@
         :label="item.title"
         :closable="item.close"
         :name="item.name"
+        class="tab-item"
       >
         <span slot="label">
           <i class="el-icon-data-analysis" v-if="index==0"></i>
@@ -29,10 +40,15 @@
   </div>
 </template>
 <script>
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
-      nowTabIndex: this.$store.state.home.tabIndex
+      nowTabIndex: this.$store.state.home.tabIndex,
+      isRightMenu: false,
+      nowX: 0,
+      nowY: 0,
+      rightChooseIndex: 0
     };
   },
   props: {
@@ -45,6 +61,7 @@ export default {
       this.nowTabIndex = newVal;
     }
   },
+
   methods: {
     removeTab(targetName) {
       this.$store.dispatch("home/removeTab", targetName);
@@ -62,13 +79,58 @@ export default {
       } else if (command == "closeAll") {
         this.$store.dispatch("home/closeAllTabs");
       }
+    },
+    rightMenu() {
+      let tab = this.$refs.myTab;
+      let tabList = document.querySelector(".el-tabs__nav.is-top");
+      tab.addEventListener("contextmenu", e => {
+        e.preventDefault();
+        if (tabList.contains(e.target)) {
+          let left = tab.getBoundingClientRect().left;
+          let top = tab.getBoundingClientRect().top;
+          let x = e.clientX;
+          let y = e.clientY;
+          this.nowX = x - left + "px";
+          this.nowY = y - top + "px";
+          let nNode = utils.closest(e.target, ".el-tabs__item.is-top");
+          let aNode = document.querySelectorAll(".el-tabs__item");
+          aNode.forEach((currentValue, index, arr) => {
+            if (currentValue == nNode) {
+              this.rightChooseIndex = index + 1;
+            }
+          });
+          this.showRightMenu();
+        }
+      });
+    },
+    showRightMenu() {
+      this.isRightMenu = true;
+    },
+    closeRightMenu() {
+      this.isRightMenu = false;
+    },
+    rightMenuCloseNowTab() {
+      this.$store.dispatch("home/removeTab", this.rightChooseIndex);
+      this.closeRightMenu();
+    },
+    rightMenuCloseAllTab() {
+      this.$store.dispatch("home/closeAllTabs");
+      this.closeRightMenu();
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.rightMenu();
+    });
   },
   inject: ["reload"]
 };
 </script>
 
 <style scoped>
+.my-tab {
+  position: relative;
+}
 .el-tabs__header {
   margin: 0;
 }
@@ -83,7 +145,7 @@ export default {
   cursor: pointer;
   height: 40px;
   position: absolute;
-  top: 60px;
+  top: 0;
   right: 0;
   border-left: 1px solid #e6e6e6;
   z-index: 10;
@@ -109,5 +171,55 @@ export default {
 .el-tabs {
   position: relative;
 }
-
+.rightMenu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  z-index: 99;
+  width: 120px;
+  min-width: 120px;
+  display: block;
+  color: #333 !important;
+  line-height: 36px;
+  padding: 5px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid #d2d2d2;
+  background-color: #fff;
+  z-index: 100;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.rightMenu dd {
+  background: #ffffff;
+  display: block;
+  color: #333 !important;
+  font-size: 14px !important;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.rightMenu dd:hover {
+  background: #efefef;
+}
+.el-tabs__item span {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.el-tabs__item.is-top.is-active.is-closable {
+  outline-color: initial !important;
+}
 </style>
