@@ -59,9 +59,9 @@ export default {
   watch: {
     currentIndex: function(newVal, oldVal) {
       this.nowTabIndex = newVal;
+      this.hideRightMenu();
     }
   },
-
   methods: {
     removeTab(targetName) {
       this.$store.dispatch("home/removeTab", targetName);
