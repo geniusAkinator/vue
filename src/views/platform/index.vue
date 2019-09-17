@@ -62,7 +62,6 @@
         <my-echart-line :id="lineChart"></my-echart-line>
       </div>
     </div>
-
     <div class="platform-right">
       <div class="platform-box middle">
         <my-echart-bar :id="barChart"></my-echart-bar>
@@ -80,6 +79,9 @@
         <i class="iconfont icon-diqiu"></i>
       </div>
     </div>
+    <div class="my-theme" v-drag>
+      <my-echart-theme></my-echart-theme>
+    </div>
   </div>
 </template>
 
@@ -95,6 +97,7 @@ import MyEchartBar from "@/components/ebar";
 import MyHorizontalEchartBar from "@/components/ehbar";
 import MyEchartRose from "@/components/erose";
 import Swiper from "swiper";
+import MyEchartTheme from "@/components/etheme";
 import "swiper/dist/css/swiper.css";
 export default {
   data() {
@@ -112,7 +115,7 @@ export default {
       hbar: "hbar",
       sline: "sline",
       lchart: "chart",
-      roseChart:"roseChart",
+      roseChart: "roseChart",
       swiper: [
         {
           title: "dsfasf",
@@ -148,7 +151,8 @@ export default {
     MyEchartBar,
     MyHorizontalEchartBar,
     MyEchartRose,
-    MyClock
+    MyClock,
+    MyEchartTheme
   }
 };
 </script>
@@ -370,5 +374,18 @@ export default {
 .switch-map > div.current i {
   color: #2da9ff;
   border: 1px solid #2da9ff;
+}
+.my-theme {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  z-index: 999;
+  cursor: move;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 </style>
