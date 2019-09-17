@@ -108,7 +108,7 @@ export default {
         },
         shade: false,
         area: ["1200px", "600px"],
-        title: "新增角色",
+        title: "新增帮助",
         target: ".el-main"
       });
       this.$layer.full(index);

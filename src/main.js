@@ -21,8 +21,9 @@ import axios from "axios"
 import vueJsonp from 'vue-jsonp'
 import '@/assets/css/iconfont.css'
 import "@/assets/css/animate.css"
-import "viewerjs/dist/viewer.css";
-import Viewer from "v-viewer";
+import "viewerjs/dist/viewer.css"
+import Viewer from "v-viewer"
+import VueClipboard from 'vue-clipboard2'
 
 require('@/mock/mock')
 require('moment')
@@ -33,7 +34,8 @@ Vue.config.devtools = true;
 Vue.use(ElementUI)  
 Vue.use(VueQuillEditor)
 Vue.use(vueJsonp)
-Vue.use(Viewer);
+Vue.use(Viewer)
+Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.component(CollapseTransition.name, CollapseTransition)
 

@@ -75,7 +75,7 @@
 
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyUserAdd from "@/views/user/add"
+import MyUserAdd from "@/views/user/add";
 export default {
   data() {
     return {
@@ -104,7 +104,7 @@ export default {
     handleEdit() {},
     handleDelete() {},
     handleAdd() {
-        var index = this.$layer.iframe({
+      var index = this.$layer.iframe({
         content: {
           content: MyUserAdd, //传递的组件对象
           parent: this, //当前的vue对象
@@ -112,7 +112,7 @@ export default {
         },
         shade: false,
         area: ["1200px", "600px"],
-        title: "新增角色",
+        title: "新增用户",
         target: ".el-main"
       });
       this.$layer.full(index);

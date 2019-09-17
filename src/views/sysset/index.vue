@@ -2,9 +2,21 @@
   <div class="container" style="padding-bottom: 60px;">
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="sysset-tab">
       <el-tab-pane label="功能入口" name="first">
-        <ul>
-          <li>
-            <a href="http://www.baidu.com">http://www.baidu.com</a>
+        <ul class="url_list">
+          <li v-for="(item,index) in urlList" :key="index">
+            <span class="name">{{item.name}}</span>
+            <a :href="item.url" target="_bank">{{item.url}}</a>
+            <i
+              title="拷贝"
+              class="el-icon-copy-document"
+              v-clipboard:copy="item.url"
+              v-clipboard:success="handleCopySuc"
+              v-clipboard:error="handleCopyErr"
+            ></i>
+            <el-popover trigger="hover">
+              <my-qrcode :url="item.url" :id="`id`+index"></my-qrcode>
+              <i slot="reference" class="el-icon-view"></i>
+            </el-popover>
           </li>
         </ul>
       </el-tab-pane>
@@ -281,9 +293,20 @@
 
 <script>
 import MyUpload from "@/components/upload";
+import MyQrcode from "@/components/qrcode";
 export default {
   data() {
     return {
+      urlList: [
+        {
+          name: "看板入口",
+          url: "http://192.168.1.146:8080/#/Platform"
+        },
+        {
+          name: "桌面",
+          url: "http://192.168.1.146:8080/#/desktop"
+        }
+      ],
       activeName: "first",
       commonForm: {
         limitqty: 0, //限制主体数量
@@ -354,10 +377,15 @@ export default {
   },
   methods: {
     handleClick() {},
-    handleGenerate() {}
+    handleGenerate() {},
+    handleCopySuc() {
+      this.$message({ type: "success", message: "拷贝成功" });
+    },
+    handleCopyErr() {}
   },
   components: {
-    MyUpload
+    MyUpload,
+    MyQrcode
   }
 };
 </script>
@@ -389,9 +417,28 @@ export default {
   border-bottom-left-radius: 0;
   border-left: 0;
 }
-.readonly>input{
+.readonly > input {
   background: #f5f7fa;
   border-color: #e4e7ed;
   color: #c0c4cc;
+}
+.url_list {
+  list-style-type: none;
+}
+.url_list li{
+  margin-top: 10px;
+}
+.url_list i {
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.url_list .name{
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.url_list a{
+  font-size: 18px;
 }
 </style>
