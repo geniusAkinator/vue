@@ -3,7 +3,7 @@
   <div class="my-tab" ref="myTab">
     <dl
       class="rightMenu"
-      v-clickoutside="closeRightMenu"
+      v-clickoutside="hideRightMenu"
       v-show="isRightMenu"
       ref="rMenu"
       :style="{top:this.nowY,left:this.nowX}"
@@ -86,36 +86,40 @@ export default {
       tab.addEventListener("contextmenu", e => {
         e.preventDefault();
         if (tabList.contains(e.target)) {
-          let left = tab.getBoundingClientRect().left;
-          let top = tab.getBoundingClientRect().top;
-          let x = e.clientX;
-          let y = e.clientY;
-          this.nowX = x - left + "px";
-          this.nowY = y - top + "px";
           let nNode = utils.closest(e.target, ".el-tabs__item.is-top");
-          let aNode = document.querySelectorAll(".el-tabs__item");
-          aNode.forEach((currentValue, index, arr) => {
-            if (currentValue == nNode) {
-              this.rightChooseIndex = index + 1;
-            }
-          });
-          this.showRightMenu();
+          if (nNode.getAttribute("id") != "tab-1") {
+            let left = tab.getBoundingClientRect().left;
+            let top = tab.getBoundingClientRect().top;
+            let x = e.clientX;
+            let y = e.clientY;
+            this.nowX = x - left + "px";
+            this.nowY = y - top + "px";
+            let aNode = document.querySelectorAll(".el-tabs__item");
+            aNode.forEach((currentValue, index, arr) => {
+              if (currentValue == nNode) {
+                this.rightChooseIndex = index + 1;
+              }
+            });
+            this.showRightMenu();
+          } else {
+            this.hideRightMenu();
+          }
         }
       });
     },
     showRightMenu() {
       this.isRightMenu = true;
     },
-    closeRightMenu() {
+    hideRightMenu() {
       this.isRightMenu = false;
     },
     rightMenuCloseNowTab() {
       this.$store.dispatch("home/removeTab", this.rightChooseIndex);
-      this.closeRightMenu();
+      this.hideRightMenu();
     },
     rightMenuCloseAllTab() {
       this.$store.dispatch("home/closeAllTabs");
-      this.closeRightMenu();
+      this.hideRightMenu();
     }
   },
   mounted() {
