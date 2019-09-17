@@ -426,5 +426,15 @@ body {
 .el-input+.myUpload{
   margin-top: 10px;
 }
-
+.el-form-item.is-error.is-required input{
+  border-color: #ff5722 !important;
+  background: #ffe6dd
+}
+input:focus,textarea:focus{
+   border-color: #1e9fff !important;
+  background: #e8f0f8
+}
+.el-input-group__prepend{
+  background: #fff
+}
 </style>
