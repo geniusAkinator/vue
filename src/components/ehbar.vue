@@ -5,7 +5,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      option:""
+    };
   },
   props: {
     id: ""
@@ -15,9 +17,21 @@ export default {
       this.myCharts.resize();
     }
   },
+  computed: {
+    colors: function() {
+      return this.$store.getters["theme/nowTheme"];
+    }
+  },
+  watch:{
+    colors(){
+      this.myCharts.clear()
+      this.myCharts.setOption(this.option);
+    }
+  },
   mounted() {
-    this.myCharts = echarts.init(document.getElementById(`${this.id}`));
-    let option = {
+    let _this = this;
+    _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    _this.option = {
       title: {
         text: "标题标题标题",
         show: true,
@@ -103,23 +117,7 @@ export default {
           itemStyle: {
             normal: {
               color: function(params) {
-                var colorList = [
-                  "#C1232B",
-                  "#B5C334",
-                  "#FCCE10",
-                  "#E87C25",
-                  "#27727B",
-                  "#FE8463",
-                  "#9BCA63",
-                  "#FAD860",
-                  "#F3A43B",
-                  "#60C0DD",
-                  "#D7504B",
-                  "#C6E579",
-                  "#F4E001",
-                  "#F0805A",
-                  "#26C0C0"
-                ];
+                var colorList = _this.colors;
                 return colorList[params.dataIndex];
               },
               shadowBlur: 20,
@@ -146,8 +144,8 @@ export default {
         }
       ]
     };
-    this.myCharts.setOption(option);
-    window.addEventListener("resize", this.resizeChart);
+    _this.myCharts.setOption(_this.option);
+    window.addEventListener("resize", _this.resizeChart);
   },
   beforeDestroy() {
     this.myCharts.clear();

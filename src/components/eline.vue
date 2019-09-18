@@ -16,8 +16,15 @@ export default {
       this.myCharts.resize();
     }
   },
+  computed:{
+    colors:function(){
+      return this.$store.getters['theme/nowTheme']
+    }
+  },
   mounted() {
-    this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    let _this = this;
+    _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    let i = 0;
     let option = {
       title: {
         text: "标题标题标题",
@@ -66,7 +73,7 @@ export default {
           ],
           type: "line",
           smooth: true,
-          areaStyle: {}
+          areaStyle: {},
         }
       ]
     };

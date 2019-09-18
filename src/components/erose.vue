@@ -6,11 +6,26 @@
 export default {
   data() {
     return {
-      myCharts: {}
+      myCharts: {},
+      option:{}
     };
   },
   props: {
     id: ""
+  },
+  computed: {
+    colors: function() {
+      return this.$store.getters["theme/nowTheme"];
+    }
+  },
+  watch: {
+    colors(newVal, oldVal) {
+      let _this = this;
+      let opt = _this.option;
+      opt.color = newVal;
+      _this.myCharts.clear();
+      _this.myCharts.setOption(opt);
+    }
   },
   methods: {
     resizeChart() {
@@ -18,8 +33,10 @@ export default {
     }
   },
   mounted() {
-    this.myCharts = echarts.init(document.getElementById(`${this.id}`));
-    let option = {
+    let _this = this;
+    _this.myCharts = echarts.init(document.getElementById(`${_this.id}`));
+    _this.option = {
+      color: _this.colors,
       title: {
         text: "标题标题标题",
         show: true,
@@ -55,8 +72,8 @@ export default {
         }
       ]
     };
-    this.myCharts.setOption(option);
-    window.addEventListener("resize", this.resizeChart);
+    _this.myCharts.setOption(_this.option);
+    window.addEventListener("resize", _this.resizeChart);
   },
   beforeDestroy() {
     this.myCharts.clear();

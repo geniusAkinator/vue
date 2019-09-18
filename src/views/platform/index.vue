@@ -377,8 +377,8 @@ export default {
 }
 .my-theme {
   position: fixed;
-  top: 60px;
-  left: 60px;
+  bottom: 60px;
+  left: 50%;
   z-index: 999;
   cursor: move;
   -webkit-touch-callout: none; /* iOS Safari */

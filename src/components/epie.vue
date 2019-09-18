@@ -6,7 +6,9 @@
 export default {
   data() {
     return {
-      myCharts: {}
+      myCharts: {},
+      option: {},
+      color: []
     };
   },
   props: {
@@ -17,12 +19,27 @@ export default {
       this.myCharts.resize();
     }
   },
+  computed: {
+    colors: function() {
+      return this.$store.getters["theme/nowTheme"];
+    }
+  },
+  watch: {
+    colors(newVal, oldVal) {
+      let _this = this;
+      let opt = _this.option;
+      opt.series[0].color = newVal;
+      _this.myCharts.clear();
+      _this.myCharts.setOption(opt);
+    }
+  },
   mounted() {
-    this.myCharts = echarts.init(document.getElementById(`${this.id}`));
-    let option = {
+    let _this = this;
+    _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    _this.option = {
       title: {
         text: "标题标题标题",
-        show:true,
+        show: true,
         x: "10px",
         y: "10px",
         textStyle: {
@@ -46,7 +63,7 @@ export default {
               position: "center"
             },
             emphasis: {
-              show: true,
+              show: true
             }
           },
           labelLine: {
@@ -60,12 +77,13 @@ export default {
             { value: 234, name: "联盟广告" },
             { value: 135, name: "视频广告" },
             { value: 1548, name: "搜索引擎" }
-          ]
+          ],
+          color: _this.colors
         }
       ]
     };
-    this.myCharts.setOption(option);
-    window.addEventListener("resize", this.resizeChart);
+    _this.myCharts.setOption(_this.option);
+    window.addEventListener("resize", _this.resizeChart);
   },
   beforeDestroy() {
     this.myCharts.clear();

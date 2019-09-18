@@ -51,6 +51,9 @@ const Utils = {
             el = el.parentElement;
         }
         return el;
+    },
+    getLinearGradientColor(){ //计算梯度颜色
+
     }
 }
 export default Utils
