@@ -69,7 +69,7 @@ export default {
         zoom: 0,
         roam: false,
         itemStyle: {
-          color:"#fff",
+          color: "#fff",
           borderColor: "#405062",
           normal: {
             areaColor: "#69798d",
@@ -133,9 +133,9 @@ export default {
         viewControl: {
           distance: 240,
           autoRotate: true,
-          minDistance:140,
-          animationEasingUpdate:"cubicInOut"
-        },
+          minDistance: 140,
+          animationEasingUpdate: "cubicInOut"
+        }
       },
       series: [
         {
@@ -159,23 +159,31 @@ export default {
     window.addEventListener("resize", this.resizeChart);
 
     let _this = this;
-    _this.myChart.on('click',function(e){
-      if(e.name=="中国"){
-        console.log("放大")
+    _this.myChart.on("click", function(e) {
+      if (e.name == "中国") {
         _this.myCharts.setOption({
           globe: {
             viewControl: {
-              distance:140,
-              targetCoord: [103.042657,33.772317],
-              autoRotate: false,
+              distance: 140,
+              targetCoord: [103.042657, 33.772317],
+              autoRotate: false
             }
           }
-        })
+        });
+        setTimeout(() => {
+          _this.myCharts.setOption({
+            globe: {
+              viewControl: {
+                distance: 240
+              }
+            }
+          });
+        }, 2000);
       }
-    })
+    });
   },
   beforeDestroy() {
-     this.myCharts.clear();
+    this.myCharts.clear();
   }
 };
 </script>

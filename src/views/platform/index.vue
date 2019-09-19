@@ -242,10 +242,8 @@ export default {
   color: #fff;
   overflow: hidden;
   width: 300px;
-  height: 300px;
+  height: 180px;
   color: #a5a5a5;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #afafaf;
 }
 .top-left {
   float: left;

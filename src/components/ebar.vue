@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import utils from "@/utils/utils"
 export default {
   data() {
     return {
@@ -23,7 +24,6 @@ export default {
     }
   },
   mounted() {
-    console.log("#fff".colorRgb())
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let option = {
       title: {

@@ -1,4 +1,4 @@
-String.prototype.colorHex = function () { //RBG转16位
+String.prototype.colorHex = function () { //RBG转HEX
     // RGB颜色值的正则
     var reg = /^(rgb|RGB)/;
     var color = this;
@@ -20,7 +20,7 @@ String.prototype.colorHex = function () { //RBG转16位
     }
 };
 
-String.prototype.colorRgb = function () { //16位转RBG
+String.prototype.colorRgb = function () { //HEX转RBG
     // 16进制颜色值的正则
     var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
     // 把颜色值变成小写

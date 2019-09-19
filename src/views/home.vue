@@ -24,8 +24,7 @@ import MyAside from "@/components/Aside";
 import MyHeader from "@/components/Header";
 import MyTabs from "@/components/Tabs";
 import MyBreadcrumb from "@/components/breadcrumb";
-import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
-
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
@@ -84,14 +83,25 @@ export default {
     },
     collapseChange(val) {
       this.isCollapse = val;
+    },
+    autoChange() {
+      let cwidth = document.body.clientWidth;
+      if (cwidth < 1024) {
+        this.isCollapse = true;
+      } else {
+        this.isCollapse = false;
+      }
     }
   },
   mounted: function() {
+    let _this = this;
     let user = sessionStorage.getItem("user");
     if (user) {
-      this.username = user;
+      _this.username = user;
     }
-    // this.$message({ message: "欢迎回来", type: "success" });
+    _this.$nextTick(()=>{
+      window.addEventListener("resize",utils.throttle(_this.autoChange,100))
+    })
   },
   components: {
     MyAside,

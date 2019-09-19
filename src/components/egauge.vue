@@ -13,7 +13,8 @@ export default {
       angle: {
         startAngle: 225, //开始角度
         endAngle: -45 //结束角度
-      }
+      },
+      option:{}
     };
   },
   props: {
@@ -24,9 +25,24 @@ export default {
       this.myCharts.resize();
     }
   },
+  computed: {
+    colors: function() {
+      return this.$store.getters["theme/nowTheme"];
+    }
+  },
+  watch: {
+    colors(newVal, oldVal) {
+      let _this = this;
+      let opt = _this.option;
+      opt.series[0].axisLine.lineStyle.color=[[0.8, _this.colors[0]], [1, "#4f6576"]]
+      _this.myCharts.clear();
+      _this.myCharts.setOption(opt);
+    }
+  },
   mounted() {
-    this.myCharts = echarts.init(document.getElementById(`${this.id}`));
-    let option = {
+    let _this = this;
+    _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    _this.option = {
       title: {
         y:"30%",
         x:"14%",
@@ -79,7 +95,7 @@ export default {
           axisLine: {
             lineStyle: {
               width: 10, //宽度
-              color: [[0.8, "#2da9ff"], [1, "#4f6576"]]
+              color: [[0.8, _this.colors[0]], [1, "#4f6576"]]
             }
           },
           data: [
@@ -90,8 +106,8 @@ export default {
         }
       ]
     };
-    this.myCharts.setOption(option);
-    window.addEventListener("resize", this.resizeChart);
+    _this.myCharts.setOption(_this.option);
+    window.addEventListener("resize", _this.resizeChart);
   },
   beforeDestroy() {
     this.myCharts.clear();

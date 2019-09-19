@@ -10,14 +10,17 @@
           <el-input v-model="form.pwd" placeholder="密码" show-password></el-input>
         </el-form-item>
         <el-form-item>
+          <el-input v-model="form.vcode" placeholder="验证码" show-password></el-input>
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" @click.prevent="login" :loading="logining">登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="checked">记住密码</el-checkbox>
+          <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
         </el-form-item>
       </el-form>
     </el-main>
-    <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
+    <!-- <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer> -->
   </el-container>
 </template>
 
@@ -80,7 +83,8 @@ body > .el-container {
   left: 0;
   right: 0;
   top: 0;
-  bottom: 60px;
+  bottom: 0;
+  background: url("../assets/login-bg-3.jpg") no-repeat center;
 }
 .el-footer {
   position: absolute;
@@ -105,15 +109,14 @@ body > .el-container {
   width: 100%;
   height: 80px;
   float: left;
-  color: #8b949b;
-  font-size: 20px;
-  font-weight: normal;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
   line-height: 60px;
 }
 .login-container {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
 </style>
