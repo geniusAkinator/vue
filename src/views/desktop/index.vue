@@ -2,7 +2,7 @@
   <div class="container">
     <el-row :gutter="10">
       <el-row :gutter="10" class="statistics">
-        <el-col :md="6">
+        <el-col :sm="6" >
           <div class="sta_item">
             <i class="el-icon-user"></i>
             <div>
@@ -15,7 +15,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :md="6">
+        <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-link"></i>
             <div>
@@ -28,7 +28,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :md="6">
+        <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-circle-close"></i>
             <div>
@@ -41,7 +41,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :md="6">
+        <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-s-order"></i>
             <div>
@@ -274,5 +274,10 @@ export default {
   display: block;
   font-size: 26px !important;
   color: #606266;
+}
+@media screen and (max-width: 768px){
+  .sta_item{
+    margin-bottom: 20px;
+  }
 }
 </style>
