@@ -447,5 +447,7 @@ input:focus,textarea:focus{
 .el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline{
   display: none
 }
-
+.el-menu--horizontal>.el-menu-item.is-active{
+  background: #314158 !important
+}
 </style>

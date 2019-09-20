@@ -8,7 +8,7 @@
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
           <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
-          <transition name="fade" mode="out-in">
+          <transition name="myfade" mode="out-in">
             <keep-alive>
               <router-view v-if="isRouterAlive"></router-view>
             </keep-alive>
@@ -89,7 +89,7 @@ export default {
       if (cwidth < 1024) {
         this.isCollapse = true;
       } else {
-        this.isCollapse = false;
+        if(!this.isCollapse) this.isCollapse = false;
       }
     }
   },
@@ -122,11 +122,11 @@ export default {
 .el-breadcrumb {
   padding: 20px;
 }
-.fade-enter-active,
-.fade-leave-active {
+.myfade-enter-active,
+.myfade-leave-active {
   transition: all 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.myfade-enter, .myfade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform:translateY(80px);
 }

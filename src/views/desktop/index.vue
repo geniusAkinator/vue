@@ -2,56 +2,72 @@
   <div class="container">
     <el-row :gutter="10">
       <el-row :gutter="10" class="statistics">
-        <el-col :sm="6" >
+        <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-user"></i>
-            <div>
-              工厂总数:
-              <span>55</span>
-            </div>
-            <div>
-              人员总数:
-              <span>55</span>
-            </div>
+            <router-link class="item" :to="'factory'">
+              <div>
+                工厂总数:
+                <span>55</span>
+              </div>
+            </router-link>
+            <router-link class="item" :to="'member'">
+              <div>
+                人员总数:
+                <span>55</span>
+              </div>
+            </router-link>
           </div>
         </el-col>
         <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-link"></i>
-            <div>
-              在线设备:
-              <span>55</span>
-            </div>
-            <div>
-              离线设备:
-              <span>55</span>
-            </div>
+            <router-link class="item" :to="'sensor'">
+              <div>
+                在线设备:
+                <span>55</span>
+              </div>
+            </router-link>
+            <router-link class="item" :to="'sensor'">
+              <div>
+                离线设备:
+                <span>55</span>
+              </div>
+            </router-link>
           </div>
         </el-col>
         <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-circle-close"></i>
-            <div>
-              故障总数:
-              <span>55</span>
-            </div>
-            <div>
-              处理总数:
-              <span>55</span>
-            </div>
+            <router-link class="item" :to="''">
+              <div>
+                故障总数:
+                <span>55</span>
+              </div>
+            </router-link>
+            <router-link class="item" :to="''">
+              <div>
+                处理总数:
+                <span>55</span>
+              </div>
+            </router-link>
           </div>
         </el-col>
         <el-col :sm="6">
           <div class="sta_item">
             <i class="el-icon-s-order"></i>
-            <div>
-              任务总数:
-              <span>55</span>
-            </div>
-            <div>
-              完成总数:
-              <span>55</span>
-            </div>
+            <router-link class="item" :to="''">
+              <div>
+                任务总数:
+                <span>55</span>
+              </div>
+            </router-link>
+            <router-link class="item" :to="''">
+              <div>
+                完成总数:
+                <span>55</span>
+              </div>
+            </router-link>
           </div>
         </el-col>
       </el-row>
@@ -245,11 +261,13 @@ export default {
   padding: 10px;
   border-radius: 10px;
 }
-.sta_item div {
+.sta_item .item {
   text-align: center;
   margin-left: 10px;
   font-size: 15px;
   font-weight: bold;
+  text-decoration: none;
+  color: #606266
 }
 .sta_item i {
   background-color: #409eff;
@@ -263,7 +281,7 @@ export default {
 .statistics > div:nth-child(4) i {
   background-color: #909399;
 }
-.sta_item div:last-child {
+.sta_item .item:last-child {
   margin-left: auto;
 }
 .statistics > div {
@@ -275,8 +293,8 @@ export default {
   font-size: 26px !important;
   color: #606266;
 }
-@media screen and (max-width: 768px){
-  .sta_item{
+@media screen and (max-width: 768px) {
+  .sta_item {
     margin-bottom: 20px;
   }
 }
