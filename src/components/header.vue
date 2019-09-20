@@ -31,16 +31,15 @@ export default {
   data() {
     return {
       username: "",
-      isAsideCollapse:this.isCollapse
+      isAsideCollapse: this.isCollapse
     };
   },
-  props:{
-     isCollapse: false,
+  props: {
+    isCollapse: false
   },
-  watch:{
-    isAsideCollapse(newVal,oldVal){
-      console.log(newVal,oldVal);
-      this.$emit("parentCollapseChange",newVal);
+  watch: {
+    isAsideCollapse(newVal, oldVal) {
+      this.$emit("parentCollapseChange", newVal);
     }
   },
   methods: {
@@ -53,13 +52,15 @@ export default {
         })
         .catch(() => {});
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
+    handleClose(key, keyPath) {},
     handleSelect(key, keyPath) {
       var _this = this;
-      console.log(key, keyPath);
-      _this.$router.push("/Platform", () => {});
+      // _this.$router.push("/Platform", () => {});
+      const { href } = this.$router.resolve({
+        name: "平台",
+        params: {}
+      });
+      window.open(href, "_blank");
     }
   }
 };
@@ -103,6 +104,6 @@ export default {
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   width: 48px;
-  text-align: center
+  text-align: center;
 }
 </style>

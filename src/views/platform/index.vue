@@ -244,6 +244,11 @@ export default {
   width: 300px;
   height: 180px;
   color: #a5a5a5;
+  background-image: linear-gradient(
+    -180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
 }
 .top-left {
   float: left;
@@ -281,7 +286,7 @@ export default {
 .top-right {
   padding-top: 0px;
   padding-bottom: 10px;
-  background: #1c2525;
+  background: #031637;
 }
 
 .top-left,
@@ -313,11 +318,11 @@ export default {
 }
 .top-left::before,
 .top-left::after {
-  background: linear-gradient(190deg, #2da9ff, #060c21, #2da9ff);
+  background: linear-gradient(187deg, #2da9ff, #060c21, #2da9ff);
 }
 .top-right::before,
 .top-right::after {
-  background: linear-gradient(-190deg, #2da9ff, #060c21, #2da9ff);
+  background: linear-gradient(-187deg, #2da9ff, #060c21, #2da9ff);
 }
 .top-left::before,
 .top-left::after {

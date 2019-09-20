@@ -441,4 +441,11 @@ input:focus,textarea:focus{
 .el-input-group__prepend{
   background: #fff
 }
+.el-menu-item-group__title{
+  display: none !important
+}
+.el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline{
+  display: none
+}
+
 </style>
