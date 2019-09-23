@@ -84,7 +84,7 @@ body > .el-container {
   right: 0;
   top: 0;
   bottom: 0;
-  background: url("../assets/login-bg-3.jpg") no-repeat center;
+  background: url("../assets/bg.jpg") no-repeat center;
 }
 .el-footer {
   position: absolute;

@@ -24,6 +24,12 @@ import Member from '@/views/member/index'
 import Bind from '@/views/bind/index'
 import Platform from '@/views/platform/index'
 import RoleAdd from '@/views/role/add'
+import Check from '@/views/check/index'
+import Patrol from '@/views/patrol/index'
+import PatrolRoute from '@/views/route/index'
+import PatrolType from '@/views/ptype/index'
+import PatrolPlan from '@/views/plan/index'
+
 
 Vue.use(Router)
 
@@ -132,10 +138,41 @@ export default new Router({
     },
     {
       path: '/',
+      name: '安全管理',
+      component: Home,
+      children: [
+        {
+          path: 'patrol',
+          name: '巡更分布',
+          component: Patrol,
+        },
+        {
+          path: 'patrolRoute',
+          name: '巡更路线',
+          component: PatrolRoute,
+        },
+        {
+          path: 'patrolType',
+          name: '巡更路线',
+          component: PatrolType,
+        },
+        {
+          path: 'patrolPlan',
+          name: '巡更路线',
+          component: PatrolPlan,
+        },
+      ]
+    },
+    {
+      path: '/',
       name: '统计管理',
       component: Home,
-      leaf: true,//只有一个节点
       children: [
+        {
+          path: 'check',
+          name: '系统体检',
+          component: Check
+        },
         {
           path: 'statistic',
           name: '统计报表',
@@ -147,7 +184,6 @@ export default new Router({
       path: '/',
       name: '系统管理',
       component: Home,
-      leaf: true,//只有一个节点
       children: [
         {
           path: 'role',

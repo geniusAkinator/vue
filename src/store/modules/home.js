@@ -227,6 +227,28 @@ const mutations = { //同步
                 ]
             },
             {
+                name: "安全管理",
+                icon: "el-icon-document",
+                children: [
+                    {
+                        name: "巡更分布",
+                        path: "patrol"
+                    },
+                    {
+                        name: "巡更路线",
+                        path: "patrolRoute"
+                    },
+                    {
+                        name: "巡更类别",
+                        path: "patrolType"
+                    },
+                    {
+                        name: "巡更计划",
+                        path: "patrolPlan"
+                    },
+                ]
+            },
+            {
                 name: "成员管理",
                 icon: "el-icon-user",
                 children: [
@@ -247,7 +269,11 @@ const mutations = { //同步
                     {
                         name: "统计报表",
                         path: "statistic"
-                    }
+                    },
+                    // {
+                    //     name: "系统体检",
+                    //     path: "check"
+                    // }
                 ]
             }, {
                 name: "设置管理",
