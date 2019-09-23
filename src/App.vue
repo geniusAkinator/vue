@@ -450,4 +450,7 @@ input:focus,textarea:focus{
 .el-menu--horizontal>.el-menu-item.is-active{
   background: #314158 !important
 }
+.el-input+.el-transfer,.el-select+.el-transfer{
+  margin-top: 10px;
+}
 </style>

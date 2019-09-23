@@ -49,11 +49,11 @@
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column prop="status" label="状态"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="240px">
+      <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">禁用</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
-          <el-button size="mini" @click="handleStandard(scope.$index, tableData)">巡更标准</el-button>
+          <el-button size="mini" @click="handleMap(scope.$index, tableData)">地图</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,8 +73,7 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyTypeAdd from "@/views/ptype/add";
-import api from "@/api/index";
+import MyProjectAdd from "@/views/project/add";
 export default {
   data() {
     return {
@@ -109,27 +108,20 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyTypeAdd, //传递的组件对象
+          content: MyProjectAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
         shade: false,
         area: ["1200px", "600px"],
-        title: "新增巡更类型",
+        title: "新增巡更项目",
         target: ".el-main"
       });
       this.$layer.full(index);
     },
     handleUpload() {},
     handleClick() {},
-    handleStandard() {}
-  },
-  mounted() {
-    api.getTypeData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
-    });
+    handleMap() {}
   },
   components: {
     MySearchTool

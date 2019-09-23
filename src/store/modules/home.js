@@ -236,15 +236,19 @@ const mutations = { //同步
                     },
                     {
                         name: "巡更路线",
-                        path: "patrolRoute"
+                        path: "proute"
                     },
                     {
                         name: "巡更类别",
-                        path: "patrolType"
+                        path: "ptype"
+                    },
+                    {
+                        name: "巡更项目",
+                        path: "project"
                     },
                     {
                         name: "巡更计划",
-                        path: "patrolPlan"
+                        path: "plan"
                     },
                 ]
             },

@@ -46,9 +46,9 @@ cdata = Mock.mock({
     {
       'id|+1': 1,
       'cid': '@id',
-      'reportCount|0-1':0,
-      'errorCount|0-1':0,
-      'outlineCount|0-1':0,
+      'reportCount|0-1': 0,
+      'errorCount|0-1': 0,
+      'outlineCount|0-1': 0,
       'createTime': function () {
         return moment().subtract(this.id, 'days').format('YYYY-MM-DD')
       }
@@ -60,16 +60,16 @@ Mock.mock('/factory/calendar', 'get', cdata)
 
 let fdata = [];
 fdata = Mock.mock({
-  'code':0,
-  'data|10-20':[
+  'code': 0,
+  'data|10-20': [
     {
-      'id':'@increment',   //工厂ID
-      'name':'@cword(3, 5)',       //工厂名称
-      'address':'@cword(3, 5)',    //工厂地址
-      'type|0-3':0,        // 工厂类型
-      'images':Random.image('200x100'), //图片
-      'tel':/^((\+86|\+86\-)|(86|86\-)|(0086|0086\-))?1[3|5|7|8]\d{9}$/, //工厂电话
-      'introduction':'@sentence',     //公司简介
+      'id': '@increment',   //工厂ID
+      'name': '@cword(3, 5)',       //工厂名称
+      'address': '@cword(3, 5)',    //工厂地址
+      'type|0-3': 0,        // 工厂类型
+      'images': Random.image('200x100'), //图片
+      'tel': /^((\+86|\+86\-)|(86|86\-)|(0086|0086\-))?1[3|5|7|8]\d{9}$/, //工厂电话
+      'introduction': '@sentence',     //公司简介
       'lng|100-120.5': 100.00000, //经度
       'lat|22-40.5': 22.22222,   //纬度
     }
@@ -79,16 +79,16 @@ Mock.mock('/factory/data', 'get', fdata)
 
 let sdata = [];
 sdata = Mock.mock({
-  'code':0,
-  'data|10-30':[
+  'code': 0,
+  'data|10-30': [
     {
-      'id':'@increment',   //传感器ID
-      'name':'@cword(3, 5)',       //传感器名称
-      'type|0-5':0,             //类型
+      'id': '@increment',   //传感器ID
+      'name': '@cword(3, 5)',       //传感器名称
+      'type|0-5': 0,             //类型
       'lng|100-120.5': 100.00000, //经度
       'lat|22-40.5': 22.22222,   //纬度
-      'battery|0-100':0, //电量
-      'expires':'@date("yyyy-MM-dd")'
+      'battery|0-100': 0, //电量
+      'expires': '@date("yyyy-MM-dd")'
     }
   ],
   'msg': '请求成功'
@@ -99,17 +99,17 @@ Mock.mock('/sensor/data', 'get', sdata)
 
 let rdata = [];
 rdata = Mock.mock({
-  'code':0,
-  'data|10-30':[
+  'code': 0,
+  'data|10-30': [
     {
-      'id':'@increment',   //传感器ID
-      'name':'@cword(3, 5)',       //传感器名称
-      'type|0-5':0,             //类型
+      'id': '@increment',   //传感器ID
+      'name': '@cword(3, 5)',       //传感器名称
+      'type|0-5': 0,             //类型
       'lng|100-120.5': 100.00000, //经度
       'lat|22-40.5': 22.22222,   //纬度
-      'battery|0-100':0, //电量
-      'expires':'@date("yyyy-MM-dd")',
-      'status|0-3':0   //状态
+      'battery|0-100': 0, //电量
+      'expires': '@date("yyyy-MM-dd")',
+      'status|0-3': 0   //状态
     }
   ],
   'msg': '请求成功'
@@ -119,13 +119,39 @@ Mock.mock('/realtime/data', 'get', rdata)
 
 let stdata = [];
 stdata = Mock.mock({
-  'code':0,
-  'data|18':[
+  'code': 0,
+  'data|18': [
     {
-      'id':'@increment', 
-      
+      'id': '@increment',
+
     }
   ],
   'msg': '请求成功'
 })
 Mock.mock('/realtime/status', 'get', stdata)
+
+let tdata = [];
+tdata = Mock.mock({
+  'code': 0,
+  'data|18': [
+    {
+      'id': '@increment',
+
+    }
+  ],
+  'msg': '请求成功'
+})
+Mock.mock('/proute/data', 'get', tdata)
+
+let tydata = [];
+tydata = Mock.mock({
+  'code': 0,
+  'data|18': [
+    {
+      'id': '@increment',
+
+    }
+  ],
+  'msg': '请求成功'
+})
+Mock.mock('/proute/typeData', 'get', tydata)

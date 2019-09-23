@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import home from './modules/home'
 import theme from './modules/theme'
 import createPersistedState from "vuex-persistedstate"
-import * as Cookies from 'js-cookie'
 
 Vue.use(Vuex);
 
@@ -16,13 +15,7 @@ const store = new Vuex.Store({
     },
     strict: debug,
     plugins: [
-        createPersistedState({
-            storage: {
-                getItem: key => Cookies.get(key),
-                setItem: (key, value) => Cookies.set(key, value, { expires: 7 }),
-                removeItem: key => Cookies.remove(key)
-            }
-        })
+        createPersistedState()
     ]
 })
 

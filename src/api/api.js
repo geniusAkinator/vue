@@ -51,3 +51,17 @@ export const getCoo = params => {
         data: params,
     }).then(res => res);
 };
+
+export const getRouteData = params => {
+    return http.getRequest({
+        url: '/proute/data',
+        data: params
+    }).then(res => res);
+};
+
+export const getTypeData = params => {
+    return http.getRequest({
+        url: '/proute/typeData',
+        data: params
+    }).then(res => res);
+};

@@ -26,9 +26,10 @@ import Platform from '@/views/platform/index'
 import RoleAdd from '@/views/role/add'
 import Check from '@/views/check/index'
 import Patrol from '@/views/patrol/index'
-import PatrolRoute from '@/views/route/index'
-import PatrolType from '@/views/ptype/index'
-import PatrolPlan from '@/views/plan/index'
+import Proute from '@/views/route/index'
+import Ptype from '@/views/ptype/index'
+import Plan from '@/views/plan/index'
+import Project from '@/views/project/index'
 
 
 Vue.use(Router)
@@ -89,12 +90,12 @@ export default new Router({
       children: [
         {
           path: 'factory',
-          name: '工厂首页',
+          name: '工厂管理',
           component: Factory,
         },
         {
           path: 'sensor',
-          name: '传感器首页',
+          name: '传感器管理',
           component: Sensor
         },
         {
@@ -109,7 +110,7 @@ export default new Router({
         },
         {
           path: 'sensorType',
-          name: '传感器类别',
+          name: '传感器类别管理',
           component: SensorType
         },
         {
@@ -143,23 +144,28 @@ export default new Router({
       children: [
         {
           path: 'patrol',
-          name: '巡更分布',
+          name: '巡更分布管理',
           component: Patrol,
         },
         {
-          path: 'patrolRoute',
-          name: '巡更路线',
-          component: PatrolRoute,
+          path: 'proute',
+          name: '巡更路线管理',
+          component: Proute,
         },
         {
-          path: 'patrolType',
-          name: '巡更路线',
-          component: PatrolType,
+          path: 'ptype',
+          name: '巡更路线管理',
+          component: Ptype,
         },
         {
-          path: 'patrolPlan',
-          name: '巡更路线',
-          component: PatrolPlan,
+          path: 'plan',
+          name: '巡更计划管理',
+          component: Plan,
+        },
+        {
+          path: 'project',
+          name: '巡更项目',
+          component: Project
         },
       ]
     },

@@ -3,23 +3,27 @@
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-form-item label="所属工厂" prop="factory">
         <el-select v-model="form.factory" placeholder="请选择">
-          <el-option label="类型1" value="1"></el-option>
+          <el-option label="工厂1" value="1"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="所属主体" prop="main">
         <el-select v-model="form.main" placeholder="请选择">
-          <el-option label="类型1" value="1"></el-option>
+          <el-option label="主体1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="厂区" prop="parea">
-        <el-select v-model="form.parea" placeholder="请选择">
-          <el-option label="类型1" value="1"></el-option>
+      <el-form-item label="维保厂商" prop="firm">
+        <el-select v-model="form.firm" placeholder="请选择">
+          <el-option label="厂商1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="车间" prop="workshop">
-        <el-select v-model="form.workshop" placeholder="请选择">
+      <el-form-item label="巡检类别" prop="ptype">
+        <el-select v-model="form.ptype" placeholder="请选择">
           <el-option label="类型1" value="1"></el-option>
         </el-select>
+        <el-transfer v-model="form.typeList" :data="data"></el-transfer>
+      </el-form-item>
+      <el-form-item label="地址" prop="address">
+        <el-input v-model="form.address" placeholder="请输入地址"></el-input>
       </el-form-item>
       <el-form-item label="经纬度" prop="pos">
         <el-row class="form-map-picker">
@@ -56,15 +60,6 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="巡更点名称" prop="main">
-        <el-input v-model="form.name" placeholder="请输入巡更点名称"></el-input>
-      </el-form-item>
-      <el-form-item label="定位距离">
-        <el-input v-model="form.distance" placeholder="请输入定位距离"></el-input>
-      </el-form-item>
-      <el-form-item label="拍照要求">
-        <el-input v-model="form.requirement" placeholder="请输入拍照要求"></el-input>
-      </el-form-item>
       <el-form-item label="状态">
         <el-radio-group v-model="form.status">
           <el-radio :label="0">启用</el-radio>
@@ -83,14 +78,25 @@
 import MyMapPicker from "@/components/mappicker";
 export default {
   data() {
+    const generateData = _ => {
+      const data = [];
+      for (let i = 1; i <= 15; i++) {
+        data.push({
+          key: i,
+          label: `标准 ${i}`
+        });
+      }
+      return data;
+    };
     return {
+      data: generateData(),
       form: {
-        main: "",
-        lat: 0,
-        lng: 0,
         status: 0,
-        workshop: "",
-        parea: ""
+        isphoto: 0,
+        typeList: [1, 4],
+        range: "",
+        lng: 0,
+        lat: 0
       },
       isShow: false,
       rules: {
@@ -100,13 +106,11 @@ export default {
         main: [
           { required: true, message: "请选择所属主体", trigger: "change" }
         ],
-        parea: [{ required: true, message: "请选择厂区", trigger: "change" }],
-        workshop: [
-          { required: true, message: "请选择车间", trigger: "change" }
+        firm: [
+          { required: true, message: "请选择所属主体", trigger: "change" }
         ],
-        name: [
-          { required: true, message: "请输入巡更点名称", trigger: "blur" }
-        ]
+        name: [{ required: true, message: "请输入巡更名称", trigger: "blur" }],
+        address: [{ required: true, message: "请输入地址", trigger: "blur" }]
       }
     };
   },

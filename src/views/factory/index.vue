@@ -51,9 +51,7 @@
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
       </my-search-tool>
-      <div class="table-tool-others">
-      
-      </div>
+      <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
@@ -74,8 +72,9 @@
       <el-table-column prop="name" label="工厂名称"></el-table-column>
       <el-table-column prop="address" label="工厂地址"></el-table-column>
       <el-table-column prop="type" label="工厂类型"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="180px">
+      <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
+          <el-button size="mini">厂区</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
         </template>
