@@ -425,7 +425,7 @@ export default {
 .url_list {
   list-style-type: none;
 }
-.url_list li{
+.url_list li {
   margin-top: 10px;
 }
 .url_list i {
@@ -433,12 +433,12 @@ export default {
   cursor: pointer;
   margin-left: 20px;
 }
-.url_list .name{
+.url_list .name {
   font-weight: bold;
   font-size: 16px;
   margin-right: 10px;
 }
-.url_list a{
+.url_list a {
   font-size: 18px;
 }
 </style>
