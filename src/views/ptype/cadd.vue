@@ -2,13 +2,14 @@
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-form-item label="分类名称">
-        <el-input v-model="form.name" class="readonly"></el-input>
+        <el-input v-model="form.name" class="readonly" :readonly="true"></el-input>
       </el-form-item>
-      <el-form-item label="巡检标准">
-        <my-rule></my-rule>
+      <el-form-item label="巡检标准" v-for="(item,index) in form.list" :key="index">
+        <my-rule :rule="item" :index="index" @getDelIndex="getDelIndex" @getNewItem="getNewItem"></my-rule>
+        <span class="help-block">单选、多选、下拉框请输入内容，多值请用“ | ”隔开，如：上 | 中 | 下，其它则为空或选择参考图片</span>
       </el-form-item>
       <el-form-item>
-        <el-button type="success">添加标准</el-button>
+        <el-button type="success" @click="handleAdd">添加标准</el-button>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
@@ -25,7 +26,16 @@ export default {
   data() {
     return {
       form: {
-        name: ""
+        name: "",
+        list: [
+          {
+            name: "",
+            standard: "",
+            type: "1",
+            content: "",
+            sort: ""
+          }
+        ]
       },
       isShow: false,
       rules: {}
@@ -48,8 +58,24 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     },
-    getPoint(e) {
+    handleAdd() {
+      let temp = {
+        name: "",
+        standard: "",
+        type: "1",
+        content: "",
+        sort: ""
+      };
+      this.form.list.push(temp);
+    },
+    getDelIndex(e) {
       console.log(e);
+      this.form.list.splice(e, 1);
+    },
+    getNewItem(e) {
+      for (var st in e.item) {
+        this.$set(this.form.list[e.index], st, e.item[st]);
+      }
     }
   },
   components: {

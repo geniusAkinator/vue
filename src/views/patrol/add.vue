@@ -56,8 +56,8 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="巡更点名称" prop="main">
-        <el-input v-model="form.name" placeholder="请输入巡更点名称"></el-input>
+      <el-form-item label="巡检点名称" prop="name">
+        <el-input v-model="form.name" placeholder="请输入巡检点名称"></el-input>
       </el-form-item>
       <el-form-item label="定位距离">
         <el-input v-model="form.distance" placeholder="请输入定位距离"></el-input>
@@ -105,7 +105,7 @@ export default {
           { required: true, message: "请选择车间", trigger: "change" }
         ],
         name: [
-          { required: true, message: "请输入巡更点名称", trigger: "blur" }
+          { required: true, message: "请输入巡检点名称", trigger: "blur" }
         ]
       }
     };

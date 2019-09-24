@@ -228,7 +228,7 @@ const mutations = { //同步
             },
             {
                 name: "安全管理",
-                icon: "el-icon-document",
+                icon: "el-icon-camera",
                 children: [
                     {
                         name: "巡更分布",

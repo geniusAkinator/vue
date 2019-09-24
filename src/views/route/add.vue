@@ -11,11 +11,11 @@
           <el-option label="类型1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="巡更路线名称" prop="name">
-        <el-input v-model="form.name" placeholder="请输入巡更路线名称"></el-input>
+      <el-form-item label="巡检路线名称" prop="name">
+        <el-input v-model="form.name" placeholder="请输入巡检路线名称"></el-input>
         <el-transfer v-model="form.point" :data="data"></el-transfer>
       </el-form-item>
-      <el-form-item label="巡更时间">
+      <el-form-item label="巡检时间">
         <el-time-picker
           is-range
           v-model="form.range"
@@ -76,7 +76,7 @@ export default {
         main: [
           { required: true, message: "请选择所属主体", trigger: "change" }
         ],
-        name: [{ required: true, message: "请输入巡更名称", trigger: "blur" }]
+        name: [{ required: true, message: "请输入巡检路线名称", trigger: "blur" }]
       }
     };
   },
