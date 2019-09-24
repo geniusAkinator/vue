@@ -65,3 +65,10 @@ export const getTypeData = params => {
         data: params
     }).then(res => res);
 };
+
+export const getMenuData = params => {
+    return http.getRequest({
+        url: '/menu/data',
+        data: params
+    }).then(res => res);
+};

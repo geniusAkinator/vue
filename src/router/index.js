@@ -30,7 +30,9 @@ import Proute from '@/views/route/index'
 import Ptype from '@/views/ptype/index'
 import Plan from '@/views/plan/index'
 import Project from '@/views/project/index'
-
+import ProjectFirm from '@/views/project/firm'
+import Menu from '@/views/menu/index'
+import MenuSub from '@/views/menu/mindex'
 
 Vue.use(Router)
 
@@ -167,6 +169,11 @@ export default new Router({
           name: '巡更项目',
           component: Project
         },
+        {
+          path: 'projectFirm',
+          name: '维保厂商',
+          component: ProjectFirm
+        },
       ]
     },
     {
@@ -191,6 +198,16 @@ export default new Router({
       name: '系统管理',
       component: Home,
       children: [
+        {
+          path: 'menu',
+          name: '栏目管理',
+          component: Menu
+        },
+        {
+          path: 'menuSub',
+          name: '菜单管理',
+          component: MenuSub
+        },
         {
           path: 'role',
           name: '角色管理',

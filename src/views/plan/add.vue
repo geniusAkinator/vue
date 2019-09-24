@@ -15,7 +15,9 @@
         <el-input v-model="form.name" placeholder="请输入巡检计划名称"></el-input>
         <el-transfer v-model="form.plist" :data="data"></el-transfer>
       </el-form-item>
-      <el-form-item label="巡检周期"></el-form-item>
+      <el-form-item label="巡检周期">
+        <my-cycle></my-cycle>
+      </el-form-item>
       <el-form-item label="开始时间">
         <el-date-picker v-model="form.startDate" type="date" placeholder="选择开始时间"></el-date-picker>
       </el-form-item>
@@ -37,6 +39,7 @@
 </template>
 
 <script>
+import MyCycle from "@/components/cycle";
 export default {
   data() {
     const generateData = _ => {
@@ -95,7 +98,9 @@ export default {
       console.log(e);
     }
   },
-  components: {}
+  components: {
+    MyCycle
+  }
 };
 </script>
 

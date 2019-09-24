@@ -75,7 +75,7 @@
           @blur="onEditorBlur($event)"
           @focus="onEditorFocus($event)"
           @change="onEditorChange($event)"
-        ></quill-editor> -->
+        ></quill-editor>-->
       </el-form-item>
 
       <div class="add-footer">
@@ -99,7 +99,7 @@ export default {
       }
     };
     return {
-      limited:1,
+      limited: 1,
       form: {
         name: "",
         type: "0",

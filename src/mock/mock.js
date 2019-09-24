@@ -155,3 +155,16 @@ tydata = Mock.mock({
   'msg': '请求成功'
 })
 Mock.mock('/proute/typeData', 'get', tydata)
+
+let medata = []
+medata = Mock.mock({
+  'code': 0,
+  'data|10': [
+    {
+      'id': '@increment',
+
+    }
+  ],
+  'msg': '请求成功'
+})
+Mock.mock('/menu/data', 'get', medata)

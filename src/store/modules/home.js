@@ -203,7 +203,7 @@ const mutations = { //同步
         let list = nowState.menu;
         list = [
             {
-                name: "实时监控",
+                name: "监控管理",
                 icon: "el-icon-video-camera",
                 children: [
                     {
@@ -274,15 +274,19 @@ const mutations = { //同步
                         name: "统计报表",
                         path: "statistic"
                     },
-                    // {
-                    //     name: "系统体检",
-                    //     path: "check"
-                    // }
+                    {
+                        name: "系统体检",
+                        path: "check"
+                    }
                 ]
             }, {
                 name: "设置管理",
                 icon: "el-icon-setting",
                 children: [
+                    {
+                        name: "栏目菜单",
+                        path: "menu"
+                    },
                     {
                         name: "角色管理",
                         path: "role"

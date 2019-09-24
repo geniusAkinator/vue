@@ -39,16 +39,6 @@ import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
 export default {
   data() {
-    const generateData = _ => {
-      const data = [];
-      for (let i = 1; i <= 15; i++) {
-        data.push({
-          key: i,
-          label: `标准 ${i}`
-        });
-      }
-      return data;
-    };
     return {
       limited: 1,
       form: {

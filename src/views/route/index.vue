@@ -51,7 +51,7 @@
       <el-table-column prop="status" label="状态"></el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">禁用</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
           <el-button size="mini" @click="handleMap(scope.$index, tableData)">地图</el-button>
         </template>

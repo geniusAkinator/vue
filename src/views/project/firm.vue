@@ -5,16 +5,6 @@
       <el-button-group>
         <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
-        <el-dropdown @command="handleCommand" trigger="click">
-          <el-button type="primary" size="small" icon="el-icon-plus">
-            添加维保厂商
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="add">添加维保厂商</el-dropdown-item>
-            <el-dropdown-item command="list" divided>维保厂商列表</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
       </el-button-group>
       <my-search-tool>
         <template slot="content">
@@ -58,12 +48,10 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="status" label="状态"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
-          <el-button size="mini" @click="handleMap(scope.$index, tableData)">地图</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,7 +71,6 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyProjectAdd from "@/views/project/add";
 import MyProjectFirmAdd from "@/views/project/firmAdd";
 export default {
   data() {
@@ -119,7 +106,7 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyProjectAdd, //传递的组件对象
+          content: MyProjectFirmAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
@@ -131,26 +118,7 @@ export default {
       this.$layer.full(index);
     },
     handleUpload() {},
-    handleClick() {},
-    handleMap() {},
-    handleCommand(command) {
-      if (command == "add") {
-        var index = this.$layer.iframe({
-          content: {
-            content: MyProjectFirmAdd, //传递的组件对象
-            parent: this, //当前的vue对象
-            data: {} //props
-          },
-          shade: false,
-          area: ["1200px", "600px"],
-          title: "新增巡更项目",
-          target: ".el-main"
-        });
-        this.$layer.full(index);
-      } else if (command == "list") {
-        this.$router.push("projectFirm", () => {});
-      }
-    }
+    handleClick() {}
   },
   components: {
     MySearchTool

@@ -51,9 +51,9 @@
       <el-table-column prop="status" label="状态"></el-table-column>
       <el-table-column label="操作" fixed="right" width="240px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">禁用</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
-          <el-button size="mini" @click="handleStandard(scope.$index, tableData)">巡更标准</el-button>
+          <el-button size="mini" @click="handleConfig(scope.$index, tableData)">巡更标准</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,6 +74,7 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MyTypeAdd from "@/views/ptype/add";
+import MyConfigAdd from "@/views/ptype/cadd";
 import api from "@/api/index";
 export default {
   data() {
@@ -107,7 +108,7 @@ export default {
     handleSizeChange() {},
     handleCurrentChange() {},
     handleAdd() {
-      var index = this.$layer.iframe({
+      let index = this.$layer.iframe({
         content: {
           content: MyTypeAdd, //传递的组件对象
           parent: this, //当前的vue对象
@@ -122,7 +123,20 @@ export default {
     },
     handleUpload() {},
     handleClick() {},
-    handleStandard() {}
+    handleConfig() {
+      let index = this.$layer.iframe({
+        content: {
+          content: MyConfigAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "巡检标准",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    }
   },
   mounted() {
     api.getTypeData().then(res => {
