@@ -2,8 +2,8 @@
 <template>
   <el-header class="app-header">
     <div class="toggle-aside">
-      <i class="el-icon-s-unfold" v-if="isAsideCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
-      <i class="el-icon-s-fold" v-if="!isAsideCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
+      <i class="el-icon-s-unfold" v-if="isCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
+      <i class="el-icon-s-fold" v-if="!isCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
     </div>
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">

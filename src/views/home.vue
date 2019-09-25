@@ -3,7 +3,7 @@
     <el-container>
       <my-aside :isCollapse="isCollapse"></my-aside>
       <el-container style="flex-direction:column">
-        <my-header :isCollapse.sync="isCollapse" @parentCollapseChange="collapseChange"></my-header>
+        <my-header :isCollapse="isCollapse" @parentCollapseChange="collapseChange"></my-header>
         <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
@@ -99,6 +99,7 @@ export default {
     if (user) {
       _this.username = user;
     }
+    _this.autoChange();
     _this.$nextTick(()=>{
       window.addEventListener("resize",utils.throttle(_this.autoChange,100))
     })

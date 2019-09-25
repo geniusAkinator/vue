@@ -10,6 +10,13 @@
       <el-form-item label="显示顺序">
         <el-input v-model="form.sort" type="number"></el-input>
       </el-form-item>
+      <el-form-item label="图标">
+        <el-input v-model="form.icon">
+          <template slot="append">
+            <span class="pointer" @click="handleSelect">选择图标</span>
+          </template>
+        </el-input>
+      </el-form-item>
       <el-form-item label="是否显示">
         <el-switch
           v-model="form.isShow"
@@ -30,6 +37,7 @@
 <script>
 import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
+import MyIcon from "@/views/icon/index";
 export default {
   data() {
     return {
@@ -37,7 +45,8 @@ export default {
         sys: "",
         name: "",
         sort: "",
-        isShow: true
+        isShow: true,
+        index:""
       },
       rules: {
         sys: [{ required: true, message: "请输入栏目标识", trigger: "blur" }],
@@ -69,7 +78,21 @@ export default {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
     },
-    handleChange() {}
+    handleChange() {},
+    handleSelect() {
+      let idx = this.$layer.iframe({
+        content: {
+          content: MyIcon, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "400px"],
+        title: "拾取图标",
+        target: ".el-main"
+      });
+      this.index = idx;
+    }
   },
   components: {
     MyMapPicker,

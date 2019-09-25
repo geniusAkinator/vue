@@ -33,6 +33,7 @@ import Project from '@/views/project/index'
 import ProjectFirm from '@/views/project/firm'
 import Menu from '@/views/menu/index'
 import MenuSub from '@/views/menu/mindex'
+import Record from '@/views/record/index'
 
 Vue.use(Router)
 
@@ -173,6 +174,11 @@ export default new Router({
           path: 'projectFirm',
           name: '维保厂商',
           component: ProjectFirm
+        },
+        {
+          path: 'record',
+          name: '巡检记录',
+          component: Record
         },
       ]
     },

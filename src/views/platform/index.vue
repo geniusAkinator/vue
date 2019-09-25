@@ -185,14 +185,12 @@ export default {
   width: 300px;
   position: absolute;
   left: 20px;
-
   -webkit-animation: fadeInLeft 2s ease 0s 1 both;
 }
 .platform-right {
   width: 300px;
   position: absolute;
   right: 20px;
-
   -webkit-animation: fadeInRight 2s ease 0s 1 both;
 }
 .platform-left,
@@ -214,7 +212,6 @@ export default {
 .platform-box + .platform-box {
   margin-top: 10px;
 }
-
 .map-item {
   width: 100%;
   height: 100%;
@@ -393,5 +390,6 @@ export default {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+  transform: translateX("-50%")
 }
 </style>
