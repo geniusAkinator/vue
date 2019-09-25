@@ -1,16 +1,6 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="所属主体" prop="main">
-        <el-select v-model="form.main" placeholder="请选择所属主体">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="设备编号" prop="number">
         <el-input v-model="form.id"></el-input>
       </el-form-item>

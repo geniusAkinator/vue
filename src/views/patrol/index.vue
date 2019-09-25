@@ -48,7 +48,6 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="factory" label="所属工厂"></el-table-column>
-      <el-table-column prop="main" label="所属主体"></el-table-column>
       <el-table-column prop="main" label="巡更点名称"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">

@@ -6,11 +6,6 @@
           <el-option label="工厂1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属主体" prop="main">
-        <el-select v-model="form.main" placeholder="请选择">
-          <el-option label="主体1" value="1"></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="巡检计划名称" prop="name">
         <el-input v-model="form.name" placeholder="请输入巡检计划名称"></el-input>
         <el-transfer v-model="form.plist" :data="data"></el-transfer>
@@ -67,9 +62,6 @@ export default {
       rules: {
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
-        ],
-        main: [
-          { required: true, message: "请选择所属主体", trigger: "change" }
         ],
         name: [
           { required: true, message: "请输入巡更计划名称", trigger: "blur" }

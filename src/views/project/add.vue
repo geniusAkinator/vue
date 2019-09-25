@@ -6,11 +6,6 @@
           <el-option label="工厂1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属主体" prop="main">
-        <el-select v-model="form.main" placeholder="请选择">
-          <el-option label="主体1" value="1"></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="维保厂商" prop="firm">
         <el-select v-model="form.firm" placeholder="请选择">
           <el-option label="厂商1" value="1"></el-option>
@@ -103,11 +98,8 @@ export default {
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
         ],
-        main: [
-          { required: true, message: "请选择所属主体", trigger: "change" }
-        ],
         firm: [
-          { required: true, message: "请选择所属主体", trigger: "change" }
+          { required: true, message: "请选择所属维保厂商", trigger: "change" }
         ],
         name: [{ required: true, message: "请输入巡更名称", trigger: "blur" }],
         address: [{ required: true, message: "请输入地址", trigger: "blur" }]

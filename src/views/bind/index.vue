@@ -40,7 +40,6 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="角色名称"></el-table-column>
-      <el-table-column prop="address" label="所属主体"></el-table-column>
       <el-table-column prop="type" label="状态"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">

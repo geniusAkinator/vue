@@ -13,16 +13,6 @@
       <el-form-item label="确认密码" prop="cpwd">
         <el-input v-model="form.cpwd"></el-input>
       </el-form-item>
-      <el-form-item label="所属用户组" prop="group">
-        <el-select v-model="form.group" placeholder="请选择所属用户组">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="所属角色" prop="role">
         <el-select v-model="form.role" placeholder="请选择所属角色">
           <el-option
@@ -35,16 +25,6 @@
       </el-form-item>
       <el-form-item label="所属工厂" prop="factory">
         <el-select v-model="form.factory" placeholder="请选择所属工厂">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="所属主体" prop="main">
-        <el-select v-model="form.main" placeholder="请选择所属主体">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -109,7 +89,6 @@ export default {
         group: "",
         role: "",
         factory: "",
-        main: "",
         name: "",
         phone: "",
         remarks: ""
@@ -128,16 +107,12 @@ export default {
         ],
         pwd: [{ required: true, validator: validatePwd, trigger: "blur" }],
         cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
-        group: [
-          { required: true, message: "请选择所属用户组", trigger: "change" }
-        ],
         role: [
           { required: true, message: "请选择所属角色", trigger: "change" }
         ],
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
         ],
-        main: [{ required: true, message: "请选择所属主体", trigger: "change" }]
       }
     };
   },
