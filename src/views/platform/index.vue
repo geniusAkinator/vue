@@ -130,6 +130,9 @@ export default {
     };
   },
   methods: {},
+  beforeCreate(){
+    this.$store.dispatch("theme/initThemeList")
+  },
   mounted() {
     new Swiper(".swiper-container", {
       loop: true, // 循环模式选项
