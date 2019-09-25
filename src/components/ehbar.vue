@@ -6,7 +6,8 @@
 export default {
   data() {
     return {
-      option:""
+      option:"",
+      myCharts:{}
     };
   },
   props: {

@@ -454,12 +454,31 @@ input:focus,textarea:focus{
   margin-top: 10px;
 }
 .el-submenu__title,
-.el-menu-item{
+.el-menu-item,
+.el-breadcrumb__item{
    -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -khtml-user-select: none; /* Konqueror */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+}
+.calendar .el-calendar__header{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 13px 20px;
+  border-bottom: 0;
+}
+.el-calendar__title{
+  display: none
+}
+.el-card{
+  position: relative;
+}
+.header_right{
+  position: absolute;
+  right: 20px;
+  top: 0;
 }
 </style>

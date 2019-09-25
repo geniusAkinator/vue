@@ -123,7 +123,7 @@
                   通讯中断（失联）
                 </div>
               </div>
-              <my-calendar :list="calList"></my-calendar>
+              <my-calendar class="calendar" :list="calList"></my-calendar>
             </div>
           </el-card>
         </el-col>
@@ -132,10 +132,15 @@
             <div slot="header" class="clearfix">
               <i class="el-icon-data-line"></i>
               <span>本月隐患</span>
+              <el-button class="header_right" type="text">
+                <el-radio-group v-model="labelPos" size="small">
+                  <el-radio-button label="monthly">月报</el-radio-button>
+                  <el-radio-button label="weekly">周报</el-radio-button>
+                </el-radio-group>
+              </el-button>
             </div>
             <div class="text item">
-              <div id="chart" style="width:100%;height:300px;"></div>
-              <!-- <chart ref="chart" :options="orgOptions" :auto-resize="true"></chart> -->
+              <my-echart-line :id="echart"></my-echart-line>
             </div>
           </el-card>
         </el-col>
@@ -150,20 +155,21 @@ import MyCalendar from "@/components/calendar";
 import MyFactoryBox from "@/components/factorybox";
 import api from "@/api/index";
 import utils from "@/utils/utils";
+import MyEchartLine  from "@/components/eline";
 
 export default {
   data() {
     return {
-      orgOptions: {},
       test: "name",
       geoList: [],
-      calList: []
+      calList: [],
+      labelPos: "weekly",
+      echart:"sta"
     };
   },
   methods: {
-    openLayer() {},
     resizeChart() {
-      // this.$refs["chart"].resize();
+      this.myCharts.resize();
     }
   },
   mounted() {
@@ -177,8 +183,6 @@ export default {
         this.calList = res.data;
       }
     });
-    this.openLayer();
-    var myChart = echarts.init(document.getElementById("chart"));
     let orgOptions = {
       xAxis: {
         type: "category",
@@ -206,15 +210,18 @@ export default {
         }
       ]
     };
-    myChart.setOption(orgOptions);
-    this.$nextTick(() => {
-      // window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
-    });
+    // console.log(this.myCharts)
+    // this.myCharts.setOption(this.orgOptions);
+    // this.$nextTick(() => {
+    //   window.addEventListener("resize", this.resizeChart);
+    //   // window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
+    // });
   },
   components: {
     MyMap,
     MyCalendar,
-    MyFactoryBox
+    MyFactoryBox,
+    MyEchartLine
   }
 };
 </script>
@@ -267,7 +274,7 @@ export default {
   font-size: 15px;
   font-weight: bold;
   text-decoration: none;
-  color: #606266
+  color: #606266;
 }
 .sta_item i {
   background-color: #409eff;
@@ -293,6 +300,7 @@ export default {
   font-size: 26px !important;
   color: #606266;
 }
+
 @media screen and (max-width: 768px) {
   .sta_item {
     margin-bottom: 20px;

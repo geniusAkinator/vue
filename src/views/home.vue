@@ -124,7 +124,7 @@ export default {
 }
 .myfade-enter-active,
 .myfade-leave-active {
-  transition: all 0.5s;
+  transition: all 0.5s ease-in-out;
 }
 .myfade-enter, .myfade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

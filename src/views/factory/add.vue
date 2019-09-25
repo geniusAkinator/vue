@@ -68,14 +68,14 @@
         <el-input v-model="form.tel"></el-input>
       </el-form-item>
       <el-form-item label="公司简介">
-        <!-- <quill-editor
+        <quill-editor
           v-model="form.content"
           ref="myQuillEditor"
           :options="editorOption"
           @blur="onEditorBlur($event)"
           @focus="onEditorFocus($event)"
           @change="onEditorChange($event)"
-        ></quill-editor>-->
+        ></quill-editor>
       </el-form-item>
 
       <div class="add-footer">

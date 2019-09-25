@@ -3,6 +3,12 @@
     <el-card class="box-card" shadow="hover" style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>探测器状态分析报告</span>
+        <el-button class="header_right" type="text">
+          <el-radio-group v-model="labelPos" size="small">
+            <el-radio-button label="monthly">月报</el-radio-button>
+            <el-radio-button label="weekly">周报</el-radio-button>
+          </el-radio-group>
+        </el-button>
       </div>
       <!-- 表格操作 -->
       <div class="table-tool">
@@ -14,7 +20,7 @@
               :model="searchForm"
               label-width="80px"
             >
-              <el-form-item label="名称" size="small">
+              <el-form-item label="设备" size="small">
                 <el-input v-model="searchForm.name"></el-input>
               </el-form-item>
               <el-form-item label="创建时间" size="small">
@@ -98,6 +104,25 @@
           :total="400"
         ></el-pagination>
       </div>
+
+      <el-table
+        stripe
+        border
+        :data="tableData2"
+        align="center"
+        style="width: 100%;margin-top:100px;"
+        @row-click="handleRowClick"
+      >
+        <el-table-column prop="amount" label="设备总数"></el-table-column>
+        <el-table-column prop="battery" label="剩余电流总报警"></el-table-column>
+        <el-table-column prop="overheart" label="超温总报警"></el-table-column>
+        <el-table-column prop="overpower" label="过流总报警"></el-table-column>
+        <el-table-column prop="overvoltage" label="过压总报警"></el-table-column>
+        <el-table-column prop="liquidlevel" label="液位总报警"></el-table-column>
+        <el-table-column prop="name" label="欠压力总报警"></el-table-column>
+        <el-table-column prop="shot" label="短路总报警"></el-table-column>
+        <el-table-column prop="disconnection" label="断路总报警"></el-table-column>
+      </el-table>
     </el-card>
   </div>
 </template>
@@ -110,7 +135,9 @@ export default {
       isPaging: false,
       currentPage: 1,
       searchForm: {},
-      labelPosition: "left"
+      labelPosition: "left",
+      labelPos: "weekly",
+      tableData2: []
     };
   },
   methods: {
@@ -129,4 +156,14 @@ export default {
 };
 </script>
 <style>
+/* .sta_header {
+  display: flex;
+  align-items: center;
+}
+.el-card__header {
+  padding: 10px 20px;
+} */
+.el-table thead {
+  background: #f5f7fa !important;
+}
 </style>

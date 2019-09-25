@@ -32,7 +32,7 @@ export default {
 </script>
 <style scpoed>
 .el-breadcrumb {
-  padding: 20px;
+  padding:15px 20px;
 }
 .back {
   position: absolute;
