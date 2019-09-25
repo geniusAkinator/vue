@@ -1,10 +1,19 @@
 <template>
-  <div>
-    <div class="check-ball">
-      <my-echart-ball :id="eball"></my-echart-ball>您还没有体检，建议立即体检！系统可能存在风险，建议及时体检
-      立即体检
-      共检测7项，以下 3 项有问题
-      以下 4 项没有问题报警检测-共3 项
+  <div class="container">
+    <div class="check-cont">
+      <el-row>
+        <el-col :span="12">
+          <div class="check-ball">
+            <my-echart-ball :id="eball"></my-echart-ball>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="check-top">
+            <span>您还没有体检，建议立即体检！</span>
+            <span>系统可能存在风险，建议及时体检</span>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -25,7 +34,11 @@ export default {
 
 <style>
 .check-ball {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
+.check-cont {
+  margin: auto;
+}
+
 </style>

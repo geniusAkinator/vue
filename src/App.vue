@@ -453,4 +453,13 @@ input:focus,textarea:focus{
 .el-input+.el-transfer,.el-select+.el-transfer{
   margin-top: 10px;
 }
+.el-submenu__title,
+.el-menu-item{
+   -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
 </style>

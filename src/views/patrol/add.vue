@@ -128,7 +128,8 @@ export default {
       this.$parent.$layer.closeAll();
     },
     getPoint(e) {
-      console.log(e);
+      this.form.lat = e.lat;
+      this.form.lng = e.lng
     }
   },
   components: {

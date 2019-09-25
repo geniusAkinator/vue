@@ -119,4 +119,7 @@ body > .el-container {
   border-radius: 2px;
   padding: 20px;
 }
+.el-checkbox{
+  color: #d3dce6 !important
+}
 </style>

@@ -39,6 +39,7 @@
 <script>
 import MyMenuAdd from "@/views/menu/add";
 import api from "@/api/index";
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
@@ -60,8 +61,18 @@ export default {
           value: "2",
           label: "禁用"
         }
-      ]
+      ],
+      index: ""
     };
+  },
+  watch: {
+    index: function(newVal, oldVal) {
+      let layer = document.querySelector("#" + newVal);
+      if (layer != null) {
+        this.layerInitWidth = layer.offsetWidth;
+        this.layerInitHeight = layer.offsetHeight;
+      }
+    }
   },
   methods: {
     handleReset() {},
@@ -71,7 +82,7 @@ export default {
     handleSizeChange() {},
     handleCurrentChange() {},
     handleAdd() {
-      var index = this.$layer.iframe({
+      let idx = this.$layer.iframe({
         content: {
           content: MyMenuAdd, //传递的组件对象
           parent: this, //当前的vue对象
@@ -82,18 +93,32 @@ export default {
         title: "新增栏目",
         target: ".el-main"
       });
+      this.index = idx;
     },
     handleUpload() {},
     handleClick() {},
     handleRecord() {},
     handleMenu() {
-        this.$router.push("menuSub", () => {});
+      this.$router.push("menuSub", () => {});
     }
   },
   mounted() {
     api.getMenuData().then(res => {
       if (res.code === 0) {
         this.tableData = res.data;
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (this.index == "") {
+        return;
+      }
+      let layer = document.querySelector("#" + this.index);
+      if (layer != null) {
+        utils.resizeLayer(
+          this.index,
+          this.layerInitWidth,
+          this.layerInitHeight
+        );
       }
     });
   },

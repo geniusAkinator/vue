@@ -129,6 +129,20 @@ const Utils = {
         } else {
             return _this;
         }
+    },
+    resizeLayer(layerIndex, layerInitWidth, layerInitHeight) {
+        let parentNode = document.querySelector(".el-main.app-body");
+        var docWidth = parentNode.offsetWidth;
+        var docHeight = parentNode.offsetHeight;
+        var minWidth = layerInitWidth > docWidth ? docWidth : layerInitWidth;
+        var minHeight = layerInitHeight > docHeight ? docHeight : layerInitHeight;
+        console.log("doc:", docWidth, docHeight);
+        console.log("lay:", layerInitWidth, layerInitHeight);
+        console.log("min:", minWidth, minHeight);
+        let nowLayer = document.querySelector("#" + layerIndex);
+        console.log(nowLayer);
+        nowLayer.style.width = minWidth + "px";
+        nowLayer.style.height = minHeight + "px";
     }
 }
 export default Utils

@@ -233,6 +233,7 @@
           </el-form-item>
           <el-form-item label="小程序跳转背景">
             <el-input v-model="wxForm.spa"></el-input>
+            <my-upload :limited="limited"></my-upload>
             <span class="help-block">小程序跳转背景图片，可以为空</span>
           </el-form-item>
         </el-form>
@@ -256,7 +257,7 @@
           </el-form-item>
           <el-form-item label="平台LOGO">
             <el-input class="readonly" v-model="platformForm.logo" :readonly="true"></el-input>
-            <my-upload></my-upload>
+            <my-upload :limited="limited"></my-upload>
             <span class="help-block"></span>
           </el-form-item>
           <el-form-item label="版权信息">
@@ -285,7 +286,7 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
-    <div class="sysset-footer">
+    <div class="sysset-footer" v-if="activeName!='first'">
       <el-button type="primary" icon="el-icon-check" size="small">保存</el-button>
     </div>
   </div>
@@ -297,6 +298,7 @@ import MyQrcode from "@/components/qrcode";
 export default {
   data() {
     return {
+      limited: 1,
       urlList: [
         {
           name: "看板入口",
@@ -362,7 +364,7 @@ export default {
         quoteTemplate: ""
       },
       apiForm: {
-        status: "0",
+        status: "1",
         appkey: ""
       },
       platformForm: {
@@ -376,7 +378,7 @@ export default {
     };
   },
   methods: {
-    handleClick() {},
+    handleClick(e) {},
     handleGenerate() {},
     handleCopySuc() {
       this.$message({ type: "success", message: "拷贝成功" });
