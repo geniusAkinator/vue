@@ -127,19 +127,7 @@ export default {
     handleSizeChange() {},
     handleCurrentChange() {},
     handleEdit() {
-      //编辑
-      let index = this.$layer.iframe({
-        content: {
-          content: MySensorTypeAdd, //传递的组件对象
-          parent: this, //当前的vue对象
-          data: {} //props
-        },
-        shade: false,
-        area: ["800px", "600px"],
-        title: "新增传感器类型",
-        target: ".el-main"
-      });
-      this.$layer.full(index);
+     
     },
     handleExport() {},
     handleReset() {

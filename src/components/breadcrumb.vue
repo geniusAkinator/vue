@@ -42,7 +42,7 @@ export default {
   justify-content: center;
   align-items: center;
   right: 0;
-  top: 15px;
+  top: 9px;
   cursor: pointer;
 }
 .back i {

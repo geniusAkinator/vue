@@ -141,6 +141,8 @@ const Utils = {
         console.log("min:", minWidth, minHeight);
         let nowLayer = document.querySelector("#" + layerIndex);
         console.log(nowLayer);
+        nowLayer.style.top = "50%";
+        nowLayer.style.left = "50%";
         nowLayer.style.width = minWidth + "px";
         nowLayer.style.height = minHeight + "px";
     }
