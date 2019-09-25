@@ -11,26 +11,28 @@
     <el-card class="box-card" shadow="hover" style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>下属设备及探测器</span>
-      </div>
-      <div class="text item">
-        <div class="tips">
-          <div class="tips-item">
-            <i class="circle success"></i>
-            正常
-          </div>
-          <div class="tips-item">
-            <i class="circle warning"></i>
-            报警
-          </div>
-          <div class="tips-item">
-            <i class="circle danger"></i>
-            故障
-          </div>
-          <div class="tips-item">
-            <i class="circle info"></i>
-            通讯中断（失联）
+        <div class="header_right">
+          <div class="tips">
+            <div class="tips-item">
+              <i class="circle success"></i>
+              正常
+            </div>
+            <div class="tips-item">
+              <i class="circle warning"></i>
+              报警
+            </div>
+            <div class="tips-item">
+              <i class="circle danger"></i>
+              故障
+            </div>
+            <div class="tips-item">
+              <i class="circle info"></i>
+              通讯中断（失联）
+            </div>
           </div>
         </div>
+      </div>
+      <div class="text item">
         <!-- 表格操作 -->
         <div class="table-tool">
           <my-search-tool>
@@ -107,7 +109,7 @@
 <script>
 import MyFactoryBox from "@/components/factorybox";
 import MySearchTool from "@/components/searchtool";
-import api from "@/api/index"
+import api from "@/api/index";
 export default {
   data() {
     return {

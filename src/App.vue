@@ -103,14 +103,17 @@ body {
 .tips {
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 20px;
-  padding-top: 0;
+  padding-bottom: 10px;
+}
+.el-card__header .tips{
+    padding: 18px 0;
 }
 .tips-item {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 20px;
+  line-height: 19px;
 }
 .tips-item:last-child {
   margin-right: 0;
@@ -397,86 +400,87 @@ body {
 .el-aside::-webkit-scrollbar {
   width: 0 !important;
 }
-.el-aside{
+.el-aside {
   -ms-overflow-style: none;
   height: 100%;
 }
-.el-aside{
+.el-aside {
   overflow: -moz-scrollbars-none;
   position: relative;
 }
-.ql-toolbar.ql-snow + .ql-container.ql-snow{
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
   height: 200px;
 }
-.pointer{
+.pointer {
   cursor: pointer;
 }
-.el-header.app-header .el-menu-item{
+.el-header.app-header .el-menu-item {
   color: rgb(186, 198, 213) !important;
 }
-.el-header.app-header .el-menu-item:hover{
+.el-header.app-header .el-menu-item:hover {
   background: #314158 !important;
   color: rgb(186, 198, 213) !important;
-  
 }
-.el-menu--horizontal>.el-menu-item{
+.el-menu--horizontal > .el-menu-item {
   height: 58px;
-  border: 0 !important
+  border: 0 !important;
 }
-.el-input+.myUpload{
+.el-input + .myUpload {
   margin-top: 10px;
 }
-.el-form-item.is-error.is-required .el-input>input{
+.el-form-item.is-error.is-required .el-input > input {
   border-color: #ff5722;
-  background: #ffe6dd
+  background: #ffe6dd;
 }
-.map-picker .el-autocomplete input{
-  border: 1px solid #DCDFE6 !important;
-  background-color:#fff !important
+.map-picker .el-autocomplete input {
+  border: 1px solid #dcdfe6 !important;
+  background-color: #fff !important;
 }
-input:focus,textarea:focus{
-   border-color: #1e9fff;
-  background: #e8f0f8
+input:focus,
+textarea:focus {
+  border-color: #1e9fff;
+  background: #e8f0f8;
 }
-.el-input-group__prepend{
-  background: #fff
+.el-input-group__prepend {
+  background: #fff;
 }
-.el-menu-item-group__title{
-  display: none !important
+.el-menu-item-group__title {
+  display: none !important;
 }
-.el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline{
-  display: none
+.el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline {
+  display: none;
 }
-.el-menu--horizontal>.el-menu-item.is-active{
-  background: #314158 !important
+.el-menu--horizontal > .el-menu-item.is-active {
+  background: #314158 !important;
 }
-.el-input+.el-transfer,.el-select+.el-transfer{
+.el-input + .el-transfer,
+.el-select + .el-transfer {
   margin-top: 10px;
 }
 .el-submenu__title,
 .el-menu-item,
-.el-breadcrumb__item{
-   -webkit-touch-callout: none; /* iOS Safari */
+.el-breadcrumb__item {
+  -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -khtml-user-select: none; /* Konqueror */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
-.calendar .el-calendar__header{
+.calendar .el-calendar__header {
   position: absolute;
   top: 0;
   right: 0;
   padding: 13px 20px;
   border-bottom: 0;
 }
-.el-calendar__title{
-  display: none
+.el-calendar__title {
+  display: none;
 }
-.el-card{
+.el-card {
   position: relative;
 }
-.header_right{
+.header_right {
   position: absolute;
   right: 20px;
   top: 0;
