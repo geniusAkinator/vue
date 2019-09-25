@@ -31,7 +31,6 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="task" label="任务主体"></el-table-column>
-      <el-table-column prop="leader" label="所属主体"></el-table-column>
       <el-table-column prop="executionStatus" label="执行状态"></el-table-column>
       <el-table-column prop="createTime" label="开始执行时间"></el-table-column>
       <el-table-column prop="status" label="状态"></el-table-column>
