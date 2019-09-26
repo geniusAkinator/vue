@@ -105,8 +105,8 @@ body {
   justify-content: flex-end;
   padding-bottom: 10px;
 }
-.el-card__header .tips{
-    padding: 18px 0;
+.el-card__header .tips {
+  padding: 18px 0;
 }
 .tips-item {
   display: flex;
@@ -447,7 +447,9 @@ textarea:focus {
 .el-menu-item-group__title {
   display: none !important;
 }
-.el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline {
+.el-aside.app-side.app-side-left.app-side-collapsed .el-menu.el-menu--inline,
+.el-aside.app-side.app-side-left.app-side-collapsed
+  .el-submenu__icon-arrow.el-icon-arrow-right {
   display: none;
 }
 .el-menu--horizontal > .el-menu-item.is-active {
