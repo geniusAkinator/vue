@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <el-container>
-      <my-aside :isCollapse="isCollapse"></my-aside>
+      <my-aside :isCollapse="isCollapse" @parentCollapseChange="collapseChange"></my-aside>
       <el-container style="flex-direction:column">
-        <my-header :isCollapse="isCollapse" @parentCollapseChange="collapseChange"></my-header>
+        <my-header></my-header>
         <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
@@ -89,7 +89,7 @@ export default {
       if (cwidth < 1024) {
         this.isCollapse = true;
       } else {
-        if(!this.isCollapse) this.isCollapse = false;
+        if (!this.isCollapse) this.isCollapse = false;
       }
     }
   },
@@ -100,9 +100,9 @@ export default {
       _this.username = user;
     }
     _this.autoChange();
-    _this.$nextTick(()=>{
-      window.addEventListener("resize",utils.throttle(_this.autoChange,100))
-    })
+    _this.$nextTick(() => {
+      window.addEventListener("resize", utils.throttle(_this.autoChange, 100));
+    });
   },
   components: {
     MyAside,
@@ -129,6 +129,6 @@ export default {
 }
 .myfade-enter, .myfade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-  transform:translateY(80px);
+  transform: translateY(80px);
 }
 </style>

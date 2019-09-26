@@ -1,10 +1,6 @@
 <!-- 自定义头部 -->
 <template>
   <el-header class="app-header">
-    <div class="toggle-aside">
-      <i class="el-icon-s-unfold" v-if="isCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
-      <i class="el-icon-s-fold" v-if="!isCollapse" @click="isAsideCollapse=!isAsideCollapse"></i>
-    </div>
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="/">看板</el-menu-item>
@@ -31,16 +27,7 @@ export default {
   data() {
     return {
       username: "",
-      isAsideCollapse: this.isCollapse
     };
-  },
-  props: {
-    isCollapse: false
-  },
-  watch: {
-    isAsideCollapse(newVal, oldVal) {
-      this.$emit("parentCollapseChange", newVal);
-    }
   },
   methods: {
     logout: function() {

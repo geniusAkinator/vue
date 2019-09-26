@@ -267,6 +267,16 @@ const mutations = { //同步
                 ]
             },
             {
+                name:"页面管理",
+                icon:"el-icon-mobile-phone",
+                children:[
+                    {
+                        name:"默认导航",
+                        path:"nav"
+                    }
+                ]
+            },
+            {
                 name: "统计分析",
                 icon: "el-icon-data-analysis",
                 children: [

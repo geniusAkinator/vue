@@ -34,6 +34,7 @@ import ProjectFirm from '@/views/project/firm'
 import Menu from '@/views/menu/index'
 import MenuSub from '@/views/menu/mindex'
 import Record from '@/views/record/index'
+import Nav from '@/views/nav/index'
 
 Vue.use(Router)
 
@@ -179,6 +180,18 @@ export default new Router({
           path: 'record',
           name: '巡检记录',
           component: Record
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '页面管理',
+      component: Home,
+      children: [
+        {
+          path: 'nav',
+          name: '默认导航',
+          component: Nav
         },
       ]
     },
