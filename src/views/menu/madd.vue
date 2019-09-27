@@ -7,6 +7,9 @@
       <el-form-item label="菜单名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
+      <el-form-item label="路径名称" prop="url">
+        <el-input v-model="form.url"></el-input>
+      </el-form-item>
       <el-form-item label="显示顺序">
         <el-input v-model="form.sort"></el-input>
       </el-form-item>
@@ -126,11 +129,14 @@ export default {
   border-color: #e4e7ed;
   color: #c0c4cc;
 }
-.el-checkbox.is-bordered{
-    margin-left: 0 !important;
-    margin-bottom:5px
+.el-checkbox.is-bordered {
+  margin-left: 0 !important;
+  margin-bottom: 5px;
 }
-.el-checkbox{
+.el-checkbox {
   margin-right: 10px;
+}
+.container.form{
+  padding-bottom: 70px;
 }
 </style>
