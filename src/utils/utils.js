@@ -136,13 +136,9 @@ const Utils = {
         var docHeight = parentNode.offsetHeight;
         var minWidth = layerInitWidth > docWidth ? docWidth : layerInitWidth;
         var minHeight = layerInitHeight > docHeight ? docHeight : layerInitHeight;
-        // console.log("doc:", docWidth, docHeight);
-        // console.log("lay:", layerInitWidth, layerInitHeight);
-        // console.log("min:", minWidth, minHeight);
         let nowLayer = document.querySelector("#" + layerIndex);
         let nowLayerContent = nowLayer.querySelector(".vl-notify-content");
         let nowLayerTitle = nowLayer.querySelector(".vl-notice-title");
-
         if (layerInitHeight > docHeight) {
             nowLayer.style.top = "50%";
             nowLayerContent.style.height = docHeight - nowLayerTitle.offsetHeight + 'px';
