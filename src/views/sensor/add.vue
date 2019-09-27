@@ -69,7 +69,6 @@ export default {
     return {
       form: {
         id: "",
-        main: "",
         name: "",
         lat: "",
         lng: "",
@@ -82,9 +81,6 @@ export default {
         name: [{ required: true, message: "请输入设备名称", trigger: "blur" }],
         number: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
-        ],
-        main: [
-          { required: true, message: "请选择所属主体", trigger: "change" }
         ],
         type: [
           { required: true, message: "请选择设备类型", trigger: "change" }

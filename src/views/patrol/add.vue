@@ -6,11 +6,6 @@
           <el-option label="类型1" value="1"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属主体" prop="main">
-        <el-select v-model="form.main" placeholder="请选择">
-          <el-option label="类型1" value="1"></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="厂区" prop="parea">
         <el-select v-model="form.parea" placeholder="请选择">
           <el-option label="类型1" value="1"></el-option>
@@ -85,7 +80,6 @@ export default {
   data() {
     return {
       form: {
-        main: "",
         lat: 0,
         lng: 0,
         status: 0,
@@ -96,9 +90,6 @@ export default {
       rules: {
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
-        ],
-        main: [
-          { required: true, message: "请选择所属主体", trigger: "change" }
         ],
         parea: [{ required: true, message: "请选择厂区", trigger: "change" }],
         workshop: [
