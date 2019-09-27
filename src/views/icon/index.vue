@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="icon_list">
-      <li v-for="(item,index) in list" :key="index">
+      <li v-for="(item,index) in list" :key="index" @click="handleClick(index)">
         <span>
           <i :class="item"></i>
           <span class="icon-name">{{item}}</span>
@@ -296,6 +296,16 @@ export default {
         "el-icon-ice-cream-round"
       ]
     };
+  },
+  methods:{
+    handleClick(index){
+      let idx = this.$parent.index;
+      this.$parent.form.icon = this.list[index]
+      this.$parent.$layer.close(idx);
+    }
+  },
+  mounted(){
+    
   }
 };
 </script>

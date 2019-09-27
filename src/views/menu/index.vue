@@ -38,6 +38,7 @@
 </template>
 <script>
 import MyMenuAdd from "@/views/menu/add";
+import MyMenuEdit from "@/views/menu/edit"
 import api from "@/api/index";
 import utils from "@/utils/utils";
 export default {
@@ -77,7 +78,20 @@ export default {
   methods: {
     handleReset() {},
     handleSearch() {},
-    handleEdit() {},
+    handleEdit() {
+      let idx = this.$layer.iframe({
+        content: {
+          content: MyMenuEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "400px"],
+        title: "编辑栏目",
+        target: ".el-main"
+      });
+      this.index = idx;
+    },
     handleDelete() {},
     handleSizeChange() {},
     handleCurrentChange() {},
