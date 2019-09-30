@@ -1,29 +1,26 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="栏目标识" prop="sys">
-        <el-input v-model="form.sys"></el-input>
-      </el-form-item>
-      <el-form-item label="栏目名称" prop="name">
+      <el-form-item label="菜单名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="显示顺序">
-        <el-input v-model="form.sort" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="图标">
+      <el-form-item label="图标" prop="icon">
         <el-input v-model="form.icon">
           <template slot="append">
             <span class="pointer" @click="handleSelect">选择图标</span>
           </template>
         </el-input>
       </el-form-item>
+      <el-form-item label="排序号" prop="orderNo">
+        <el-input v-model="form.orderNo" type="number"></el-input>
+      </el-form-item>
       <el-form-item label="是否显示">
         <el-switch
-          v-model="form.isShow"
+          v-model="form.state"
           active-color="#13ce66"
           inactive-color="#ff4949"
-          :active-value="true"
-          :inactive-value="false"
+          :active-value="1"
+          :inactive-value="0"
         ></el-switch>
       </el-form-item>
       <div class="add-footer">
@@ -38,16 +35,17 @@
 import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
 import MyIcon from "@/views/icon/index";
+import api from "@/api/index";
 export default {
   data() {
     return {
       form: {
-        sys: "",
         name: "",
-        sort: "",
-        isShow: true,
-        index:"",
-        icon:""
+        icon: "",
+        state: 0,
+        orderNo: 0,
+        pId: -1,
+        menuId: this.$parent.eid
       },
       rules: {
         sys: [{ required: true, message: "请输入栏目标识", trigger: "blur" }],
@@ -59,7 +57,25 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeDialog();
+          console.log(this.form);
+          api.updateMenuData(this.form).then(res => {
+            if (res.code == 200) {
+              //编辑成功
+              this.$message({
+                showClose: true,
+                message: "编辑成功",
+                type: "success"
+              });
+              this.$parent.initTable();
+              this.closeDialog();
+            } else {
+              this.$message({
+                showClose: true,
+                message: "编辑失败",
+                type: "warning"
+              });
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -70,11 +86,9 @@ export default {
       this.closeDialog();
     },
     closeDialog() {
+      //关闭dialog
       this.$parent.$layer.closeAll();
     },
-    onEditorBlur() {},
-    onEditorFocus() {},
-    onEditorChange() {},
     getPoint(e) {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
@@ -93,7 +107,22 @@ export default {
         target: ".el-main"
       });
       this.index = idx;
+    },
+    initForm() {
+      api.getMenuDetail({ menuId: this.form.menuId }).then(res => {
+        if (res.code === 200) {
+          let data = res.data;
+          this.form.name = data.name;
+          this.form.icon = data.icon;
+          this.form.state = data.state;
+          this.form.orderNo = data.orderNo;
+        } else {
+        }
+      });
     }
+  },
+  mounted() {
+    this.initForm();
   },
   components: {
     MyMapPicker,
