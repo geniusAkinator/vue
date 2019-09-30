@@ -1,14 +1,7 @@
 import axios from "axios"
 import originJSONP from 'jsonp'
 import utils from "./utils"
-
-const debug = process.env.NODE_ENV !== 'production'
-let base = ""
-if (debug) {
-    base = config.base.dev
-} else {
-    base = config.base.prod
-}
+import baseURL from "./baseUrl"
 
 const HttpRequest = {
     getRequest({ url, data = {}, method = "GET" }) {
@@ -19,7 +12,7 @@ const HttpRequest = {
     _getRequest(url, resolve, reject, data, method) {
         axios({
             url: url,
-            baseURL: base,
+            baseURL: baseURL,
             data: data,
             method: method,
             params: data,

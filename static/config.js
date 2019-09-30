@@ -1,8 +1,4 @@
 const config = {
-    base: { //api base路径
-        dev: "http://192.168.1.99:8888", //开发版
-        prod:""//正式版
-    },
     editorOption: { //编辑器配置
         debug: "info",
         modules: {
