@@ -106,7 +106,8 @@ export default {
   methods: {
     handleReset() {},
     handleSearch() {},
-    handleEdit() {
+    handleEdit(index, row) {
+      this.eid = row.menuId;
       let idx = this.$layer.iframe({
         content: {
           content: MySubmenuEdit, //传递的组件对象
@@ -149,7 +150,7 @@ export default {
       this.index = idx;
     },
     handleDeleteMore() {
-       this.delRow();
+      this.delRow();
     },
     initTable() {
       console.log(this.Listform);

@@ -23,9 +23,9 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="操作权限">
-        <el-checkbox v-model="form.add" label="添加" border></el-checkbox>
+        <el-checkbox v-model="form.create" label="添加" border></el-checkbox>
         <el-checkbox v-model="form.edit" label="编辑" border></el-checkbox>
-        <el-checkbox v-model="form.delete" label="删除" border></el-checkbox>
+        <el-checkbox v-model="form.del" label="删除" border></el-checkbox>
         <el-checkbox v-model="form.view" label="浏览" border></el-checkbox>
         <el-checkbox v-model="form.query" label="查询" border></el-checkbox>
         <el-checkbox v-model="form.export" label="导出" border></el-checkbox>
@@ -49,13 +49,14 @@ export default {
     return {
       form: {
         pId: this.$parent.pId,
+        menuId: this.$parent.eid,
         url: "",
         name: "",
         state: 1,
         orderNo: 0,
-        add: 0,
+        create: 0,
         edit: 0,
-        delete: 0,
+        del: 0,
         view: 0,
         query: 0,
         export: 0,
@@ -71,7 +72,25 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeDialog();
+          console.log(this.form)
+          api.updateMenuData(this.form).then(res => {
+            if (res.code == 200) {
+              //编辑成功
+              this.$message({
+                showClose: true,
+                message: "编辑成功",
+                type: "success"
+              });
+              this.$parent.initTable();
+              this.closeDialog();
+            } else {
+              this.$message({
+                showClose: true,
+                message: "编辑失败",
+                type: "warning"
+              });
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -96,10 +115,9 @@ export default {
       api.getMenuDetail({ menuId: this.form.menuId }).then(res => {
         if (res.code === 200) {
           let data = res.data;
-          this.form.name = data.name;
-          this.form.icon = data.icon;
-          this.form.state = data.state;
-          this.form.orderNo = data.orderNo;
+          for (let key in data) {
+            this.form[key] = data[key];
+          }
         } else {
         }
       });

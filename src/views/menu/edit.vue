@@ -112,10 +112,9 @@ export default {
       api.getMenuDetail({ menuId: this.form.menuId }).then(res => {
         if (res.code === 200) {
           let data = res.data;
-          this.form.name = data.name;
-          this.form.icon = data.icon;
-          this.form.state = data.state;
-          this.form.orderNo = data.orderNo;
+          for (let key in data) {
+            this.form[key] = data[key];
+          }
         } else {
         }
       });

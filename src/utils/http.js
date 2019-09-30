@@ -1,13 +1,16 @@
+/** 
+ * 无拦截器
+*/
 import axios from "axios"
 import originJSONP from 'jsonp'
 import utils from "./utils"
 import baseURL from "./baseUrl"
 
 const HttpRequest = {
-    getRequest({ url, data = {}, method = "GET" }) {
+    getRequest({ url, data = {}, method = "GET" }) { 
         return new Promise((resolve, reject) => {
             this._getRequest(url, resolve, reject, data, method)
-        })
+        }).catch((e) => {})
     },
     _getRequest(url, resolve, reject, data, method) {
         axios({

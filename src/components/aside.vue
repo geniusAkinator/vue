@@ -11,7 +11,6 @@
       <div class="app-side-menu">
         <!-- 菜单 -->
         <el-menu
-          router
           unique-opened
           :default-active="this.$store.state.home.nowPath"
           class="el-menu-vertical-demo"
@@ -31,6 +30,7 @@
                 :index="item.path"
                 v-for="(item,index) in item.children"
                 :key="index"
+                @click="jump(item)"
               >{{item.name}}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -61,18 +61,14 @@ export default {
     }
   },
   methods: {
-    handleOpen(key, keyPath) {}
+    handleOpen(key, keyPath) {},
+    jump(e){
+      console.log(e);
+      this.$router.push({"path":"/"+e.path})
+    }
   },
   mounted() {
-    this.$nextTick(() => {
-      // let el = document.querySelectorAll(".el-menu-item-group__title");
-      // for (let i = 0; i < el.length; i++) {
-      //   let pNode = el[i].parentNode;
-      //   // pNode.remove(el[i])
-      //   console.log(pNode, el[i]);
-      //   pNode.remove(el[i]);
-      // }
-    });
+   
   }
 };
 </script>
