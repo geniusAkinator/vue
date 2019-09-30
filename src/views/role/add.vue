@@ -13,7 +13,7 @@
       <el-form-item label="排序">
         <el-input v-model="form.orderNo" type="number"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="权限">
+      <el-form-item label="权限">
         <el-card class="box-card permission" shadow="never">
           <div slot="header" class="clearfix">
             <el-checkbox v-model="form.permission">信息管理</el-checkbox>
@@ -62,7 +62,7 @@
             </div>
           </div>
         </el-card>
-      </el-form-item> -->
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>

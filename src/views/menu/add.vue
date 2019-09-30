@@ -1,29 +1,26 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="栏目标识" prop="sys">
-        <el-input v-model="form.sys"></el-input>
-      </el-form-item>
-      <el-form-item label="栏目名称" prop="name">
+      <el-form-item label="菜单名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="显示顺序">
-        <el-input v-model="form.sort" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="图标">
+      <el-form-item label="图标" prop="icon">
         <el-input v-model="form.icon">
           <template slot="append">
             <span class="pointer" @click="handleSelect">选择图标</span>
           </template>
         </el-input>
       </el-form-item>
+      <el-form-item label="排序号" prop="orderNo">
+        <el-input v-model="form.orderNo" type="number"></el-input>
+      </el-form-item>
       <el-form-item label="是否显示">
         <el-switch
-          v-model="form.isShow"
+          v-model="form.state"
           active-color="#13ce66"
           inactive-color="#ff4949"
-          :active-value="true"
-          :inactive-value="false"
+          :active-value="1"
+          :inactive-value="0"
         ></el-switch>
       </el-form-item>
       <div class="add-footer">
@@ -38,20 +35,20 @@
 import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
 import MyIcon from "@/views/icon/index";
+import api from "@/api/index";
 export default {
   data() {
     return {
       form: {
-        sys: "",
         name: "",
-        sort: "",
-        isShow: true,
-        index:"",
-        icon:""
+        icon: "",
+        state: 0,
+        orderNo: 0,
+        pId: -1
       },
       rules: {
-        sys: [{ required: true, message: "请输入栏目标识", trigger: "blur" }],
-        name: [{ required: true, message: "请输入栏目名称", trigger: "blur" }]
+        name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
+        icon: [{ required: true, message: "请选择图标", trigger: "blur" }]
       }
     };
   },
@@ -59,9 +56,26 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeDialog();
+          api.addMenuData(this.form).then(res => {
+            console.log(res);
+            if (res.code == 200) { //添加成功
+              this.$message({
+                showClose: true,
+                message: "添加成功",
+                type: "success"
+              });
+              this.$parent.initTable();
+              this.closeDialog();
+            } else {        //添加失败
+              this.$message({
+                showClose: true,
+                message: "添加失败",
+                type: "warning"
+              });
+            }
+          });
+          console.log(this.form);
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

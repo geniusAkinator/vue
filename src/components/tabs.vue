@@ -192,7 +192,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
   border: 1px solid #d2d2d2;
   background-color: #fff;
-  z-index: 300;
+  z-index: 99999;
   border-radius: 2px;
   white-space: nowrap;
 }

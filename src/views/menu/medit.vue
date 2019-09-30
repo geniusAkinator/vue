@@ -63,35 +63,19 @@ export default {
         audit: 0
       },
       rules: {
-        name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
-        url: [{ required: true, message: "请输入路径名称", trigger: "blur" }]
+        name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }]
       }
     };
   },
   methods: {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
-        api.addMenuData(this.form).then(res => {
-          console.log(res);
-          if (res.code == 200) {
-            //添加成功
-            this.$message({
-              showClose: true,
-              message: "添加成功",
-              type: "success"
-            });
-            this.$parent.initTable();
-            this.closeDialog();
-          } else {
-            //添加失败
-            this.$message({
-              showClose: true,
-              message: "添加失败",
-              type: "warning"
-            });
-          }
-        });
-        console.log(this.form);
+        if (valid) {
+          this.closeDialog();
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
       });
     },
     handleBack() {
@@ -107,7 +91,22 @@ export default {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
     },
-    handleChange() {}
+    handleChange() {},
+    initForm() {
+      api.getMenuDetail({ menuId: this.form.menuId }).then(res => {
+        if (res.code === 200) {
+          let data = res.data;
+          this.form.name = data.name;
+          this.form.icon = data.icon;
+          this.form.state = data.state;
+          this.form.orderNo = data.orderNo;
+        } else {
+        }
+      });
+    }
+  },
+  mounted() {
+    this.initForm();
   },
   components: {
     MyMapPicker,

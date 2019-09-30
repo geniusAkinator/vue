@@ -1,5 +1,9 @@
 const config = {
-    editorOption: { //编辑器
+    base: { //api base路径
+        dev: "http://192.168.1.99:8888", //开发版
+        prod:""//正式版
+    },
+    editorOption: { //编辑器配置
         debug: "info",
         modules: {
             toolbar: [
@@ -30,7 +34,7 @@ const config = {
         placeholder: "请输入内容",
         theme: "snow"
     },
-    baiduMap: { 
+    baiduMap: {
         ak: "yvHBN7cRIeYG9TIWMfOuVMk4Z2w1uXnK" //百度地图ak
     },
     nameMap: {        //earth国家中文名称

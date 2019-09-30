@@ -25,7 +25,7 @@ import "viewerjs/dist/viewer.css"
 import Viewer from "v-viewer"
 import VueClipboard from 'vue-clipboard2'
 
-require('@/mock/mock')
+// require('@/mock/mock')
 require('moment')
 
 Vue.prototype.$layer = layer(Vue)

@@ -1,8 +1,6 @@
 
 import http from '@/utils/http'
 
-let base = '';
-
 export const getFactoryGeo = params => {
     return http.getRequest({
         url: '/factory/map',
@@ -66,9 +64,44 @@ export const getTypeData = params => {
     }).then(res => res);
 };
 
-export const getMenuData = params => {
+
+/**
+ * 栏目菜单
+ */
+export const getMenuData = params => { //获取菜单列表
     return http.getRequest({
-        url: '/menu/data',
-        data: params
+        url: '/Menu/menuList',
+        data: params,
     }).then(res => res);
 };
+
+export const addMenuData = params => { //添加菜单
+    return http.getRequest({
+        url: '/Menu/addMenu',
+        data: params,
+        method: "POST"
+    })
+}
+
+export const delMenuData = params => { //删除菜单
+    return http.getRequest({
+        url: '/Menu/deleteMenu',
+        data: params,
+        method: "DELETE"
+    })
+}
+
+export const getMenuDetail = params => { //获取菜单列表
+    return http.getRequest({
+        url: '/Menu/menuListDetail',
+        data: params,
+    }).then(res => res);
+};
+
+export const updateMenuData = params => { //更新菜单信息
+    return http.getRequest({
+        url: '/Menu/updateMenu',
+        data: params,
+        method: "PUT"
+    }).then(res => res);
+}

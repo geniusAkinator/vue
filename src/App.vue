@@ -141,7 +141,7 @@ body {
   height: auto;
   width: auto;
   left: 0;
-  bottom: 0;
+  bottom: -9999px;
 }
 .table-expand label {
   width: 90px;

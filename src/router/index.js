@@ -223,7 +223,7 @@ export default new Router({
           component: Menu
         },
         {
-          path: 'menuSub',
+          path: 'menuSub/:pId/:pName',
           name: '菜单管理',
           component: MenuSub
         },
