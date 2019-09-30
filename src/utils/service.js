@@ -1,17 +1,18 @@
-/** 
- * 拦截HTTP请求
-*/
+/**
+ * axios拦截http请求
+ * @module Request
+ */
 import axios from "axios"
 import baseURL from "./baseUrl"
 import { Message } from 'element-ui';
 
-const request = axios.create({
+const Request = axios.create({
     baseURL: baseURL, // api的base_url
     timeout: 30000 // 请求超时时间
 });
 
 // request拦截器
-request.interceptors.request.use(config => {
+Request.interceptors.request.use(config => {
     //此处进行token等数据处理
     //showLoding
     config.headers['Content-Type'] = "application/json";
@@ -28,7 +29,7 @@ request.interceptors.request.use(config => {
 });
 
 // respone拦截器
-request.interceptors.response.use(
+Request.interceptors.response.use(
     response => {
         let res = response.data;
         if (res.code !== 200) {
@@ -53,4 +54,4 @@ request.interceptors.response.use(
     }
 );
 
-export default request
+export default Request
