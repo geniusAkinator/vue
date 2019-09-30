@@ -39,13 +39,14 @@
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="ID" width="150"></el-table-column>
+      <el-table-column prop="roleId" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="角色名称"></el-table-column>
-      <el-table-column prop="type" label="状态"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="180px">
+      <el-table-column prop="orderNo" label="排序"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" @click="handleAssign(scope.$index, scope.row)">分配权限</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,10 +56,10 @@
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
         :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[25, 50, 75, 100]"
+        :page-size="Listform.pageSize"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -66,10 +67,18 @@
 
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyRoleAdd from "@/views/role/add"
+import MyRoleAdd from "@/views/role/add";
+import MyRoleEdit from "@/views/role/edit";
+import api from "@/api/index";
 export default {
   data() {
     return {
+      Listform: {
+        //表格请求params
+        pageNum: 1,
+        pageSize: 25
+      },
+      total: 0,
       tableData: [],
       searchForm: {},
       labelPosition: "left",
@@ -92,8 +101,23 @@ export default {
     };
   },
   methods: {
-    handleEdit() {},
-    handleDelete() {},
+    handleEdit() {
+      var index = this.$layer.iframe({
+        content: {
+          content: MyRoleEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["400px", "400px"],
+        title: "编辑角色",
+        target: ".el-main"
+      });
+    },
+    handleDelete(index,row) {
+      this.did = row.roleId + "";
+      this.delRow();
+    },
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
@@ -102,17 +126,56 @@ export default {
           data: {} //props
         },
         shade: false,
-        area: ["1200px", "600px"],
+        area: ["400px", "400px"],
         title: "新增角色",
         target: ".el-main"
       });
-      this.$layer.full(index);
     },
     handleReset() {},
     handleSearch() {},
-    handleClick() {},
-    handleCurrentChange() {},
-    handleSizeChange() {}
+    handleSizeChange(e) {
+      this.Listform.pageSize = e;
+      this.initTable();
+    },
+    handleCurrentChange(e) {
+      console.log(e);
+      this.Listform.pageNum = e;
+      this.initTable();
+    },
+    initTable() {
+      api.getRoleData(this.Listform).then(res => {
+        console.log(res);
+        if (res.code === 200) {
+          let _data = res.data;
+          console.log("data", res);
+          this.total = _data.count; //显示数量
+          this.tableData = _data.content; //表格数据
+        } else {
+        }
+      });
+    },
+    delRow() {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delRoleData({ ids: _this.did }).then(res => {
+            if (res.code === 200) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initTable(); //重新 render 表格
+            }
+          });
+        })
+        .catch(_ => {});
+    },
+    handleAssign() {}
+  },
+  mounted() {
+    this.initTable();
   },
   components: {
     MySearchTool

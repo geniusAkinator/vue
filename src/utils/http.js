@@ -1,16 +1,17 @@
-/** 
- * 无拦截器
-*/
+/**
+ * axios http请求和jsonp
+ * @module HttpRequest
+ */
 import axios from "axios"
 import originJSONP from 'jsonp'
 import utils from "./utils"
 import baseURL from "./baseUrl"
 
 const HttpRequest = {
-    getRequest({ url, data = {}, method = "GET" }) { 
+    getRequest({ url, data = {}, method = "GET" }) {
         return new Promise((resolve, reject) => {
             this._getRequest(url, resolve, reject, data, method)
-        }).catch((e) => {})
+        }).catch((e) => { })
     },
     _getRequest(url, resolve, reject, data, method) {
         axios({

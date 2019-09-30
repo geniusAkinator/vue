@@ -1,3 +1,7 @@
-import * as api from './api';
+/**
+ * 导出所有的http请求
+ * @module Api
+ */
+import * as Api from './api';
 
-export default api;
+export default Api;

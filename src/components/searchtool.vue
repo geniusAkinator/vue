@@ -1,3 +1,4 @@
+<!-- 搜索框用于slot -->
 <template>
   <div class="query" v-clickoutside="handleClose">
     <div :class="{'query-picker':true,'active':isActive}" @click="toggle">

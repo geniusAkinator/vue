@@ -23,9 +23,9 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="操作权限">
-        <el-checkbox v-model="form.add" label="添加" border></el-checkbox>
+        <el-checkbox v-model="form.creates" label="添加" border></el-checkbox>
         <el-checkbox v-model="form.edit" label="编辑" border></el-checkbox>
-        <el-checkbox v-model="form.delete" label="删除" border></el-checkbox>
+        <el-checkbox v-model="form.del" label="删除" border></el-checkbox>
         <el-checkbox v-model="form.view" label="浏览" border></el-checkbox>
         <el-checkbox v-model="form.query" label="查询" border></el-checkbox>
         <el-checkbox v-model="form.export" label="导出" border></el-checkbox>
@@ -53,9 +53,9 @@ export default {
         name: "",
         state: 1,
         orderNo: 0,
-        add: 0,
+        creates: 0,
         edit: 0,
-        delete: 0,
+        del: 0,
         view: 0,
         query: 0,
         export: 0,

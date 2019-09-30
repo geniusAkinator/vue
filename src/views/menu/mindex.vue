@@ -3,7 +3,7 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDeleteMore">批量删除</el-button>
+        <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDeleteMore" :disabled="did==''">批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加菜单</el-button>
       </el-button-group>
       <div class="table-tool-others"></div>

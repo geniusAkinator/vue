@@ -1,3 +1,4 @@
+<!-- 图片上传 -->
 <template>
   <div class="myUpload">
     <div class="images" v-viewer="{navbar: false,keyboard:false}">

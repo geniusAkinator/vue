@@ -1,4 +1,6 @@
-
+/**
+ * http请求
+ */
 import http from '@/utils/http'
 import request from '@/utils/service'
 
@@ -106,5 +108,33 @@ export const updateMenuData = params => { //更新菜单信息
         url: '/Menu/updateMenu',
         data: params,
         method: "PUT"
+    }).then(res => res);
+}
+
+/**
+ * 角色管理
+ */
+
+export const addRoleData = params => { //添加角色
+    return request({
+        url: '/role/addRole',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
+export const getRoleData = params => { //获取角色列表
+    return request({
+        url: '/role/roleList',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const delRoleData = params => {  //删除角色
+    return request({
+        url: '/role/deleteRole',
+        params: params,
+        method: "DELETE"
     }).then(res => res);
 }

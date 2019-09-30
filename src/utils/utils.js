@@ -1,3 +1,7 @@
+/**
+ * 一些常用方法
+ * @module Utils
+ */
 const Utils = {
     decounce(fn, t) { //函数防抖
         let delay = t || 500;
@@ -130,7 +134,7 @@ const Utils = {
             return _this;
         }
     },
-    resizeLayer(layerIndex, layerInitWidth, layerInitHeight) {
+    resizeLayer(layerIndex, layerInitWidth, layerInitHeight) { //layer自适应
         let parentNode = document.querySelector(".el-main.app-body");
         var docWidth = parentNode.offsetWidth;
         var docHeight = parentNode.offsetHeight;
@@ -139,11 +143,11 @@ const Utils = {
         let nowLayer = document.querySelector("#" + layerIndex);
         let nowLayerContent = nowLayer.querySelector(".vl-notify-content");
         let nowLayerTitle = nowLayer.querySelector(".vl-notice-title");
-        if (layerInitHeight > docHeight) {
+        if (layerInitHeight > docHeight) {  //遮挡归位
             nowLayer.style.top = "50%";
-            nowLayerContent.style.height = docHeight - nowLayerTitle.offsetHeight + 'px';
+            nowLayerContent.style.height = docHeight - nowLayerTitle.offsetHeight + 'px'; //更新高度，让scroll正常
         }
-        if (layerInitWidth > docWidth) {
+        if (layerInitWidth > docWidth) {  //遮挡归位
             nowLayer.style.left = "50%";
         }
         nowLayer.style.width = minWidth + "px";

@@ -23,7 +23,6 @@
 
 <script>
 import MyMapPicker from "@/components/mappicker";
-import api from "@/api/index";
 export default {
   data() {
     return {
@@ -45,28 +44,9 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form)
-          api.addRoleData(this.form).then(res => {
-            console.log(res);
-            if (res.code == 200) {
-              //添加成功
-              this.$message({
-                showClose: true,
-                message: "添加成功",
-                type: "success"
-              });
-              this.$parent.initTable();
-              this.closeDialog();
-            } else {
-              //添加失败
-              this.$message({
-                showClose: true,
-                message: "添加失败",
-                type: "warning"
-              });
-            }
-          });
+          this.closeDialog();
         } else {
+          console.log("error submit!!");
           return false;
         }
       });
@@ -92,17 +72,17 @@ export default {
 </script>
 
 <style>
-.permission + .permission {
+.permission+.permission{
   margin-top: 20px;
 }
-.permission .clearfix {
-  line-height: 20px;
+.permission .clearfix{
+  line-height: 20px
 }
-.permission .el-card__header {
-  border-bottom: 1px solid #e6e6e6;
+.permission .el-card__header{
+  border-bottom:1px solid #e6e6e6;
   background: #f2f2f2;
 }
-.permission {
-  border: 1px solid #e6e6e6;
+.permission{
+  border:1px solid #e6e6e6
 }
 </style>
