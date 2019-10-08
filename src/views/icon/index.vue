@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div style="width:100%">
+    <el-input placeholder="请输入密码" v-model="keyword" @change="handleSearch($event)"></el-input>
     <ul class="icon_list">
-      <li v-for="(item,index) in list" :key="index" @click="handleClick(index)">
+      <li v-for="(item,index) in filterList" :key="index" @click="handleClick(index)">
         <span>
-          <i :class="item"></i>
-          <span class="icon-name">{{item}}</span>
+          <i :class="item.replace(/\<.*?\>/g,'')"></i>
+          <span class="icon-name" v-html="filterList[index]"></span>
         </span>
       </li>
     </ul>
@@ -15,6 +16,7 @@
 export default {
   data() {
     return {
+      keyword: "",
       list: [
         "el-icon-delete-solid",
         "el-icon-delete",
@@ -294,18 +296,43 @@ export default {
         "el-icon-lollipop",
         "el-icon-ice-cream-square",
         "el-icon-ice-cream-round"
-      ]
+      ],
+      filterList: []
     };
   },
-  methods:{
-    handleClick(index){
+  methods: {
+    handleClick(index) {
       let idx = this.$parent.index;
-      this.$parent.form.icon = this.list[index]
+      this.$parent.form.icon = this.list[index];
       this.$parent.$layer.close(idx);
+    },
+    handleSearch() {
+      this.filterList = [];
+      if(this.keyword == ""){
+        this.filterList = this.list;
+        return
+      }
+      this.list.map((item, i) => {
+        let filterItem = this.brightenKeyword(item, this.keyword);
+        if (filterItem != "") {
+          this.filterList.push(filterItem);
+        }
+      });
+    },
+    brightenKeyword(val, keyword) {
+      val = val + "";
+      if (val.indexOf(keyword) !== -1 && keyword !== "") {
+        return val.replace(
+          keyword,
+          '<font class="filter">' + keyword + "</font>"
+        );
+      } else {
+        return "";
+      }
     }
   },
-  mounted(){
-    
+  mounted() {
+    this.filterList = this.list;
   }
 };
 </script>
@@ -325,7 +352,6 @@ export default {
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   margin-right: -1px;
-  margin-bottom: -1px;
   cursor: pointer;
 }
 .icon_list li i {
@@ -336,6 +362,11 @@ export default {
   transition: color 0.15s linear;
   margin-top: 15px;
 }
-.icon_list li span{
+.filter {
+  background: #ffff00;
+}
+.icon_list{
+  overflow: hidden;
+  width: 100%;
 }
 </style>

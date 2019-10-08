@@ -5,7 +5,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-radio-group v-model="form.status">
+        <el-radio-group v-model="form.state">
           <el-radio label="0">启动</el-radio>
           <el-radio label="1">禁用</el-radio>
         </el-radio-group>
@@ -29,14 +29,12 @@ export default {
     return {
       form: {
         name: "",
-        status: "1",
+        state: "1",
         orderNo: "",
-        permission: false
       },
       rules: {
         name: [
           { required: true, message: "请输入用户名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ]
       }
     };
@@ -77,13 +75,6 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     },
-    onEditorBlur() {},
-    onEditorFocus() {},
-    onEditorChange() {},
-    getPoint(e) {
-      this.form.lat = e.lat;
-      this.form.lng = e.lng;
-    }
   },
   components: {
     MyMapPicker

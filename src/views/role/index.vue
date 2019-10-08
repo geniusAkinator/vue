@@ -3,7 +3,13 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          :disabled="did==''"
+          @click="handleDeleteMore"
+        >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
       </el-button-group>
       <my-search-tool>
@@ -37,7 +43,14 @@
       <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="roleId" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="角色名称"></el-table-column>
@@ -97,25 +110,31 @@ export default {
           value: "2",
           label: "禁用"
         }
-      ]
+      ],
+      did: "",
+      eid: 0
     };
   },
   methods: {
-    handleEdit() {
+    handleEdit(index, row) {
+      this.eid = row.roleId;
       var index = this.$layer.iframe({
         content: {
           content: MyRoleEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: false,
+        shade: true,
         area: ["400px", "400px"],
         title: "编辑角色",
         target: ".el-main"
       });
     },
-    handleDelete(index,row) {
+    handleDelete(index, row) {
       this.did = row.roleId + "";
+      this.delRow();
+    },
+    handleDeleteMore() {
       this.delRow();
     },
     handleAdd() {
@@ -123,9 +142,9 @@ export default {
         content: {
           content: MyRoleAdd, //传递的组件对象
           parent: this, //当前的vue对象
-          data: {} //props
+          data: {}, //props
         },
-        shade: false,
+        shade: true,
         area: ["400px", "400px"],
         title: "新增角色",
         target: ".el-main"
@@ -153,6 +172,14 @@ export default {
         } else {
         }
       });
+    },
+    handleSelectionChange(e) {
+      let did = "";
+      e.forEach(function(item) {
+        did = did + item.roleId + ",";
+      });
+      this.did = did.substr(0, did.length - 1);
+      console.log(this.did);
     },
     delRow() {
       let _this = this;

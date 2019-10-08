@@ -138,3 +138,19 @@ export const delRoleData = params => {  //删除角色
         method: "DELETE"
     }).then(res => res);
 }
+
+export const getRoleDetail = params => { //获取菜单列表
+    return request({
+        url: '/role/roleListDetail',
+        params: params,
+        method: 'GET',
+    }).then(res => res);
+};
+
+export const updateRoleData = params => { //更新菜单信息
+    return request({
+        url: '/role/updateRole',
+        data: params,
+        method: "PUT"
+    }).then(res => res);
+}

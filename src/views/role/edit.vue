@@ -5,7 +5,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="状态">
-        <el-radio-group v-model="form.status">
+        <el-radio-group v-model="form.state">
           <el-radio label="0">启动</el-radio>
           <el-radio label="1">禁用</el-radio>
         </el-radio-group>
@@ -23,20 +23,18 @@
 
 <script>
 import MyMapPicker from "@/components/mappicker";
+import api from "@/api/index";
 export default {
   data() {
     return {
       form: {
         name: "",
-        status: "1",
+        state: "1",
         orderNo: "",
-        permission: false
+        roleId: this.$parent.eid
       },
       rules: {
-        name: [
-          { required: true, message: "请输入用户名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ]
+        name: [{ required: true, message: "请输入用户名称", trigger: "blur" }]
       }
     };
   },
@@ -44,7 +42,25 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeDialog();
+          console.log(this.form);
+          api.updateRoleData(this.form).then(res => {
+            if (res.code == 200) {
+              //编辑成功
+              this.$message({
+                showClose: true,
+                message: "编辑成功",
+                type: "success"
+              });
+              this.$parent.initTable();
+              this.closeDialog();
+            } else {
+              this.$message({
+                showClose: true,
+                message: "编辑失败",
+                type: "warning"
+              });
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;
@@ -57,13 +73,21 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     },
-    onEditorBlur() {},
-    onEditorFocus() {},
-    onEditorChange() {},
-    getPoint(e) {
-      this.form.lat = e.lat;
-      this.form.lng = e.lng;
+    initForm() {
+        console.log("dd",this.form.roleId)
+      api.getRoleDetail({ roleId: this.form.roleId }).then(res => {
+        if (res.code === 200) {
+          let data = res.data;
+          for (let key in data) {
+            this.form[key] = data[key];
+          }
+        } else {
+        }
+      });
     }
+  },
+  mounted() {
+    this.initForm();
   },
   components: {
     MyMapPicker
@@ -72,17 +96,17 @@ export default {
 </script>
 
 <style>
-.permission+.permission{
+.permission + .permission {
   margin-top: 20px;
 }
-.permission .clearfix{
-  line-height: 20px
+.permission .clearfix {
+  line-height: 20px;
 }
-.permission .el-card__header{
-  border-bottom:1px solid #e6e6e6;
+.permission .el-card__header {
+  border-bottom: 1px solid #e6e6e6;
   background: #f2f2f2;
 }
-.permission{
-  border:1px solid #e6e6e6
+.permission {
+  border: 1px solid #e6e6e6;
 }
 </style>
