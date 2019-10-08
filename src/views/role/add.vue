@@ -30,12 +30,10 @@ export default {
       form: {
         name: "",
         state: "1",
-        orderNo: "",
+        orderNo: ""
       },
       rules: {
-        name: [
-          { required: true, message: "请输入用户名称", trigger: "blur" },
-        ]
+        name: [{ required: true, message: "请输入用户名称", trigger: "blur" }]
       }
     };
   },
@@ -43,27 +41,30 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form)
-          api.addRoleData(this.form).then(res => {
-            console.log(res);
-            if (res.code == 200) {
-              //添加成功
-              this.$message({
-                showClose: true,
-                message: "添加成功",
-                type: "success"
-              });
-              this.$parent.initTable();
-              this.closeDialog();
-            } else {
-              //添加失败
-              this.$message({
-                showClose: true,
-                message: "添加失败",
-                type: "warning"
-              });
-            }
-          });
+          console.log(this.form);
+          api
+            .addRoleData(this.form)
+            .then(res => {
+              console.log(res);
+              if (res.code == 200) {
+                //添加成功
+                this.$message({
+                  showClose: true,
+                  message: "添加成功",
+                  type: "success"
+                });
+                this.$parent.initTable();
+                this.closeDialog();
+              } else {
+                //添加失败
+                this.$message({
+                  showClose: true,
+                  message: "添加失败",
+                  type: "warning"
+                });
+              }
+            })
+            .catch(_ => {});
         } else {
           return false;
         }
@@ -74,7 +75,7 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
-    },
+    }
   },
   components: {
     MyMapPicker

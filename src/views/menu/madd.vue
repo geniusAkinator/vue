@@ -71,26 +71,29 @@ export default {
   methods: {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
-        api.addMenuData(this.form).then(res => {
-          console.log(res);
-          if (res.code == 200) {
-            //添加成功
-            this.$message({
-              showClose: true,
-              message: "添加成功",
-              type: "success"
-            });
-            this.$parent.initTable();
-            this.closeDialog();
-          } else {
-            //添加失败
-            this.$message({
-              showClose: true,
-              message: "添加失败",
-              type: "warning"
-            });
-          }
-        });
+        api
+          .addMenuData(this.form)
+          .then(res => {
+            console.log(res);
+            if (res.code == 200) {
+              //添加成功
+              this.$message({
+                showClose: true,
+                message: "添加成功",
+                type: "success"
+              });
+              this.$parent.initTable();
+              this.closeDialog();
+            } else {
+              //添加失败
+              this.$message({
+                showClose: true,
+                message: "添加失败",
+                type: "warning"
+              });
+            }
+          })
+          .catch(_ => {});
         console.log(this.form);
       });
     },

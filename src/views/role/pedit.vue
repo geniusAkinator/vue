@@ -83,20 +83,26 @@ export default {
       this.form.lng = e.lng;
     },
     initForm() {
-      api.getCheckedMenuData({ menuId: this.form.roleId }).then(res => {
-        if (res.code === 200) {
-          let data = res.data;
-          this.pdata = data;
-        } else {
-        }
-      });
-      api.getAllMenuData().then(res => {
-        if (res.code === 200) {
-          let data = res.data;
-          this.mdata = data;
-        } else {
-        }
-      });
+      api
+        .getCheckedMenuData({ menuId: this.form.roleId })
+        .then(res => {
+          if (res.code === 200) {
+            let data = res.data;
+            this.pdata = data;
+          } else {
+          }
+        })
+        .catch(_ => {});
+      api
+        .getAllMenuData()
+        .then(res => {
+          if (res.code === 200) {
+            let data = res.data;
+            this.mdata = data;
+          } else {
+          }
+        })
+        .catch(_ => {});
     },
     isAssign(mid, type) {
       let isShow = false;
@@ -143,8 +149,8 @@ export default {
   display: inline-block;
   font-weight: bold;
 }
-.el-checkbox {
-  margin-right: 20px;
+.crow .el-checkbox {
+  margin-right: 20px !important;
 }
 .crow {
   margin-top: 10px;

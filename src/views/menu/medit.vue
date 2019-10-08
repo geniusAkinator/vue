@@ -73,24 +73,27 @@ export default {
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
-          api.updateMenuData(this.form).then(res => {
-            if (res.code == 200) {
-              //编辑成功
-              this.$message({
-                showClose: true,
-                message: "编辑成功",
-                type: "success"
-              });
-              this.$parent.initTable();
-              this.closeDialog();
-            } else {
-              this.$message({
-                showClose: true,
-                message: "编辑失败",
-                type: "warning"
-              });
-            }
-          });
+          api
+            .updateMenuData(this.form)
+            .then(res => {
+              if (res.code == 200) {
+                //编辑成功
+                this.$message({
+                  showClose: true,
+                  message: "编辑成功",
+                  type: "success"
+                });
+                this.$parent.initTable();
+                this.closeDialog();
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: "编辑失败",
+                  type: "warning"
+                });
+              }
+            })
+            .catch(_ => {});
         } else {
           console.log("error submit!!");
           return false;
@@ -112,15 +115,18 @@ export default {
     },
     handleChange() {},
     initForm() {
-      api.getMenuDetail({ menuId: this.form.menuId }).then(res => {
-        if (res.code === 200) {
-          let data = res.data;
-          for (let key in data) {
-            this.form[key] = data[key];
+      api
+        .getMenuDetail({ menuId: this.form.menuId })
+        .then(res => {
+          if (res.code === 200) {
+            let data = res.data;
+            for (let key in data) {
+              this.form[key] = data[key];
+            }
+          } else {
           }
-        } else {
-        }
-      });
+        })
+        .catch(_ => {});
     }
   },
   created() {

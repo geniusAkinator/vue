@@ -155,16 +155,19 @@ export default {
       });
     },
     initTable() {
-      api.getMenuData(this.Listform).then(res => {
-        console.log(res);
-        if (res.code === 200) {
-          let _data = res.data;
-          console.log("data", res);
-          this.total = _data.count; //显示数量
-          this.tableData = _data.data; //表格数据
-        } else {
-        }
-      });
+      api
+        .getMenuData(this.Listform)
+        .then(res => {
+          console.log(res);
+          if (res.code === 200) {
+            let _data = res.data;
+            console.log("data", res);
+            this.total = _data.count; //显示数量
+            this.tableData = _data.data; //表格数据
+          } else {
+          }
+        })
+        .catch(_ => {});
     },
     delRow() {
       let _this = this;

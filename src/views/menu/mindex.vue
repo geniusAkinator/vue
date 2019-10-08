@@ -162,13 +162,16 @@ export default {
     },
     initTable() {
       this.Listform.pId = this.$route.params.pId;
-      api.getMenuData(this.Listform).then(res => {
-        if (res.code === 200) {
-          let _data = res.data;
-          this.total = _data.count; //显示数量
-          this.tableData = _data.data; //表格数据
-        }
-      });
+      api
+        .getMenuData(this.Listform)
+        .then(res => {
+          if (res.code === 200) {
+            let _data = res.data;
+            this.total = _data.count; //显示数量
+            this.tableData = _data.data; //表格数据
+          }
+        })
+        .catch(_ => {});
     },
     handleSelectionChange(e) {
       let did = "";

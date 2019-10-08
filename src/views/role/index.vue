@@ -84,6 +84,7 @@ import MyRoleAdd from "@/views/role/add";
 import MyRoleEdit from "@/views/role/edit";
 import MyRoleAssign from "@/views/role/pedit";
 import api from "@/api/index";
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
@@ -113,13 +114,23 @@ export default {
         }
       ],
       did: "",
-      eid: 0
+      eid: 0,
+      index: ""
     };
+  },
+  watch: {
+    index: function(newVal, oldVal) {
+      let layer = document.querySelector("#" + newVal);
+      if (layer != null) {
+        this.layerInitWidth = layer.offsetWidth;
+        this.layerInitHeight = layer.offsetHeight;
+      }
+    }
   },
   methods: {
     handleEdit(index, row) {
       this.eid = row.roleId;
-      var index = this.$layer.iframe({
+      let idx = this.$layer.iframe({
         content: {
           content: MyRoleEdit, //传递的组件对象
           parent: this, //当前的vue对象
@@ -130,6 +141,7 @@ export default {
         title: "编辑角色",
         target: ".el-main"
       });
+      this.index = idx;
     },
     handleDelete(index, row) {
       this.did = row.roleId + "";
@@ -139,7 +151,7 @@ export default {
       this.delRow();
     },
     handleAdd() {
-      var index = this.$layer.iframe({
+      let idx = this.$layer.iframe({
         content: {
           content: MyRoleAdd, //传递的组件对象
           parent: this, //当前的vue对象
@@ -150,6 +162,7 @@ export default {
         title: "新增角色",
         target: ".el-main"
       });
+      this.index = idx;
     },
     handleReset() {},
     handleSearch() {},
@@ -167,8 +180,8 @@ export default {
         console.log(res);
         if (res.code === 200) {
           let _data = res.data;
-          console.log("data", res);
-          this.total = _data.count; //显示数量
+          console.log("data", _data);
+          this.total = _data.numberOfElements; //显示数量
           this.tableData = _data.content; //表格数据
         } else {
         }
@@ -201,7 +214,7 @@ export default {
         .catch(_ => {});
     },
     handleAssign() {
-      var index = this.$layer.iframe({
+      let idx = this.$layer.iframe({
         content: {
           content: MyRoleAssign, //传递的组件对象
           parent: this, //当前的vue对象
@@ -212,10 +225,26 @@ export default {
         title: "分配权限",
         target: ".el-main"
       });
+      this.index = idx;
     }
   },
-  mounted() {
+  created() {
     this.initTable();
+  },
+  mounted() {
+    window.addEventListener("resize", () => {
+      if (this.index == "") {
+        return;
+      }
+      let layer = document.querySelector("#" + this.index);
+      if (layer != null) {
+        utils.resizeLayer(
+          this.index,
+          this.layerInitWidth,
+          this.layerInitHeight
+        );
+      }
+    });
   },
   components: {
     MySearchTool

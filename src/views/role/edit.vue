@@ -31,7 +31,7 @@ export default {
         name: "",
         state: "1",
         orderNo: "",
-        roleId: this.$parent.eid,
+        roleId: this.$parent.eid
       },
       rules: {
         name: [{ required: true, message: "请输入用户名称", trigger: "blur" }]
@@ -43,24 +43,27 @@ export default {
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
-          api.updateRoleData(this.form).then(res => {
-            if (res.code == 200) {
-              //编辑成功
-              this.$message({
-                showClose: true,
-                message: "编辑成功",
-                type: "success"
-              });
-              this.$parent.initTable();
-              this.closeDialog();
-            } else {
-              this.$message({
-                showClose: true,
-                message: "编辑失败",
-                type: "warning"
-              });
-            }
-          });
+          api
+            .updateRoleData(this.form)
+            .then(res => {
+              if (res.code == 200) {
+                //编辑成功
+                this.$message({
+                  showClose: true,
+                  message: "编辑成功",
+                  type: "success"
+                });
+                this.$parent.initTable();
+                this.closeDialog();
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: "编辑失败",
+                  type: "warning"
+                });
+              }
+            })
+            .catch(_ => {});
         } else {
           console.log("error submit!!");
           return false;
@@ -75,16 +78,19 @@ export default {
     },
     initForm() {
       console.log("dd", this.form.roleId);
-      api.getRoleDetail({ roleId: this.form.roleId }).then(res => {
-        if (res.code === 200) {
-          let data = res.data;
-          console.log(data)
-          for (let key in data) {
-            this.form[key] = data[key];
+      api
+        .getRoleDetail({ roleId: this.form.roleId })
+        .then(res => {
+          if (res.code === 200) {
+            let data = res.data;
+            console.log(data);
+            for (let key in data) {
+              this.form[key] = data[key];
+            }
+          } else {
           }
-        } else {
-        }
-      });
+        })
+        .catch(_ => {});
     }
   },
   mounted() {
