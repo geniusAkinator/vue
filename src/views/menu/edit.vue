@@ -120,9 +120,11 @@ export default {
       });
     }
   },
-  mounted() {
+  beforeCreate() {},
+  created() {
     this.initForm();
   },
+  mounted() {},
   components: {
     MyMapPicker,
     MyUpload

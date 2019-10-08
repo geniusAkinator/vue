@@ -72,7 +72,7 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form)
+          console.log(this.form);
           api.updateMenuData(this.form).then(res => {
             if (res.code == 200) {
               //编辑成功
@@ -123,9 +123,10 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     this.initForm();
   },
+  mounted() {},
   components: {
     MyMapPicker,
     MyUpload
