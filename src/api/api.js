@@ -154,3 +154,19 @@ export const updateRoleData = params => { //更新菜单信息
         method: "PUT"
     }).then(res => res);
 }
+
+export const getCheckedMenuData = params => { //获取
+    return request({
+        url: '/role/getCheckedMenuData',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const getAllMenuData = params => {
+    return request({
+        url: '/Menu/allMenuList',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}

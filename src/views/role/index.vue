@@ -82,6 +82,7 @@
 import MySearchTool from "@/components/searchtool";
 import MyRoleAdd from "@/views/role/add";
 import MyRoleEdit from "@/views/role/edit";
+import MyRoleAssign from "@/views/role/pedit";
 import api from "@/api/index";
 export default {
   data() {
@@ -142,7 +143,7 @@ export default {
         content: {
           content: MyRoleAdd, //传递的组件对象
           parent: this, //当前的vue对象
-          data: {}, //props
+          data: {} //props
         },
         shade: true,
         area: ["400px", "400px"],
@@ -199,7 +200,19 @@ export default {
         })
         .catch(_ => {});
     },
-    handleAssign() {}
+    handleAssign() {
+      var index = this.$layer.iframe({
+        content: {
+          content: MyRoleAssign, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["800px", "600px"],
+        title: "分配权限",
+        target: ".el-main"
+      });
+    }
   },
   mounted() {
     this.initTable();

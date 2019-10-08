@@ -33,15 +33,7 @@
       </el-table-column>
       <el-table-column prop="orderNo" label="排序"></el-table-column>
       <el-table-column label="是否显示">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.state"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            :active-value="1"
-            :inactive-value="0"
-          ></el-switch>
-        </template>
+        <template slot-scope="scope">{{scope.row.state?'显示':'不显示'}}</template>
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
@@ -193,8 +185,10 @@ export default {
         .catch(_ => {});
     }
   },
-  mounted() {
+  created() {
     this.initTable();
+  },
+  mounted() {
     window.addEventListener("resize", () => {
       if (this.index == "") {
         return;

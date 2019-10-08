@@ -3,7 +3,13 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDeleteMore" :disabled="did==''">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          @click="handleDeleteMore"
+          :disabled="did==''"
+        >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加菜单</el-button>
       </el-button-group>
       <div class="table-tool-others"></div>
@@ -21,16 +27,9 @@
       <el-table-column prop="menuId" label="ID"></el-table-column>
       <el-table-column prop="name" label="菜单名称"></el-table-column>
       <el-table-column prop="url" label="路径名称"></el-table-column>
+      <el-table-column prop="orderNo" label="排序"></el-table-column>
       <el-table-column label="状态">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.state"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            :active-value="1"
-            :inactive-value="0"
-          ></el-switch>
-        </template>
+        <template slot-scope="scope">{{scope.row.state?'显示':'不显示'}}</template>
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
@@ -63,7 +62,7 @@ export default {
     return {
       Listform: {
         //表格请求params
-        pId: this.$route.params.pId,
+        pId: 0,
         pageNum: 1,
         pageSize: 25
       },
@@ -73,8 +72,8 @@ export default {
       labelPosition: "left",
       isPaging: false,
       currentPage: 1,
-      pId: this.$route.params.pId,
-      pName: this.$route.params.pName,
+      pId: 0,
+      pName: "",
       options: [
         {
           value: "0",
@@ -100,6 +99,15 @@ export default {
       if (layer != null) {
         this.layerInitWidth = layer.offsetWidth;
         this.layerInitHeight = layer.offsetHeight;
+      }
+    },
+    $route: function(newVal, oldVal) {
+      let name = newVal.name;
+      if (name == "菜单管理") {
+        this.Listform.pId = this.$route.params.pId;
+        this.pId = this.$route.params.pId;
+        this.pName = this.$route.params.pName;
+        this.initTable();
       }
     }
   },
@@ -153,12 +161,10 @@ export default {
       this.delRow();
     },
     initTable() {
-      console.log(this.Listform);
+      this.Listform.pId = this.$route.params.pId;
       api.getMenuData(this.Listform).then(res => {
-        console.log(res);
         if (res.code === 200) {
           let _data = res.data;
-          console.log("data", res);
           this.total = _data.count; //显示数量
           this.tableData = _data.data; //表格数据
         }
@@ -190,8 +196,12 @@ export default {
         .catch(_ => {});
     }
   },
-  mounted() {
+  created() {
+    this.pId = this.$route.params.pId;
+    this.pName = this.$route.params.pName;
     this.initTable();
+  },
+  mounted() {
     window.addEventListener("resize", () => {
       if (this.index == "") {
         return;

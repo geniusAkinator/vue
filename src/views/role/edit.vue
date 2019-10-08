@@ -31,7 +31,7 @@ export default {
         name: "",
         state: "1",
         orderNo: "",
-        roleId: this.$parent.eid
+        roleId: this.$parent.eid,
       },
       rules: {
         name: [{ required: true, message: "请输入用户名称", trigger: "blur" }]
@@ -74,10 +74,11 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
-        console.log("dd",this.form.roleId)
+      console.log("dd", this.form.roleId);
       api.getRoleDetail({ roleId: this.form.roleId }).then(res => {
         if (res.code === 200) {
           let data = res.data;
+          console.log(data)
           for (let key in data) {
             this.form[key] = data[key];
           }
