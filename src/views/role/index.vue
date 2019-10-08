@@ -213,7 +213,8 @@ export default {
         })
         .catch(_ => {});
     },
-    handleAssign() {
+    handleAssign(index, row) {
+      this.eid = row.roleId;
       let idx = this.$layer.iframe({
         content: {
           content: MyRoleAssign, //传递的组件对象

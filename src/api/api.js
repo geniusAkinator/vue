@@ -170,3 +170,32 @@ export const getAllMenuData = params => {
         method: "GET"
     }).then(res => res);
 }
+
+export const updateCheckedMenuData = params => { //修改角色菜单
+    return request({
+        url: '/role/updateMenu',
+        data: params,
+        method: "PUT"
+    }).then(res => res);
+}
+
+/**
+ * 用户管理
+ */
+
+
+export const getUserData = params => { //获取用户列表
+    return request({
+        url: '/user/userList',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const delUserData = params => {  //删除用户
+    return request({
+        url: '/user/deleteUser',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}

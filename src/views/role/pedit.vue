@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <div class="pCard" v-for="(item,index) in pdata" :key="index">
+      <div class="pCard" v-for="(item,index) in form.menu" :key="index">
         <el-card class="box-card" shadow="never" v-if="item.menu.state">
           <div slot="header" class="clearfix">
             <i :class="item.menu.icon"></i>
@@ -53,9 +53,9 @@ export default {
   data() {
     return {
       form: {
-        roleId: this.$parent.eid
+        roleId: this.$parent.eid,
+        menu:[]
       },
-      pdata: [],
       mdata: [],
       rules: {}
     };
@@ -64,6 +64,28 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
+          console.log(this.form.menu)
+          api
+            .updateCheckedMenuData(this.form)
+            .then(res => {
+              if (res.code == 200) {
+                //编辑成功
+                this.$message({
+                  showClose: true,
+                  message: "编辑成功",
+                  type: "success"
+                });
+                this.$parent.initTable();
+                this.closeDialog();
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: "编辑失败",
+                  type: "warning"
+                });
+              }
+            })
+            .catch(_ => {});
         } else {
           return false;
         }
@@ -87,8 +109,9 @@ export default {
         .getCheckedMenuData({ menuId: this.form.roleId })
         .then(res => {
           if (res.code === 200) {
+            console.log(res.data);
             let data = res.data;
-            this.pdata = data;
+            this.form.menu = data;
           } else {
           }
         })

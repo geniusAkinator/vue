@@ -3,7 +3,7 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button type="danger" size="small" icon="el-icon-delete" :disabled="did==''">批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
       </el-button-group>
       <my-search-tool>
@@ -41,7 +41,14 @@
       </div>
     </div>
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="code" label="用户代码"></el-table-column>
@@ -53,8 +60,8 @@
       <el-table-column prop="createTime" label="创建时间"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index,  scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index,  scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,10 +71,10 @@
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
         :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[25, 50, 75, 100]"
+        :page-size="Listform.pageSize"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -76,9 +83,16 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MyUserAdd from "@/views/user/add";
+import api from "@/api/index";
 export default {
   data() {
     return {
+      Listform: {
+        //表格请求params
+        pageNum: 1,
+        pageSize: 25
+      },
+      total: 0, //总共条数
       tableData: [],
       searchForm: {},
       labelPosition: "left",
@@ -97,12 +111,17 @@ export default {
           value: "2",
           label: "禁用"
         }
-      ]
+      ],
+      did: ""
     };
   },
   methods: {
     handleEdit() {},
-    handleDelete() {},
+    handleDelete(index, row) {
+      //删除单行
+      this.did = row.menuId + "";
+      this.delRow();
+    },
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
@@ -120,8 +139,59 @@ export default {
     handleReset() {},
     handleSearch() {},
     handleClick() {},
-    handleCurrentChange() {},
-    handleSizeChange() {}
+    handleSizeChange(e) {
+      this.Listform.pageSize = e;
+      this.initTable();
+    },
+    handleCurrentChange(e) {
+      console.log(e);
+      this.Listform.pageNum = e;
+      this.initTable();
+    },
+    handleSelectionChange(e) {
+      let did = "";
+      e.forEach(function(item) {
+        did = did + item.menuId + ",";
+      });
+      this.did = did.substr(0, did.length - 1);
+      console.log(this.did);
+    },
+    initTable() {
+      api
+        .getUserData(this.Listform)
+        .then(res => {
+          console.log(res);
+          if (res.code === 200) {
+            let _data = res.data;
+            console.log("data", res);
+            this.total = _data.count; //显示数量
+            this.tableData = _data.data; //表格数据
+          } else {
+          }
+        })
+        .catch(_ => {});
+    },
+    delRow() {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delMenuData({ pId: _this.did }).then(res => {
+            if (res.code === 200) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initTable(); //重新 render 表格
+            }
+          });
+        })
+        .catch(_ => {});
+    }
+  },
+  created() {
+    this.initTable();
   },
   components: {
     MySearchTool
