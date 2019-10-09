@@ -127,11 +127,14 @@ export default {
     }
   },
   mounted() {
-    api.getFactoyData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
-    });
+    api
+      .getFactoyData()
+      .then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MySearchTool

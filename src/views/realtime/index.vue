@@ -154,11 +154,14 @@ export default {
     });
     setTimeout(() => {
       loading.close();
-      api.getRealtimeData().then(res => {
-        if (res.code === 0) {
-          this.tableData = res.data;
-        }
-      });
+      api
+        .getRealtimeData()
+        .then(res => {
+          if (res.code === 0) {
+            this.tableData = res.data;
+          }
+        })
+        .catch(_ => {});
     }, 600);
   },
   components: {

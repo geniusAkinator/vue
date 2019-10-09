@@ -147,7 +147,7 @@ export default {
       activeName: "first",
       tableData: [],
       echart: "rchart",
-      echart2:"rchart2"
+      echart2: "rchart2"
     };
   },
   methods: {
@@ -158,11 +158,14 @@ export default {
     }
   },
   mounted() {
-    api.getRealtimeStatus().then(res => {
-      if (res.code === 0) {
-        this.statusList = res.data;
-      }
-    });
+    api
+      .getRealtimeStatus()
+      .then(res => {
+        if (res.code === 0) {
+          this.statusList = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MyCard,
@@ -185,7 +188,7 @@ export default {
   padding: 10px;
   display: flex;
   color: rgb(53, 152, 220);
-  align-items: center
+  align-items: center;
 }
 .status-item .desc {
   margin-left: auto;

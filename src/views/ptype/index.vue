@@ -139,11 +139,14 @@ export default {
     }
   },
   mounted() {
-    api.getTypeData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
-    });
+    api
+      .getTypeData()
+      .then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MySearchTool

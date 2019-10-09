@@ -126,9 +126,7 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    handleEdit() {
-     
-    },
+    handleEdit() {},
     handleExport() {},
     handleReset() {
       this.searchForm = {};
@@ -169,7 +167,7 @@ export default {
     },
     handleClick() {},
     handleUpload() {},
-    handleSet(){}
+    handleSet() {}
   },
   mounted() {
     const loading = this.$loading({
@@ -182,11 +180,14 @@ export default {
     });
     setTimeout(() => {
       loading.close();
-      api.getSensorData().then(res => {
-        if (res.code === 0) {
-          this.tableData = res.data;
-        }
-      });
+      api
+        .getSensorData()
+        .then(res => {
+          if (res.code === 0) {
+            this.tableData = res.data;
+          }
+        })
+        .catch(_ => {});
     }, 600);
   },
   beforeMount() {},

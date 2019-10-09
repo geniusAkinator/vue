@@ -125,11 +125,14 @@ export default {
     handleMap() {}
   },
   mounted() {
-    api.getRouteData().then(res => {
-      if (res.code === 0) {
-        this.tableData = res.data;
-      }
-    });
+    api
+      .getRouteData()
+      .then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MySearchTool

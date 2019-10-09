@@ -155,7 +155,7 @@ import MyCalendar from "@/components/calendar";
 import MyFactoryBox from "@/components/factorybox";
 import api from "@/api/index";
 import utils from "@/utils/utils";
-import MyEchartLine  from "@/components/eline";
+import MyEchartLine from "@/components/eline";
 
 export default {
   data() {
@@ -164,7 +164,7 @@ export default {
       geoList: [],
       calList: [],
       labelPos: "weekly",
-      echart:"sta"
+      echart: "sta"
     };
   },
   methods: {
@@ -173,16 +173,22 @@ export default {
     }
   },
   mounted() {
-    api.getFactoryGeo().then(res => {
-      if (res.code === 0) {
-        this.geoList = res.data;
-      }
-    });
-    api.getFactoryCal().then(res => {
-      if (res.code === 0) {
-        this.calList = res.data;
-      }
-    });
+    api
+      .getFactoryGeo()
+      .then(res => {
+        if (res.code === 0) {
+          this.geoList = res.data;
+        }
+      })
+      .catch(_ => {});
+    api
+      .getFactoryCal()
+      .then(res => {
+        if (res.code === 0) {
+          this.calList = res.data;
+        }
+      })
+      .catch(_ => {});
     let orgOptions = {
       xAxis: {
         type: "category",
