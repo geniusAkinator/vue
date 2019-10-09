@@ -199,3 +199,19 @@ export const delUserData = params => {  //删除用户
         method: "DELETE"
     }).then(res => res);
 }
+
+export const addUserData = params => { //添加用户
+    return request({
+        url: '/user/addUser',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
+export const updateUserPwd = params => {//修改用户密码
+    return request({
+        url: '/user/setPwd',
+        data: params,
+        method: "PUT"
+    }).then(res => res);
+}

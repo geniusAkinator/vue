@@ -1,9 +1,6 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="用户代号" prop="code">
-        <el-input v-model="form.code"></el-input>
-      </el-form-item>
       <el-form-item label="用户名称" prop="username">
         <el-input v-model="form.username"></el-input>
       </el-form-item>
@@ -81,7 +78,6 @@ export default {
     };
     return {
       form: {
-        code: "",
         username: "",
         status: "1",
         pwd: "",
@@ -100,7 +96,6 @@ export default {
         }
       ],
       rules: {
-        code: [{ required: true, message: "请输入用户代号", trigger: "blur" }],
         username: [
           { required: true, message: "请输入用户名称", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }

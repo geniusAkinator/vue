@@ -22,7 +22,7 @@ Request.interceptors.request.use(config => {
     //show error message
     Message({
         showClose: true,
-        message: error,
+        message: "登录身份失效",
         type: "warning"
     });
     return Promise.reject(error)
@@ -47,7 +47,7 @@ Request.interceptors.response.use(
         //此处进行异常处理
         Message({
             showClose: true,
-            message: "请求错误",
+            message: "接口异常",
             type: "error",
         });
         return Promise.reject(error)
