@@ -39,8 +39,9 @@ const HttpRequest = {
             axios({
                 url: url,
                 method: 'POST',
-                headers: { 'Content-Type': 'multipart/form-data' },
                 data: payload,
+                processData: false,
+                contentType: false,
                 onUploadProgress: function (progressEvent) { //callback回调上传进度
                     if (progressEvent.lengthComputable) { callback(progressEvent); }
                 },
