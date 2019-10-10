@@ -176,16 +176,19 @@ export default {
       this.initTable();
     },
     initTable() {
-      api.getRoleData(this.Listform).then(res => {
-        console.log(res);
-        if (res.code === 200) {
-          let _data = res.data;
-          console.log("data", _data);
-          this.total = _data.numberOfElements; //显示数量
-          this.tableData = _data.content; //表格数据
-        } else {
-        }
-      });
+      api
+        .getRoleData(this.Listform)
+        .then(res => {
+          console.log(res);
+          if (res.code === 200) {
+            let _data = res.data;
+            console.log("data", _data);
+            this.total = _data.numberOfElements; //显示数量
+            this.tableData = _data.content; //表格数据
+          } else {
+          }
+        })
+        .catch(_ => {});
     },
     handleSelectionChange(e) {
       let did = "";

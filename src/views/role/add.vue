@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="角色名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="状态">
@@ -33,7 +33,7 @@ export default {
         orderNo: ""
       },
       rules: {
-        name: [{ required: true, message: "请输入用户名称", trigger: "blur" }]
+        name: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
       }
     };
   },

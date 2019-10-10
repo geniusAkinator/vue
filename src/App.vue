@@ -487,4 +487,7 @@ textarea:focus {
   right: 20px;
   top: 0;
 }
+.no-border-radius input{
+  border-radius: 0
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container form">
+  <div class="container form noSelect">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <div class="pCard" v-for="(item,index) in form.menu" :key="index">
         <el-card class="box-card" shadow="never" v-if="item.menu.state">
@@ -14,25 +14,50 @@
                 <el-checkbox
                   v-model="citem.menu.creates"
                   v-if="isAssign(citem.menu.menuId,'creates')"
+                  border
+                  size="mini"
                 >添加</el-checkbox>
-                <el-checkbox v-model="citem.menu.edit" v-if="isAssign(citem.menu.menuId,'edit')">编辑</el-checkbox>
-                <el-checkbox v-model="citem.menu.del" v-if="isAssign(citem.menu.menuId,'del')">删除</el-checkbox>
-                <el-checkbox v-model="citem.menu.view" v-if="isAssign(citem.menu.menuId,'view')">浏览</el-checkbox>
+                <el-checkbox
+                  v-model="citem.menu.edit"
+                  v-if="isAssign(citem.menu.menuId,'edit')"
+                  border
+                  size="mini"
+                >编辑</el-checkbox>
+                <el-checkbox
+                  v-model="citem.menu.del"
+                  v-if="isAssign(citem.menu.menuId,'del')"
+                  border
+                  size="mini"
+                >删除</el-checkbox>
+                <el-checkbox
+                  v-model="citem.menu.view"
+                  v-if="isAssign(citem.menu.menuId,'view')"
+                  border
+                  size="mini"
+                >浏览</el-checkbox>
                 <el-checkbox
                   v-model="citem.menu.query"
                   v-if="isAssign(citem.menu.menuId,'query')"
+                  border
+                  size="mini"
                 >查询</el-checkbox>
                 <el-checkbox
                   v-model="citem.menu.export"
                   v-if="isAssign(citem.menu.menuId,'export')"
+                  border
+                  size="mini"
                 >导出</el-checkbox>
                 <el-checkbox
                   v-model="citem.menu.enable"
                   v-if="isAssign(citem.menu.menuId,'enable')"
+                  border
+                  size="mini"
                 >启用</el-checkbox>
                 <el-checkbox
                   v-model="citem.menu.audit"
                   v-if="isAssign(citem.menu.menuId,'audit')"
+                  border
+                  size="mini"
                 >审核</el-checkbox>
               </div>
             </div>
@@ -49,12 +74,13 @@
 
 <script>
 import api from "@/api/index";
+import { Loading } from "element-ui";
 export default {
   data() {
     return {
       form: {
         roleId: this.$parent.eid,
-        menu:[]
+        menu: []
       },
       mdata: [],
       rules: {}
@@ -64,9 +90,12 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form.menu)
+          let form = {};
+          form.roleId = this.form.roleId;
+          form.menu = JSON.stringify(this.form.menu);
+          console.log(form.menu);
           api
-            .updateCheckedMenuData(this.form)
+            .updateCheckedMenuData(form)
             .then(res => {
               if (res.code == 200) {
                 //编辑成功
@@ -105,6 +134,14 @@ export default {
       this.form.lng = e.lng;
     },
     initForm() {
+      //回显
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
+
+      //获取当前角色地下所有menu对应的权限的值
       api
         .getCheckedMenuData({ menuId: this.form.roleId })
         .then(res => {
@@ -116,6 +153,7 @@ export default {
           }
         })
         .catch(_ => {});
+      //获取所有menu的权限
       api
         .getAllMenuData()
         .then(res => {
@@ -126,6 +164,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     },
     isAssign(mid, type) {
       let isShow = false;
@@ -173,7 +214,12 @@ export default {
   font-weight: bold;
 }
 .crow .el-checkbox {
-  margin-right: 20px !important;
+  margin-right: 5px !important;
+  line-height: 19px;
+  margin-left: 0 !important;
+}
+.crow .el-checkbox .el-checkbox__input {
+  margin-top: 1px;
 }
 .crow {
   margin-top: 10px;

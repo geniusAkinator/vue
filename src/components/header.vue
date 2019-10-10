@@ -9,8 +9,8 @@
     <div class="app-header-userinfo">
       <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
-          <el-avatar icon="el-icon-user-solid" :size="28"></el-avatar>
-          <i class="el-icon-arrow-down el-icon--right"></i>
+          <span class="userName">您好,&nbsp;&nbsp;admin</span>
+          <el-avatar icon="el-icon-user-solid" :size="28" shape="square">user</el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>我的消息</el-dropdown-item>
@@ -26,7 +26,7 @@
 export default {
   data() {
     return {
-      username: "",
+      username: ""
     };
   },
   methods: {
@@ -92,5 +92,11 @@ export default {
   cursor: pointer;
   width: 48px;
   text-align: center;
+}
+.app-header-userinfo {
+  width: auto;
+}
+.userName {
+  margin-right: 10px;
 }
 </style>

@@ -175,7 +175,7 @@ export const updateCheckedMenuData = params => { //修改角色菜单
     return request({
         url: '/role/updateMenu',
         data: params,
-        method: "PUT"
+        method: "POST"
     }).then(res => res);
 }
 

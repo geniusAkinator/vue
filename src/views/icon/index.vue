@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%">
-    <el-input placeholder="请输入密码" v-model="keyword" @change="handleSearch($event)"></el-input>
+    <el-input class="no-border-radius" placeholder="请输入密码" v-model="keyword" @change="handleSearch($event)" size="small"></el-input>
     <ul class="icon_list">
       <li v-for="(item,index) in filterList" :key="index" @click="handleClick(index)">
         <span>
@@ -8,6 +8,7 @@
           <span class="icon-name" v-html="filterList[index]"></span>
         </span>
       </li>
+      <div class="empty noSelect" v-if="!filterList.length">:( 暂未找到相关图标</div>
     </ul>
   </div>
 </template>
@@ -308,9 +309,9 @@ export default {
     },
     handleSearch() {
       this.filterList = [];
-      if(this.keyword == ""){
+      if (this.keyword == "") {
         this.filterList = this.list;
-        return
+        return;
       }
       this.list.map((item, i) => {
         let filterItem = this.brightenKeyword(item, this.keyword);
@@ -365,8 +366,14 @@ export default {
 .filter {
   background: #ffff00;
 }
-.icon_list{
+.icon_list {
   overflow: hidden;
   width: 100%;
+}
+.empty {
+  text-align: center;
+  height: 310px;
+  line-height: 310px;
+  font-size: 28px;
 }
 </style>
