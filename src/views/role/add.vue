@@ -41,11 +41,9 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .addRoleData(this.form)
             .then(res => {
-              console.log(res);
               if (res.code == 200) {
                 //添加成功
                 this.$message({

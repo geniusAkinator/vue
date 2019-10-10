@@ -93,7 +93,6 @@ export default {
           let form = {};
           form.roleId = this.form.roleId;
           form.menu = JSON.stringify(this.form.menu);
-          console.log(form.menu);
           api
             .updateCheckedMenuData(form)
             .then(res => {
@@ -146,7 +145,6 @@ export default {
         .getCheckedMenuData({ menuId: this.form.roleId })
         .then(res => {
           if (res.code === 200) {
-            console.log(res.data);
             let data = res.data;
             this.form.menu = data;
           } else {

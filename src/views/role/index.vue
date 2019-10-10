@@ -171,7 +171,6 @@ export default {
       this.initTable();
     },
     handleCurrentChange(e) {
-      console.log(e);
       this.Listform.pageNum = e;
       this.initTable();
     },
@@ -179,10 +178,8 @@ export default {
       api
         .getRoleData(this.Listform)
         .then(res => {
-          console.log(res);
           if (res.code === 200) {
             let _data = res.data;
-            console.log("data", _data);
             this.total = _data.numberOfElements; //显示数量
             this.tableData = _data.content; //表格数据
           } else {
@@ -196,7 +193,6 @@ export default {
         did = did + item.roleId + ",";
       });
       this.did = did.substr(0, did.length - 1);
-      console.log(this.did);
     },
     delRow() {
       let _this = this;

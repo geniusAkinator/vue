@@ -42,7 +42,6 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateRoleData(this.form)
             .then(res => {
@@ -65,7 +64,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -77,13 +75,11 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
-      console.log("dd", this.form.roleId);
       api
         .getRoleDetail({ roleId: this.form.roleId })
         .then(res => {
           if (res.code === 200) {
             let data = res.data;
-            console.log(data);
             for (let key in data) {
               this.form[key] = data[key];
             }
