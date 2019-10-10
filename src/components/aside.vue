@@ -119,4 +119,5 @@ export default {
 .side_drawer.isCollapse i {
   background: url("../assets/icon_arrow.png") 0px -60px no-repeat;
 }
+
 </style>

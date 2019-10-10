@@ -8,30 +8,51 @@ import utils from "./utils"
 import baseURL from "./baseUrl"
 
 const HttpRequest = {
-    getRequest({ url, data = {}, method = "GET" }) {
+    // getRequest({ url, data = {}, method = "GET" }) {
+    //     return new Promise((resolve, reject) => {
+    //         this._getRequest(url, resolve, reject, data, method)
+    //     }).catch((e) => { })
+    // },
+    // _getRequest(url, resolve, reject, data, method) {
+    //     axios({
+    //         url: url,
+    //         baseURL: baseURL,
+    //         data: data,
+    //         method: method,
+    //         params: data,
+    //         header: {
+    //             "content-type": "application/json"
+    //         },
+    //         // transformRequest: [function (data) {
+    //         //     return utils.param(data)
+    //         // }],
+    //     }).then(
+    //         res => {
+    //             resolve(res.data)
+    //         }
+    //     ).catch((err) => {
+    //         reject(err)
+    //     })
+    // },
+    uploadFile({ payload, callback }) { //文件上传
         return new Promise((resolve, reject) => {
-            this._getRequest(url, resolve, reject, data, method)
-        }).catch((e) => { })
-    },
-    _getRequest(url, resolve, reject, data, method) {
-        axios({
-            url: url,
-            baseURL: baseURL,
-            data: data,
-            method: method,
-            params: data,
-            header: {
-                "content-type": "application/json"
-            },
-            // transformRequest: [function (data) {
-            //     return utils.param(data)
-            // }],
-        }).then(
-            res => {
-                resolve(res.data)
-            }
-        ).catch((err) => {
-            reject(err)
+            axios({
+                url: url,
+                method: 'POST',
+                headers: { 'Content-Type': 'multipart/form-data' },
+                data: payload,
+                onUploadProgress: function (progressEvent) { //callback回调上传进度
+                    if (progressEvent.lengthComputable) { callback(progressEvent); }
+                },
+            }).then(
+                res => {
+                    resolve(res.data)
+                }
+            ).catch(
+                err => {
+                    reject(err)
+                }
+            )
         })
     },
     getRequestJsonp({ url, data }) {

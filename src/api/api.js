@@ -215,3 +215,14 @@ export const updateUserPwd = params => {//修改用户密码
         method: "PUT"
     }).then(res => res);
 }
+
+/**
+ *我的桌面 
+ */
+export const getAllData = params =>{ //获取所有统计数据
+    return request({
+        url: '/index/allData',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}

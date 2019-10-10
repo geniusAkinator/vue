@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <el-alert title="警告提示的文案" type="warning" show-icon :closable="false"></el-alert>
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>

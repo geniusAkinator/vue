@@ -490,4 +490,7 @@ textarea:focus {
 .no-border-radius input{
   border-radius: 0
 }
+.el-alert+.table-tool{
+  margin-top: 20px;
+}
 </style>

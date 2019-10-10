@@ -144,6 +144,38 @@
             </div>
           </el-card>
         </el-col>
+        <el-col :md="24" style="margin-top:10px">
+          <el-card class="box-card" shadow="hover">
+            <div slot="header" class="clearfix">
+              <i class="el-icon-edit-outline"></i>
+              <span>操作日志</span>
+            </div>
+            <div class="text item" style="min-height:300px;height:auto">
+              <div class="block">
+                <el-timeline>
+                  <el-timeline-item timestamp="2019/10/10" placement="top">
+                    <el-card>
+                      <h4>修改了什么什么页面</h4>
+                      <p>admin 提交于 2019/10/10 20:46</p>
+                    </el-card>
+                  </el-timeline-item>
+                  <el-timeline-item timestamp="2019/10/10" placement="top">
+                    <el-card>
+                      <h4>修改了什么什么页面</h4>
+                      <p>admin 提交于 2019/10/10 20:46</p>
+                    </el-card>
+                  </el-timeline-item>
+                  <el-timeline-item timestamp="2019/10/10" placement="top">
+                    <el-card>
+                      <h4>修改了什么什么页面</h4>
+                      <p>admin 提交于 2019/10/10 20:46</p>
+                    </el-card>
+                  </el-timeline-item>
+                </el-timeline>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
       </el-col>
     </el-row>
     <el-backtop target=".el-main"></el-backtop>
@@ -216,12 +248,15 @@ export default {
         }
       ]
     };
-    // console.log(this.myCharts)
-    // this.myCharts.setOption(this.orgOptions);
-    // this.$nextTick(() => {
-    //   window.addEventListener("resize", this.resizeChart);
-    //   // window.addEventListener("resize", utils.decounce(this.resizeChart, 100)); // 调用decounce函数
-    // });
+
+    api
+      .getAllData()
+      .then(res => {
+        if (res.code === 200) {
+          console.log(res);
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MyMap,
