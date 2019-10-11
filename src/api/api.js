@@ -226,3 +226,14 @@ export const getAllData = params =>{ //获取所有统计数据
         method: "GET"
     }).then(res => res);
 }
+
+
+/***
+ *上传文件（图片、视频、压缩包） 
+ */
+export const uploadFile = params => {
+    return http.getRequestUpload({  //jsonp获取数据
+        url: '/index/upload',
+        data: params,
+    }).then(res => res);
+};

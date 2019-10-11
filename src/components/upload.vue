@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+import api from "@/api/index";
 export default {
   data() {
     return {
@@ -64,12 +65,22 @@ export default {
           item.url = reader.result;
           item.title = files[i].name;
           if (this.fileUrl.length > this.limited - 1) {
-            this.$message.error("上传文件不能超过九个")
+            this.$message.error("上传文件不能超过九个");
             return;
           }
           this.fileUrl.push(item);
         });
         reader.readAsDataURL(files[i]);
+
+        let fd = new FormData();
+        fd.append("file", files);
+        api
+          .uploadFile(fd, () => {
+            console.log("aaa");
+          })
+          .then(res => {
+            console.log(res);
+          });
       }
     },
     handleShow(index) {

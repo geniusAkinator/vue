@@ -158,7 +158,7 @@ export default new Router({
         },
         {
           path: 'ptype',
-          name: '巡更路线管理',
+          name: '巡更类别管理',
           component: Ptype,
         },
         {
