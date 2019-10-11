@@ -20,17 +20,36 @@
       hidden
       @change="uploadFile"
       :multiple="this.limited>1?true:false"
+      name="files"
       accept="image/png, image/jpeg, image/gif, image/jpg"
     />
+    <!-- <transition name="el-fade-in-linear">
+      <div v-show="isShow">
+        <template v-if="isLoading">
+          <el-progress :percentage="percentage"></el-progress>
+        </template>
+        <template v-if="!isLoading&&!isFail">
+          <el-progress :percentage="percentage" status="success"></el-progress>
+        </template>
+        <template v-if="isFail">
+          <el-progress :percentage="percentage" status="exception"></el-progress>
+        </template>
+      </div>
+    </transition>-->
   </div>
 </template>
 <script>
 import http from "@/utils/http";
+import { Message } from "element-ui";
 export default {
   data() {
     return {
       fileUrl: [],
-      fit: "cover"
+      fit: "cover",
+      percentage: 0,
+      isFail: false,
+      isLoading: true,
+      isShow: false
     };
   },
   props: {
@@ -47,6 +66,7 @@ export default {
       this.fileUrl.splice(index, 1);
     },
     uploadFile() {
+      let _this = this;
       let files = this.$refs.file.files;
       if (files.length == 0) {
         //非空
@@ -72,14 +92,24 @@ export default {
         });
         reader.readAsDataURL(files[i]);
 
+        this.isShow = true;
         let fd = new FormData();
         fd.append("file", files);
         http
-          .getRequestUpload('/index/upload',fd, (res) => {
-            console.log(res);
-          })
+          .getRequestUpload("/index/uploadList", fd)
           .then(res => {
-            console.log(res);
+            // _this.isFail = false;
+            // _this.isLoading = false;
+            // console.log(res);
+          })
+          .catch(_ => {
+            Message({
+              showClose: true,
+              message: "上传错误",
+              type: "error"
+            });
+            // _this.isLoading = false;
+            // _this.isFail = true;
           });
       }
     },
@@ -136,5 +166,9 @@ export default {
 .pre-img i {
   cursor: pointer;
   font-size: 20px;
+}
+.images {
+  overflow: hidden;
+  float: left;
 }
 </style>

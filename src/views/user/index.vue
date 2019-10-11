@@ -51,18 +51,19 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="ID" width="150"></el-table-column>
-      <el-table-column prop="code" label="用户代码"></el-table-column>
-      <el-table-column prop="name" label="用户名称"></el-table-column>
-      <el-table-column prop="entryName" label="登录入口"></el-table-column>
-      <el-table-column prop="role" label="所属角色"></el-table-column>
-      <el-table-column prop="status" label="状态"></el-table-column>
-      <el-table-column prop="username" label="用户名称"></el-table-column>
-      <el-table-column prop="createTime" label="创建时间"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="180px">
+      <el-table-column prop="userId" label="ID" width="150"></el-table-column>
+      <el-table-column prop="account" label="用户账号"></el-table-column>
+      <el-table-column prop="role.name" label="所属角色"></el-table-column>
+      <el-table-column prop="trueName" label="用户名称"></el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">{{scope.row.state?'启用':'禁用'}}</template>
+      </el-table-column>
+      <el-table-column prop="createDateTime" label="创建时间"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="240px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index,  scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index,  scope.row)">删除</el-button>
+          <el-button size="mini" @click="handleResetPwd(scope.$index,  scope.row)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,6 +85,7 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MyUserAdd from "@/views/user/add";
+import MyUserEdit from "@/views/user/edit";
 import api from "@/api/index";
 export default {
   data() {
@@ -113,14 +115,29 @@ export default {
           label: "禁用"
         }
       ],
-      did: ""
+      did: "",
+      eid: 0
     };
   },
   methods: {
-    handleEdit() {},
+    handleEdit(index, row) {
+      this.eid = row.userId;
+      var index = this.$layer.iframe({
+        content: {
+          content: MyUserEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "编辑用户",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    },
     handleDelete(index, row) {
       //删除单行
-      this.did = row.menuId + "";
+      this.did = row.userId + "";
       this.delRow();
     },
     handleAdd() {
@@ -152,7 +169,7 @@ export default {
     handleSelectionChange(e) {
       let did = "";
       e.forEach(function(item) {
-        did = did + item.menuId + ",";
+        did = did + item.userId + ",";
       });
       this.did = did.substr(0, did.length - 1);
       console.log(this.did);
@@ -165,8 +182,8 @@ export default {
           if (res.code === 200) {
             let _data = res.data;
             console.log("data", res);
-            this.total = _data.count; //显示数量
-            this.tableData = _data.data; //表格数据
+            this.total = _data.total; //显示数量
+            this.tableData = _data.content; //表格数据
           } else {
           }
         })
@@ -177,7 +194,7 @@ export default {
       _this
         .$confirm("确认删除")
         .then(_ => {
-          api.delMenuData({ pId: _this.did }).then(res => {
+          api.delUserData({ ids: _this.did }).then(res => {
             if (res.code === 200) {
               _this.$message({
                 showClose: true,
@@ -185,11 +202,13 @@ export default {
                 type: "success"
               });
               _this.initTable(); //重新 render 表格
+              this.did = ''
             }
           });
         })
         .catch(_ => {});
-    }
+    },
+    handleResetPwd() {}
   },
   created() {
     this.initTable();

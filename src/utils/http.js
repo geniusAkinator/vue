@@ -35,26 +35,38 @@ const HttpRequest = {
     //     })
     // },
     getRequestUpload(url, data, callback) { //文件上传
-        console.log(baseURL,url,data)
+        console.log(baseURL, url, data)
         return new Promise((resolve, reject) => {
-            axios({
-                url: baseURL+url,
-                method: 'POST',
-                data: data,
-                processData: false,
-                contentType: false,
-                onUploadProgress: function (progressEvent) { //callback回调上传进度
-                    if (progressEvent.lengthComputable) { callback(progressEvent); }
-                },
-            }).then(
-                res => {
-                    resolve(res.data)
+            // axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'; 
+
+            axios.post(baseURL + url, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            ).catch(
-                err => {
-                    reject(err)
-                }
-            )
+            }).then(res => {
+                resolve(res.data)
+            }).catch(err => {
+                reject(err)
+            });
+            // axios({
+            //     url: baseURL + url,
+            //     method: 'POST',
+            //     data: data,
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     },
+            //     onUploadProgress: function (progressEvent) { //callback回调上传进度
+            //         if (progressEvent.lengthComputable) { callback(progressEvent); }
+            //     },
+            // }).then(
+            //     res => {
+            //         resolve(res.data)
+            //     }
+            // ).catch(
+            //     err => {
+            //         reject(err)
+            //     }
+            // )
         })
     },
     getRequestJsonp({ url, data }) {

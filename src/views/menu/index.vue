@@ -162,8 +162,8 @@ export default {
           if (res.code === 200) {
             let _data = res.data;
             console.log("data", res);
-            this.total = _data.count; //显示数量
-            this.tableData = _data.data; //表格数据
+            this.total = _data.total; //显示数量
+            this.tableData = _data.content; //表格数据
           } else {
           }
         })

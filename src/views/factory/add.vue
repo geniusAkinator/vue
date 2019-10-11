@@ -99,7 +99,7 @@ export default {
       }
     };
     return {
-      limited: 1,
+      limited: 9,
       form: {
         name: "",
         type: "0",

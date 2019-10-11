@@ -179,6 +179,15 @@ export const updateCheckedMenuData = params => { //修改角色菜单
     }).then(res => res);
 }
 
+export const getAllRoleData = params => { //获取所有角色信息（不分页）
+    return request({
+        url: '/role/allRole',
+        params: params,
+        method: 'GET',
+    }).then(res => res);
+};
+
+
 /**
  * 用户管理
  */
@@ -216,10 +225,19 @@ export const updateUserPwd = params => {//修改用户密码
     }).then(res => res);
 }
 
+export const getUserDetail = params => { //获取用户信息
+    return request({
+        url: '/user/userDetail',
+        params: params,
+        method: 'GET',
+    }).then(res => res);
+};
+
+
 /**
  *我的桌面 
  */
-export const getAllData = params =>{ //获取所有统计数据
+export const getAllData = params => { //获取所有统计数据
     return request({
         url: '/index/allData',
         params: params,
