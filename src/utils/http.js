@@ -34,14 +34,15 @@ const HttpRequest = {
     //         reject(err)
     //     })
     // },
-    getRequestUpload({ url, data, callback }) { //文件上传
+    getRequestUpload(url, data, callback) { //文件上传
+        console.log(baseURL,url,data)
         return new Promise((resolve, reject) => {
             axios({
-                url: url,
+                url: baseURL+url,
                 method: 'POST',
                 data: data,
-                // processData: false,
-                // contentType: false,
+                processData: false,
+                contentType: false,
                 onUploadProgress: function (progressEvent) { //callback回调上传进度
                     if (progressEvent.lengthComputable) { callback(progressEvent); }
                 },

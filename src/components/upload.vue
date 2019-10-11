@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import api from "@/api/index";
+import http from "@/utils/http";
 export default {
   data() {
     return {
@@ -74,9 +74,9 @@ export default {
 
         let fd = new FormData();
         fd.append("file", files);
-        api
-          .uploadFile(fd, () => {
-            console.log("aaa");
+        http
+          .getRequestUpload('/index/upload',fd, (res) => {
+            console.log(res);
           })
           .then(res => {
             console.log(res);
