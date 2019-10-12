@@ -86,6 +86,7 @@
 import MySearchTool from "@/components/searchtool";
 import MyUserAdd from "@/views/user/add";
 import MyUserEdit from "@/views/user/edit";
+import MyUserPwdUpdate from "@/views/user/uedit.vue";
 import api from "@/api/index";
 export default {
   data() {
@@ -208,7 +209,20 @@ export default {
         })
         .catch(_ => {});
     },
-    handleResetPwd() {}
+    handleResetPwd() {
+       var index = this.$layer.iframe({
+        content: {
+          content: MyUserPwdUpdate, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["600px", "600px"],
+        title: "修改密码",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    }
   },
   created() {
     this.initTable();

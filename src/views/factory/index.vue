@@ -77,6 +77,7 @@
           <el-button size="mini">厂区</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <el-button size="mini" @click="handleUpdatePwd(scope.$index, tableData)">更新密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -149,7 +150,22 @@ export default {
       } else if (command == "excel") {
       }
     },
-    handleUpload() {}
+    handleUpload() {},
+    handleUpdatePwd() {
+      //更新密码
+      var index = this.$layer.iframe({
+        content: {
+          content: MyFactoryAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: false,
+        area: ["1200px", "600px"],
+        title: "编辑工厂信息",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    }
   },
   mounted() {
     const loading = this.$loading({

@@ -4,12 +4,7 @@
       <el-form-item label="账户名称" prop="account">
         <el-input v-model="form.account"></el-input>
       </el-form-item>
-      <el-form-item label="用户密码" prop="password">
-        <el-input v-model="form.password" type="password"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="cpwd">
-        <el-input v-model="form.cpwd" type="password"></el-input>
-      </el-form-item>
+   
       <el-form-item label="所属角色" prop="roleId">
         <el-select v-model="form.roleId" placeholder="请选择所属角色">
           <el-option
