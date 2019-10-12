@@ -79,6 +79,7 @@ export default {
     };
     return {
       form: {
+        userId: this.$parent.eid,
         account: "",
         state: "1",
         password: "",
@@ -166,14 +167,17 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
+      console.log(this.form.userId)
       api
-        .getRoleDetail({ roleId: this.form.roleId })
+        .getRoleDetail({ userId: this.form.userId })
         .then(res => {
+          console.log(res)
           if (res.code === 200) {
             let data = res.data;
-            for (let key in data) {
-              this.form[key] = data[key];
-            }
+            console.log(dadta);
+            // for (let key in data) {
+            //   this.form[key] = data[key];
+            // }
           } else {
           }
         })
@@ -192,6 +196,7 @@ export default {
         }
       })
       .catch(_ => {});
+    this.initForm()
   },
   mounted() {},
   components: {

@@ -227,9 +227,9 @@ export const updateUserPwd = params => {//修改用户密码
 
 export const getUserDetail = params => { //获取用户信息
     return request({
-        url: '/user/userDetail',
-        params: params,
-        method: 'GET',
+        url: '/user/singleUser',
+        data: params,
+        method: "PUT"
     }).then(res => res);
 };
 
@@ -239,7 +239,7 @@ export const getUserDetail = params => { //获取用户信息
  */
 export const getAllData = params => { //获取所有统计数据
     return request({
-        url: '/index/allData',
+        url: '/role/roleDetail',
         params: params,
         method: "GET"
     }).then(res => res);
