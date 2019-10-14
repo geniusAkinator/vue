@@ -304,7 +304,7 @@ export default {
   methods: {
     handleClick(index) {
       let idx = this.$parent.index;
-      this.$parent.form.icon = this.list[index];
+      this.$parent.form.icon = this.filterList[index].replace(/\<.*?\>/g,'');
       this.$parent.$layer.close(idx);
     },
     handleSearch() {

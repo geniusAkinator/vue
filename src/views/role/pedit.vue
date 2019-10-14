@@ -1,3 +1,4 @@
+<!-- 方案一(废弃) -->
 <template>
   <div class="container form noSelect">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
