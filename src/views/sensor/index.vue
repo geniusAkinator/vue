@@ -3,9 +3,15 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          @click="handleDeleteMore"
+          :disabled="did==''"
+        >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器</el-button>
-        <el-dropdown @command="handleCommand" trigger="click">
+        <!-- <el-dropdown @command="handleCommand" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-plus">
             添加类型
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -14,7 +20,7 @@
             <el-dropdown-item command="add">添加传感器类型</el-dropdown-item>
             <el-dropdown-item command="list" divided>传感器类型列表</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown>-->
         <el-dropdown @command="handleUpload" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-document-add">
             导入
@@ -68,7 +74,14 @@
       </div>
     </div>
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column fixed type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
@@ -99,10 +112,10 @@
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
         :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[25, 50, 75, 100]"
+        :page-size="Listform.pageSize"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -115,17 +128,31 @@ import api from "@/api/index";
 export default {
   data() {
     return {
+      Listform: {
+        //表格请求params
+        pageNum: 1,
+        pageSize: 25
+      },
+      total: 0,
       tableData: [],
       isPaging: false,
       currentPage4: 1,
       searchForm: {},
       labelPosition: "left",
-      loading: true
+      loading: true,
+      did: "",
+      eid: 0
     };
   },
   methods: {
-    handleSizeChange() {},
-    handleCurrentChange() {},
+    handleSizeChange(e) {
+      this.Listform.pageSize = e;
+      this.initTable();
+    },
+    handleCurrentChange(e) {
+      this.Listform.pageNum = e;
+      this.initTable();
+    },
     handleEdit() {},
     handleExport() {},
     handleReset() {
@@ -149,6 +176,7 @@ export default {
     },
     handleCommand(command) {
       if (command == "add") {
+        //添加传感器类型
         let index = this.$layer.iframe({
           content: {
             content: MySensorTypeAdd, //传递的组件对象
@@ -162,35 +190,65 @@ export default {
           target: ".el-main"
         });
       } else if (command == "list") {
+        //查看传感器类型列表
         this.$router.push("sensorType", () => {});
       }
     },
     handleClick() {},
     handleUpload() {},
-    handleSet() {}
-  },
-  mounted() {
-    const loading = this.$loading({
-      target: document.querySelector(".el-main.app-body"),
-      lock: true,
-      text: "加载中...",
-      spinner: "loading",
-      background: "rgba(0, 0, 0, 0.7)",
-      customClass: "el-loading"
-    });
-    setTimeout(() => {
-      loading.close();
+    handleSet() {},
+    initTable() {
       api
-        .getSensorData()
+        .getSensorData(this.Listform)
         .then(res => {
           if (res.code === 0) {
-            this.tableData = res.data;
+            let _data = res.data;
+            this.tableData = _data.content;
+            this.total = _data.count;
           }
         })
         .catch(_ => {});
-    }, 600);
+    },
+    handleSelectionChange(e) {
+      let did = "";
+      e.forEach(function(item) {
+        did = did + item.roleId + ",";
+      });
+      this.did = did.substr(0, did.length - 1);
+    },
+    handleDelete() {
+      //删除单行
+      this.did = row.userId + "";
+      this.delRow();
+    },
+    handleDeleteMore() {
+      //删除多行
+      this.delRow();
+    },
+    delRow() {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delSensorData({ ids: _this.did }).then(res => {
+            if (res.code === 200) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initTable(); //重新 render 表格
+              this.did = "";
+            }
+          });
+        })
+        .catch(_ => {});
+    }
   },
-  beforeMount() {},
+  created() {
+    this.initTable();
+  },
+  mounted() {},
   components: {
     MySearchTool
   }

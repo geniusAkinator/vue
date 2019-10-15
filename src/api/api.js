@@ -18,14 +18,6 @@ export const getFactoryCal = params => {
     }).then(res => res);
 };
 
-
-export const getSensorData = params => {
-    return request({
-        url: '/sensor/data',
-        data: params
-    }).then(res => res);
-};
-
 export const getRealtimeData = params => {
     return request({
         url: '/realtime/data',
@@ -250,3 +242,45 @@ export const getFactoryData = params => { //获取工厂信息
     }).then(res => res);
 }
 
+/**
+ *信息管理-传感器管理 
+ */
+export const getSensorData = params => { //获取传感器信息
+    return request({
+        url: '/transducer/transducerList',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const getSensorDetail = params => { //获取传感器详情
+    return request({
+        url: '/transducer/transducerDetail',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const updateSensorData = params => { //修改传感器信息
+    return request({
+        url: '/transducer/updateTransducer',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
+export const delSensorData = params => {  //删除传感器
+    return request({
+        url: '/role/deleteRole',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}
+
+export const addSensorData = params => { //添加传感器
+    return request({
+        url: '/transducer/addTransducer',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}

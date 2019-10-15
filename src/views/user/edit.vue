@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="所属角色">
-        <el-select v-model="form.roleId" placeholder="请选择所属角色">
+        <el-select v-model="form.role.roleId" placeholder="请选择所属角色">
           <el-option
             v-for="item in roptions"
             :key="item.roleId"
@@ -123,7 +123,7 @@ export default {
                 //添加成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.initTable();
@@ -132,7 +132,7 @@ export default {
                 //添加失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }
@@ -152,6 +152,28 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
+      //表单回显
+      api
+        .getUserDetail({ userId: this.form.userId })
+        .then(res => {
+          if (res.code === 200) {
+            let _data = res.data;
+            // for (let key in _data) {
+            //   this.form[key] = _data[key];
+            // }
+            this.form.account = _data.account;
+            this.form.state = _data.state + "";
+            this.form.roleName = _data.roleName;
+            this.form.trueName = _data.trueName;
+            this.form.mobilePhone = _data.mobilePhone;
+            this.form.remark = _data.remark;
+            this.form.role.roleId = _data.role.roleId;
+            console.log(this.form);
+          } else {
+          }
+        })
+        .catch(_ => {});
+      //获取所有属性
       api
         .getAllRoleData()
         .then(res => {
@@ -159,21 +181,6 @@ export default {
             let _data = res.data;
             this.roptions = _data;
             console.log(_data);
-          } else {
-          }
-        })
-        .catch(_ => {});
-      api
-        .getUserDetail({ userId: this.form.userId })
-        .then(res => {
-          if (res.code === 200) {
-            let _data = res.data;
-            console.log(_data)
-            // for (let key in _data) {
-            //   this.form[key] = _data[key];
-            // };
-            this.form.role.roleId = _data.role.roleId
-            console.log(this.form)
           } else {
           }
         })

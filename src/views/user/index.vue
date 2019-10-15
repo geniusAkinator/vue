@@ -4,7 +4,13 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete" :disabled="did==''">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          @click="handleDeleteMore"
+          :disabled="did==''"
+        >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
       </el-button-group>
       <my-search-tool>
@@ -163,7 +169,6 @@ export default {
       this.initTable();
     },
     handleCurrentChange(e) {
-      console.log(e);
       this.Listform.pageNum = e;
       this.initTable();
     },
@@ -203,14 +208,18 @@ export default {
                 type: "success"
               });
               _this.initTable(); //重新 render 表格
-              this.did = ''
+              this.did = "";
             }
           });
         })
         .catch(_ => {});
     },
+    handleDeleteMore() {
+      //批量删除
+      this.delRow();
+    },
     handleResetPwd() {
-       var index = this.$layer.iframe({
+      var index = this.$layer.iframe({
         content: {
           content: MyUserPwdUpdate, //传递的组件对象
           parent: this, //当前的vue对象

@@ -82,6 +82,7 @@ export default {
     };
     return {
       form: {
+        id:this.$parent.eid,
         deviceNumber: 0,
         crc: "",
         liquidLevel: 0,
@@ -119,7 +120,7 @@ export default {
                 //添加成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.initTable();
@@ -128,7 +129,7 @@ export default {
                 //添加失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }
@@ -148,7 +149,25 @@ export default {
     getPoint(e) {
       this.form.latitude = e.lat;
       this.form.longitude = e.lng;
+    },
+    initForm() {
+      api
+        .getSensorDetail({ id: this.form.id })
+        .then(res => {
+          if (res.code === 200) {
+            let _data = res.data;
+            // for (let key in _data) {
+            //   this.form[key] = _data[key];
+            // }
+         
+          } else {
+          }
+        })
+        .catch(_ => {});
     }
+  },
+  created() {
+    this.initForm();
   },
   components: {
     MyMapPicker
