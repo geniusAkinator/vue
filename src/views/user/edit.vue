@@ -4,8 +4,8 @@
       <el-form-item label="账户名称" prop="account">
         <el-input v-model="form.account"></el-input>
       </el-form-item>
-   
-      <el-form-item label="所属角色" prop="roleId">
+
+      <el-form-item label="所属角色">
         <el-select v-model="form.roleId" placeholder="请选择所属角色">
           <el-option
             v-for="item in roptions"
@@ -79,7 +79,9 @@ export default {
         state: "1",
         password: "",
         cpwd: "",
-        roleId: "",
+        role: {
+          roleId: 0
+        },
         roleName: "",
         factory: "",
         trueName: "",
@@ -99,28 +101,16 @@ export default {
         ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
         cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
-        roleId: [
-          { required: true, message: "请选择所属角色", trigger: "change" }
-        ],
+        // roleId: [
+        //   { required: true, message: "请选择所属角色", trigger: "change" }
+        // ],
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
         ]
       }
     };
   },
-  watch: {
-    "form.roleId": {
-      handler(newVal, oldVal) {
-        console.log(newVal);
-        this.roptions.map((item, i) => {
-          if (item.roleId == newVal) {
-            this.form.roleName = item.name;
-          }
-        });
-      },
-      deep: true
-    }
-  },
+
   methods: {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
@@ -162,17 +152,28 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
-      console.log(this.form.userId)
       api
-        .getRoleDetail({ userId: this.form.userId })
+        .getAllRoleData()
         .then(res => {
-          console.log(res)
           if (res.code === 200) {
-            let data = res.data;
-            console.log(dadta);
-            // for (let key in data) {
-            //   this.form[key] = data[key];
-            // }
+            let _data = res.data;
+            this.roptions = _data;
+            console.log(_data);
+          } else {
+          }
+        })
+        .catch(_ => {});
+      api
+        .getUserDetail({ userId: this.form.userId })
+        .then(res => {
+          if (res.code === 200) {
+            let _data = res.data;
+            console.log(_data)
+            // for (let key in _data) {
+            //   this.form[key] = _data[key];
+            // };
+            this.form.role.roleId = _data.role.roleId
+            console.log(this.form)
           } else {
           }
         })
@@ -180,18 +181,7 @@ export default {
     }
   },
   created() {
-    api
-      .getAllRoleData()
-      .then(res => {
-        if (res.code === 200) {
-          let _data = res.data;
-          this.roptions = _data;
-          console.log(_data);
-        } else {
-        }
-      })
-      .catch(_ => {});
-    this.initForm()
+    this.initForm();
   },
   mounted() {},
   components: {

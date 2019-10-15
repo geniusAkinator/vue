@@ -18,12 +18,6 @@ export const getFactoryCal = params => {
     }).then(res => res);
 };
 
-export const getFactoyData = params => {
-    return request({
-        url: '/factory/data',
-        data: params
-    }).then(res => res);
-};
 
 export const getSensorData = params => {
     return request({
@@ -97,7 +91,7 @@ export const delMenuData = params => { //删除菜单
 
 export const getMenuDetail = params => { //获取菜单列表
     return request({
-        url: '/Menu/menuListDetail',
+        url: '/Menu/menuDetail',
         params: params,
         method: 'GET',
     }).then(res => res);
@@ -141,7 +135,7 @@ export const delRoleData = params => {  //删除角色
 
 export const getRoleDetail = params => { //获取菜单列表
     return request({
-        url: '/role/roleListDetail',
+        url: '/role/roleDetail',
         params: params,
         method: 'GET',
     }).then(res => res);
@@ -227,9 +221,9 @@ export const updateUserPwd = params => {//修改用户密码
 
 export const getUserDetail = params => { //获取用户信息
     return request({
-        url: '/user/singleUser',
-        data: params,
-        method: "PUT"
+        url: '/user/userDetail',
+        params: params,
+        method: "GET"
     }).then(res => res);
 };
 
@@ -245,5 +239,14 @@ export const getAllData = params => { //获取所有统计数据
     }).then(res => res);
 }
 
-
+/**
+ * 信息管理-工厂管理 
+ */
+export const getFactoryData = params => { //获取工厂信息
+    return request({
+        url: '/factory/findAllFactory',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
 

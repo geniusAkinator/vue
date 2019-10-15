@@ -129,7 +129,7 @@ export default {
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: false,
+        shade: true,
         area: ["1200px", "600px"],
         title: "编辑用户",
         target: ".el-main"
@@ -148,7 +148,7 @@ export default {
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: false,
+        shade: true,
         area: ["1200px", "600px"],
         title: "新增用户",
         target: ".el-main"
@@ -216,12 +216,11 @@ export default {
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: false,
-        area: ["600px", "600px"],
+        shade: true,
+        area: ["400px", "400px"],
         title: "修改密码",
         target: ".el-main"
       });
-      this.$layer.full(index);
     }
   },
   created() {

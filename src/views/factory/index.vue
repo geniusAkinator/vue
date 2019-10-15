@@ -3,7 +3,7 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button type="danger" size="small" icon="el-icon-delete" :disabled="did==''">批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
         <el-dropdown @command="handleUpload" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-document-add">
@@ -87,10 +87,10 @@
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
         :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[25, 50, 75, 100]"
+        :page-size="Listform.pageSize"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -102,11 +102,19 @@ import api from "@/api/index";
 export default {
   data() {
     return {
+      Listform: {
+        //表格请求params
+        pageNum: 1,
+        pageSize: 25
+      },
+      total: 0,
       tableData: [],
       isPaging: false,
       currentPage: 1,
       searchForm: {},
-      labelPosition: "left"
+      labelPosition: "left",
+      did: "",
+      eid: 0
     };
   },
   methods: {
@@ -168,25 +176,14 @@ export default {
     }
   },
   mounted() {
-    const loading = this.$loading({
-      target: document.querySelector(".el-main.app-body"),
-      lock: true,
-      text: "加载中...",
-      spinner: "loading",
-      background: "rgba(0, 0, 0, 0.7)",
-      customClass: "el-loading"
-    });
-    setTimeout(() => {
-      loading.close();
-      api
-        .getFactoyData()
-        .then(res => {
-          if (res.code === 0) {
-            this.tableData = res.data;
-          }
-        })
-        .catch(_ => {});
-    }, 600);
+    api
+      .getFactoryData(this.Listform)
+      .then(res => {
+        if (res.code === 0) {
+          this.tableData = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   beforeMount() {},
   components: {

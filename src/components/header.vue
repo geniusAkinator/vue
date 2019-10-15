@@ -9,6 +9,24 @@
     <div class="app-header-userinfo">
       <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
+          <i class="el-icon-chat-dot-round el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>信息1</el-dropdown-item>
+          <el-dropdown-item>信息2</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown trigger="hover" :hide-on-click="false">
+        <span class="el-dropdown-link">
+          <i class="el-icon-message el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>信息1</el-dropdown-item>
+          <el-dropdown-item>信息2</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown trigger="hover" :hide-on-click="false">
+        <span class="el-dropdown-link">
           <span class="userName">您好,&nbsp;&nbsp;admin</span>
           <el-avatar icon="el-icon-user-solid" :size="28" shape="square">user</el-avatar>
         </span>
@@ -98,5 +116,10 @@ export default {
 }
 .userName {
   margin-right: 10px;
+}
+.app-header-userinfo .el-dropdown i{
+  font-size: 20px;
+  margin-right: 20px;
+  margin-top: 3px
 }
 </style>

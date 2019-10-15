@@ -120,6 +120,7 @@ export default {
         .then(res => {
           if (res.code === 200) {
             let data = res.data;
+            console.log(data)
             for (let key in data) {
               this.form[key] = data[key];
             }

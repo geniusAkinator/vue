@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import api from "@/api/index";
 export default {
   data() {
     var validatePwd = (rule, value, callback) => {
@@ -50,7 +51,7 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
@@ -58,19 +59,19 @@ export default {
             .updateUserPwd(this.form)
             .then(res => {
               if (res.code == 200) {
-                //添加成功
+                //修改成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "修改成功",
                   type: "success"
                 });
                 this.$parent.initTable();
                 this.closeDialog();
               } else {
-                //添加失败
+                //修改失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "修改失败",
                   type: "warning"
                 });
               }

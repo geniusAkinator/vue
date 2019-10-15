@@ -222,7 +222,7 @@ export default {
           data: {} //props
         },
         shade: true,
-        area: ["800px", "600px"],
+        area: ["400px", "600px"],
         title: "分配权限",
         target: ".el-main"
       });

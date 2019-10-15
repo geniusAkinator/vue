@@ -2,13 +2,7 @@
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="权限" prop="name">
-        <el-tree
-          :props="props"
-          :load="loadNode"
-          lazy
-          show-checkbox
-          @check-change="handleCheckChange"
-        ></el-tree>
+        <el-tree :data="data" show-checkbox node-key="id" @check-change="handleCheckChange"></el-tree>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
@@ -18,15 +12,16 @@
   </div>
 </template>
 <script>
+import api from "@/api/index";
 export default {
   data() {
     return {
       form: {},
       rules: {},
-      props: {
-        label: "name",
-        children: "zones",
-        isLeaf: "leaf"
+      data: [],
+      defaultProps: {
+        children: "children",
+        label: "label"
       }
     };
   },
@@ -41,22 +36,42 @@ export default {
     handleCheckChange(data, checked, indeterminate) {
       console.log(data, checked, indeterminate);
     },
-    loadNode(node, resolve) {
-      if (node.level === 0) {
-        return resolve([{ name: "region1" }, { name: "region2" }]); //第一层
-      }
-      if (node.level > 1) return resolve([]); //无第三层
-
-      let data = [ //第二层
-        {
-          name: "zone"
-        },
-        {
-          name: "zone"
-        }
-      ];
-      resolve(data);
+    initForm() {
+      api
+        .getAllMenuData()
+        .then(res => {
+          if (res.code === 200) {
+            let content = res.data;
+            let data = [];
+            content.map((item, i) => {
+              console.log(item);
+              let temp = {};
+              temp.id = item.menu.menuId;
+              temp.label = item.menu.name;
+              temp.disabled = item.menu.state ? false : true;
+              let cdata = [];
+              item.children.map((citem, j) => {
+                let ctemp = {};
+                ctemp.id = citem.menu.menuId;
+                ctemp.label = citem.menu.name;
+                ctemp.disabled = citem.menu.state ? false : true;
+                cdata.push(ctemp);
+              });
+              temp.children = cdata;
+              data.push(temp);
+            });
+            this.data = data;
+          } else {
+          }
+        })
+        .catch(_ => {});
     }
+  },
+  created() {},
+  mounted() {
+    this.$nextTick(() => {
+      this.initForm();
+    });
   }
 };
 </script>
