@@ -44,7 +44,7 @@ import api from "@/api/index";
 export default {
   data() {
     return {
-      ak: config.baiduMap.ak, //百度地图ak
+      ak: this.GLOBAL.BAIDU_MAP_AK, //百度地图ak
       keyword: "",
       mapConf: {
         //地图配置信息

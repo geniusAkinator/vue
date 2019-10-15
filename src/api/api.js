@@ -225,7 +225,7 @@ export const getUserDetail = params => { //获取用户信息
  */
 export const getAllData = params => { //获取所有统计数据
     return request({
-        url: '/role/roleDetail',
+        url: '/index/allData',
         params: params,
         method: "GET"
     }).then(res => res);
@@ -241,6 +241,24 @@ export const getFactoryData = params => { //获取工厂信息
         method: "GET"
     }).then(res => res);
 }
+
+
+export const delFactoryData = params => {  //删除工厂信息
+    return request({
+        url: '/factory/deleteFactory',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}
+
+export const updateFactoryData = params => { //修改工厂信息
+    return request({
+        url: '/factory/updateFactory',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
 
 /**
  *信息管理-传感器管理 

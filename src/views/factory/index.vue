@@ -13,6 +13,14 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="template">下载Excel模板</el-dropdown-item>
             <el-dropdown-item command="upload">上传Excel</el-dropdown-item>
+            <input
+              ref="file"
+              type="file"
+              name="file"
+              hidden
+              @change="handleImport"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            />
           </el-dropdown-menu>
         </el-dropdown>
       </el-button-group>
@@ -77,7 +85,6 @@
           <el-button size="mini">厂区</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
-          <el-button size="mini" @click="handleUpdatePwd(scope.$index, tableData)">更新密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -99,6 +106,7 @@
 import MySearchTool from "@/components/searchtool";
 import MyFactoryAdd from "@/views/factory/add";
 import api from "@/api/index";
+import http from "@/utils/http";
 export default {
   data() {
     return {
@@ -158,33 +166,90 @@ export default {
       } else if (command == "excel") {
       }
     },
-    handleUpload() {},
-    handleUpdatePwd() {
-      //更新密码
-      var index = this.$layer.iframe({
-        content: {
-          content: MyFactoryAdd, //传递的组件对象
-          parent: this, //当前的vue对象
-          data: {} //props
-        },
-        shade: false,
-        area: ["1200px", "600px"],
-        title: "编辑工厂信息",
-        target: ".el-main"
+    handleUpload(command) {
+      console.log("上传");
+      if (command == "template") {
+        //下载模板
+      } else if (command == "upload") {
+        console.log("上传");
+        this.$refs.file.click();
+      }
+    },
+    handleSelectionChange(e) {
+      let did = "";
+      e.forEach(function(item) {
+        did = did + item.roleId + ",";
       });
-      this.$layer.full(index);
+      this.did = did.substr(0, did.length - 1);
+    },
+    handleDelete() {
+      //删除单行
+      this.did = row.userId + "";
+      this.delRow();
+    },
+    handleDeleteMore() {
+      //删除多行
+      this.delRow();
+    },
+    delRow() {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delFactoryData({ ids: _this.did }).then(res => {
+            if (res.code === 200) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initTable(); //重新 render 表格
+              this.did = "";
+            }
+          });
+        })
+        .catch(_ => {});
+    },
+    initForm() {
+      api
+        .getFactoryData(this.Listform)
+        .then(res => {
+          if (res.code == 200) {
+            let _data = res.data;
+            this.tableData = _data.content;
+            this.total = _data.count;
+          }
+        })
+        .catch(_ => {});
+    },
+    handleImport() {
+      let _this = this;
+      let fd = new FormData();
+      let file = _this.$refs.file.files[0];
+      console.log(file);
+      fd.append("file", file);
+      http
+        .getRequestUpload("/factory/importFile", fd)
+        .then(res => {
+          // _this.isFail = false;
+          // _this.isLoading = false;
+          // console.log(res);
+        })
+        .catch(_ => {
+          Message({
+            showClose: true,
+            message: "上传错误",
+            type: "error"
+          });
+          // _this.isLoading = false;
+          // _this.isFail = true;
+        });
     }
   },
-  mounted() {
-    api
-      .getFactoryData(this.Listform)
-      .then(res => {
-        if (res.code === 0) {
-          this.tableData = res.data;
-        }
-      })
-      .catch(_ => {});
+  created() {
+    this.initForm();
   },
+  mounted() {},
   beforeMount() {},
   components: {
     MySearchTool

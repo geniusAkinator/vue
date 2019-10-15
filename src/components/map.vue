@@ -117,7 +117,7 @@ import BmCopyright from "vue-baidu-map/components/controls/copyright";
 export default {
   data() {
     return {
-      ak: config.baiduMap.ak,
+      ak: this.GLOBAL.BAIDU_MAP_AK,
       mapConf: {
         width: "100%",
         height: "100%",

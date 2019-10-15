@@ -22,7 +22,7 @@
           :inactive-value="0"
         ></el-switch>
       </el-form-item>
-      <el-form-item label="操作权限">
+      <!-- <el-form-item label="操作权限">
         <el-checkbox v-model="form.creates" label="添加" border></el-checkbox>
         <el-checkbox v-model="form.edit" label="编辑" border></el-checkbox>
         <el-checkbox v-model="form.del" label="删除" border></el-checkbox>
@@ -31,7 +31,7 @@
         <el-checkbox v-model="form.export" label="导出" border></el-checkbox>
         <el-checkbox v-model="form.enable" label="启用" border></el-checkbox>
         <el-checkbox v-model="form.audit" label="审核" border></el-checkbox>
-      </el-form-item>
+      </el-form-item> -->
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -53,14 +53,14 @@ export default {
         name: "",
         state: 1,
         orderNo: 0,
-        creates: 0,
-        edit: 0,
-        del: 0,
-        view: 0,
-        query: 0,
-        export: 0,
-        enable: 0,
-        audit: 0
+        // creates: 0,
+        // edit: 0,
+        // del: 0,
+        // view: 0,
+        // query: 0,
+        // export: 0,
+        // enable: 0,
+        // audit: 0
       },
       rules: {
         name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
@@ -103,14 +103,6 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     },
-    onEditorBlur() {},
-    onEditorFocus() {},
-    onEditorChange() {},
-    getPoint(e) {
-      this.form.lat = e.lat;
-      this.form.lng = e.lng;
-    },
-    handleChange() {}
   },
   components: {
     MyMapPicker,

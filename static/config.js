@@ -30,9 +30,6 @@ const config = {
         placeholder: "请输入内容",
         theme: "snow"
     },
-    baiduMap: {
-        ak: "yvHBN7cRIeYG9TIWMfOuVMk4Z2w1uXnK" //百度地图ak
-    },
     nameMap: {        //earth国家中文名称
         "Canada": "加拿大",
         "Turkmenistan": "土库曼斯坦",

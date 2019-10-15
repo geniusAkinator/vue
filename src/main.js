@@ -24,6 +24,8 @@ import "@/assets/css/animate.css"
 import "viewerjs/dist/viewer.css"
 import Viewer from "v-viewer"
 import VueClipboard from 'vue-clipboard2'
+import ajaxHelp from '@/utils/ajaxHelp'
+import global from '@/utils/global'
 
 // require('@/mock/mock')
 require('moment')
@@ -38,6 +40,8 @@ Vue.use(Viewer)
 Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.component(CollapseTransition.name, CollapseTransition)
+Vue.prototype.AJAX_HELP = ajaxHelp
+Vue.prototype.GLOBAL = global
 
 router.beforeEach((to, from, next) => {
   if (to.path == '/login') {

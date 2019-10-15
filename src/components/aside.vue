@@ -37,7 +37,10 @@
         </el-menu>
       </div>
     </el-aside>
-    <div :class="isCollapse ? 'side_drawer isCollapse': 'side_drawer'" @click="isAsideCollapse=!isAsideCollapse">
+    <div
+      :class="isCollapse ? 'side_drawer isCollapse': 'side_drawer'"
+      @click="isAsideCollapse=!isAsideCollapse"
+    >
       <i></i>
     </div>
   </div>
@@ -62,14 +65,12 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {},
-    jump(e){
+    jump(e) {
       console.log(e);
-      this.$router.push({"path":"/"+e.path})
+      this.$router.push({ path: "/" + e.path });
     }
   },
-  mounted() {
-   
-  }
+  mounted() {}
 };
 </script>
 
@@ -116,8 +117,13 @@ export default {
   height: 60px;
   cursor: pointer;
 }
+.side_drawer i:hover {
+  background-position:-22px 1px
+}
 .side_drawer.isCollapse i {
   background: url("../assets/icon_arrow.png") 0px -60px no-repeat;
 }
-
+.side_drawer.isCollapse  i:hover {
+  background-position:-22px -61px
+}
 </style>

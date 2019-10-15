@@ -8,7 +8,7 @@
             <router-link class="item" :to="'factory'">
               <div>
                 工厂总数:
-                <span>55</span>
+                <span>{{sData.factoryTotal}}</span>
               </div>
             </router-link>
             <router-link class="item" :to="'member'">
@@ -25,13 +25,13 @@
             <router-link class="item" :to="'sensor'">
               <div>
                 在线设备:
-                <span>55</span>
+                <span>{{sData.inLine}}</span>
               </div>
             </router-link>
             <router-link class="item" :to="'sensor'">
               <div>
                 离线设备:
-                <span>55</span>
+                <span>{{sData.offLine}}</span>
               </div>
             </router-link>
           </div>
@@ -192,6 +192,12 @@ import MyEchartLine from "@/components/eline";
 export default {
   data() {
     return {
+      sData: {
+        //桌面数据统计
+        factoryTotal: 0,
+        inLine: 0,
+        offLine: 0
+      },
       test: "name",
       geoList: [],
       calList: [],
@@ -203,6 +209,19 @@ export default {
     resizeChart() {
       this.myCharts.resize();
     }
+  },
+  created() {
+    api
+      .getAllData()
+      .then(res => {
+        if (res.code === 200) {
+          let _data = res.data;
+          for (let key in _data) {
+            this.sData[key] = _data[key];
+          }
+        }
+      })
+      .catch(_ => {});
   },
   mounted() {
     api
@@ -248,15 +267,6 @@ export default {
         }
       ]
     };
-
-    api
-      .getAllData()
-      .then(res => {
-        if (res.code === 200) {
-          console.log(res);
-        }
-      })
-      .catch(_ => {});
   },
   components: {
     MyMap,

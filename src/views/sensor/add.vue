@@ -1,29 +1,11 @@
 <template>
   <div class="container form">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="deviceNumber">
-        <el-input v-model="form.deviceNumber" type="number"></el-input>
+      <el-form-item label="设备编号">
+        <el-input v-model="form.deviceNumber"></el-input>
       </el-form-item>
-      <el-form-item label="crc">
-        <el-input v-model="form.crc"></el-input>
-      </el-form-item>
-      <el-form-item label="liquidLevel">
-        <el-input v-model="form.liquidLevel" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="noisePower">
-        <el-input v-model="form.noisePower" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="rxLev">
-        <el-input v-model="form.rxLev" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="temp">
-        <el-input v-model="form.temp" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="threshold">
-        <el-input v-model="form.threshold" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="dataWarm">
-        <el-input v-model="form.dataWarm" type="number"></el-input>
+      <el-form-item label="到期时间">
+        <el-input v-model="form.expriationData"></el-input>
       </el-form-item>
       <!-- prop="pos" -->
       <el-form-item label="经纬度">
@@ -82,6 +64,7 @@ export default {
     };
     return {
       form: {
+        //提交数据
         deviceNumber: 0,
         crc: "",
         liquidLevel: 0,
@@ -96,6 +79,7 @@ export default {
       isShow: false,
       options: [],
       rules: {
+        //表单验证规则
         name: [{ required: true, message: "请输入设备名称", trigger: "blur" }],
         number: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
@@ -109,6 +93,7 @@ export default {
   },
   methods: {
     handleSubmit(form) {
+      //提交
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
@@ -140,6 +125,7 @@ export default {
       });
     },
     handleBack() {
+      //退出
       this.closeDialog();
     },
     closeDialog() {

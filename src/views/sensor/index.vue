@@ -82,18 +82,6 @@
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column fixed type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="table-expand">
-            <el-form-item label="图片">
-              <img :src="props.row.images" alt />
-            </el-form-item>
-            <el-form-item label="公司简介">
-              <span>{{ props.row.introduction }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="传感器ID" width="150"></el-table-column>
       <el-table-column prop="name" label="传感器名称"></el-table-column>
@@ -146,19 +134,30 @@ export default {
   },
   methods: {
     handleSizeChange(e) {
+      //分页大小改变
       this.Listform.pageSize = e;
+      //重载表格
       this.initTable();
     },
     handleCurrentChange(e) {
+      //分页切换
       this.Listform.pageNum = e;
+      //重载表格
       this.initTable();
     },
-    handleEdit() {},
-    handleExport() {},
+    handleEdit() {
+      //编辑数据
+    },
+    handleExport() {
+      //导出数据
+    },
     handleReset() {
+      //重置搜索菜单
       this.searchForm = {};
     },
-    handleSearch() {},
+    handleSearch() {
+      //搜索
+    },
     handleAdd() {
       //新增
       let index = this.$layer.iframe({
@@ -195,14 +194,19 @@ export default {
       }
     },
     handleClick() {},
-    handleUpload() {},
+    handleUpload() {
+      //上传
+    },
     handleSet() {},
     initTable() {
+      let _this = this;
+      //加载表格数据
       api
         .getSensorData(this.Listform)
         .then(res => {
-          if (res.code === 0) {
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
+            console.table(_data.content)
             this.tableData = _data.content;
             this.total = _data.count;
           }
@@ -226,19 +230,20 @@ export default {
       this.delRow();
     },
     delRow() {
+      //删除数据
       let _this = this;
       _this
         .$confirm("确认删除")
         .then(_ => {
           api.delSensorData({ ids: _this.did }).then(res => {
-            if (res.code === 200) {
+            if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",
                 type: "success"
               });
               _this.initTable(); //重新 render 表格
-              this.did = "";
+              _this.did = "";
             }
           });
         })
