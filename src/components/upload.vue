@@ -96,7 +96,7 @@ export default {
         let fd = new FormData();
         fd.append("file", files);
         http
-          .getRequestUpload("/index/uploadList", fd)
+          .getRequestUpload("/factory/upload", fd)
           .then(res => {
             // _this.isFail = false;
             // _this.isLoading = false;

@@ -214,7 +214,7 @@ export default {
     api
       .getAllData()
       .then(res => {
-        if (res.code === 200) {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
           for (let key in _data) {
             this.sData[key] = _data[key];

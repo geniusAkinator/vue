@@ -75,7 +75,7 @@ export default {
           .addMenuData(this.form)
           .then(res => {
             console.log(res);
-            if (res.code == 200) {
+            if (res.code ==  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               //添加成功
               this.$message({
                 showClose: true,

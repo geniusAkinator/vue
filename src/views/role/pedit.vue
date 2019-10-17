@@ -97,7 +97,7 @@ export default {
           api
             .updateCheckedMenuData(form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //编辑成功
                 this.$message({
                   showClose: true,
@@ -145,7 +145,7 @@ export default {
       api
         .getCheckedMenuData({ menuId: this.form.roleId })
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let data = res.data;
             this.form.menu = data;
           } else {
@@ -156,7 +156,7 @@ export default {
       api
         .getAllMenuData()
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let data = res.data;
             this.mdata = data;
           } else {

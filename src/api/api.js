@@ -259,6 +259,13 @@ export const updateFactoryData = params => { //修改工厂信息
     }).then(res => res);
 }
 
+export const addFactoryData = params => { //添加工厂
+    return request({
+        url: '/factory/addFactory',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
 
 /**
  *信息管理-传感器管理 
@@ -289,7 +296,7 @@ export const updateSensorData = params => { //修改传感器信息
 
 export const delSensorData = params => {  //删除传感器
     return request({
-        url: '/role/deleteRole',
+        url: '/transducer/deleteTransducer',
         params: params,
         method: "DELETE"
     }).then(res => res);
@@ -300,5 +307,13 @@ export const addSensorData = params => { //添加传感器
         url: '/transducer/addTransducer',
         data: params,
         method: "POST"
+    }).then(res => res);
+}
+
+export const getPCD = params => { //获取城市级联
+    return request({
+        url: '/pcd/address',
+        params: params,
+        method: "GET"
     }).then(res => res);
 }

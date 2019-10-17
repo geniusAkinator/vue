@@ -58,7 +58,7 @@ export default {
           api
             .updateUserPwd(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //修改成功
                 this.$message({
                   showClose: true,

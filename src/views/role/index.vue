@@ -178,11 +178,11 @@ export default {
       api
         .getRoleData(this.Listform)
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.total = _data.numberOfElements; //显示数量
             this.tableData = _data.content; //表格数据
-            console.log(_data)
+            console.log(_data);
           } else {
           }
         })
@@ -201,7 +201,7 @@ export default {
         .$confirm("确认删除")
         .then(_ => {
           api.delRoleData({ ids: _this.did }).then(res => {
-            if (res.code === 200) {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",

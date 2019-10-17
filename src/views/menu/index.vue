@@ -159,7 +159,7 @@ export default {
         .getMenuData(this.Listform)
         .then(res => {
           console.log(res);
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             console.log("data", res);
             this.total = _data.total; //显示数量
@@ -175,7 +175,7 @@ export default {
         .$confirm("确认删除")
         .then(_ => {
           api.delMenuData({ pId: _this.did }).then(res => {
-            if (res.code === 200) {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",

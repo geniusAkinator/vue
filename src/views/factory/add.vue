@@ -1,17 +1,17 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+    <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="工厂名称" prop="name">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.factoryName"></el-input>
       </el-form-item>
       <el-form-item label="工厂类型" prop="type">
-        <el-select v-model="form.type" placeholder="请选择工厂类型">
+        <el-select v-model="form.factoryType" placeholder="请选择工厂类型">
           <el-option label="类型1" value="1"></el-option>
           <el-option label="类型2" value="2"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="省/市/区" prop="province">
-        <el-cascader v-model="form.province" :options="options" @change="handleChange"></el-cascader>
+      <el-form-item label="省/市/区">
+        <my-city-picker></my-city-picker>
       </el-form-item>
       <el-form-item label="工厂地址" prop="address">
         <el-input v-model="form.address"></el-input>
@@ -21,7 +21,7 @@
           <el-col :span="6">
             <el-input
               placeholder
-              v-model="form.lat"
+              v-model="form.latitude"
               type="number"
               oninput="value=value.replace(/[^\d.]/g,'')"
               :readonly="true"
@@ -32,7 +32,7 @@
           <el-col :span="6">
             <el-input
               placeholder
-              v-model="form.lng"
+              v-model="form.longitude"
               type="number"
               oninput="value=value.replace(/[^\d.]/g,'')"
               :readonly="true"
@@ -69,7 +69,7 @@
       </el-form-item>
       <el-form-item label="公司简介">
         <quill-editor
-          v-model="form.content"
+          v-model="form.description"
           ref="myQuillEditor"
           :options="editorOption"
           @blur="onEditorBlur($event)"
@@ -89,6 +89,8 @@
 <script>
 import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
+import MyCityPicker from "@/components/citypicker";
+import api from "@/api/index";
 export default {
   data() {
     var validatePos = (rule, value, callback) => {
@@ -99,39 +101,16 @@ export default {
       }
     };
     return {
-      limited: 9,
+      limited: 1,
       form: {
-        name: "",
-        type: "0",
+        factoryName: "",
+        factoryType: "0",
         address: "",
-        lat: "",
-        lng: "",
-        province: "",
-        tel: "",
-        img: ""
+        latitude: 0,
+        longitude: 0,
+        phone:0,
+        description:""
       },
-      options: [
-        {
-          value: "江苏省",
-          label: "江苏省",
-          children: [
-            {
-              value: "苏州市",
-              label: "苏州市",
-              children: [
-                {
-                  value: "昆山",
-                  label: "昆山"
-                },
-                {
-                  value: "吴县",
-                  label: "吴县"
-                }
-              ]
-            }
-          ]
-        }
-      ],
       editorOption: config.editorOption,
       isShow: false,
       rules: {
@@ -139,9 +118,6 @@ export default {
         pos: [{ required: true, validator: validatePos, trigger: "change" }],
         type: [
           { required: true, message: "请选择工厂类型", trigger: "change" }
-        ],
-        province: [
-          { required: true, message: "请选择省市区", trigger: "change" }
         ],
         address: [{ required: true, message: "请输入地址", trigger: "blur" }]
       }
@@ -151,7 +127,28 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.closeDialog();
+          api
+            .addFactoryData(this.form)
+            .then(res => {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+                //添加成功
+                this.$message({
+                  showClose: true,
+                  message: "添加成功",
+                  type: "success"
+                });
+                this.$parent.initTable();
+                this.closeDialog();
+              } else {
+                //添加失败
+                this.$message({
+                  showClose: true,
+                  message: "添加失败",
+                  type: "warning"
+                });
+              }
+            })
+            .catch(_ => {});
         } else {
           console.log("error submit!!");
           return false;
@@ -168,14 +165,23 @@ export default {
     onEditorFocus() {},
     onEditorChange() {},
     getPoint(e) {
-      this.form.lat = e.lat;
-      this.form.lng = e.lng;
+      this.form.latitude = e.lat;
+      this.form.longitude = e.lng;
     },
     handleChange() {}
   },
+  created() {
+    api
+      .getPCD({ pId: 0 })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(_ => {});
+  },
   components: {
     MyMapPicker,
-    MyUpload
+    MyUpload,
+    MyCityPicker
   }
 };
 </script>

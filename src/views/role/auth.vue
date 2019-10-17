@@ -40,7 +40,7 @@ export default {
       api
         .getAllMenuData()
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let content = res.data;
             let data = [];
             content.map((item, i) => {

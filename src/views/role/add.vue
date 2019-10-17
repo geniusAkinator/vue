@@ -44,7 +44,7 @@ export default {
           api
             .addRoleData(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code ==  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功
                 this.$message({
                   showClose: true,

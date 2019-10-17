@@ -82,7 +82,7 @@ export default {
     };
     return {
       form: {
-        id:this.$parent.eid,
+        id: this.$parent.eid,
         deviceNumber: 0,
         crc: "",
         liquidLevel: 0,
@@ -116,7 +116,7 @@ export default {
           api
             .addSensorData(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功
                 this.$message({
                   showClose: true,
@@ -154,12 +154,11 @@ export default {
       api
         .getSensorDetail({ id: this.form.id })
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             // for (let key in _data) {
             //   this.form[key] = _data[key];
             // }
-         
           } else {
           }
         })

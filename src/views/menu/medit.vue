@@ -76,7 +76,7 @@ export default {
           api
             .updateMenuData(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code ==  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //编辑成功
                 this.$message({
                   showClose: true,
@@ -110,7 +110,7 @@ export default {
       api
         .getMenuDetail({ menuId: this.form.menuId })
         .then(res => {
-          if (res.code === 200) {
+          if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let data = res.data;
             console.log(data)
             for (let key in data) {

@@ -3,7 +3,13 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete" :disabled="did==''">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          :disabled="did==''"
+          @click="handleDeleteMore"
+        >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
         <el-dropdown @command="handleUpload" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-document-add">
@@ -62,7 +68,14 @@
       <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column fixed type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
@@ -76,15 +89,14 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="工厂ID" width="150"></el-table-column>
-      <el-table-column prop="name" label="工厂名称"></el-table-column>
+      <el-table-column prop="factoryId" label="工厂ID" width="150"></el-table-column>
+      <el-table-column prop="factoryName" label="工厂名称"></el-table-column>
       <el-table-column prop="address" label="工厂地址"></el-table-column>
-      <el-table-column prop="type" label="工厂类型"></el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
           <el-button size="mini">厂区</el-button>
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -107,6 +119,7 @@ import MySearchTool from "@/components/searchtool";
 import MyFactoryAdd from "@/views/factory/add";
 import api from "@/api/index";
 import http from "@/utils/http";
+import MyCityPicker from "@/components/citypicker";
 export default {
   data() {
     return {
@@ -178,13 +191,13 @@ export default {
     handleSelectionChange(e) {
       let did = "";
       e.forEach(function(item) {
-        did = did + item.roleId + ",";
+        did = did + item.factoryId + ",";
       });
       this.did = did.substr(0, did.length - 1);
     },
-    handleDelete() {
+    handleDelete(index, row) {
       //删除单行
-      this.did = row.userId + "";
+      this.did = row.factoryId + "";
       this.delRow();
     },
     handleDeleteMore() {
@@ -197,7 +210,7 @@ export default {
         .$confirm("确认删除")
         .then(_ => {
           api.delFactoryData({ ids: _this.did }).then(res => {
-            if (res.code === 200) {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",
@@ -210,12 +223,13 @@ export default {
         })
         .catch(_ => {});
     },
-    initForm() {
+    initTable() {
       api
         .getFactoryData(this.Listform)
         .then(res => {
-          if (res.code == 200) {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
+            console.log(_data);
             this.tableData = _data.content;
             this.total = _data.count;
           }
@@ -247,12 +261,13 @@ export default {
     }
   },
   created() {
-    this.initForm();
+    this.initTable();
   },
   mounted() {},
   beforeMount() {},
   components: {
-    MySearchTool
+    MySearchTool,
+    MyCityPicker
   }
 };
 </script>

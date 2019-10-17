@@ -119,7 +119,7 @@ export default {
           api
             .addUserData(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功
                 this.$message({
                   showClose: true,
@@ -156,7 +156,7 @@ export default {
       api
         .getUserDetail({ userId: this.form.userId })
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             // for (let key in _data) {
             //   this.form[key] = _data[key];
@@ -177,7 +177,7 @@ export default {
       api
         .getAllRoleData()
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.roptions = _data;
             console.log(_data);

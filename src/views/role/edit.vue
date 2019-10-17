@@ -45,7 +45,7 @@ export default {
           api
             .updateRoleData(this.form)
             .then(res => {
-              if (res.code == 200) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //编辑成功
                 this.$message({
                   showClose: true,
@@ -78,7 +78,7 @@ export default {
       api
         .getRoleDetail({ roleId: this.form.roleId })
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let data = res.data;
             for (let key in data) {
               this.form[key] = data[key];

@@ -11,7 +11,7 @@
           :disabled="did==''"
         >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器</el-button>
-        <!-- <el-dropdown @command="handleCommand" trigger="click">
+        <el-dropdown @command="handleCommand" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-plus">
             添加类型
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -20,7 +20,7 @@
             <el-dropdown-item command="add">添加传感器类型</el-dropdown-item>
             <el-dropdown-item command="list" divided>传感器类型列表</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>-->
+        </el-dropdown>
         <el-dropdown @command="handleUpload" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-document-add">
             导入
@@ -83,14 +83,15 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="传感器ID" width="150"></el-table-column>
-      <el-table-column prop="name" label="传感器名称"></el-table-column>
-      <el-table-column prop="type" label="传感器类型"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="240px">
+      <el-table-column prop="transducerId" label="传感器ID" width="150"></el-table-column>
+      <el-table-column prop="deviceNumber" label="设备编号"></el-table-column>
+      <el-table-column prop="state" label="设备状态"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="270px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleSet(scope.$index, tableData)">配置</el-button>
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <!-- <el-button size="mini" @click="handleSet(scope.$index, scope.row)">配置</el-button> -->
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -166,12 +167,11 @@ export default {
           parent: this, //当前的vue对象
           data: {} //props
         },
-        shade: false,
-        area: ["800px", "600px"],
+        shade: true,
+        area: ["600px", "600px"],
         title: "新增传感器",
         target: ".el-main"
       });
-      this.$layer.full(index);
     },
     handleCommand(command) {
       if (command == "add") {
@@ -193,7 +193,12 @@ export default {
         this.$router.push("sensorType", () => {});
       }
     },
-    handleClick() {},
+    handleClick(command) {
+      console.log(command);
+      if (command == "excel") {
+        window.location.href = "http://192.168.1.99:8888/user/findall";
+      }
+    },
     handleUpload() {
       //上传
     },
@@ -206,7 +211,7 @@ export default {
         .then(res => {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.table(_data.content)
+            console.table(_data.content);
             this.tableData = _data.content;
             this.total = _data.count;
           }
@@ -216,13 +221,13 @@ export default {
     handleSelectionChange(e) {
       let did = "";
       e.forEach(function(item) {
-        did = did + item.roleId + ",";
+        did = did + item.transducerId + ",";
       });
       this.did = did.substr(0, did.length - 1);
     },
-    handleDelete() {
+    handleDelete(index, row) {
       //删除单行
-      this.did = row.userId + "";
+      this.did = row.transducerId + "";
       this.delRow();
     },
     handleDeleteMore() {
@@ -248,7 +253,8 @@ export default {
           });
         })
         .catch(_ => {});
-    }
+    },
+    handleDetail() {}
   },
   created() {
     this.initTable();

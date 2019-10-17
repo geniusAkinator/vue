@@ -1,13 +1,7 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="状态">
-        <el-radio-group v-model="form.status">
-          <el-radio label="0">启动</el-radio>
-          <el-radio label="1">禁用</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="类型名称" prop="name">
+    <el-form ref="form" :rules="rules" :model="form" label-width="90px">
+      <el-form-item label="类型名称">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <div class="add-footer">
@@ -27,9 +21,7 @@ export default {
         name: ""
       },
       options: [],
-      rules: {
-        name: [{ required: true, message: "请输入类型名称", trigger: "blur" }]
-      }
+      rules: {}
     };
   },
   methods: {
