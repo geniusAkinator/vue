@@ -207,7 +207,7 @@ export default {
                 message: "删除成功",
                 type: "success"
               });
-              _this.initTable(); //重新 render 表格
+              _this.initTable(); //重新加载表格
             }
           });
         })

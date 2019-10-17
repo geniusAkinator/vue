@@ -66,7 +66,6 @@ export default {
   methods: {
     handleOpen(key, keyPath) {},
     jump(e) {
-      console.log(e);
       this.$router.push({ path: "/" + e.path });
     }
   },

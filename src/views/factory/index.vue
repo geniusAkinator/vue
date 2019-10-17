@@ -216,7 +216,7 @@ export default {
                 message: "删除成功",
                 type: "success"
               });
-              _this.initTable(); //重新 render 表格
+              _this.initTable(); //重新加载表格
               this.did = "";
             }
           });
@@ -224,6 +224,7 @@ export default {
         .catch(_ => {});
     },
     initTable() {
+      //初始化表格数据
       api
         .getFactoryData(this.Listform)
         .then(res => {
