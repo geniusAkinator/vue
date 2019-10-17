@@ -11,7 +11,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="省/市/区">
-        <my-city-picker></my-city-picker>
+        <my-city-picker @sendPCD="getPCD"></my-city-picker>
       </el-form-item>
       <el-form-item label="工厂地址" prop="address">
         <el-input v-model="form.address"></el-input>
@@ -62,7 +62,7 @@
         <el-input v-model="form.charger"></el-input>
       </el-form-item>
       <el-form-item label="工厂手机号">
-        <el-input v-model="form.phone"></el-input>
+        <el-input v-model="form.phone" type="number"></el-input>
       </el-form-item>
       <el-form-item label="办公电话">
         <el-input v-model="form.tel"></el-input>
@@ -104,12 +104,13 @@ export default {
       limited: 1,
       form: {
         factoryName: "",
-        factoryType: "0",
+        factoryType: "",
         address: "",
         latitude: 0,
         longitude: 0,
-        phone:0,
-        description:""
+        phone: 0,
+        description: "",
+        province:""
       },
       editorOption: config.editorOption,
       isShow: false,
@@ -126,7 +127,10 @@ export default {
   methods: {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
+        //表单验证
         if (valid) {
+          //通过
+          //ajax提交
           api
             .addFactoryData(this.form)
             .then(res => {
@@ -165,10 +169,14 @@ export default {
     onEditorFocus() {},
     onEditorChange() {},
     getPoint(e) {
+      //获取子组件$emit提交的经纬度
       this.form.latitude = e.lat;
       this.form.longitude = e.lng;
     },
-    handleChange() {}
+    handleChange() {},
+    getPCD(e){
+      this.province = e
+    }
   },
   created() {
     api

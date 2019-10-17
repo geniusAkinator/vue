@@ -41,13 +41,13 @@ Request.interceptors.response.use(
             return Promise.reject(res);
         }
         return res
-
     },
     error => {
         //此处进行异常处理
+        console.log(error)
         Message({
             showClose: true,
-            message: "接口异常",
+            message: "网络异常 连接超时",
             type: "error",
         });
         return Promise.reject(error)

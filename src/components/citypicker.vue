@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="city-picker">
     <el-row>
       <el-col :span="6">
         <el-select v-model="pvalue" placeholder="请选择省" @change="selectProvince">
@@ -22,7 +22,7 @@
         </el-select>
       </el-col>
       <el-col :span="6">
-        <el-select v-model="dvalue" placeholder="请选择区/县">
+        <el-select v-model="dvalue" placeholder="请选择区/县" @change="selectDistrict">
           <el-option
             v-for="item in doptions"
             :key="item.value"
@@ -50,32 +50,33 @@ export default {
   },
   watch: {},
   methods: {
-    handleChange(e) {},
-    handleExpandChange(e) {
-      this.nList = e;
-    },
     selectProvince(e) {
+      //省改变
       this.cvalue = "";
       this.coptions = [];
+      this.dvalue = "";
+      this.doptions = [];
       this.getNode(e, this.coptions);
-      setTimeout(() => {
-        this.cvalue = this.coptions[0].value;
-        this.selectCity(this.cvalue);
-      }, 300);
     },
     selectCity(e) {
+      //市改变
       this.dvalue = "";
       this.doptions = [];
       this.getNode(e, this.doptions);
-      setTimeout(() => {
-        this.dvalue = this.doptions[0].value;
-      }, 600);
+    },
+    selectDistrict(e) {
+      //区县改变
+      let pval = this.getNodeValue(this.pvalue, this.poptions);
+      let cval = this.getNodeValue(this.cvalue, this.coptions);
+      let dval = this.getNodeValue(this.dvalue, this.doptions);
+      this.$emit("sendPCD", `${pval},${cval},${dval}`);
     },
     getNode(id, node) {
+      //根据pId查询值，并且赋值到对应option下
       api
         .getPCD({ pId: id })
         .then(res => {
-          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             _data.map((item, i) => {
               let temp = {};
@@ -86,6 +87,15 @@ export default {
           }
         })
         .catch(_ => {});
+    },
+    getNodeValue(id, option) {
+      let nName = "";
+      option.map((item, i) => {
+        if (item.value == id) {
+          nName = item.label;
+        }
+      });
+      return nName;
     }
   },
   mounted() {
@@ -96,4 +106,8 @@ export default {
 </script>
 
 <style>
+.city-picker .el-col:nth-child(2),
+.city-picker .el-col:nth-child(3) {
+  margin-left: 20px;
+}
 </style>
