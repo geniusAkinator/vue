@@ -117,6 +117,7 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MyFactoryAdd from "@/views/factory/add";
+import MyFactoryEdit from "@/views/factory/edit";
 import api from "@/api/index";
 import http from "@/utils/http";
 import MyCityPicker from "@/components/citypicker";
@@ -158,7 +159,7 @@ export default {
     handleEdit() {
       var index = this.$layer.iframe({
         content: {
-          content: MyFactoryAdd, //传递的组件对象
+          content: MyFactoryEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },

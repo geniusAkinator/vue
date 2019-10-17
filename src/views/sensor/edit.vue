@@ -1,56 +1,48 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="deviceNumber">
-        <el-input v-model="form.deviceNumber" type="number"></el-input>
+    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form-item label="设备编号" prop="deviceNumber">
+        <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
-      <el-form-item label="crc">
-        <el-input v-model="form.crc"></el-input>
+      <el-form-item label="设备类型">
+        <el-select v-model="form.deviceType" placeholder="请选择设备类型">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="liquidLevel">
-        <el-input v-model="form.liquidLevel" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="noisePower">
-        <el-input v-model="form.noisePower" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="rxLev">
-        <el-input v-model="form.rxLev" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="temp">
-        <el-input v-model="form.temp" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="threshold">
-        <el-input v-model="form.threshold" type="number"></el-input>
-      </el-form-item>
-      <el-form-item label="dataWarm">
-        <el-input v-model="form.dataWarm" type="number"></el-input>
+      <el-form-item label="到期时间" prop="expriationData">
+        <el-date-picker v-model="form.expriationData" type="datetime" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
       <!-- prop="pos" -->
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
-          <el-col :span="6">
+          <el-col :span="10">
             <el-input
               placeholder
               v-model="form.latitude"
               type="number"
               oninput="value=value.replace(/[^\d.]/g,'')"
-              :readonly="true"
+              :readonly="false"
             >
               <template slot="prepend">经度</template>
             </el-input>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="10">
             <el-input
               placeholder
               v-model="form.longitude"
               type="number"
               oninput="value=value.replace(/[^\d.]/g,'')"
-              :readonly="true"
+              :readonly="false"
             >
               <template slot="prepend">纬度</template>
             </el-input>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="1">
             <i
               :class="isShow ? 'el-icon-map-location toggleMap active' : 'el-icon-map-location toggleMap'"
               @click="isShow=!isShow"
@@ -82,27 +74,29 @@ export default {
     };
     return {
       form: {
-        id: this.$parent.eid,
-        deviceNumber: 0,
-        crc: "",
-        liquidLevel: 0,
-        noisePower: 0,
-        rxLev: 0,
-        temp: 0,
-        threshold: 0,
-        dataWarm: 0,
+        transducerId: this.$parent.eid,
+        //提交数据
+        deviceNumber: "",
+        expriationData: "",
         latitude: 0,
-        longitude: 0
+        longitude: 0,
+        deviceType: 0
       },
+      options: [
+        {
+          value: "选项1",
+          label: "选项1"
+        }
+      ],
       isShow: false,
       options: [],
       rules: {
-        name: [{ required: true, message: "请输入设备名称", trigger: "blur" }],
-        number: [
+        //表单验证规则
+        deviceNumber: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
         ],
-        type: [
-          { required: true, message: "请选择设备类型", trigger: "change" }
+        expriationData: [
+          { required: true, message: "请选择日期时间", trigger: "change" }
         ],
         pos: [{ required: true, validator: validatePos, trigger: "change" }]
       }
@@ -110,14 +104,15 @@ export default {
   },
   methods: {
     handleSubmit(form) {
+      //提交
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
           api
-            .addSensorData(this.form)
+            .updateSensorData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-                //添加成功
+                //编辑成功
                 this.$message({
                   showClose: true,
                   message: "编辑成功",
@@ -126,7 +121,7 @@ export default {
                 this.$parent.initTable();
                 this.closeDialog();
               } else {
-                //添加失败
+                //编辑失败
                 this.$message({
                   showClose: true,
                   message: "编辑失败",
@@ -141,6 +136,7 @@ export default {
       });
     },
     handleBack() {
+      //退出
       this.closeDialog();
     },
     closeDialog() {
@@ -151,18 +147,16 @@ export default {
       this.form.longitude = e.lng;
     },
     initForm() {
-      api
-        .getSensorDetail({ id: this.form.id })
-        .then(res => {
-          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            let _data = res.data;
-            // for (let key in _data) {
-            //   this.form[key] = _data[key];
-            // }
-          } else {
-          }
-        })
-        .catch(_ => {});
+      //表单回显
+      api.getSensorDetail({ id: this.form.transducerId }).then(res => {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          console.log(_data);
+          // for (let key in _data) {
+          //   this.form[key] = _data[key];
+          // }
+        }
+      });
     }
   },
   created() {

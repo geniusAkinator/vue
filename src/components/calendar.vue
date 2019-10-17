@@ -4,10 +4,10 @@
     <template v-slot:dateCell="{date, data}">
       <p :class="data.isSelected ? 'is-selected' : ''">{{data.day.split('-').slice(1)[1]}}</p>
       <div class="status">
-        <template v-for="item in clist">
-          <i class="circle warning" v-if="item.reportCount&&isBoolean(data,item)"></i>
-          <i class="circle danger" v-if="item.errorCount&&isBoolean(data,item)"></i>
-          <i class="circle info" v-if="item.outlineCount&&isBoolean(data,item)"></i>
+        <template v-for="(item,key) in clist">
+          <i class="circle warning" :key="key" v-if="item.reportCount&&isBoolean(data,item)"></i>
+          <i class="circle danger" :key="key" v-if="item.errorCount&&isBoolean(data,item)"></i>
+          <i class="circle info" :key="key" v-if="item.outlineCount&&isBoolean(data,item)"></i>
         </template>
       </div>
     </template>

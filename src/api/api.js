@@ -267,6 +267,15 @@ export const addFactoryData = params => { //添加工厂
     }).then(res => res);
 }
 
+export const getFactoryDetail = params => { //获取工厂详情
+    return request({
+        url: '/factory/factoryDetail',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+
 /**
  *信息管理-传感器管理 
  */

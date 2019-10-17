@@ -112,6 +112,7 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MySensorAdd from "@/views/sensor/add";
+import MySensorEdit from "@/views/sensor/edit";
 import MySensorTypeAdd from "@/views/sensor/typeAdd";
 import api from "@/api/index";
 export default {
@@ -148,6 +149,17 @@ export default {
     },
     handleEdit() {
       //编辑数据
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "600px"],
+        title: "新增传感器",
+        target: ".el-main"
+      });
     },
     handleExport() {
       //导出数据
@@ -204,8 +216,8 @@ export default {
     },
     handleSet() {},
     initTable() {
-      let _this = this;
       //加载表格数据
+      let _this = this;
       api
         .getSensorData(this.Listform)
         .then(res => {
