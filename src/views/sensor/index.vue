@@ -196,7 +196,7 @@ export default {
           },
           shade: true,
           shadeClose: false,
-          area: ["500px", "500px"],
+          area: ["700px", "500px"],
           title: "新增传感器类型",
           target: ".el-main"
         });
