@@ -227,7 +227,7 @@ export default {
     api
       .getFactoryGeo()
       .then(res => {
-        if (res.code === 0) {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           this.geoList = res.data;
         }
       })
@@ -235,7 +235,7 @@ export default {
     api
       .getFactoryCal()
       .then(res => {
-        if (res.code === 0) {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           this.calList = res.data;
         }
       })

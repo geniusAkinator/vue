@@ -14,7 +14,7 @@
             label-width="80px"
           >
             <el-form-item label="名称" size="small">
-              <el-input v-model="searchForm.name" ></el-input>
+              <el-input v-model="searchForm.name"></el-input>
             </el-form-item>
             <el-form-item label="时间段" size="small">
               <el-date-picker
@@ -128,7 +128,7 @@ export default {
     setTimeout(() => {
       loading.close();
       api.getSensorData().then(res => {
-        if (res.code === 0) {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           this.tableData = res.data;
         }
       });

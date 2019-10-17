@@ -94,7 +94,7 @@ export default {
       api
         .getFactoyData()
         .then(res => {
-          if (res.code === 0) {
+          if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             this.tableData = res.data;
           }
         })
