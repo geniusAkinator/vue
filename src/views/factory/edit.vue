@@ -1,19 +1,19 @@
 <template>
   <div class="container form">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="工厂名称" prop="name">
+      <el-form-item label="工厂名称">
         <el-input v-model="form.factoryName"></el-input>
       </el-form-item>
-      <el-form-item label="工厂类型" prop="type">
+      <el-form-item label="工厂类型">
         <el-select v-model="form.factoryType" placeholder="请选择工厂类型">
           <el-option label="类型1" value="1"></el-option>
           <el-option label="类型2" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="省/市/区">
-        <my-city-picker @sendPCD="getPCD"></my-city-picker>
+        <my-city-picker :pcd="form.province" @sendPCD="getPCD"></my-city-picker>
       </el-form-item>
-      <el-form-item label="工厂地址" prop="address">
+      <el-form-item label="工厂地址">
         <el-input v-model="form.address"></el-input>
       </el-form-item>
       <el-form-item label="经纬度" prop="pos">
@@ -55,11 +55,11 @@
         <el-input v-model="form.tel"></el-input>
       </el-form-item>
       <el-form-item label="工厂图片">
-        <el-input class="readonly" v-model="form.img" :readonly="true"></el-input>
-        <my-upload :limited="limited"></my-upload>
+        <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
+        <my-upload :limited="limited" :image="img"  @sendImage="getImage"></my-upload>
       </el-form-item>
       <el-form-item label="工厂负责人">
-        <el-input v-model="form.charger"></el-input>
+        <el-input v-model="form.leader"></el-input>
       </el-form-item>
       <el-form-item label="工厂手机号">
         <el-input v-model="form.phone" type="number"></el-input>
@@ -91,6 +91,7 @@ import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
 import MyCityPicker from "@/components/citypicker";
 import api from "@/api/index";
+import baseURL from "@/utils/baseUrl"
 export default {
   data() {
     var validatePos = (rule, value, callback) => {
@@ -103,7 +104,7 @@ export default {
     return {
       limited: 1,
       form: {
-        factoryId:this.$parent.eid,
+        factoryId: this.$parent.eid,
         factoryName: "",
         factoryType: "",
         address: "",
@@ -111,8 +112,11 @@ export default {
         longitude: 0,
         phone: 0,
         description: "",
-        province: ""
+        province: "",
+        leader: "",
+        picture: ""
       },
+      img: [],
       editorOption: config.editorOption,
       isShow: false,
       rules: {
@@ -124,6 +128,22 @@ export default {
         address: [{ required: true, message: "请输入地址", trigger: "blur" }]
       }
     };
+  },
+  watch: {
+    'form.picture': {
+      handler: function(newValue, oldValue) {
+        let arr = newValue.split(',');
+        let imgList = []
+        arr.map((item,i)=>{
+          let temp = {};
+          temp.title = item.replace("/images/","");
+          temp.url = baseURL + item;
+          imgList.push(temp)
+        })
+        this.img = imgList
+      },
+      deep: true
+    }
   },
   methods: {
     handleSubmit(form) {
@@ -176,22 +196,32 @@ export default {
     },
     handleChange() {},
     getPCD(e) {
-      this.province = e;
+      this.form.province = e;
+    },
+    getImage(e) {
+      console.log("image", e);
+      this.form.picture = e;
     },
     initForm() {
-      api.getFactoryDetail({ factoryId: this.form.factoryId }).then(res => {
-        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          let _data = res.data;
-          console.log(_data);
-          // for (let key in _data) {
-          //   this.form[key] = _data[key];
-          // }
-        }
-      });
+      let _this = this;
+      console.log("id", this.form.factoryId);
+      api
+        .getFactoryDetail({ factoryId: this.form.factoryId })
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            console.log(_data);
+            for (let key in _data) {
+              this.form[key] = _data[key];
+            }
+            console.log("data", this.form);
+          }
+        })
+        .catch(_ => {});
     }
   },
   created() {
-    this.initForm()
+    this.initForm();
   },
   components: {
     MyMapPicker,

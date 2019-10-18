@@ -80,7 +80,7 @@ export default {
         expriationData: "",
         latitude: 0,
         longitude: 0,
-        deviceType: 0
+        deviceType: ""
       },
       options: [
         {

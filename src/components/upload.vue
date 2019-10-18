@@ -56,6 +56,14 @@ export default {
     limited: {
       type: Number,
       default: 9
+    },
+    image:{
+      type:Array
+    }
+  },
+  watch:{
+    image(){
+      this.fileUrl = this.image
     }
   },
   methods: {
@@ -93,24 +101,32 @@ export default {
         reader.readAsDataURL(files[i]);
 
         this.isShow = true;
-        let fd = new FormData();
-        fd.append("file", files);
-        http
-          .getRequestUpload("/factory/upload", fd)
-          .then(res => {
-            // _this.isFail = false;
-            // _this.isLoading = false;
-            // console.log(res);
-          })
-          .catch(_ => {
-            Message({
-              showClose: true,
-              message: "上传错误",
-              type: "error"
+
+        if (this.limited == 1) {
+          let fd = new FormData();
+          fd.append("file", files[0]);
+          http
+            .getRequestUpload("/factory/upload", fd)
+            .then(res => {
+              // _this.isFail = false;
+              // _this.isLoading = false;
+              // console.log(res);
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+                let _data = res.data;
+                console.log(_data);
+                this.$emit("sendImage", _data);
+              }
+            })
+            .catch(_ => {
+              Message({
+                showClose: true,
+                message: "上传错误",
+                type: "error"
+              });
+              // _this.isLoading = false;
+              // _this.isFail = true;
             });
-            // _this.isLoading = false;
-            // _this.isFail = true;
-          });
+        }
       }
     },
     handleShow(index) {

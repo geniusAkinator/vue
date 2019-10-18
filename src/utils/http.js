@@ -34,7 +34,7 @@ const HttpRequest = {
     //         reject(err)
     //     })
     // },
-    getRequestUpload(url, data, callback) { //文件上传
+    getRequestUpload(url, data) { //文件上传
         console.log(baseURL, url, data)
         return new Promise((resolve, reject) => {
             // axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'; 

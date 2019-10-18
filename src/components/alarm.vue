@@ -10,7 +10,7 @@
       <i class="el-icon-close btnDel" title="删除" @click="handleDel"></i>
     </div>
     <div class="my-row">
-      <label class="my-label no-right-radius no-right-border" for>单位名称</label>
+      <label class="my-label no-right-radius no-right-border" for>单位</label>
       <el-input class="no-radius" v-model="nowRule.unit" placeholder="请输入单位名称"></el-input>
     </div>
   </div>
@@ -22,15 +22,15 @@ export default {
     return {
       value: "1",
       nowRule: {
-        name: "",
-        upperlimit: "",
-        lowerlimit: "",
-        unit: ""
+        name: "", //名称
+        upperlimit: "", //上限
+        lowerlimit: "", //下限
+        unit: "" //单位
       }
     };
   },
   props: {
-    index: "",
+    province: "",
     rule: {}
   },
   watch: {

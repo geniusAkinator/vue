@@ -156,7 +156,8 @@ export default {
       });
       this.$layer.full(index);
     },
-    handleEdit() {
+    handleEdit(index, row) {
+      this.eid = row.factoryId;
       var index = this.$layer.iframe({
         content: {
           content: MyFactoryEdit, //传递的组件对象
@@ -233,7 +234,7 @@ export default {
             let _data = res.data;
             console.log(_data);
             this.tableData = _data.content;
-            this.total = _data.count;
+            this.total = _data.total;
           }
         })
         .catch(_ => {});

@@ -37,7 +37,6 @@ import BmControl from "vue-baidu-map/components/controls/Control";
 import BmView from "vue-baidu-map/components/map/MapView";
 import BmMarker from "vue-baidu-map/components/overlays/Marker";
 import BmNavigation from "vue-baidu-map/components/controls/Navigation";
-import BmGeolocation from "vue-baidu-map/components/controls/Geolocation";
 import http from "@/utils/http";
 import api from "@/api/index";
 
@@ -104,16 +103,14 @@ export default {
       this.marker.lat = item.location.lat;
       this.$emit("sendPoint", JSON.parse(JSON.stringify(item.location)));
     },
-    handleZoom() {
-    }
+    handleZoom() {}
   },
   mounted() {},
   components: {
     BaiduMap,
     BmView,
     BmMarker,
-    BmNavigation,
-    BmGeolocation
+    BmNavigation
   }
 };
 </script>
@@ -159,7 +156,7 @@ export default {
 .autocomplete input {
   width: 400px;
   border-radius: 0;
-  box-shadow: 1px 2px 1px rgba(0,0,0,.15)
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.15);
 }
 .autocomplete {
   line-height: 30px;

@@ -51,15 +51,12 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="工厂电话">
-        <el-input v-model="form.tel"></el-input>
-      </el-form-item>
       <el-form-item label="工厂图片">
-        <el-input class="readonly" v-model="form.img" :readonly="true"></el-input>
-        <my-upload :limited="limited"></my-upload>
+        <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
+        <my-upload :limited="limited" @sendImage="getImage"></my-upload>
       </el-form-item>
       <el-form-item label="工厂负责人">
-        <el-input v-model="form.charger"></el-input>
+        <el-input v-model="form.leader"></el-input>
       </el-form-item>
       <el-form-item label="工厂手机号">
         <el-input v-model="form.phone" type="number"></el-input>
@@ -110,7 +107,9 @@ export default {
         longitude: 0,
         phone: 0,
         description: "",
-        province:""
+        province:"",
+        leader:"",
+        picture:""
       },
       editorOption: config.editorOption,
       isShow: false,
@@ -131,6 +130,7 @@ export default {
         if (valid) {
           //通过
           //ajax提交
+          console.log(this.form)
           api
             .addFactoryData(this.form)
             .then(res => {
@@ -175,7 +175,10 @@ export default {
     },
     handleChange() {},
     getPCD(e){
-      this.province = e
+      this.form.province = e;
+    },
+    getImage(e){
+      this.form.picture = e;
     }
   },
   created() {

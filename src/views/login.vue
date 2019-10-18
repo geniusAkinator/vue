@@ -10,7 +10,7 @@
           <el-input v-model="form.pwd" placeholder="密码" show-password></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="form.vcode" placeholder="验证码" show-password></el-input>
+          <el-input v-model="form.vcode" placeholder="验证码"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click.prevent="login" :loading="logining">登录</el-button>
