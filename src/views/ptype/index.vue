@@ -110,7 +110,7 @@ export default {
     handleAdd() {
       let index = this.$layer.iframe({
         content: {
-          content: MyTypeAdd, //传递的组件对象
+          content: MyConfigAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },

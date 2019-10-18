@@ -140,8 +140,18 @@ export default {
     };
   },
   methods: {
-    handleSizeChange() {},
-    handleCurrentChange() {},
+    handleSizeChange(e) {
+      //分页大小改变
+      this.Listform.pageSize = e;
+      //重载表格
+      this.initTable();
+    },
+    handleCurrentChange(e) {
+      //分页切换
+      this.Listform.pageNum = e;
+      //重载表格
+      this.initTable();
+    },
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
@@ -156,9 +166,9 @@ export default {
       });
       this.$layer.full(index);
     },
-    handleEdit(index, row) {
+    handleEdit(idx, row) {
       this.eid = row.factoryId;
-      var index = this.$layer.iframe({
+      let index = this.$layer.iframe({
         content: {
           content: MyFactoryEdit, //传递的组件对象
           parent: this, //当前的vue对象

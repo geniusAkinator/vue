@@ -326,3 +326,51 @@ export const getPCD = params => { //获取城市级联
         method: "GET"
     }).then(res => res);
 }
+
+/**
+ * 传感器类型 
+ */
+export const addSensorTypeData = params => { //添加传感器类型 
+    return request({
+        url: '/transducerType/addTransducerType',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
+export const getSensorTypeData = params => { //获取传感器类型信息
+    return request({
+        url: '/transducerType/transducerTypeList',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const delSensorTypeData = params => {  //删除传感器类型信息
+    return request({
+        url: '/transducerType/deleteTransducerType',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}
+
+
+/**
+ *报警标准
+ */
+
+export const getStandardDetail = params => {
+    return request({
+        url: '/standard/transducerTypeListByTtId',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const updateStandardData = params => { //修改传感器类型预警标准
+    return request({
+        url: '/standard/updateStandard',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}

@@ -147,7 +147,8 @@ export default {
       //重载表格
       this.initTable();
     },
-    handleEdit() {
+    handleEdit(idx,row) {
+      this.eid = row.transducerId
       //编辑数据
       let index = this.$layer.iframe({
         content: {
@@ -160,6 +161,7 @@ export default {
         title: "新增传感器",
         target: ".el-main"
       });
+      this.$layer.full(index);
     },
     handleExport() {
       //导出数据
@@ -184,6 +186,7 @@ export default {
         title: "新增传感器",
         target: ".el-main"
       });
+      this.$layer.full(index);
     },
     handleCommand(command) {
       if (command == "add") {
@@ -196,7 +199,7 @@ export default {
           },
           shade: true,
           shadeClose: false,
-          area: ["700px", "500px"],
+          area: ["400px", "400px"],
           title: "新增传感器类型",
           target: ".el-main"
         });

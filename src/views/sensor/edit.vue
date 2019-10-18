@@ -14,9 +14,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="到期时间" prop="expriationData">
-        <el-date-picker v-model="form.expriationData" type="datetime" placeholder="选择日期时间"></el-date-picker>
-      </el-form-item>
+
       <!-- prop="pos" -->
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
@@ -53,6 +51,9 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
+      <el-form-item label="到期时间" prop="expriationData">
+        <el-date-picker v-model="form.expriationData" type="datetime" placeholder="选择日期时间"></el-date-picker>
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -88,7 +89,7 @@ export default {
           label: "选项1"
         }
       ],
-      isShow: false,
+      isShow: true,
       options: [],
       rules: {
         //表单验证规则
@@ -152,6 +153,11 @@ export default {
         if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
           console.log(_data);
+          this.form.deviceNumber = _data.deviceNumber;
+          this.form.expriationData = _data.expriationData;
+          this.form.latitude = _data.latitude;
+          this.form.longitude = _data.longitude;
+          this.form.deviceType = _data.deviceType;
           // for (let key in _data) {
           //   this.form[key] = _data[key];
           // }

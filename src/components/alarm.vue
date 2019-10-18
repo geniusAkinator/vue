@@ -4,14 +4,28 @@
       <label class="my-label no-right-radius no-right-border" for>名称</label>
       <el-input class="no-radius" v-model="nowRule.name" placeholder="请输入名称"></el-input>
       <label class="my-label no-radius no-both-border" for>上限</label>
-      <el-input class="no-radius" v-model="nowRule.upperlimit" placeholder="请输入上限" type="number"></el-input>
+      <el-input
+        class="no-radius"
+        v-model="nowRule.upperlimit"
+        placeholder="请输入上限"
+        type="number"
+        step="1"
+        max="9999"
+      ></el-input>
       <label class="my-label no-radius no-both-border" for>下限</label>
-      <el-input class="no-radius" v-model="nowRule.lowerlimit" placeholder="请输入上限" type="number"></el-input>
-      <i class="el-icon-close btnDel" title="删除" @click="handleDel"></i>
+      <el-input
+        class="no-radius"
+        v-model="nowRule.lowerlimit"
+        placeholder="请输入下限"
+        type="number"
+        step="1"
+        max="9999"
+      ></el-input>
     </div>
     <div class="my-row">
       <label class="my-label no-right-radius no-right-border" for>单位</label>
       <el-input class="no-radius" v-model="nowRule.unit" placeholder="请输入单位名称"></el-input>
+      <i class="el-icon-close btnDel" title="删除" @click="handleDel"></i>
     </div>
   </div>
 </template>
@@ -21,16 +35,11 @@ export default {
   data() {
     return {
       value: "1",
-      nowRule: {
-        name: "", //名称
-        upperlimit: "", //上限
-        lowerlimit: "", //下限
-        unit: "" //单位
-      }
+      nowRule: this.rule
     };
   },
   props: {
-    province: "",
+    index: "",
     rule: {}
   },
   watch: {

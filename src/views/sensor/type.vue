@@ -3,7 +3,14 @@
     <!-- 表格操作 -->
     <div class="table-tool">
       <el-button-group>
-        <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
+        <el-button
+          type="danger"
+          size="small"
+          icon="el-icon-delete"
+          @click="handleDeleteMore"
+          :disabled="did==''"
+        >批量删除</el-button>
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器类型</el-button>
       </el-button-group>
       <my-search-tool>
         <template slot="content">
@@ -47,26 +54,22 @@
       </div>
     </div>
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
-      <el-table-column fixed type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="table-expand">
-            <el-form-item label="图片">
-              <img :src="props.row.images" alt />
-            </el-form-item>
-            <el-form-item label="公司简介">
-              <span>{{ props.row.introduction }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="传感器ID" width="150"></el-table-column>
+      <el-table-column prop="ttId" label="传感器ID" width="150"></el-table-column>
       <el-table-column prop="name" label="传感器类型名称"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="180px">
+      <el-table-column label="操作" fixed="right" width="250px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, tableData)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          <el-button size="mini" @click="handleConfig(scope.$index, scope.row)">报警标准</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -76,33 +79,66 @@
         @current-change="handleCurrentChange"
         :hide-on-single-page="isPaging"
         :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
+        :page-sizes="[25, 50, 75, 100]"
         :page-size="100"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MySensorAdd from "@/views/sensor/add";
 import MySensorTypeAdd from "@/views/sensor/typeAdd";
+import MySensorTypeConfig from "@/views/sensor/cedit";
 import api from "@/api/index";
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
+      Listform: {
+        //表格请求params
+        pageNum: 1,
+        pageSize: 25
+      },
+      total: 0,
       tableData: [],
       isPaging: false,
       currentPage4: 1,
       searchForm: {},
       labelPosition: "left",
-      loading: true
+      loading: true,
+      did: "",
+      cid: 0,
+      eid: 0,
+      index: ""
     };
   },
+  watch: {
+    index: function(newVal, oldVal) {
+      let layer = document.querySelector("#" + newVal);
+      if (layer != null) {
+        this.layerInitWidth = layer.offsetWidth;
+        this.layerInitHeight = layer.offsetHeight;
+      }
+    },
+    $route: function(newVal, oldVal) {
+      this.initTable();
+    }
+  },
   methods: {
-    handleSizeChange() {},
-    handleCurrentChange() {},
+    handleSizeChange(e) {
+      //分页大小改变
+      this.Listform.pageSize = e;
+      //重载表格
+      this.initTable();
+    },
+    handleCurrentChange(e) {
+      //分页切换
+      this.Listform.pageNum = e;
+      //重载表格
+      this.initTable();
+    },
     handleEdit() {},
     handleExport() {},
     handleReset() {
@@ -114,25 +150,109 @@ export default {
         this.loading = false;
       }, 900);
     },
-    handleClick() {}
+    handleClick() {},
+    handleAdd() {
+      //添加传感器类型
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorTypeAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        shadeClose: false,
+        area: ["400px", "400px"],
+        title: "新增传感器类型",
+        target: ".el-main"
+      });
+      this.index = index;
+    },
+    initTable() {
+      //加载表格数据
+      let _this = this;
+      api
+        .getSensorTypeData(this.Listform)
+        .then(res => {
+          console.log(res);
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            console.log(res.data);
+            let _data = res.data;
+            this.tableData = _data.content;
+            this.total = _data.count;
+          }
+        })
+        .catch(_ => {});
+    },
+    handleConfig(idx, row) {
+      this.cid = row.ttId;
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorTypeConfig, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "600px"],
+        title: "新增传感器",
+        target: ".el-main"
+      });
+      this.index = index;
+    },
+    handleDelete(index, row) {
+      //删除单行
+      this.did = row.ttId + "";
+      this.delRow();
+    },
+    handleDeleteMore() {
+      //删除多行
+      this.delRow();
+    },
+    delRow() {
+      //删除数据
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delSensorTypeData({ ids: _this.did }).then(res => {
+            if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initTable(); //重新加载表格
+              _this.did = "";
+            }
+          });
+        })
+        .catch(_ => {});
+    },
+    handleSelectionChange(e) {
+      let did = "";
+      e.forEach(function(item) {
+        did = did + item.ttId + ",";
+      });
+      this.did = did.substr(0, did.length - 1);
+      console.log(this.did);
+    }
+  },
+  created() {
+    this.initTable();
   },
   mounted() {
-    const loading = this.$loading({
-      target: document.querySelector(".el-main.app-body"),
-      lock: true,
-      text: "加载中...",
-      spinner: "loading",
-      background: "rgba(0, 0, 0, 0.7)",
-      customClass: "el-loading"
+    window.addEventListener("resize", () => {
+      if (this.index == "") {
+        return;
+      }
+      let layer = document.querySelector("#" + this.index);
+      if (layer != null) {
+        utils.resizeLayer(
+          this.index,
+          this.layerInitWidth,
+          this.layerInitHeight
+        );
+      }
     });
-    setTimeout(() => {
-      loading.close();
-      api.getSensorData().then(res => {
-        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          this.tableData = res.data;
-        }
-      });
-    }, 600);
   },
   beforeMount() {},
   components: {

@@ -26,7 +26,7 @@ export default {
       this.$router.push({ name: "HelloWorld" });
     },
     handleBack() {
-      history.back();
+      history.go(-1)
     }
   }
 };
