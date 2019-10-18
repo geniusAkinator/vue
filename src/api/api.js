@@ -374,3 +374,11 @@ export const updateStandardData = params => { //修改传感器类型预警标�
         method: "POST"
     }).then(res => res);
 }
+
+export const delStandardData = params => {  //删除传感器类型预警标准
+    return request({
+        url: '/standard/deleteStandard',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}

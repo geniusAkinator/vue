@@ -23,18 +23,19 @@
 <script>
 import MyAlarm from "@/components/alarm";
 import api from "@/api/index";
+import { Loading } from "element-ui";
 export default {
   data() {
     return {
       form: {
         ttId: this.$parent.cid,
         standard: [
-        //   {
-        //     name: "",
-        //     upperlimit: 0,
-        //     lowerlimit: 0,
-        //     unit: ""
-        //   }
+          //   {
+          //     name: "",
+          //     upperlimit: 0,
+          //     lowerlimit: 0,
+          //     unit: ""
+          //   }
         ]
       },
       options: [],
@@ -45,7 +46,6 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateStandardData(this.form)
             .then(res => {
@@ -89,7 +89,7 @@ export default {
       this.form.standard.push(temp);
     },
     getDelIndex(e) {
-      console.log(e);
+      console.log(this.form.standard[e].standardId);
       this.form.standard.splice(e, 1);
     },
     getNewItem(e) {
@@ -99,6 +99,13 @@ export default {
       }
     },
     initForm() {
+      //回显
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
+
       api
         .getStandardDetail({ id: this.form.ttId })
         .then(res => {
@@ -106,17 +113,20 @@ export default {
             let _data = res.data.content;
             _data.map((item, i) => {
               let temp = {};
-              temp.id = item.standardId;
+              temp.standardId = item.standardId;
               temp.lowerlimit = item.lowerLimit;
               temp.upperlimit = item.upperLimit;
               temp.unit = item.unit;
               temp.name = item.name;
-            //   console.log(temp);
+              //   console.log(temp);
               this.form.standard.push(temp);
             });
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     }
   },
   created() {
