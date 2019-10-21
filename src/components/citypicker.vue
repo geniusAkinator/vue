@@ -63,8 +63,11 @@ export default {
     pcd: ""
   },
   watch: {
-    pcd() {
-      this.arr = this.pcd.split(",");
+    pcd: {
+      handler(newName, oldName) {
+        this.arr = this.pcd.split(",");
+      },
+      deep: true
     },
     poptions() {
       if (!this.isAssign) {
