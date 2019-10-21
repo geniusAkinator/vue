@@ -90,6 +90,7 @@
 <script>
 import MySearchTool from "@/components/searchtool";
 import MySensorTypeAdd from "@/views/sensor/typeAdd";
+import MySensorTypeEdit from "@/views/sensor/typeEdit";
 import MySensorTypeConfig from "@/views/sensor/cedit";
 import api from "@/api/index";
 import utils from "@/utils/utils";
@@ -139,7 +140,23 @@ export default {
       //重载表格
       this.initTable();
     },
-    handleEdit() {},
+    handleEdit(idx,row) {
+      this.eid = row.ttId;
+      //修改传感器类型
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorTypeEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        shadeClose: false,
+        area: ["400px", "400px"],
+        title: "修改传感器类型",
+        target: ".el-main"
+      });
+      this.index = index;
+    },
     handleExport() {},
     handleReset() {
       this.searchForm = {};

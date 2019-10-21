@@ -354,6 +354,21 @@ export const delSensorTypeData = params => {  //删除传感器类型信息
     }).then(res => res);
 }
 
+export const getSensorTypeDetail = params => { //获取传感器类型详情
+    return request({
+        url: '/transducerType/transducerTypeDetail',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
+
+export const updateSensorTypeData = params => { //修改传感器类型信息
+    return request({
+        url: '/transducerType/updateTransducerType',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
 
 /**
  *报警标准

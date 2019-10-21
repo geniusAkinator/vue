@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       form: {
+        ttId: this.$parent.eid,
         state: "0",
         name: ""
       },
@@ -44,7 +45,7 @@ export default {
         if (valid) {
           console.log(this.form);
           api
-            .editSensorTypeData(this.form)
+            .updateSensorTypeData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //编辑成功
@@ -75,8 +76,25 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
+    },
+    initForm() {
+      console.log(this.form.id);
+      api
+        .getSensorTypeDetail({ id: this.form.ttId })
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.form.state = _data.state + "";
+            this.form.name = _data.name;
+          }
+        })
+        .catch(_ => {});
     }
   },
+  created() {
+    this.initForm();
+  },
+  mounted() {},
   components: {
     MyAlarm
   }
