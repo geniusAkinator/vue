@@ -2,7 +2,7 @@
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-form-item label="账户名称" prop="account">
-        <el-input v-model="form.account"></el-input>
+        <el-input v-model="form.account" @blur="checkIsExist"></el-input>
       </el-form-item>
       <el-form-item label="用户密码" prop="password">
         <el-input v-model="form.password" type="password"></el-input>
@@ -118,7 +118,6 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .addUserData(this.form)
             .then(res => {
@@ -140,7 +139,9 @@ export default {
                 });
               }
             })
-            .catch(_ => {});
+            .catch(_ => {
+              console.log("dddddd");
+            });
         } else {
           console.log("error submit!!");
           return false;
@@ -159,6 +160,20 @@ export default {
     getPoint(e) {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
+    },
+    checkIsExist() {
+      console.log("Daf")
+      // api
+      //   .getAccountIsExist({ account: this.form.account })
+      //   .then(res => {
+      //     console.log(res);
+      //     if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+      //       if (res.data != null) {
+      //         return;
+      //       }
+      //     }
+      //   })
+      //   .catch(_ => {});
     }
   },
   created() {

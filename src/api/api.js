@@ -219,6 +219,13 @@ export const getUserDetail = params => { //获取用户信息
     }).then(res => res);
 };
 
+export const getAccountIsExist = params => { //根据account name查询是否存在
+    return request({
+        url: '/user/isFound',
+        params: params,
+        method: "GET"
+    }).then(res => res);
+}
 
 /**
  *我的桌面 
