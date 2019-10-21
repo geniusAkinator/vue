@@ -11,7 +11,9 @@
         </el-select>
       </el-form-item>
       <el-form-item label="省/市/区">
-        <my-city-picker :pcd="form.province" @sendPCD="getPCD"></my-city-picker>
+        <keep-alive>
+          <my-city-picker :pcd="form.province" @sendPCD="getPCD"></my-city-picker>
+        </keep-alive>
       </el-form-item>
       <el-form-item label="工厂地址">
         <el-input v-model="form.address"></el-input>
@@ -56,7 +58,7 @@
       </el-form-item>
       <el-form-item label="工厂图片">
         <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
-        <my-upload :limited="limited" :image="img"  @sendImage="getImage"></my-upload>
+        <my-upload :limited="limited" :image="img" @sendImage="getImage"></my-upload>
       </el-form-item>
       <el-form-item label="工厂负责人">
         <el-input v-model="form.leader"></el-input>
@@ -91,7 +93,8 @@ import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/upload";
 import MyCityPicker from "@/components/citypicker";
 import api from "@/api/index";
-import baseURL from "@/utils/baseUrl"
+import baseURL from "@/utils/baseUrl";
+import { Loading } from "element-ui";
 export default {
   data() {
     var validatePos = (rule, value, callback) => {
@@ -130,17 +133,17 @@ export default {
     };
   },
   watch: {
-    'form.picture': {
+    "form.picture": {
       handler: function(newValue, oldValue) {
-        let arr = newValue.split(',');
-        let imgList = []
-        arr.map((item,i)=>{
+        let arr = newValue.split(",");
+        let imgList = [];
+        arr.map((item, i) => {
           let temp = {};
-          temp.title = item.replace("/images/","");
+          temp.title = item.replace("/images/", "");
           temp.url = baseURL + item;
-          imgList.push(temp)
-        })
-        this.img = imgList
+          imgList.push(temp);
+        });
+        this.img = imgList;
       },
       deep: true
     }
@@ -203,6 +206,11 @@ export default {
       this.form.picture = e;
     },
     initForm() {
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
       let _this = this;
       console.log("id", this.form.factoryId);
       api
@@ -218,6 +226,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     }
   },
   created() {

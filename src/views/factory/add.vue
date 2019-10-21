@@ -11,7 +11,9 @@
         </el-select>
       </el-form-item>
       <el-form-item label="省/市/区">
-        <my-city-picker @sendPCD="getPCD"></my-city-picker>
+        <keep-alive>
+          <my-city-picker @sendPCD="getPCD"></my-city-picker>
+        </keep-alive>
       </el-form-item>
       <el-form-item label="工厂地址" prop="address">
         <el-input v-model="form.address"></el-input>
@@ -107,9 +109,9 @@ export default {
         longitude: 0,
         phone: 0,
         description: "",
-        province:"",
-        leader:"",
-        picture:""
+        province: "",
+        leader: "",
+        picture: ""
       },
       editorOption: config.editorOption,
       isShow: false,
@@ -130,7 +132,7 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form)
+          console.log(this.form);
           api
             .addFactoryData(this.form)
             .then(res => {
@@ -174,10 +176,10 @@ export default {
       this.form.longitude = e.lng;
     },
     handleChange() {},
-    getPCD(e){
+    getPCD(e) {
       this.form.province = e;
     },
-    getImage(e){
+    getImage(e) {
       this.form.picture = e;
     }
   },

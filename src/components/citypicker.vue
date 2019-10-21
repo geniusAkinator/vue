@@ -153,12 +153,11 @@ export default {
       return id;
     }
   },
-  mounted() {
+  activated() {
     this.poptions = [];
     this.getNode(0, this.poptions);
-
-    
-  }
+  },
+  mounted() {}
 };
 </script>
 

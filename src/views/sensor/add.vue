@@ -5,7 +5,7 @@
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
       <el-form-item label="设备类型">
-        <el-select v-model="form.deviceType" placeholder="请选择设备类型">
+        <el-select v-model="form.transducerType.ttId" placeholder="请选择设备类型">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -50,8 +50,14 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="到期时间" prop="expriationData">
-        <el-date-picker v-model="form.expriationData" type="datetime" placeholder="选择日期时间"></el-date-picker>
+      <el-form-item label="到期时间" prop="expirationDate">
+        <el-date-picker
+          v-model="form.expirationDate"
+          type="datetime"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择日期时间"
+        ></el-date-picker>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
@@ -76,17 +82,14 @@ export default {
       form: {
         //提交数据
         deviceNumber: "",
-        expriationData: "",
+        expirationDate: "",
         latitude: 0,
         longitude: 0,
-        deviceType: ""
-      },
-      options: [
-        {
-          value: "选项1",
-          label: "选项1"
+        transducerType: {
+          ttId: 0
         }
-      ],
+      },
+      options: [],
       isShow: true,
       options: [],
       rules: {
@@ -94,7 +97,7 @@ export default {
         deviceNumber: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
         ],
-        expriationData: [
+        expirationDate: [
           { required: true, message: "请选择日期时间", trigger: "change" }
         ],
         pos: [{ required: true, validator: validatePos, trigger: "change" }]
@@ -144,7 +147,29 @@ export default {
     getPoint(e) {
       this.form.latitude = e.lat;
       this.form.longitude = e.lng;
+    },
+    initForm() {
+      api
+        .getAllSensorTypeData()
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            let content = _data.content;
+            content.map((item, i) => {
+              if (item.state) {
+                let temp = {};
+                temp.label = item.name;
+                temp.value = item.ttId;
+                this.options.push(temp);
+              }
+            });
+          }
+        })
+        .catch(_ => {});
     }
+  },
+  created() {
+    this.initForm();
   },
   components: {
     MyMapPicker

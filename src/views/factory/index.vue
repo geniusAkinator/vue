@@ -136,7 +136,8 @@ export default {
       searchForm: {},
       labelPosition: "left",
       did: "",
-      eid: 0
+      eid: 0,
+      index:""
     };
   },
   methods: {
@@ -180,6 +181,7 @@ export default {
         target: ".el-main"
       });
       this.$layer.full(index);
+      this.index = index;
     },
     handleExport() {},
     handleReset() {

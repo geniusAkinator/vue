@@ -131,7 +131,8 @@ export default {
       labelPosition: "left",
       loading: true,
       did: "",
-      eid: 0
+      eid: 0,
+      index:""
     };
   },
   methods: {
@@ -162,6 +163,7 @@ export default {
         target: ".el-main"
       });
       this.$layer.full(index);
+      this.index = index
     },
     handleExport() {
       //导出数据
