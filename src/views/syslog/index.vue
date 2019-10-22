@@ -45,12 +45,11 @@
     <!-- 表格 -->
     <el-table stripe border :data="tableData" align="center" style="width: 100%">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="ID" width="150"></el-table-column>
-      <el-table-column prop="type" label="类别"></el-table-column>
-      <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column prop="ip" label="IP地址"></el-table-column>
-      <el-table-column prop="content" label="内容"></el-table-column>
-      <el-table-column prop="time" label="时间"></el-table-column>
+      <el-table-column prop="logId" label="ID" width="150"></el-table-column>
+      <el-table-column prop="type" label="日志记录级别"></el-table-column>
+      <el-table-column prop="title" label="日志消息"></el-table-column>
+      <el-table-column prop="content" label="日志方法"></el-table-column>
+      <el-table-column prop="createtime" label="创建时间"></el-table-column>
       <el-table-column label="操作" fixed="right" width="180px">
         <template slot-scope="scope">
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, tableData)">删除</el-button>
@@ -66,7 +65,7 @@
         :page-sizes="[100, 200, 300, 400]"
         :page-size="100"
         layout="prev,pager,next,jumper,total,sizes"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -82,6 +81,7 @@ export default {
       labelPosition: "left",
       isPaging: false,
       currentPage: 1,
+      total: 0,
       options: [
         {
           value: "0",

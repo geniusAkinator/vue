@@ -6,7 +6,7 @@
         <el-image style="width:100%; height:100%" :src="item.url" :fit="fit"></el-image>
         <div class="cover">
           <i class="el-icon-zoom-in" @click="handleShow(index)"></i>
-          <i class="el-icon-download"></i>
+          <i class="el-icon-download" @click="handleDownload(index)"></i>
           <i class="el-icon-delete" @click="handleDelete(index)"></i>
         </div>
       </div>
@@ -72,6 +72,9 @@ export default {
     },
     handleDelete(index) {
       this.fileUrl.splice(index, 1);
+    },
+    handleDownload(index){
+      console.log(index)
     },
     uploadFile() {
       let _this = this;
@@ -182,6 +185,9 @@ export default {
 .pre-img i {
   cursor: pointer;
   font-size: 20px;
+}
+.pre-img i:hover{
+  color: #409eff
 }
 .images {
   overflow: hidden;

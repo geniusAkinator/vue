@@ -253,7 +253,7 @@ export const getFactoryData = params => { //获取工厂信息
     return request({
         url: '/factory/findAllFactory',
         params: params,
-        method: "GET"
+        method: "POST"
     }).then(res => res);
 }
 

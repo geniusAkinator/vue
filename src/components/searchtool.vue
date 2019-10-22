@@ -1,7 +1,7 @@
 <!-- 搜索框用于slot -->
 <template>
   <div class="query" v-clickoutside="handleClose">
-    <div :class="{'query-picker':true,'active':isActive}" @click="toggle">
+    <div :class="{'query-picker':true,'active':current}" @click="toggle">
       ==查询条件==
       <i class="el-icon-arrow-down"></i>
     </div>
@@ -21,16 +21,16 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
-      isActive: false
+      current: this.isActive
     };
   },
   methods: {
     toggle() {
-      this.isActive = !this.isActive;
+      this.current = !this.current;
     },
     handleClose() {
-      if (this.isActive) {
-        this.isActive = false;
+      if (this.current) {
+        this.current = false;
       }
     }
   },

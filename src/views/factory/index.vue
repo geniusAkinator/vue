@@ -32,24 +32,9 @@
       </el-button-group>
       <my-search-tool>
         <template slot="content">
-          <el-form
-            :label-position="labelPosition"
-            ref="form"
-            :model="searchForm"
-            label-width="80px"
-          >
-            <el-form-item label="名称" size="small">
-              <el-input v-model="searchForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="时间段" size="small">
-              <el-date-picker
-                v-model="searchForm.range"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :clearable="false"
-              ></el-date-picker>
+          <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
+            <el-form-item label="关键字" size="small">
+              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：工厂名称）"></el-input>
             </el-form-item>
           </el-form>
         </template>
@@ -80,10 +65,10 @@
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
             <el-form-item label="图片">
-              <img :src="props.row.images" alt />
+              <img :src="imgUrl+props.row.picture" alt />
             </el-form-item>
             <el-form-item label="公司简介">
-              <span>{{ props.row.introduction }}</span>
+              <div v-html="props.row.description"></div>
             </el-form-item>
           </el-form>
         </template>
@@ -121,23 +106,26 @@ import MyFactoryEdit from "@/views/factory/edit";
 import api from "@/api/index";
 import http from "@/utils/http";
 import MyCityPicker from "@/components/citypicker";
+import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
       Listform: {
         //表格请求params
         pageNum: 1,
-        pageSize: 25
+        pageSize: 25,
+        factoryName: ""
       },
       total: 0,
       tableData: [],
       isPaging: false,
       currentPage: 1,
-      searchForm: {},
+      // searchForm: {},
       labelPosition: "left",
       did: "",
       eid: 0,
-      index:""
+      index: "",
+      imgUrl: baseURL
     };
   },
   methods: {
@@ -185,9 +173,17 @@ export default {
     },
     handleExport() {},
     handleReset() {
-      this.searchForm = {};
+      //重置查询表单
+      this.Listform = {
+        pageNum: 1,
+        pageSize: 25,
+        factoryName: ""
+      };
     },
-    handleSearch() {},
+    handleSearch() {
+      //查询
+      this.initTable();
+    },
     handleClick(command) {
       if (command == "csv") {
       } else if (command == "excel") {

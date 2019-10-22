@@ -29,14 +29,7 @@ export default {
     return {
       form: {
         ttId: this.$parent.cid,
-        standard: [
-          //   {
-          //     name: "",
-          //     upperlimit: 0,
-          //     lowerlimit: 0,
-          //     unit: ""
-          //   }
-        ]
+        standard: []
       },
       options: [],
       rules: {}
@@ -89,8 +82,27 @@ export default {
       this.form.standard.push(temp);
     },
     getDelIndex(e) {
-      console.log(this.form.standard[e].standardId);
-      this.form.standard.splice(e, 1);
+      let sid = this.form.standard[e].standardId;
+      if (sid == undefined) {
+        this.form.standard.splice(e, 1);
+        this.$message({
+          message: "删除规则成功",
+          type: "success"
+        });
+      } else {
+        api
+          .delStandardData({ ids: sid })
+          .then(res => {
+            if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              this.form.standard.splice(e, 1);
+              this.$message({
+                message: "删除规则成功",
+                type: "success"
+              });
+            }
+          })
+          .catch(_ => {});
+      }
     },
     getNewItem(e) {
       console.log(e);

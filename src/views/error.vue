@@ -42,18 +42,17 @@ export default {
   data() {
     return {};
   },
-  methods:{
-      back(){
-          history.back();
-      }
+  methods: {
+    back() {
+      history.back();
+    }
   }
 };
 </script>
 <style scoped>
 html,
 body {
-  background: #28254c;
-  font-family: "Ubuntu";
+  background: #8a9ebd;
 }
 
 * {
@@ -65,7 +64,7 @@ body {
   height: 100%;
   max-height: 600px;
   min-height: 450px;
-  background: #332f63;
+  background: #526b92;
   border-radius: 20px;
   position: absolute;
   left: 50%;
@@ -207,7 +206,7 @@ body {
 .box .box__ghost .box__ghost-container .box__ghost-eyes .box__eye-left {
   width: 12px;
   height: 12px;
-  background: #332f63;
+  background: #526b92;
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -216,7 +215,7 @@ body {
 .box .box__ghost .box__ghost-container .box__ghost-eyes .box__eye-right {
   width: 12px;
   height: 12px;
-  background: #332f63;
+  background: #526b92;
   border-radius: 50%;
   margin: 0 10px;
   position: absolute;
@@ -240,12 +239,12 @@ body {
 .box .box__ghost .box__ghost-container .box__ghost-bottom div:nth-child(2n) {
   top: -12px;
   margin: 0 -0px;
-  border-top: 15px solid #332f63;
+  border-top: 15px solid #526b92;
   background: transparent;
 }
 .box .box__ghost .box__ghost-shadow {
   height: 20px;
-  box-shadow: 0 50px 15px 5px #3b3769;
+  box-shadow: 0 50px 15px 5px #242f40;
   border-radius: 50%;
   margin: 0 auto;
   animation: smallnbig 3s ease-in-out infinite;
@@ -268,7 +267,7 @@ body {
   letter-spacing: 0.5px;
 }
 .box .box__description .box__description-container .box__description-text {
-  color: #8c8aa7;
+  color: #f9f9f9;
   line-height: 20px;
   margin-top: 20px;
 }
@@ -334,20 +333,20 @@ body {
 }
 @keyframes shine {
   0% {
-    opacity: 0.2;
+    opacity: 0.4;
   }
   25% {
-    opacity: 0.1;
+    opacity: 0.5;
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.4;
   }
   100% {
-    opacity: 0.2;
+    opacity: 0.5;
   }
 }
 .container {
-  background: #28254c;
+  background: #8a9ebd;
   width: 100%;
   height: 100%;
 }
