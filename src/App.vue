@@ -18,6 +18,7 @@ export default {
 html,
 body {
   -webkit-text-size-adjust: none;
+  overflow: hidden;
 }
 body {
   margin: 0px;

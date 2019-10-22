@@ -203,11 +203,19 @@ export const addUserData = params => { //添加用户
     }).then(res => res);
 }
 
+export const updateUserData = params => { //更新用户
+    return request({
+        url: '/user/updateUser',
+        data: params,
+        method: "POST"
+    }).then(res => res);
+}
+
 export const updateUserPwd = params => {//修改用户密码
     return request({
         url: '/user/setPwd',
         data: params,
-        method: "PUT"
+        method: "POST"
     }).then(res => res);
 }
 
@@ -248,7 +256,6 @@ export const getFactoryData = params => { //获取工厂信息
         method: "GET"
     }).then(res => res);
 }
-
 
 export const delFactoryData = params => {  //删除工厂信息
     return request({

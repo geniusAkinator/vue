@@ -54,7 +54,6 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="roleId" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="角色名称"></el-table-column>
-      <el-table-column prop="orderNo" label="排序"></el-table-column>
       <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -180,7 +179,7 @@ export default {
         .then(res => {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            this.total = _data.numberOfElements; //显示数量
+            this.total = _data.total; //显示数量
             this.tableData = _data.content; //表格数据
             console.log(_data);
           } else {

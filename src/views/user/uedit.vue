@@ -40,7 +40,7 @@ export default {
     };
     return {
       form: {
-        userId: this.$parent.eid,
+        userId: this.$parent.uid,
         password: "",
         cpwd: ""
       },

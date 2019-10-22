@@ -2,7 +2,7 @@
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
       <el-form-item label="账户名称" prop="account">
-        <el-input v-model="form.account" @blur="checkIsExist"></el-input>
+        <el-input v-model="form.account"></el-input>
       </el-form-item>
       <el-form-item label="用户密码" prop="password">
         <el-input v-model="form.password" type="password"></el-input>
@@ -11,7 +11,7 @@
         <el-input v-model="form.cpwd" type="password"></el-input>
       </el-form-item>
       <el-form-item label="所属角色" prop="roleId">
-        <el-select v-model="form.role.roleId" placeholder="请选择所属角色">
+        <el-select v-model="form.roleId" placeholder="请选择所属角色">
           <el-option
             v-for="item in roptions"
             :key="item.roleId"
@@ -20,13 +20,13 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属工厂" prop="factory">
-        <el-select v-model="form.factory" placeholder="请选择所属工厂">
+      <el-form-item label="所属工厂">
+        <el-select v-model="form.factoryId" placeholder="请选择所属工厂">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in coptions"
+            :key="item.factoryId"
+            :label="item.factoryName"
+            :value="item.factoryId"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
 import api from "@/api/index";
 export default {
   data() {
@@ -77,43 +76,49 @@ export default {
         callback();
       }
     };
+    var validateAccount = (rule, value, callback) => {
+      api
+        .getAccountIsExist({ account: value })
+        .then(res => {
+          console.log(res);
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            this.isFound = res.data.isFound;
+            if (!res.data.isFound) {
+              callback();
+            } else {
+              callback(new Error("此账号名已被占用"));
+            }
+          }
+        })
+        .catch(_ => {});
+    };
     return {
       form: {
         account: "",
         state: "1",
         password: "",
         cpwd: "",
-        role: {
-          roleId: 0
-        },
-        factory: "",
+        roleId: 0,
         trueName: "",
         mobilePhone: "",
-        remark: ""
+        remark: "",
+        factoryId: 0
       },
-      options: [
-        {
-          value: "选项1",
-          label: "选项1"
-        }
-      ],
+      coptions: [],
       roptions: [],
       rules: {
         account: [
-          { required: true, message: "请输入账户名称", trigger: "blur" }
+          { required: true, message: "请输入账户名称", trigger: "blur" },
+          { required: true, validator: validateAccount, trigger: "blur" }
         ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
         cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
         // roleId: [
         //   { required: true, message: "请选择所属角色", trigger: "change" }
         // ],
-        factory: [
-          { required: true, message: "请选择所属工厂", trigger: "change" }
-        ]
       }
     };
   },
-
   methods: {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
@@ -161,38 +166,36 @@ export default {
       this.form.lat = e.lat;
       this.form.lng = e.lng;
     },
-    checkIsExist() {
-      console.log("Daf")
-      // api
-      //   .getAccountIsExist({ account: this.form.account })
-      //   .then(res => {
-      //     console.log(res);
-      //     if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-      //       if (res.data != null) {
-      //         return;
-      //       }
-      //     }
-      //   })
-      //   .catch(_ => {});
+    initForm() {
+      //初始化所属角色
+      api
+        .getAllRoleData()
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.roptions = _data;
+            console.log(_data);
+          } else {
+          }
+        })
+        .catch(_ => {});
+      //初始化所属工厂
+      api
+        .getFactoryData({ pageNum: 1, pageSize: 0 })
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.coptions = _data.content;
+          } else {
+          }
+        })
+        .catch(_ => {});
     }
   },
   created() {
-    api
-      .getAllRoleData()
-      .then(res => {
-        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          let _data = res.data;
-          this.roptions = _data;
-          console.log(_data);
-        } else {
-        }
-      })
-      .catch(_ => {});
+    this.initForm();
   },
-  mounted() {},
-  components: {
-    MyMapPicker
-  }
+  mounted() {}
 };
 </script>
 

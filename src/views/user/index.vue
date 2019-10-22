@@ -57,7 +57,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="userId" label="ID" width="150"></el-table-column>
+      <el-table-column prop="userId" label="ID" width="90"></el-table-column>
       <el-table-column prop="account" label="用户账号"></el-table-column>
       <el-table-column prop="role.name" label="所属角色"></el-table-column>
       <el-table-column prop="trueName" label="用户名称"></el-table-column>
@@ -123,7 +123,8 @@ export default {
         }
       ],
       did: "",
-      eid: 0
+      eid: 0,
+      uid:0,
     };
   },
   methods: {
@@ -218,7 +219,8 @@ export default {
       //批量删除
       this.delRow();
     },
-    handleResetPwd() {
+    handleResetPwd(index, row) {
+      this.uid = row.userId + "";
       var index = this.$layer.iframe({
         content: {
           content: MyUserPwdUpdate, //传递的组件对象

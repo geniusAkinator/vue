@@ -1,12 +1,11 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="账户名称" prop="account">
-        <el-input v-model="form.account"></el-input>
+      <el-form-item label="账户名称">
+        <el-input v-model="form.account" class="readonly" :readonly="true"></el-input>
       </el-form-item>
-
       <el-form-item label="所属角色">
-        <el-select v-model="form.role.roleId" placeholder="请选择所属角色">
+        <el-select v-model="form.roleId" placeholder="请选择所属角色">
           <el-option
             v-for="item in roptions"
             :key="item.roleId"
@@ -15,13 +14,13 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属工厂" prop="factory">
-        <el-select v-model="form.factory" placeholder="请选择所属工厂">
+      <el-form-item label="所属工厂">
+        <el-select v-model="form.factoryId" placeholder="请选择所属工厂">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in coptions"
+            :key="item.factoryId"
+            :label="item.factoryName"
+            :value="item.factoryId"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -49,7 +48,6 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
 import api from "@/api/index";
 export default {
   data() {
@@ -72,41 +70,45 @@ export default {
         callback();
       }
     };
+    // var validateAccount = (rule, value, callback) => {
+    //   api
+    //     .getAccountIsExist({ account: value })
+    //     .then(res => {
+    //       console.log(res);
+    //       if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+    //         this.isFound = res.data.isFound;
+    //         if (!res.data.isFound) {
+    //           callback();
+    //         } else {
+    //           callback(new Error("此账号名已被占用"));
+    //         }
+    //       }
+    //     })
+    //     .catch(_ => {});
+    // };
     return {
       form: {
         userId: this.$parent.eid,
         account: "",
         state: "1",
-        password: "",
-        cpwd: "",
-        role: {
-          roleId: 0
-        },
-        roleName: "",
-        factory: "",
+        roleId: 0,
         trueName: "",
         mobilePhone: "",
-        remark: ""
+        remark: "",
+        factoryId: 0
       },
-      options: [
-        {
-          value: "选项1",
-          label: "选项1"
-        }
-      ],
+      coptions: [],
       roptions: [],
       rules: {
-        account: [
-          { required: true, message: "请输入账户名称", trigger: "blur" }
-        ],
+        // account: [
+        //   { required: true, message: "请输入账户名称", trigger: "blur" },
+        //   { required: true, validator: validateAccount, trigger: "blur" }
+        // ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
-        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
+        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }]
         // roleId: [
         //   { required: true, message: "请选择所属角色", trigger: "change" }
         // ],
-        factory: [
-          { required: true, message: "请选择所属工厂", trigger: "change" }
-        ]
       }
     };
   },
@@ -117,7 +119,7 @@ export default {
         if (valid) {
           console.log(this.form);
           api
-            .addUserData(this.form)
+            .updateUserData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功
@@ -161,13 +163,14 @@ export default {
             // for (let key in _data) {
             //   this.form[key] = _data[key];
             // }
-            this.form.account = _data.account;
-            this.form.state = _data.state + "";
-            this.form.roleName = _data.roleName;
-            this.form.trueName = _data.trueName;
-            this.form.mobilePhone = _data.mobilePhone;
-            this.form.remark = _data.remark;
-            this.form.role.roleId = _data.role.roleId;
+            console.log(_data)
+            this.form.account = _data.userInfo.account;
+            this.form.state = _data.userInfo.state + "";
+            this.form.trueName = _data.userInfo.trueName;
+            this.form.mobilePhone = _data.userInfo.mobilePhone;
+            this.form.remark = _data.userInfo.remark;
+            this.form.roleId = _data.userInfo.role.roleId;
+            this.form.factoryId = _data.factory.factoryId;
             console.log(this.form);
           } else {
           }
@@ -185,17 +188,30 @@ export default {
           }
         })
         .catch(_ => {});
+      //初始化所属工厂
+      api
+        .getFactoryData({ pageNum: 1, pageSize: 0 })
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.coptions = _data.content;
+          } else {
+          }
+        })
+        .catch(_ => {});
     }
   },
   created() {
     this.initForm();
   },
-  mounted() {},
-  components: {
-    MyMapPicker
-  }
+  mounted() {}
 };
 </script>
 
 <style>
+.readonly > input {
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
+}
 </style>

@@ -44,7 +44,6 @@ Request.interceptors.response.use(
     },
     error => {
         //此处进行异常处理
-        console.log(error)
         Message({
             showClose: true,
             message: "网络异常 连接超时",

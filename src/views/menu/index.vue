@@ -89,6 +89,13 @@ export default {
         this.layerInitWidth = layer.offsetWidth;
         this.layerInitHeight = layer.offsetHeight;
       }
+    },
+    total: function(newVal, oldVal) {
+      if (!newVal) {
+        this.isPaging = true;
+      }else{
+        this.isPaging = false;
+      }
     }
   },
   methods: {
