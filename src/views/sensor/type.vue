@@ -60,6 +60,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -97,6 +98,7 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
+      loading: true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -108,7 +110,6 @@ export default {
       currentPage4: 1,
       searchForm: {},
       labelPosition: "left",
-      loading: true,
       did: "",
       cid: 0,
       eid: 0,
@@ -140,7 +141,7 @@ export default {
       //重载表格
       this.initTable();
     },
-    handleEdit(idx,row) {
+    handleEdit(idx, row) {
       this.eid = row.ttId;
       //修改传感器类型
       let index = this.$layer.iframe({
@@ -162,11 +163,7 @@ export default {
       this.searchForm = {};
     },
     handleSearch() {},
-    handleLoadingClose() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 900);
-    },
+
     handleClick() {},
     handleAdd() {
       //添加传感器类型
@@ -199,6 +196,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     handleConfig(idx, row) {
       this.cid = row.ttId;

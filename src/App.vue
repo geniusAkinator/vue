@@ -172,11 +172,15 @@ body {
   line-height: 26px;
   margin-right: 10px;
   text-align: center;
-  color: #333;
-  border: 1px solid #ccc;
+  border: 1px solid #DCDFE6;
   cursor: pointer;
   -webkit-transition: 0.5s all;
   transition: 0.5s all;
+  background: #ccc;
+  color: #fff;
+}
+.table-tool .table-tool-others .el-inline:hover {
+  background: #909399;
 }
 .add-footer {
   position: fixed;
@@ -442,6 +446,10 @@ textarea:focus {
   border-color: #1e9fff;
   background: #e8f0f8;
 }
+
+input:focus + .el-input__suffix {
+  color: rgb(16, 16, 17) !important;
+}
 .el-input-group__prepend {
   background: #fff;
 }
@@ -488,11 +496,10 @@ textarea:focus {
   right: 20px;
   top: 0;
 }
-.no-border-radius input{
-  border-radius: 0
+.no-border-radius input {
+  border-radius: 0;
 }
-.el-alert+.table-tool{
+.el-alert + .table-tool {
   margin-top: 20px;
 }
-
 </style>

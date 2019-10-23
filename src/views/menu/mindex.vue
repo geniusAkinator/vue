@@ -21,6 +21,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -60,6 +61,7 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
+      loading:true,
       Listform: {
         //表格请求params
         pId: 0,
@@ -165,13 +167,16 @@ export default {
       api
         .getMenuData(this.Listform)
         .then(res => {
-          if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.total = _data.total; //显示数量
             this.tableData = _data.content; //表格数据
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     handleSelectionChange(e) {
       let did = "";
@@ -186,7 +191,7 @@ export default {
         .$confirm("确认删除")
         .then(_ => {
           api.delMenuData({ pId: _this.did }).then(res => {
-            if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",
@@ -196,7 +201,9 @@ export default {
             }
           });
         })
-        .catch(_ => {});
+        .catch(_ => {
+          this.did = "";
+        });
     }
   },
   created() {

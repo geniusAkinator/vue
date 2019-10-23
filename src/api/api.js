@@ -419,3 +419,22 @@ export const delStandardData = params => {  //删除传感器类型预警标准
         method: "DELETE"
     }).then(res => res);
 }
+
+/**
+ *系统日志
+ */
+export const getSysLogData = params => { //获取日志信息
+    return request({
+        url: '/resLog/findAllResLog',
+        data: params,
+        method: "GET"
+    })
+}
+
+export const delSysLogData = params => {  //删除日志信息
+    return request({
+        url: '/resLog/deleteResLog',
+        params: params,
+        method: "DELETE"
+    }).then(res => res);
+}

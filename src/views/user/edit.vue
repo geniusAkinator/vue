@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="账户名称">
+      <el-form-item label="账号名称">
         <el-input v-model="form.account" class="readonly" :readonly="true"></el-input>
       </el-form-item>
       <el-form-item label="所属角色">
@@ -49,6 +49,7 @@
 
 <script>
 import api from "@/api/index";
+import { Loading } from "element-ui";
 export default {
   data() {
     var validatePwd = (rule, value, callback) => {
@@ -154,6 +155,12 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
+      let _this = this;
       //表单回显
       api
         .getUserDetail({ userId: this.form.userId })
@@ -163,7 +170,7 @@ export default {
             // for (let key in _data) {
             //   this.form[key] = _data[key];
             // }
-            console.log(_data)
+            console.log(_data);
             this.form.account = _data.userInfo.account;
             this.form.state = _data.userInfo.state + "";
             this.form.trueName = _data.userInfo.trueName;
@@ -199,12 +206,14 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     }
   },
-  created() {
+  mounted() {
     this.initForm();
-  },
-  mounted() {}
+  }
 };
 </script>
 

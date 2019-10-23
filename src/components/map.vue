@@ -18,13 +18,13 @@
         <bm-marker
           :key="index"
           v-for="(item, index) in list"
-          :position="{lng: item.info.lng, lat: item.info.lat}"
+          :position="{lng: item.longitude, lat: item.latitude}"
           :dragging="false"
           :icon="{url: mapConf.icon, size: {width: 26, height: 26}}"
           @click="clickMarker(index,item,$event)"
         >
           <bm-label
-            :content="item.id+''"
+            :content="item.factoryId+''"
             :labelStyle="{color: 'white',textAlign:'center',
             border:0,width:'26px',height:'26px',diplay:'block',
             fontSize : '12px',background:'rgba(0,0,0,0)',zIndex:'99'}"
@@ -37,49 +37,39 @@
       <bm-info-window
         :key="index"
         v-for="(item, index) in list"
-        :position="{lng: item.info.lng, lat: item.info.lat}"
-        :title="item.info.name"
+        :position="{lng: item.longitude, lat: item.latitude}"
+        :title="item.factoryName"
         :show="item.show"
         @close="infoWindowClose(index,item,$event)"
         @open="infoWindowOpen"
       >
         <p>
-          <img :src="item.info.image" alt />
+          <img :src="imgUrl+item.picture" alt />
         </p>
         <p>
           <span class="left">项目ID：</span>
-          <span class="right">{{item.info.mid}}</span>
+          <span class="right">{{item.factoryId}}</span>
         </p>
         <p>
-          <span class="left">地址：</span>
-          <span class="right">{{item.info.address}}</span>
-        </p>
-        <p>
-          <span class="left">建筑面积：</span>
-          <span class="right">{{item.info.area}}</span>
-        </p>
-        <p>
-          <span class="left">消防设施：</span>
-          <span class="right">{{item.info.equipment}}</span>
-        </p>
-
-        <p>
-          <span class="left">所属客户：</span>
-          <span class="right">{{item.info.name}}</span>
-        </p>
-        <p>
-          <span class="left">安全责任人：</span>
-          <span class="right">{{item.info.director}}</span>
+          <span class="left">负责人：</span>
+          <span class="right">{{item.leader}}</span>
         </p>
         <p>
           <span class="left">联系电话：</span>
-          <span class="right">{{item.info.phone}}</span>
+          <span class="right">{{item.tel}}</span>
+        </p>
+        <p>
+          <span class="left">详细地址：</span>
+          <span class="right">{{item.address}}</span>
+        </p>
+        <p>
+          <span class="left">介绍：</span>
+          <span class="right" v-html="item.description"></span>
         </p>
         <p>
           <el-link>查看详情</el-link>
         </p>
       </bm-info-window>
-      
     </baidu-map>
     <div class="my-control">
       <el-autocomplete
@@ -92,11 +82,11 @@
         <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick"></i>
         <template slot-scope="props">
           <div class="result" :key="index" v-for="(item,index) in props">
-            <i>{{item.id}}</i>
+            <i>{{item.factoryId}}</i>
             <div class="info">
-              <span class="name">{{item.info.name}}</span>
-              <span>{{item.info.id}}</span>
-              <span class="address">{{item.info.address}}</span>
+              <span class="name">{{item.factoryName}}</span>
+              <!-- <span>{{item.factoryId}}</span>
+              <span class="address">{{item.address}}</span>-->
             </div>
           </div>
         </template>
@@ -113,6 +103,7 @@ import BmMarker from "vue-baidu-map/components/overlays/Marker";
 import BmInfoWindow from "vue-baidu-map/components/overlays/InfoWindow";
 import BmLabel from "vue-baidu-map/components/overlays/Label";
 import BmCopyright from "vue-baidu-map/components/controls/copyright";
+import baseURL from "@/utils/baseUrl";
 
 export default {
   data() {
@@ -131,7 +122,8 @@ export default {
       BMap: {},
       map: {},
       clickIndex: 0,
-      state3: ""
+      state3: "",
+      imgUrl: baseURL
       // restaurants: []
     };
   },
@@ -139,7 +131,9 @@ export default {
     list: {}
   },
   watch: {
-    list(val, oldVal) {},
+    list(val, oldVal) {
+      console.log(val);
+    },
     clickIndex(val, oldVal) {
       setTimeout(() => {
         this.openInfoWindow(val);
@@ -173,13 +167,15 @@ export default {
       }
       console.log(`zoom:${zoom},vlat:${vlat}`);
       this.map.panTo(
-        new BMap.Point(arr[index].info.lng, arr[index].info.lat + vlat)
+        new BMap.Point(arr[index].longitude, arr[index].latitude + vlat)
       );
       this.clickIndex = index;
+      console.log(arr);
       this.$emit("update:list", arr);
     },
     querySearch(queryString, cb) {
       var list = this.list;
+
       var results = queryString
         ? list.filter(this.createFilter(queryString))
         : list;
@@ -187,12 +183,12 @@ export default {
       cb(results);
     },
     createFilter(queryString) {
-      return list => {
-        return list.info.name.indexOf(queryString) === 0;
+      return item => {
+        return item.factoryName.indexOf(queryString) !== -1;
       };
     },
     handleSelect(item) {
-      let index = item.id - 1;
+      let index = item.factoryId - 1;
       this.openInfoWindow(index);
     },
     handleIconClick(ev) {

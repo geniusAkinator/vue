@@ -65,6 +65,7 @@ export default {
   watch: {
     pcd: {
       handler(newName, oldName) {
+        console.log("sdfas");
         this.arr = this.pcd.split(",");
       },
       deep: true
@@ -156,11 +157,12 @@ export default {
       return id;
     }
   },
-  activated() {
-    this.poptions = [];
-    this.getNode(0, this.poptions);
-  },
-  mounted() {}
+  mounted() {
+    setTimeout(() => {
+      this.poptions = [];
+      this.getNode(0, this.poptions);
+    }, 600);
+  }
 };
 </script>
 

@@ -117,12 +117,15 @@ export default {
   cursor: pointer;
 }
 .side_drawer i:hover {
-  background-position:-22px 1px
+  background-position: -22px 1px;
 }
 .side_drawer.isCollapse i {
   background: url("../assets/icon_arrow.png") 0px -60px no-repeat;
 }
-.side_drawer.isCollapse  i:hover {
-  background-position:-22px -61px
+.side_drawer.isCollapse i:hover {
+  background-position: -22px -61px;
+}
+.app-side-logo img{
+  cursor: pointer;
 }
 </style>

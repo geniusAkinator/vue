@@ -59,6 +59,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column fixed type="expand">
@@ -110,6 +111,7 @@ import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
+      loading:true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -231,7 +233,9 @@ export default {
             }
           });
         })
-        .catch(_ => {});
+        .catch(_ => {
+          this.did = "";
+        });
     },
     initTable() {
       //初始化表格数据
@@ -246,6 +250,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     handleImport() {
       let _this = this;

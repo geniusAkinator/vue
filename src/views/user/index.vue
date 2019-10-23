@@ -54,6 +54,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -97,6 +98,7 @@ import api from "@/api/index";
 export default {
   data() {
     return {
+      loading: true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -124,7 +126,8 @@ export default {
       ],
       did: "",
       eid: 0,
-      uid:0,
+      uid: 0,
+      index: ""
     };
   },
   methods: {
@@ -142,6 +145,7 @@ export default {
         target: ".el-main"
       });
       this.$layer.full(index);
+      this.index = index;
     },
     handleDelete(index, row) {
       //删除单行
@@ -182,11 +186,12 @@ export default {
       console.log(this.did);
     },
     initTable() {
+      let _this = this;
       api
         .getUserData(this.Listform)
         .then(res => {
           console.log(res);
-          if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             console.log("data", res);
             this.total = _data.total; //显示数量
@@ -195,6 +200,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false
+      }, 1000);
     },
     delRow() {
       let _this = this;
@@ -202,7 +210,7 @@ export default {
         .$confirm("确认删除")
         .then(_ => {
           api.delUserData({ ids: _this.did }).then(res => {
-            if (res.code ===  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
                 message: "删除成功",
@@ -213,7 +221,9 @@ export default {
             }
           });
         })
-        .catch(_ => {});
+        .catch(_ => {
+          this.did = "";
+        });
     },
     handleDeleteMore() {
       //批量删除

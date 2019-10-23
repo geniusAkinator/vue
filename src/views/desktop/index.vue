@@ -192,6 +192,10 @@ import MyEchartLine from "@/components/eline";
 export default {
   data() {
     return {
+      Listform: {
+        pageNum: 1,
+        pageSize: 0
+      },
       sData: {
         //桌面数据统计
         factoryTotal: 0,
@@ -211,6 +215,7 @@ export default {
     }
   },
   created() {
+    //数据统计
     api
       .getAllData()
       .then(res => {
@@ -225,21 +230,34 @@ export default {
   },
   mounted() {
     api
-      .getFactoryGeo()
+      .getFactoryData(this.Listform)
       .then(res => {
-        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          this.geoList = res.data;
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          console.log(_data);
+          _data.content.map((item,i)=>{
+            item.show = false;
+            this.geoList.push(item)
+          })
         }
       })
       .catch(_ => {});
-    api
-      .getFactoryCal()
-      .then(res => {
-        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          this.calList = res.data;
-        }
-      })
-      .catch(_ => {});
+    // api
+    //   .getFactoryGeo()
+    //   .then(res => {
+    //     if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+    //       this.geoList = res.data;
+    //     }
+    //   })
+    //   .catch(_ => {});
+    // api
+    //   .getFactoryCal()
+    //   .then(res => {
+    //     if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+    //       this.calList = res.data;
+    //     }
+    //   })
+    //   .catch(_ => {});
     let orgOptions = {
       xAxis: {
         type: "category",

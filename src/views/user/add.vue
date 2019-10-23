@@ -1,10 +1,12 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="账户名称" prop="account">
-        <el-input v-model="form.account"></el-input>
+      <el-form-item label="账号名称" prop="account">
+        <el-input v-model="form.account">
+          <i slot="suffix" class="el-input__icon el-icon-loading" v-if="loading"></i>
+        </el-input>
       </el-form-item>
-      <el-form-item label="用户密码" prop="password">
+      <el-form-item label="账号密码" prop="password">
         <el-input v-model="form.password" type="password"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="cpwd">
@@ -83,6 +85,7 @@ export default {
           console.log(res);
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             this.isFound = res.data.isFound;
+            this.loading = false;
             if (!res.data.isFound) {
               callback();
             } else {
@@ -93,6 +96,7 @@ export default {
         .catch(_ => {});
     };
     return {
+      loading: false,
       form: {
         account: "",
         state: "1",
@@ -112,12 +116,17 @@ export default {
           { required: true, validator: validateAccount, trigger: "blur" }
         ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
-        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
+        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }]
         // roleId: [
         //   { required: true, message: "请选择所属角色", trigger: "change" }
         // ],
       }
     };
+  },
+  watch: {
+    "form.account": function(val,oldVal) {
+      this.loading = true
+    }
   },
   methods: {
     handleSubmit(form) {

@@ -189,7 +189,7 @@ export default {
       }, 600);
     }
   },
-  created() {
+  mounted() {
     this.initForm();
   },
   components: {

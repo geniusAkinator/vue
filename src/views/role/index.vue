@@ -49,6 +49,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -87,6 +88,7 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
+      loading: true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -186,6 +188,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     handleSelectionChange(e) {
       let did = "";
@@ -210,7 +215,9 @@ export default {
             }
           });
         })
-        .catch(_ => {});
+        .catch(_ => {
+          this.did = "";
+        });
     },
     handleAssign(index, row) {
       this.eid = row.roleId;

@@ -12,7 +12,7 @@
       </el-form-item>
       <el-form-item label="省/市/区">
         <keep-alive>
-          <my-city-picker :pcd="form.province" @sendPCD="getPCD"></my-city-picker>
+          <my-city-picker :pcd.sync="form.province" @sendPCD="getPCD"></my-city-picker>
         </keep-alive>
       </el-form-item>
       <el-form-item label="工厂地址">
@@ -53,17 +53,14 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="工厂电话">
-        <el-input v-model="form.tel"></el-input>
-      </el-form-item>
-      <el-form-item label="工厂图片">
+      <el-form-item label="LOGO">
         <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
         <my-upload :limited="limited" :image="img" @sendImage="getImage"></my-upload>
       </el-form-item>
-      <el-form-item label="工厂负责人">
+      <el-form-item label="负责人">
         <el-input v-model="form.leader"></el-input>
       </el-form-item>
-      <el-form-item label="工厂手机号">
+      <el-form-item label="手机号">
         <el-input v-model="form.phone" type="number"></el-input>
       </el-form-item>
       <el-form-item label="办公电话">
@@ -117,7 +114,8 @@ export default {
         description: "",
         province: "",
         leader: "",
-        picture: ""
+        picture: "",
+        tel: ""
       },
       img: [],
       editorOption: config.editorOption,
@@ -159,19 +157,19 @@ export default {
             .updateFactoryData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-                //添加成功
+                //编辑成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.initTable();
                 this.closeDialog();
               } else {
-                //添加失败
+                //编辑失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }
@@ -231,7 +229,8 @@ export default {
       }, 600);
     }
   },
-  created() {
+  created() {},
+  mounted() {
     this.initForm();
   },
   components: {

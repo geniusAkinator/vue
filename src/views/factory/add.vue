@@ -53,14 +53,14 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="工厂图片">
+      <el-form-item label="LOGO">
         <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
         <my-upload :limited="limited" @sendImage="getImage"></my-upload>
       </el-form-item>
-      <el-form-item label="工厂负责人">
+      <el-form-item label="负责人">
         <el-input v-model="form.leader"></el-input>
       </el-form-item>
-      <el-form-item label="工厂手机号">
+      <el-form-item label="手机号">
         <el-input v-model="form.phone" type="number"></el-input>
       </el-form-item>
       <el-form-item label="办公电话">
@@ -111,7 +111,8 @@ export default {
         description: "",
         province: "",
         leader: "",
-        picture: ""
+        picture: "",
+        tel:""
       },
       editorOption: config.editorOption,
       isShow: false,

@@ -21,6 +21,7 @@
       :data="tableData"
       align="center"
       style="width: 100%"
+      v-loading="loading"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -65,6 +66,7 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
+      loading: true,
       Listform: {
         //表格请求params
         pId: "-1",
@@ -93,7 +95,7 @@ export default {
     total: function(newVal, oldVal) {
       if (!newVal) {
         this.isPaging = true;
-      }else{
+      } else {
         this.isPaging = false;
       }
     }
@@ -175,6 +177,9 @@ export default {
           }
         })
         .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     delRow() {
       let _this = this;
@@ -192,7 +197,9 @@ export default {
             }
           });
         })
-        .catch(_ => {});
+        .catch(_ => {
+          this.did = "";
+        });
     }
   },
   created() {
