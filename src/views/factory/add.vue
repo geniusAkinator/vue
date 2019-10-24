@@ -55,7 +55,7 @@
       </el-form-item>
       <el-form-item label="LOGO">
         <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
-        <my-upload :limited="limited" @sendImage="getImage"></my-upload>
+        <my-upload :limited="limited" @sendImage="getImage" @sendDelIndex="getDelIndex"></my-upload>
       </el-form-item>
       <el-form-item label="负责人">
         <el-input v-model="form.leader"></el-input>
@@ -112,7 +112,7 @@ export default {
         province: "",
         leader: "",
         picture: "",
-        tel:""
+        tel: ""
       },
       editorOption: config.editorOption,
       isShow: false,
@@ -182,6 +182,16 @@ export default {
     },
     getImage(e) {
       this.form.picture = e;
+    },
+    getDelIndex(e) {
+      let picString = this.form.picture;
+      let picList = picString.split(",");
+      picList.splice(e, 1);
+      picString = "";
+      picList.map((item, i) => {
+        picString = picString + item + ",";
+      });
+      this.form.picture = picString.substr(0, picString.length - 1).replace(/^\s+|\s+$/g,"");
     }
   },
   created() {

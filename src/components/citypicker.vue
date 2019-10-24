@@ -65,7 +65,6 @@ export default {
   watch: {
     pcd: {
       handler(newName, oldName) {
-        console.log("sdfas");
         this.arr = this.pcd.split(",");
       },
       deep: true

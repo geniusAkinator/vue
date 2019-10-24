@@ -72,6 +72,7 @@ export default {
     },
     handleDelete(index) {
       this.fileUrl.splice(index, 1);
+      this.$emit("sendDelIndex", index);
     },
     handleDownload(index){
       console.log(index)
