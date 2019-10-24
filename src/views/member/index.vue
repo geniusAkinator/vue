@@ -5,7 +5,7 @@
       <el-button-group>
         <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
       </el-button-group>
-      <my-search-tool>
+      <!-- <my-search-tool>
         <template slot="content">
           <el-form
             :label-position="labelPosition"
@@ -22,7 +22,7 @@
           <el-button size="small" @click="handleReset">重置</el-button>
           <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
         </template>
-      </my-search-tool>
+      </my-search-tool> -->
       <div class="table-tool-others"></div>
     </div>
     <!-- 表格 -->
