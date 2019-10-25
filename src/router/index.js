@@ -35,6 +35,8 @@ import Menu from '@/views/menu/index'
 import MenuSub from '@/views/menu/mindex'
 import Record from '@/views/record/index'
 import Nav from '@/views/nav/index'
+import Department from '@/views/department/index'
+import Employee from '@/views/employee/index'
 
 Vue.use(Router)
 
@@ -121,6 +123,23 @@ export default new Router({
           path: 'sensorTypeAdd',
           name: '传感器类别添加',
           component: SensorTypeAdd
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '单位管理',
+      component: Home,
+      children: [
+        {
+          path: 'department',
+          name: '部门管理',
+          component: Department,
+        },
+        {
+          path: 'employee',
+          name: '人员管理',
+          component: Employee
         },
       ]
     },

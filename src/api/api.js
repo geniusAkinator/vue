@@ -8,49 +8,49 @@ export const getFactoryGeo = params => {
     return request({
         url: '/factory/map',
         data: params
-    }).then(res => res);
+    });
 };
 
 export const getFactoryCal = params => {
     return request({
         url: '/factory/calendar',
         data: params
-    }).then(res => res);
+    });
 };
 
 export const getRealtimeData = params => {
     return request({
         url: '/realtime/data',
         data: params
-    }).then(res => res);
+    });
 };
 
 export const getRealtimeStatus = params => {
     return request({
         url: '/realtime/status',
         data: params
-    }).then(res => res);
+    });
 };
 
 export const getCoo = params => {
     return http.getRequestJsonp({  //jsonp获取数据
         url: 'http://api.map.baidu.com/place/v2/suggestion',
         data: params,
-    }).then(res => res);
+    });
 };
 
 export const getRouteData = params => {
     return request({
         url: '/proute/data',
         data: params
-    }).then(res => res);
+    });
 };
 
 export const getTypeData = params => {
     return request({
         url: '/proute/typeData',
         data: params
-    }).then(res => res);
+    });
 };
 
 
@@ -86,7 +86,7 @@ export const getMenuDetail = params => { //获取菜单列表
         url: '/Menu/menuDetail',
         params: params,
         method: 'GET',
-    }).then(res => res);
+    });
 };
 
 export const updateMenuData = params => { //更新菜单信息
@@ -94,7 +94,7 @@ export const updateMenuData = params => { //更新菜单信息
         url: '/Menu/updateMenu',
         data: params,
         method: "PUT"
-    }).then(res => res);
+    });
 }
 
 /**
@@ -106,7 +106,7 @@ export const addRoleData = params => { //添加角色
         url: '/role/addRole',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getRoleData = params => { //获取角色列表
@@ -114,7 +114,7 @@ export const getRoleData = params => { //获取角色列表
         url: '/role/roleList',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const delRoleData = params => {  //删除角色
@@ -122,7 +122,7 @@ export const delRoleData = params => {  //删除角色
         url: '/role/deleteRole',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 export const getRoleDetail = params => { //获取菜单列表
@@ -130,7 +130,7 @@ export const getRoleDetail = params => { //获取菜单列表
         url: '/role/roleDetail',
         params: params,
         method: 'GET',
-    }).then(res => res);
+    });
 };
 
 export const updateRoleData = params => { //更新菜单信息
@@ -138,7 +138,7 @@ export const updateRoleData = params => { //更新菜单信息
         url: '/role/updateRole',
         data: params,
         method: "PUT"
-    }).then(res => res);
+    });
 }
 
 export const getCheckedMenuData = params => { //获取
@@ -146,7 +146,7 @@ export const getCheckedMenuData = params => { //获取
         url: '/role/getCheckedMenuData',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const getAllMenuData = params => {
@@ -154,7 +154,7 @@ export const getAllMenuData = params => {
         url: '/Menu/allMenuList',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const updateCheckedMenuData = params => { //修改角色菜单
@@ -162,7 +162,7 @@ export const updateCheckedMenuData = params => { //修改角色菜单
         url: '/role/updateMenu',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getAllRoleData = params => { //获取所有角色信息（不分页）
@@ -170,7 +170,7 @@ export const getAllRoleData = params => { //获取所有角色信息（不分页
         url: '/role/allRole',
         params: params,
         method: 'GET',
-    }).then(res => res);
+    });
 };
 
 
@@ -184,7 +184,7 @@ export const getUserData = params => { //获取用户列表
         url: '/user/userList',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const delUserData = params => {  //删除用户
@@ -192,7 +192,7 @@ export const delUserData = params => {  //删除用户
         url: '/user/deleteUser',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 export const addUserData = params => { //添加用户
@@ -200,7 +200,7 @@ export const addUserData = params => { //添加用户
         url: '/user/addUser',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const updateUserData = params => { //更新用户
@@ -208,7 +208,7 @@ export const updateUserData = params => { //更新用户
         url: '/user/updateUser',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const updateUserPwd = params => {//修改用户密码
@@ -216,7 +216,7 @@ export const updateUserPwd = params => {//修改用户密码
         url: '/user/setPwd',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getUserDetail = params => { //获取用户信息
@@ -224,7 +224,7 @@ export const getUserDetail = params => { //获取用户信息
         url: '/user/userDetail',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 };
 
 export const getAccountIsExist = params => { //根据account name查询是否存在
@@ -232,7 +232,7 @@ export const getAccountIsExist = params => { //根据account name查询是否存
         url: '/user/isFound',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 /**
@@ -243,7 +243,7 @@ export const getAllData = params => { //获取所有统计数据
         url: '/index/allData',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 /**
@@ -253,8 +253,8 @@ export const getFactoryData = params => { //获取工厂信息
     return request({
         url: '/factory/findAllFactory',
         params: params,
-        method: "POST"
-    }).then(res => res);
+        method: "GET"
+    });
 }
 
 export const delFactoryData = params => {  //删除工厂信息
@@ -262,7 +262,7 @@ export const delFactoryData = params => {  //删除工厂信息
         url: '/factory/deleteFactory',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 export const updateFactoryData = params => { //修改工厂信息
@@ -270,7 +270,7 @@ export const updateFactoryData = params => { //修改工厂信息
         url: '/factory/updateFactory',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const addFactoryData = params => { //添加工厂
@@ -278,7 +278,7 @@ export const addFactoryData = params => { //添加工厂
         url: '/factory/addFactory',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getFactoryDetail = params => { //获取工厂详情
@@ -286,7 +286,7 @@ export const getFactoryDetail = params => { //获取工厂详情
         url: '/factory/factoryDetail',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 
@@ -298,7 +298,7 @@ export const getSensorData = params => { //获取传感器信息
         url: '/transducer/transducerList',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const getSensorDetail = params => { //获取传感器详情
@@ -306,7 +306,7 @@ export const getSensorDetail = params => { //获取传感器详情
         url: '/transducer/transducerDetail',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const updateSensorData = params => { //修改传感器信息
@@ -314,7 +314,7 @@ export const updateSensorData = params => { //修改传感器信息
         url: '/transducer/updateTransducer',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const delSensorData = params => {  //删除传感器
@@ -322,7 +322,7 @@ export const delSensorData = params => {  //删除传感器
         url: '/transducer/deleteTransducer',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 export const addSensorData = params => { //添加传感器
@@ -330,7 +330,7 @@ export const addSensorData = params => { //添加传感器
         url: '/transducer/addTransducer',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getPCD = params => { //获取城市级联
@@ -338,7 +338,7 @@ export const getPCD = params => { //获取城市级联
         url: '/pcd/address',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 /**
@@ -349,7 +349,7 @@ export const addSensorTypeData = params => { //添加传感器类型
         url: '/transducerType/addTransducerType',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const getSensorTypeData = params => { //获取传感器类型信息
@@ -357,7 +357,7 @@ export const getSensorTypeData = params => { //获取传感器类型信息
         url: '/transducerType/transducerTypeList',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const getAllSensorTypeData = params => { //获取传感器类型信息（不分页）
@@ -365,7 +365,7 @@ export const getAllSensorTypeData = params => { //获取传感器类型信息（
         url: '/transducerType/transducerTypeAll',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const delSensorTypeData = params => {  //删除传感器类型信息
@@ -373,7 +373,7 @@ export const delSensorTypeData = params => {  //删除传感器类型信息
         url: '/transducerType/deleteTransducerType',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 export const getSensorTypeDetail = params => { //获取传感器类型详情
@@ -381,7 +381,7 @@ export const getSensorTypeDetail = params => { //获取传感器类型详情
         url: '/transducerType/transducerTypeDetail',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const updateSensorTypeData = params => { //修改传感器类型信息
@@ -389,7 +389,7 @@ export const updateSensorTypeData = params => { //修改传感器类型信息
         url: '/transducerType/updateTransducerType',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 /**
@@ -401,7 +401,7 @@ export const getStandardDetail = params => {
         url: '/standard/transducerTypeListByTtId',
         params: params,
         method: "GET"
-    }).then(res => res);
+    });
 }
 
 export const updateStandardData = params => { //修改传感器类型预警标准
@@ -409,7 +409,7 @@ export const updateStandardData = params => { //修改传感器类型预警标�
         url: '/standard/updateStandard',
         data: params,
         method: "POST"
-    }).then(res => res);
+    });
 }
 
 export const delStandardData = params => {  //删除传感器类型预警标准
@@ -417,18 +417,18 @@ export const delStandardData = params => {  //删除传感器类型预警标准
         url: '/standard/deleteStandard',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
 }
 
 /**
- *系统日志
+ *系统日志(sysLog)
  */
 export const getSysLogData = params => { //获取日志信息
     return request({
         url: '/resLog/findAllResLog',
-        data: params,
+        params: params,
         method: "GET"
-    })
+    });
 }
 
 export const delSysLogData = params => {  //删除日志信息
@@ -436,5 +436,91 @@ export const delSysLogData = params => {  //删除日志信息
         url: '/resLog/deleteResLog',
         params: params,
         method: "DELETE"
-    }).then(res => res);
+    });
+}
+
+/**
+ *部门管理(department)
+ */
+export const getDepartmentData = params => { //获取部门信息
+    return request({
+        url: '/department/departmentList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const addDepartmentData = params => { //添加部门信息
+    return request({
+        url: '/department/addDepartment',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const updateDepartmentData = params => { //修改部门信息
+    return request({
+        url: '/department/updateDepartment',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const getDepartmentDetail = params => { //获取部门信息详情
+    return request({
+        url: '/department/departmentDetail',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const delDepartmentData = params => {  //删除部门信息
+    return request({
+        url: '/department/deleteDepartment',
+        params: params,
+        method: "DELETE"
+    });
+}
+
+/**
+ * 人员管理
+ */
+export const getEmployeeData = params => { //获取人员信息
+    return request({
+        url: '/employee/employeeList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const addEmployeeData = params => { //添加人员信息
+    return request({
+        url: '/employee/addEmployee',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const updateEmployeeData = params => { //修改人员信息
+    return request({
+        url: '/employee/updateEmployee',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const getEmployeeDetail = params => { //获取人员详情
+    return request({
+        url: '/employee/employeeDetail',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const delEmployeeData = params => {  //删除人员信息
+    return request({
+        url: '/employee/deleteEmployee',
+        params: params,
+        method: "DELETE"
+    });
 }

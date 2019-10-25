@@ -217,12 +217,26 @@ const mutations = { //同步
                 icon: "el-icon-document",
                 children: [
                     {
-                        name: "工厂信息管理",
+                        name: "工厂管理",
                         path: "factory"
                     },
                     {
-                        name: "传感器信息管理",
+                        name: "传感器管理",
                         path: "sensor"
+                    }
+                ]
+            },
+            {
+                name:"单位管理",
+                icon: "el-icon-s-cooperation",
+                children: [
+                    {
+                        name: "部门管理",
+                        path: "department"
+                    },
+                    {
+                        name: "人员管理",
+                        path: "employee"
                     }
                 ]
             },
