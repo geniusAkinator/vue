@@ -10,7 +10,7 @@
           @click="handleDeleteMore"
           :disabled="did==''"
         >批量删除</el-button>
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器类型</el-button>
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加型号</el-button>
       </el-button-group>
       <my-search-tool>
         <template slot="content">
@@ -143,7 +143,7 @@ export default {
     },
     handleEdit(idx, row) {
       this.eid = row.ttId;
-      //修改传感器类型
+      //修改型号
       let index = this.$layer.iframe({
         content: {
           content: MySensorTypeEdit, //传递的组件对象
@@ -153,7 +153,7 @@ export default {
         shade: true,
         shadeClose: false,
         area: ["400px", "400px"],
-        title: "修改传感器类型",
+        title: "修改型号",
         target: ".el-main"
       });
       this.index = index;
@@ -166,7 +166,7 @@ export default {
 
     handleClick() {},
     handleAdd() {
-      //添加传感器类型
+      //添加型号
       let index = this.$layer.iframe({
         content: {
           content: MySensorTypeAdd, //传递的组件对象
@@ -176,7 +176,7 @@ export default {
         shade: true,
         shadeClose: false,
         area: ["400px", "400px"],
-        title: "新增传感器类型",
+        title: "新增型号",
         target: ".el-main"
       });
       this.index = index;

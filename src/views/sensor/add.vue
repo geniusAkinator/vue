@@ -4,8 +4,8 @@
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
-      <el-form-item label="设备类型">
-        <el-select v-model="form.transducerType.ttId" placeholder="请选择设备类型">
+      <el-form-item label="设备型号">
+        <el-select v-model="form.transducerType.ttId" placeholder="请选择设备型号">
           <el-option
             v-for="item in options"
             :key="item.value"

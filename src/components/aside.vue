@@ -6,7 +6,9 @@
       :class="isCollapse ? 'app-side-collapsed' : 'app-side-expanded'"
     >
       <div class="app-side-logo">
-        <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
+        <router-link :to="'desktop'">
+          <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
+        </router-link>
       </div>
       <div class="app-side-menu">
         <!-- 菜单 -->
@@ -125,7 +127,7 @@ export default {
 .side_drawer.isCollapse i:hover {
   background-position: -22px -61px;
 }
-.app-side-logo img{
+.app-side-logo img {
   cursor: pointer;
 }
 </style>

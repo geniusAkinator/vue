@@ -113,7 +113,7 @@ export default new Router({
         },
         {
           path: 'sensorType',
-          name: '传感器类别管理',
+          name: '传感器型号管理',
           component: SensorType
         },
       ]

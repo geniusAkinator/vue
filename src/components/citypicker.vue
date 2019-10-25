@@ -1,7 +1,7 @@
 <template>
   <div class="city-picker">
     <el-row>
-      <el-col :span="6">
+      <el-col :span="7">
         <el-select
           v-model="pvalue"
           placeholder="请选择省"
@@ -16,7 +16,7 @@
           ></el-option>
         </el-select>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="7">
         <el-select v-model="cvalue" placeholder="请选择市" @change="selectCity" @focus="handleClick">
           <el-option
             v-for="item in coptions"
@@ -26,7 +26,7 @@
           ></el-option>
         </el-select>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="7">
         <el-select
           v-model="dvalue"
           placeholder="请选择区/县"
@@ -168,6 +168,9 @@ export default {
 <style>
 .city-picker .el-col:nth-child(2),
 .city-picker .el-col:nth-child(3) {
-  margin-left: 20px;
+  margin-left: 0;
+}
+.city-picker{
+  max-width: 800px;
 }
 </style>

@@ -117,6 +117,7 @@ export default {
           fd.append("file", files[0]);
           http
             .getRequestUpload("/factory/upload", fd, res => {
+              console.log(res)
               let loaded = res.loaded;
               let total = res.total;
               this.percentage = (loaded / total) * 100;
@@ -140,6 +141,7 @@ export default {
               // _this.isLoading = false;
               // _this.isFail = true;
             });
+          this.$refs.file.value = ''
         }
       }
     },

@@ -13,12 +13,12 @@
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加传感器</el-button>
         <el-dropdown @command="handleCommand" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-plus">
-            添加类型
+            添加传感器型号
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="add">添加传感器类型</el-dropdown-item>
-            <el-dropdown-item command="list" divided>传感器类型列表</el-dropdown-item>
+            <el-dropdown-item command="add">添加型号</el-dropdown-item>
+            <el-dropdown-item command="list" divided>型号列表</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown @command="handleUpload" trigger="click">
@@ -204,7 +204,7 @@ export default {
           shade: true,
           shadeClose: false,
           area: ["400px", "400px"],
-          title: "新增传感器类型",
+          title: "新增型号",
           target: ".el-main"
         });
       } else if (command == "list") {
@@ -231,7 +231,7 @@ export default {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.tableData = _data.content;
-            this.total = _data.count;
+            this.total = _data.total;
           }
         })
         .catch(_ => {});

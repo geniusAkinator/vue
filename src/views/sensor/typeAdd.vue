@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="90px">
-      <el-form-item label="类型名称">
+      <el-form-item label="型号名称">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="状态">
