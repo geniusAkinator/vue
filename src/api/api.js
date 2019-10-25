@@ -360,13 +360,6 @@ export const getSensorTypeData = params => { //获取传感器类型信息
     });
 }
 
-export const getAllSensorTypeData = params => { //获取传感器类型信息（不分页）
-    return request({
-        url: '/transducerType/transducerTypeAll',
-        params: params,
-        method: "GET"
-    });
-}
 
 export const delSensorTypeData = params => {  //删除传感器类型信息
     return request({

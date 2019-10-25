@@ -144,25 +144,14 @@ export default {
     }
   },
   mounted() {
-    const loading = this.$loading({
-      target: document.querySelector(".el-main.app-body"),
-      lock: true,
-      text: "加载中...",
-      spinner: "loading",
-      background: "rgba(0, 0, 0, 0.7)",
-      customClass: "el-loading"
-    });
-    setTimeout(() => {
-      loading.close();
-      api
-        .getRealtimeData()
-        .then(res => {
-          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            this.tableData = res.data;
-          }
-        })
-        .catch(_ => {});
-    }, 600);
+    api
+      .getRealtimeData()
+      .then(res => {
+        if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          this.tableData = res.data;
+        }
+      })
+      .catch(_ => {});
   },
   components: {
     MySearchTool,

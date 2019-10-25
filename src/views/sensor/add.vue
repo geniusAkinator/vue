@@ -79,6 +79,10 @@ export default {
       }
     };
     return {
+      Listform: {
+        pageNum: 1,
+        pageSize: 0
+      },
       form: {
         //提交数据
         deviceNumber: "",
@@ -86,12 +90,11 @@ export default {
         latitude: 0,
         longitude: 0,
         transducerType: {
-          ttId: 0
+          ttId: ""
         }
       },
       options: [],
       isShow: true,
-      options: [],
       rules: {
         //表单验证规则
         deviceNumber: [
@@ -149,14 +152,15 @@ export default {
       this.form.longitude = e.lng;
     },
     initForm() {
+      let _this = this;
       api
-        .getAllSensorTypeData()
+        .getSensorTypeData(this.Listform)
         .then(res => {
-          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let content = _data.content;
             content.map((item, i) => {
-              if (item.state) {
+              if (!item.state) {
                 let temp = {};
                 temp.label = item.name;
                 temp.value = item.ttId;

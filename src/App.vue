@@ -172,7 +172,7 @@ body {
   line-height: 26px;
   margin-right: 10px;
   text-align: center;
-  border: 1px solid #DCDFE6;
+  border: 1px solid #dcdfe6;
   cursor: pointer;
   -webkit-transition: 0.5s all;
   transition: 0.5s all;
@@ -502,13 +502,26 @@ input:focus + .el-input__suffix {
 .el-alert + .table-tool {
   margin-top: 20px;
 }
-.table-tool{
-  z-index: 2001;
+.table-tool {
+  z-index: 2001 !important;
 }
-.vl-notify-content{
+.vl-notify-content {
   z-index: 2002 !important;
 }
-.vl-notify{
+.vl-notify {
   z-index: 2003 !important;
+}
+.v-modal {
+  z-index: 2002 !important;
+}
+.el-message-box__wrapper {
+  z-index: 2003 !important;
+}
+.readonly > input {
+  cursor: not-allowed;
+}
+.el-progress-bar{
+  padding-right: 25px;
+  margin-right: -30px;
 }
 </style>

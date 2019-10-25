@@ -75,6 +75,10 @@ export default {
       }
     };
     return {
+      Listform: {
+        pageNum: 1,
+        pageSize: 0
+      },
       form: {
         transducerId: this.$parent.eid,
         //提交数据
@@ -152,14 +156,15 @@ export default {
       };
       let loadingInstance = Loading.service(options);
       //option回显
+      let _this = this;
       api
-        .getAllSensorTypeData()
+        .getSensorTypeData(this.Listform)
         .then(res => {
-          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let content = _data.content;
             content.map((item, i) => {
-              if (item.state) {
+              if (!item.state) {
                 let temp = {};
                 temp.label = item.name;
                 temp.value = item.ttId;

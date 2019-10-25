@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="所属工厂">
-        <el-select v-model="form.factoryId" placeholder="请选择所属工厂">
+        <el-select v-model="form.factoryId" placeholder="请选择所属工厂" disabled>
           <el-option
             v-for="item in coptions"
             :key="item.factoryId"
