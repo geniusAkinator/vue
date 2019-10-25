@@ -6,9 +6,12 @@
         <el-image style="width:100%; height:100%" :src="item.url" :fit="fit"></el-image>
         <div class="cover">
           <i class="el-icon-zoom-in" @click="handleShow(index)"></i>
-          <i class="el-icon-download" @click="handleDownload(index)"></i>
+          <!-- <i class="el-icon-download" @click="handleDownload(index)"></i> -->
           <i class="el-icon-delete" @click="handleDelete(index)"></i>
         </div>
+      </div>
+      <div v-show="isShow">
+        <el-progress :percentage="percentage" status="success"></el-progress>
       </div>
     </div>
     <div class="upload-btn" @click="handleUpload" v-if="this.limited>this.fileUrl.length">
@@ -46,10 +49,10 @@ export default {
     return {
       fileUrl: [],
       fit: "cover",
-      percentage: 0,
       isFail: false,
       isLoading: true,
-      isShow: false
+      isShow: false,
+      percentage: 0
     };
   },
   props: {
@@ -57,13 +60,13 @@ export default {
       type: Number,
       default: 9
     },
-    image:{
-      type:Array
+    image: {
+      type: Array
     }
   },
-  watch:{
-    image(){
-      this.fileUrl = this.image
+  watch: {
+    image() {
+      this.fileUrl = this.image;
     }
   },
   methods: {
@@ -72,13 +75,16 @@ export default {
     },
     handleDelete(index) {
       this.fileUrl.splice(index, 1);
+      this.isShow = false;
       this.$emit("sendDelIndex", index);
     },
-    handleDownload(index){
-      console.log(index)
+    handleDownload(index) {
+      console.log(index);
     },
     uploadFile() {
       let _this = this;
+      _this.percentage = 0;
+
       let files = this.$refs.file.files;
       if (files.length == 0) {
         //非空
@@ -110,7 +116,11 @@ export default {
           let fd = new FormData();
           fd.append("file", files[0]);
           http
-            .getRequestUpload("/factory/upload", fd)
+            .getRequestUpload("/factory/upload", fd, res => {
+              let loaded = res.loaded;
+              let total = res.total;
+              this.percentage = (loaded / total) * 100;
+            })
             .then(res => {
               // _this.isFail = false;
               // _this.isLoading = false;
@@ -164,6 +174,7 @@ export default {
   border-radius: 3px;
   position: relative;
   margin: 0 8px 8px 0;
+  z-index: 99;
 }
 .myUpload {
   overflow: hidden;
@@ -187,8 +198,8 @@ export default {
   cursor: pointer;
   font-size: 20px;
 }
-.pre-img i:hover{
-  color: #409eff
+.pre-img i:hover {
+  color: #409eff;
 }
 .images {
   overflow: hidden;

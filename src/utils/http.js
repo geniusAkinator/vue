@@ -34,39 +34,37 @@ const HttpRequest = {
     //         reject(err)
     //     })
     // },
-    getRequestUpload(url, data) { //文件上传
+    getRequestUpload(url, data , callback) { //文件上传
         console.log(baseURL, url, data)
         return new Promise((resolve, reject) => {
-            // axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'; 
-
-            axios.post(baseURL + url, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(res => {
-                resolve(res.data)
-            }).catch(err => {
-                reject(err)
-            });
-            // axios({
-            //     url: baseURL + url,
-            //     method: 'POST',
-            //     data: data,
+            // axios.post(baseURL + url, data, {
             //     headers: {
             //         'Content-Type': 'multipart/form-data'
-            //     },
-            //     onUploadProgress: function (progressEvent) { //callback回调上传进度
-            //         if (progressEvent.lengthComputable) { callback(progressEvent); }
-            //     },
-            // }).then(
-            //     res => {
-            //         resolve(res.data)
             //     }
-            // ).catch(
-            //     err => {
-            //         reject(err)
-            //     }
-            // )
+            // }).then(res => {
+            //     resolve(res.data)
+            // }).catch(err => {
+            //     reject(err)
+            // });
+            axios({
+                url: baseURL + url,
+                method: 'POST',
+                data: data,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: function (progressEvent) { //callback回调上传进度
+                    if (progressEvent.lengthComputable) { callback(progressEvent); }
+                },
+            }).then(
+                res => {
+                    resolve(res.data)
+                }
+            ).catch(
+                err => {
+                    reject(err)
+                }
+            )
         })
     },
     getRequestJsonp({ url, data }) {
