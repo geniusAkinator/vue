@@ -213,21 +213,27 @@ const mutations = { //同步
                 ]
             },
             {
-                name: "信息管理",
-                icon: "el-icon-document",
+                name: "主体管理",
+                icon: "el-icon-office-building",
                 children: [
                     {
                         name: "工厂管理",
                         path: "factory"
                     },
-                    {
-                        name: "传感器管理",
-                        path: "sensor"
-                    }
                 ]
             },
             {
-                name:"单位管理",
+                name: "设备管理",
+                icon: "el-icon-set-up",
+                children: [
+                    {
+                        name: "传感器管理",
+                        path: "sensor"
+                    },
+                ]
+            },
+            {
+                name: "单位管理",
                 icon: "el-icon-s-cooperation",
                 children: [
                     {
@@ -281,12 +287,12 @@ const mutations = { //同步
                 ]
             },
             {
-                name:"页面管理",
-                icon:"el-icon-mobile-phone",
-                children:[
+                name: "页面管理",
+                icon: "el-icon-mobile-phone",
+                children: [
                     {
-                        name:"默认导航",
-                        path:"nav"
+                        name: "默认导航",
+                        path: "nav"
                     }
                 ]
             },

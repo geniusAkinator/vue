@@ -10,12 +10,6 @@
           <el-radio label="1">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <!-- <el-form-item label="预警标准" v-for="(item,index) in form.standard" :key="index">
-        <my-alarm :rule="item" :index="index" @getDelIndex="getDelIndex" @getNewItem="getNewItem"></my-alarm>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="success" @click="handleAdd">添加标准</el-button>
-      </el-form-item>-->
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -25,7 +19,6 @@
 </template>
 
 <script>
-import MyAlarm from "@/components/alarm";
 import api from "@/api/index";
 export default {
   data() {
@@ -96,7 +89,7 @@ export default {
   },
   mounted() {},
   components: {
-    MyAlarm
+    
   }
 };
 </script>

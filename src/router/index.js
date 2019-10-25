@@ -91,7 +91,7 @@ export default new Router({
     },
     {
       path: '/',
-      name: '信息管理',
+      name: '主体管理',
       component: Home,
       children: [
         {
@@ -99,30 +99,22 @@ export default new Router({
           name: '工厂管理',
           component: Factory,
         },
+      ]
+    },
+    {
+      path: '/',
+      name: '设备管理',
+      component: Home,
+      children: [
         {
           path: 'sensor',
           name: '传感器管理',
           component: Sensor
         },
         {
-          path: 'factoryAdd',
-          name: '工厂添加',
-          component: FactoryAdd
-        },
-        {
-          path: 'sensorAdd',
-          name: '传感器添加',
-          component: SensorAdd
-        },
-        {
           path: 'sensorType',
           name: '传感器类别管理',
           component: SensorType
-        },
-        {
-          path: 'sensorTypeAdd',
-          name: '传感器类别添加',
-          component: SensorTypeAdd
         },
       ]
     },

@@ -68,7 +68,7 @@
       <el-table-column prop="name" label="传感器类型名称"></el-table-column>
       <el-table-column label="操作" fixed="right" width="250px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleConfig(scope.$index, scope.row)">报警标准</el-button>
+          <el-button size="mini" @click="handleConfig(scope.$index, scope.row)">技术参数</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -81,7 +81,7 @@
         :hide-on-single-page="isPaging"
         :current-page="currentPage4"
         :page-sizes="[25, 50, 75, 100]"
-        :page-size="100"
+        :page-size="25"
         layout="prev,pager,next,jumper,total,sizes"
         :total="total"
       ></el-pagination>
@@ -192,7 +192,7 @@ export default {
             console.log(res.data);
             let _data = res.data;
             this.tableData = _data.content;
-            this.total = _data.count;
+            this.total = _data.total;
           }
         })
         .catch(_ => {});
@@ -210,7 +210,7 @@ export default {
         },
         shade: true,
         area: ["600px", "600px"],
-        title: "新增传感器",
+        title: "配置技术参数",
         target: ".el-main"
       });
       this.index = index;

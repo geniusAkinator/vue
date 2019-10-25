@@ -105,7 +105,11 @@ export default {
     },
     handleChange() {},
     initForm() {
-c
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
       api
         .getFactoryData(this.Listform)
         .then(res => {

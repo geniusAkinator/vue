@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import MyAlarm from "@/components/alarm";
 import api from "@/api/index";
 export default {
   data() {
@@ -78,7 +77,7 @@ export default {
     }
   },
   components: {
-    MyAlarm
+    
   }
 };
 </script>

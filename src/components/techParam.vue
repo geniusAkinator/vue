@@ -3,6 +3,26 @@
     <div class="my-row">
       <label class="my-label no-right-radius no-right-border" for>名称</label>
       <el-input class="no-radius" v-model="nowRule.name" placeholder="请输入名称"></el-input>
+      <label class="my-label no-left-radius no-right-radius no-both-border" for>类型</label>
+      <el-select v-model="nowRule.type" placeholder="请选择" class="no-left-radius no-left-border">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
+    </div>
+    <div class="my-row" v-if="nowRule.type == 0">
+      <label class="my-label no-right-radius no-right-border" for>下限</label>
+      <el-input
+        class="no-radius"
+        v-model="nowRule.lowerlimit"
+        placeholder="请输入下限"
+        type="number"
+        step="1"
+        max="9999"
+      ></el-input>
       <label class="my-label no-radius no-both-border" for>上限</label>
       <el-input
         class="no-radius"
@@ -12,20 +32,13 @@
         step="1"
         max="9999"
       ></el-input>
-      <label class="my-label no-radius no-both-border" for>下限</label>
-      <el-input
-        class="no-radius"
-        v-model="nowRule.lowerlimit"
-        placeholder="请输入下限"
-        type="number"
-        step="1"
-        max="9999"
-      ></el-input>
-    </div>
-    <div class="my-row">
-      <label class="my-label no-right-radius no-right-border" for>单位</label>
-      <el-input class="no-radius" v-model="nowRule.unit" placeholder="请输入单位名称"></el-input>
+      <label class="my-label no-left-radius no-right-radius no-left-border no-right-border" for>单位</label>
+      <el-input class="no-radius no-left-border" v-model="nowRule.unit" placeholder="请输入单位名称"></el-input>
       <i class="el-icon-close btnDel" title="删除" @click="handleDel"></i>
+    </div>
+    <div class="my-row" v-if="nowRule.type == 1">
+      <label class="my-label no-right-radius no-right-border" for>内容</label>
+      <el-input class="no-radius no-left-border" v-model="nowRule.content" placeholder="请输入自定义内容"></el-input>
     </div>
   </div>
 </template>
@@ -35,7 +48,18 @@ export default {
   data() {
     return {
       value: "1",
-      nowRule: this.rule
+      nowRule: this.rule,
+      type: 0,
+      options: [
+        {
+          label: "范围",
+          value: 0
+        },
+        {
+          label: "自定义",
+          value: 1
+        }
+      ]
     };
   },
   props: {

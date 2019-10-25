@@ -1,16 +1,16 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="70px">
-      <el-form-item label="预警标准" v-for="(item,index) in form.standard" :key="index">
-        <my-alarm
+      <el-form-item label="技术参数" v-for="(item,index) in form.standard" :key="index">
+        <my-tech-param
           :rule.sync="item"
           :index="index"
           @getDelIndex="getDelIndex"
           @getNewItem="getNewItem"
-        ></my-alarm>
+        ></my-tech-param>
       </el-form-item>
       <el-form-item>
-        <el-button type="success" @click="handleAdd">添加标准</el-button>
+        <el-button type="success" @click="handleAdd">添加参数</el-button>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import MyAlarm from "@/components/alarm";
+import MyTechParam from "@/components/techParam";
 import api from "@/api/index";
 import { Loading } from "element-ui";
 export default {
@@ -123,6 +123,7 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data.content;
+            console.log(_data)
             _data.map((item, i) => {
               let temp = {};
               temp.standardId = item.standardId;
@@ -130,6 +131,8 @@ export default {
               temp.upperlimit = item.upperLimit;
               temp.unit = item.unit;
               temp.name = item.name;
+              temp.type = item.type;
+              temp.content = item.content;
               //   console.log(temp);
               this.form.standard.push(temp);
             });
@@ -145,7 +148,7 @@ export default {
     this.initForm();
   },
   components: {
-    MyAlarm
+    MyTechParam
   }
 };
 </script>
