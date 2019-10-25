@@ -502,4 +502,13 @@ input:focus + .el-input__suffix {
 .el-alert + .table-tool {
   margin-top: 20px;
 }
+.table-tool{
+  z-index: 2001;
+}
+.vl-notify-content{
+  z-index: 2002 !important;
+}
+.vl-notify{
+  z-index: 2003 !important;
+}
 </style>
