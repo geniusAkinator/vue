@@ -37,6 +37,8 @@ import Record from '@/views/record/index'
 import Nav from '@/views/nav/index'
 import Department from '@/views/department/index'
 import Employee from '@/views/employee/index'
+import Notice from '@/views/notice/index'
+
 
 Vue.use(Router)
 
@@ -191,6 +193,18 @@ export default new Router({
           path: 'record',
           name: '巡检记录',
           component: Record
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '信息管理',
+      component: Home,
+      children: [
+        {
+          path: 'notice',
+          name: '公告管理',
+          component: Notice
         },
       ]
     },

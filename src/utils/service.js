@@ -16,10 +16,12 @@ Request.interceptors.request.use(config => {
     //此处进行token等数据处理
     //showLoding
     config.headers['Content-Type'] = "application/json";
+    // config.headers.Authorization = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzIzNTg4NDksInVzZXJuYW1lIjoiYWRtaW4ifQ.atwpyjpzSvHx5Hi6ppL7I6HcwZq7kl-0SL_7YKUTBD8"
     return config
 }, error => {
     // Do something with request error
     //show error message
+    console.log(error)
     Message({
         showClose: true,
         message: "登录身份失效",

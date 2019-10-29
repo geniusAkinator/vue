@@ -287,6 +287,16 @@ const mutations = { //同步
                 ]
             },
             {
+                name: "信息管理",
+                icon: "el-icon-document",
+                children: [
+                    {
+                        name: "公告管理",
+                        path: "notice"
+                    }
+                ]
+            },
+            {
                 name: "页面管理",
                 icon: "el-icon-mobile-phone",
                 children: [

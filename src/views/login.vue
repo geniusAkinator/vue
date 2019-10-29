@@ -4,10 +4,10 @@
       <el-form ref="form" :model="form" class="login-container">
         <div class="title">平台登录</div>
         <el-form-item>
-          <el-input v-model="form.name" placeholder="用户名" clearable></el-input>
+          <el-input v-model="form.account" placeholder="用户名" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="form.pwd" placeholder="密码" show-password></el-input>
+          <el-input v-model="form.password" placeholder="密码" show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="form.vcode" placeholder="验证码"></el-input>
@@ -18,29 +18,41 @@
         <el-form-item>
           <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
         </el-form-item>
+        <p style="color:#fff">测试账号：admin/admin</p>
       </el-form>
     </el-main>
     <!-- <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer> -->
   </el-container>
 </template>
-
 <script>
+import api from "@/api/index";
 export default {
   data() {
     return {
       logining: false,
-      form: {},
+      form: {
+        account: "",
+        password: ""
+      },
       checked: false,
       user: {}
     };
   },
   methods: {
     login() {
-      this.logining = true;
-      setTimeout(() => {
-        sessionStorage.setItem("user", JSON.stringify(this.user));
-        this.$router.push("/", () => {});
-      }, 1000);
+      api.login(this.form).then(res => {
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          this.logining = true;
+          sessionStorage.setItem("user", JSON.stringify(_data));
+          this.$router.push("/", () => {});
+        }
+      });
+
+      // setTimeout(() => {
+      //   sessionStorage.setItem("user", JSON.stringify(this.user));
+      //   this.$router.push("/", () => {});
+      // }, 1000);
     }
   },
   destroyed() {
@@ -119,7 +131,7 @@ body > .el-container {
   border-radius: 2px;
   padding: 20px;
 }
-.el-checkbox{
-  color: #d3dce6 !important
+.el-checkbox {
+  color: #d3dce6 !important;
 }
 </style>

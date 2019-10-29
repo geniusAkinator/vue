@@ -517,3 +517,25 @@ export const delEmployeeData = params => {  //删除人员信息
         method: "DELETE"
     });
 }
+
+/**
+ *公告管理
+ */
+export const getNoticeData = params => { //获取公告信息
+    return request({
+        url: '/notice/noticeList',
+        params: params,
+        method: "GET"
+    });
+}
+
+/**
+ *
+ */
+export const login = params => { //登录
+    return request({
+        url: '/user/login',
+        data: params,
+        method: "POST"
+    });
+}
