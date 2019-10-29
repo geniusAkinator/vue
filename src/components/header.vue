@@ -33,14 +33,14 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>我的消息</el-dropdown-item>
           <el-dropdown-item>设置</el-dropdown-item>
-          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click.native="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
   </el-header>
 </template>
-
 <script>
+import api from "@/api/index";
 export default {
   data() {
     return {
@@ -48,12 +48,21 @@ export default {
     };
   },
   methods: {
-    logout: function() {
+    handleLogout: function() {
       var _this = this;
       this.$confirm("确认退出?", "提示", {})
         .then(() => {
-          sessionStorage.removeItem("user");
-          _this.$router.push("/Login", () => {});
+          api
+            .logout(this.form)
+            .then(res => {
+              console.log(res);
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("userInfo");
+                _this.$router.push("/login", () => {});
+              }
+            })
+            .catch(_ => {});
         })
         .catch(() => {});
     },
@@ -117,9 +126,9 @@ export default {
 .userName {
   margin-right: 10px;
 }
-.app-header-userinfo .el-dropdown i{
+.app-header-userinfo .el-dropdown i {
   font-size: 20px;
   margin-right: 20px;
-  margin-top: 3px
+  margin-top: 3px;
 }
 </style>

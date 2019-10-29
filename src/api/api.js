@@ -539,3 +539,11 @@ export const login = params => { //登录
         method: "POST"
     });
 }
+
+export const logout = params => { //注销
+    return request({
+        url: '/user/exit',
+        data: params,
+        method: "POST"
+    })
+}

@@ -13,7 +13,7 @@
           <el-input v-model="form.vcode" placeholder="验证码"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click.prevent="login" :loading="logining">登录</el-button>
+          <el-button type="primary" @click="handleLogin" :loading="logining">登录</el-button>
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
@@ -39,15 +39,23 @@ export default {
     };
   },
   methods: {
-    login() {
-      api.login(this.form).then(res => {
-        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          let _data = res.data;
-          this.logining = true;
-          sessionStorage.setItem("user", JSON.stringify(_data));
-          this.$router.push("/", () => {});
-        }
-      });
+    handleLogin() {
+      // console.log(this.form);
+      api
+        .login(this.form)
+        .then(res => {
+          console.log(res);
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            let token = _data.token;
+            let userInfo = _data.userInfo;
+            this.logining = true;
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("userInfo",JSON.stringify(userInfo));
+            this.$router.push("/", () => {});
+          }
+        })
+        .catch(_ => {});
 
       // setTimeout(() => {
       //   sessionStorage.setItem("user", JSON.stringify(this.user));

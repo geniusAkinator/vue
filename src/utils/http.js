@@ -7,6 +7,7 @@ import originJSONP from 'jsonp'
 import utils from "./utils"
 import baseURL from "./baseUrl"
 
+
 const HttpRequest = {
     // getRequest({ url, data = {}, method = "GET" }) {
     //     return new Promise((resolve, reject) => {

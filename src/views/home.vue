@@ -95,7 +95,7 @@ export default {
   },
   mounted: function() {
     let _this = this;
-    let user = sessionStorage.getItem("user");
+    let user = sessionStorage.getItem("userInfo");
     if (user) {
       _this.username = user;
     }

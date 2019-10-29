@@ -45,9 +45,10 @@ Vue.prototype.GLOBAL = global
 
 router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userInfo');
   }
-  let user = JSON.parse(sessionStorage.getItem('user'));
+  let user = JSON.parse(sessionStorage.getItem('userInfo'));
   if (!user && to.path != '/login') {
     next({ path: '/login' })
   } else {
