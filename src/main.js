@@ -29,7 +29,6 @@ import global from '@/utils/global'
 
 // require('@/mock/mock')
 require('moment')
-
 Vue.prototype.$layer = layer(Vue)
 Vue.prototype.$axios = axios;
 Vue.config.devtools = true;

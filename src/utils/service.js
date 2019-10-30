@@ -18,9 +18,10 @@ Request.interceptors.request.use(config => {
     //此处进行token等数据处理
     //showLoding
     config.headers['Content-Type'] = "application/json";
+    // config.withCredentials = true
     let token = "";
     token = sessionStorage.getItem('token')
-    if (token!="") {
+    if (token) {
         console.log(token)
         config.headers.Authorization = token
     }

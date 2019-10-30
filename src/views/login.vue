@@ -9,38 +9,81 @@
         <el-form-item>
           <el-input v-model="form.password" placeholder="密码" show-password></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="form.vcode" placeholder="验证码"></el-input>
+        <el-form-item class="verity">
+          <el-input v-model="form.vcode" placeholder="验证码" maxlength="4"></el-input>
+          <my-verify-code @sendCode="getCode"></my-verify-code>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleLogin" :loading="logining">登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
+          <el-checkbox v-model="checked" class="remember">七天免登陆</el-checkbox>
         </el-form-item>
         <p style="color:#fff">测试账号：admin/admin</p>
       </el-form>
     </el-main>
-    <!-- <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer> -->
+    <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
   </el-container>
 </template>
 <script>
 import api from "@/api/index";
+import baseURL from "@/utils/baseUrl";
+import MyVerifyCode from "@/components/verifyCode";
 export default {
   data() {
     return {
       logining: false,
       form: {
         account: "",
-        password: ""
+        password: "",
+        vcode: ""
       },
       checked: false,
-      user: {}
+      code: ""
     };
   },
   methods: {
+    getCode(e) {
+      this.code = e;
+      console.log(this.code)
+    },
     handleLogin() {
+      this.verityForm();
       // console.log(this.form);
+    },
+    verityForm() {
+      if (this.form.account == "") {
+        this.$message({
+          showClose: true,
+          message: "账号名不能为空",
+          type: "error"
+        });
+        return;
+      }
+      if (this.form.password == "") {
+        this.$message({
+          showClose: true,
+          message: "密码不能为空",
+          type: "error"
+        });
+        return;
+      }
+      if (this.form.vcode == "") {
+        this.$message({
+          showClose: true,
+          message: "验证码不能为空",
+          type: "error"
+        });
+        return;
+      }
+      if (this.form.vcode != this.code) {
+        this.$message({
+          showClose: true,
+          message: "验证码错误",
+          type: "error"
+        });
+        return;
+      }
       api
         .login(this.form)
         .then(res => {
@@ -51,22 +94,43 @@ export default {
             let userInfo = _data.userInfo;
             this.logining = true;
             sessionStorage.setItem("token", token);
-            sessionStorage.setItem("userInfo",JSON.stringify(userInfo));
+            sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+
             this.$router.push("/", () => {});
+          } else if (res.code == this.AJAX_HELP.CODE_RESPONSE_FAILURE) {
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: "error"
+            });
           }
         })
         .catch(_ => {});
-
-      // setTimeout(() => {
-      //   sessionStorage.setItem("user", JSON.stringify(this.user));
-      //   this.$router.push("/", () => {});
-      // }, 1000);
+      // api
+      //   .verifyCode({ code: this.form.vcode })
+      //   .then(res => {
+      //     console.log(res);
+      //     if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+      //       if (!res.data) {
+      //         this.$message({
+      //           showClose: true,
+      //           message: "验证码不正确",
+      //           type: "error"
+      //         });
+      //         return;
+      //       }
+      //     }
+      //   })
+      //   .catch(_ => {});
     }
   },
   destroyed() {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
     this.$store.dispatch("home/initAside");
+  },
+  components: {
+    MyVerifyCode
   }
 };
 </script>

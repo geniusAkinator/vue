@@ -520,8 +520,21 @@ input:focus + .el-input__suffix {
 .readonly > input {
   cursor: not-allowed;
 }
-.el-progress-bar{
+.el-progress-bar {
   padding-right: 25px;
   margin-right: -30px;
 }
+.verity .el-form-item__content {
+  display: flex;
+}
+.verity img{
+  cursor: pointer;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.verity input{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 </style>

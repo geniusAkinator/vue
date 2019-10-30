@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%">
-    <el-input class="no-border-radius" placeholder="请输入密码" v-model="keyword" @change="handleSearch($event)" size="small"></el-input>
+    <el-input class="no-border-radius" placeholder="请输入icon名称" v-model="keyword" @change="handleSearch($event)" size="small"></el-input>
     <ul class="icon_list">
       <li v-for="(item,index) in filterList" :key="index" @click="handleClick(index)">
         <span>

@@ -547,3 +547,11 @@ export const logout = params => { //注销
         method: "POST"
     })
 }
+
+export const verifyCode = params =>{ //验证码
+    return request({
+        url: '/user/verifyCode',
+        params: params,
+        method: "GET"
+    });
+}
