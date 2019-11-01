@@ -1,6 +1,16 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form-item label="所属工厂" prop="factory">
+        <el-select v-model="form.factory.factoryId" placeholder="请选择所属工厂">
+          <el-option
+            v-for="item in coptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
@@ -14,7 +24,6 @@
           ></el-option>
         </el-select>
       </el-form-item>
-
       <!-- prop="pos" -->
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
@@ -75,7 +84,11 @@ export default {
       }
     };
     return {
-      Listform: {
+      sform: {
+        pageNum: 1,
+        pageSize: 0
+      },
+      cform: {
         pageNum: 1,
         pageSize: 0
       },
@@ -88,6 +101,9 @@ export default {
         longitude: 0,
         transducerType: {
           ttId: 0
+        },
+        factory: {
+          factoryId: 0
         }
       },
       options: [],
@@ -158,7 +174,7 @@ export default {
       //option回显
       let _this = this;
       api
-        .getSensorTypeData(this.Listform)
+        .getSensorTypeData(this.sform)
         .then(res => {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
@@ -169,6 +185,24 @@ export default {
                 temp.label = item.name;
                 temp.value = item.ttId;
                 this.options.push(temp);
+              }
+            });
+          }
+        })
+        .catch(_ => {});
+      api
+        .getFactoryData(this.cform)
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            console.log(_data);
+            let content = _data.content;
+            content.map((item, i) => {
+              if (!item.state) {
+                let temp = {};
+                temp.label = item.factoryName;
+                temp.value = item.factoryId;
+                this.coptions.push(temp);
               }
             });
           }
