@@ -66,7 +66,7 @@
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
             <el-form-item label="图片">
-              <img :src="imgUrl+props.row.picture" alt />
+              <img class="img" :src="imgUrl+props.row.picture" alt />
             </el-form-item>
             <el-form-item label="公司简介">
               <div v-html="props.row.description"></div>
@@ -298,5 +298,8 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+}
+.img{
+  max-height: 100px;
 }
 </style>
