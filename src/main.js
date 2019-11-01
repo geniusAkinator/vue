@@ -26,11 +26,13 @@ import Viewer from "v-viewer"
 import VueClipboard from 'vue-clipboard2'
 import ajaxHelp from '@/utils/ajaxHelp'
 import global from '@/utils/global'
-
+import cookies from 'vue-cookies'; // 引入cookies 插件
+import CryptoJS from 'crypto-js';
 // require('@/mock/mock')
 require('moment')
 Vue.prototype.$layer = layer(Vue)
 Vue.prototype.$axios = axios;
+Vue.prototype.CryptoJS = CryptoJS;
 Vue.config.devtools = true;
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
@@ -39,6 +41,7 @@ Vue.use(Viewer)
 Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.component(CollapseTransition.name, CollapseTransition)
+Vue.prototype.$cookies = cookies;
 Vue.prototype.AJAX_HELP = ajaxHelp
 Vue.prototype.GLOBAL = global
 

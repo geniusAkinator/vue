@@ -17,9 +17,9 @@
           <el-button type="primary" @click="handleLogin" :loading="logining">登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="checked" class="remember">七天免登陆</el-checkbox>
+          <el-checkbox v-model="remember" class="remember">保持登录</el-checkbox>
         </el-form-item>
-        <p style="color:#fff">测试账号：admin/admin</p>
+        <p style="color:#fff;line-height:50px;">测试账号：admin/admin</p>
       </el-form>
     </el-main>
     <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
@@ -38,14 +38,14 @@ export default {
         password: "",
         vcode: ""
       },
-      checked: false,
+      remember: true,
       code: ""
     };
   },
   methods: {
     getCode(e) {
       this.code = e;
-      console.log(this.code)
+      console.log(this.code);
     },
     handleLogin() {
       this.verityForm();
@@ -93,9 +93,12 @@ export default {
             let token = _data.token;
             let userInfo = _data.userInfo;
             this.logining = true;
+            this.clearCookies();
+            if (this.remember) {
+              this.setCookies();
+            }
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-
             this.$router.push("/", () => {});
           } else if (res.code == this.AJAX_HELP.CODE_RESPONSE_FAILURE) {
             this.$message({
@@ -105,7 +108,9 @@ export default {
             });
           }
         })
-        .catch(_ => {});
+        .catch(_ => {
+          console.log(_);
+        });
       // api
       //   .verifyCode({ code: this.form.vcode })
       //   .then(res => {
@@ -122,12 +127,59 @@ export default {
       //     }
       //   })
       //   .catch(_ => {});
+    },
+    setCookies() {
+      let exDays = 60; //60days
+      let cipherAccount = this.CryptoJS.AES.encrypt(
+        this.form.account + "",
+        "secretKey"
+      ).toString();
+      let cipherPassword = this.CryptoJS.AES.encrypt(
+        this.form.password + "",
+        "secretKey"
+      );
+      console.log(cipherAccount);
+      // let exDate = new Date(); // 获取时间
+      // exDate.setTime(exDate.getTime() + 24 * 60 * 60 * 1000 * exDays); // 保存的天数
+      // this.$cookies.config(exDate);
+      this.$cookies.set("currentAccount", cipherAccount);
+      // setTimeout(() => {
+      //   console.log(cipherAccount);
+      //
+      //   this.$cookies.set("currentPassword", cipherPassword);
+      // }, 600);
+    },
+    getCookies() {
+      console.log(this.$cookies.get("currentPassword"));
+      // let cipherAccount = this.$cookies.get(`currentAccount`);
+      // let cipherPassword = this.$cookies.get(`currentPassword`);
+      // if (cipherAccount != null) {
+      //   let decryptAccount = this.CryptoJS.AES.decrypt(
+      //     cipherAccount,
+      //     `secretKey`
+      //   ).toString(this.CryptoJS.enc.Utf8);
+      //   this.loginForm.account = decryptAccount;
+      // }
+      // if (cipherPassword != null) {
+      //   let decryptPwd = this.CryptoJS.AES.decrypt(
+      //     cipherPassword,
+      //     `secretKey`
+      //   ).toString(this.CryptoJS.enc.Utf8);
+      //   this.loginForm.password = decryptPwd;
+      // }
+    },
+    clearCookies() {
+      this.$cookies.remove(`currentAccount`);
+      this.$cookies.remove(`currentPassword`);
     }
   },
   destroyed() {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
     this.$store.dispatch("home/initAside");
+  },
+  mounted() {
+    this.getCookies();
   },
   components: {
     MyVerifyCode

@@ -235,29 +235,13 @@ export default {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
           console.log(_data);
-          _data.content.map((item,i)=>{
+          _data.content.map((item, i) => {
             item.show = false;
-            this.geoList.push(item)
-          })
+            this.geoList.push(item);
+          });
         }
       })
       .catch(_ => {});
-    // api
-    //   .getFactoryGeo()
-    //   .then(res => {
-    //     if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-    //       this.geoList = res.data;
-    //     }
-    //   })
-    //   .catch(_ => {});
-    // api
-    //   .getFactoryCal()
-    //   .then(res => {
-    //     if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-    //       this.calList = res.data;
-    //     }
-    //   })
-    //   .catch(_ => {});
     let orgOptions = {
       xAxis: {
         type: "category",
@@ -285,6 +269,7 @@ export default {
         }
       ]
     };
+  
   },
   components: {
     MyMap,

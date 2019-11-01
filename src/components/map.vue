@@ -44,7 +44,7 @@
         @open="infoWindowOpen"
       >
         <p>
-          <img :src="imgUrl+item.picture" alt />
+          <img class="factory_img" :src="imgUrl+item.picture" alt />
         </p>
         <p>
           <span class="left">项目ID：</span>
@@ -267,5 +267,8 @@ export default {
   flex: 1;
   width: 110px;
   padding-left: 7px;
+}
+.factory_img{
+  max-height: 100px;
 }
 </style>

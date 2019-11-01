@@ -230,6 +230,7 @@ export default {
         .then(res => {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
+            console.log(_data.content)
             this.tableData = _data.content;
             this.total = _data.total;
           }
