@@ -71,6 +71,11 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
+      api.getAllMenuData().then(res => {
+        console.log(res)
+      }).catch(_=>{
+
+      });
       api
         .getRoleDetail({ roleId: this.form.roleId })
         .then(res => {

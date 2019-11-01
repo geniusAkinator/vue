@@ -69,7 +69,7 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
-    }
+    },
   },
   components: {
     MyMapPicker

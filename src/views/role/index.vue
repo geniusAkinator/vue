@@ -55,11 +55,11 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="roleId" label="ID" width="150"></el-table-column>
       <el-table-column prop="name" label="角色名称"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="260px">
+      <el-table-column label="操作" fixed="right" width="260">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-          <!-- <el-button size="mini" @click="handleAssign(scope.$index, scope.row)">分配权限</el-button> -->
+          <el-button size="mini" @click="handleAssign(scope.$index, scope.row)">分配权限</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -116,6 +116,7 @@ export default {
       ],
       did: "",
       eid: 0,
+      aid: 0,
       index: ""
     };
   },
@@ -220,7 +221,7 @@ export default {
         });
     },
     handleAssign(index, row) {
-      this.eid = row.roleId;
+      this.aid = row.roleId;
       let idx = this.$layer.iframe({
         content: {
           content: MyRoleAssign, //传递的组件对象

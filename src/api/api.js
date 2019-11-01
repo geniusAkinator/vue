@@ -157,13 +157,13 @@ export const getAllMenuData = params => {
     });
 }
 
-export const updateCheckedMenuData = params => { //修改角色菜单
-    return request({
-        url: '/role/updateMenu',
-        data: params,
-        method: "POST"
-    });
-}
+// export const updateCheckedMenuData = params => { //修改角色菜单
+//     return request({
+//         url: '/role/updateMenu',
+//         data: params,
+//         method: "POST"
+//     });
+// }
 
 export const getAllRoleData = params => { //获取所有角色信息（不分页）
     return request({
@@ -173,7 +173,21 @@ export const getAllRoleData = params => { //获取所有角色信息（不分页
     });
 };
 
+export const getRoleMenuData = params =>{ //获取值
+    return request({
+        url: '/role/hasRoleMenu',
+        params: params,
+        method: "GET"
+    });
+}
 
+export const updateRoleMenuData = params => { //修改角色菜单
+    return request({
+        url: '/role/updateMenu',
+        data: params,
+        method: "POST"
+    });
+}
 /**
  * 用户管理
  */

@@ -536,5 +536,10 @@ input:focus + .el-input__suffix {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
+.el-table--border th, .el-table__fixed-right-patch{
+  border-bottom: 1px solid #EBEEF5 !important;
+}
+.el-tree-node__label{
+  margin-left: 10px
+}
 </style>
