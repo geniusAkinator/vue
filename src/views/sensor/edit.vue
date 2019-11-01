@@ -107,8 +107,8 @@ export default {
         }
       },
       options: [],
+      coptions: [],
       isShow: true,
-      options: [],
       rules: {
         //表单验证规则
         deviceNumber: [
@@ -218,6 +218,8 @@ export default {
           this.form.latitude = _data.latitude;
           this.form.longitude = _data.longitude;
           this.form.transducerType.ttId = _data.transducerType.ttId;
+          this.form.factory.factoryId = _data.factory.factoryId;
+
           // for (let key in _data) {
           //   this.form[key] = _data[key];
           // }
