@@ -67,7 +67,7 @@
           <span class="right" v-html="item.description"></span>
         </p>
         <p>
-          <el-link>查看详情</el-link>
+          <el-link @click="jump(index,item)">查看详情</el-link>
         </p>
       </bm-info-window>
     </baidu-map>
@@ -192,6 +192,17 @@ export default {
     },
     handleIconClick(ev) {
       console.log(ev);
+    },
+    jump(index, item) {
+      this.$router.push({
+        name: "工厂管理"
+      });
+      setTimeout(() => {
+        this.$router.push({
+          name: "工厂详情",
+          params: { fId: item.factoryId }
+        });
+      }, 600);
     }
   },
   created() {},
@@ -267,7 +278,7 @@ export default {
   width: 110px;
   padding-left: 7px;
 }
-.factory_img{
+.factory_img {
   max-height: 100px;
 }
 </style>

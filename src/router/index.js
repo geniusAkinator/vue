@@ -103,7 +103,7 @@ export default new Router({
           component: Factory,
         },
         {
-          path: 'factoryDetail',
+          path: 'factoryDetail/:fId',
           name: '工厂详情',
           component: FactoryDetail,
         },

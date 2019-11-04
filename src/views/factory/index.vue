@@ -278,10 +278,10 @@ export default {
           // _this.isFail = true;
         });
     },
-    handleDetail() {
+    handleDetail(index, row) {
       this.$router.push({
         name: "工厂详情",
-        // params: { pId: row.menuId, pName: row.name }
+        params: { fId: row.factoryId }
       });
     }
   },
