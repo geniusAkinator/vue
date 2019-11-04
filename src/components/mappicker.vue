@@ -68,7 +68,7 @@ export default {
       api
         .getCoo({
           query: newVal, //关键词检索
-          region: "苏州", //默认地区
+          region: this.region, //默认地区
           city_limit: true,
           output: "json",
           ak: this.ak //百度poi鉴权ak
@@ -79,6 +79,12 @@ export default {
             this.data = res.result;
           }
         });
+    }
+  },
+  props:{
+    region:{
+      type:String,
+      default:"江苏"
     }
   },
   methods: {

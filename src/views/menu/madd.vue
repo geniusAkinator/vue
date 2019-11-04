@@ -42,7 +42,7 @@
 
 <script>
 import MyMapPicker from "@/components/mappicker";
-import MyUpload from "@/components/upload";
+import MyUpload from "@/components/imgupload";
 import api from "@/api/index";
 export default {
   data() {

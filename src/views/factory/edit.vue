@@ -6,8 +6,12 @@
       </el-form-item>
       <el-form-item label="工厂类型">
         <el-select v-model="form.factoryType" placeholder="请选择工厂类型">
-          <el-option label="类型1" value="1"></el-option>
-          <el-option label="类型2" value="2"></el-option>
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="省/市/区">
@@ -50,7 +54,7 @@
           </el-col>
         </el-row>
         <el-collapse-transition>
-          <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
+          <my-map-picker :region="nowRegion" v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
       <el-form-item label="LOGO">
@@ -92,7 +96,7 @@
 
 <script>
 import MyMapPicker from "@/components/mappicker";
-import MyUpload from "@/components/upload";
+import MyUpload from "@/components/imgupload";
 import MyCityPicker from "@/components/citypicker";
 import api from "@/api/index";
 import baseURL from "@/utils/baseUrl";
@@ -122,9 +126,67 @@ export default {
         picture: "",
         tel: ""
       },
+      options: [
+        {
+          value: 1,
+          label: "纺织类"
+        },
+        {
+          value: 2,
+          label: "制衣类"
+        },
+        {
+          value: 3,
+          label: "玩具类"
+        },
+        {
+          value: 4,
+          label: "制鞋类"
+        },
+        {
+          value: 5,
+          label: "塑料类"
+        },
+        {
+          value: 6,
+          label: "陶瓷类"
+        },
+        {
+          value: 7,
+          label: "印刷类"
+        },
+        {
+          value: 8,
+          label: "化工类"
+        },
+        {
+          value: 9,
+          label: "木材类"
+        },
+        {
+          value: 10,
+          label: "机械加工类"
+        },
+        {
+          value: 11,
+          label: "日用品类"
+        },
+        {
+          value: 12,
+          label: "百货类"
+        },
+        {
+          value: 13,
+          label: "食品类"
+        },
+        {
+          value: 14,
+          label: "电子类"
+        }
+      ],
       img: [],
       editorOption: config.editorOption,
-      isShow: false,
+      isShow: true,
       rules: {
         name: [{ required: true, message: "请输入工厂名称", trigger: "blur" }],
         pos: [{ required: true, validator: validatePos, trigger: "change" }],
@@ -132,14 +194,15 @@ export default {
           { required: true, message: "请选择工厂类型", trigger: "change" }
         ],
         address: [{ required: true, message: "请输入地址", trigger: "blur" }]
-      }
+      },
+      nowRegion: ""
     };
   },
   watch: {
     "form.picture": {
       handler: function(newValue, oldValue) {
-        if(newValue == ""){
-          return
+        if (newValue == "") {
+          return;
         }
         let arr = newValue.split(",");
         let imgList = [];
@@ -206,6 +269,7 @@ export default {
     handleChange() {},
     getPCD(e) {
       this.form.province = e;
+      this.nowRegion = e.split(",")[0];
     },
     getImage(e) {
       console.log("image", e);
@@ -244,7 +308,9 @@ export default {
       picList.map((item, i) => {
         picString = picString + item + ",";
       });
-      this.form.picture = picString.substr(0, picString.length - 1).replace(/^\s+|\s+$/g,"");
+      this.form.picture = picString
+        .substr(0, picString.length - 1)
+        .replace(/^\s+|\s+$/g, "");
     }
   },
   created() {},

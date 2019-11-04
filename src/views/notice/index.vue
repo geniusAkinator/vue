@@ -11,24 +11,6 @@
           @click="handleDeleteMore"
         >批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
-        <el-dropdown @command="handleUpload" trigger="click">
-          <el-button type="primary" size="small" icon="el-icon-document-add">
-            导入
-            <i class="el-icon-arrow-down"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="template">下载Excel模板</el-dropdown-item>
-            <el-dropdown-item command="upload">上传Excel</el-dropdown-item>
-            <input
-              ref="file"
-              type="file"
-              name="file"
-              hidden
-              @change="handleImport"
-              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            />
-          </el-dropdown-menu>
-        </el-dropdown>
       </el-button-group>
       <my-search-tool>
         <template slot="content">
@@ -62,24 +44,24 @@
       v-loading="loading"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column fixed type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="table-expand">
-            <el-form-item label="图片">
-              <img :src="imgUrl+props.row.picture" alt />
-            </el-form-item>
-            <el-form-item label="公司简介">
-              <div v-html="props.row.description"></div>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="noticeId" label="公告ID" width="150"></el-table-column>
+      <el-table-column prop="noticeId" label="公告ID" width="80"></el-table-column>
       <el-table-column prop="noticeName" label="公告名称"></el-table-column>
+      <el-table-column prop="state" label="状态">
+        <template slot-scope="scope">{{ !scope.row.state ? '未通过' : '已通过' }}</template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
-          <el-button size="mini">厂区</el-button>
+          <el-button
+            size="mini"
+            v-if="!scope.row.state"
+            @click="handleCheck(scope.$index, scope.row)"
+          >审核</el-button>
+          <el-button
+            size="mini"
+            v-if="scope.row.state"
+            @click="handleCheck(scope.$index, scope.row)"
+          >反审</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -124,8 +106,7 @@ export default {
       labelPosition: "left",
       did: "",
       eid: 0,
-      index: "",
-      imgUrl: baseURL
+      index: ""
     };
   },
   methods: {
@@ -159,7 +140,7 @@ export default {
       this.eid = row.noticeId;
       let index = this.$layer.iframe({
         content: {
-          content: MynoticeEdit, //传递的组件对象
+          content: MyNoticeEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
@@ -252,28 +233,40 @@ export default {
         this.loading = false;
       }, 1000);
     },
-    handleImport() {
-      let _this = this;
-      let fd = new FormData();
-      let file = _this.$refs.file.files[0];
-      console.log(file);
-      fd.append("file", file);
-      http
-        .getRequestUpload("/notice/importFile", fd)
+    handleCheck(index, row) {
+      console.log(row);
+      let rform = {};
+      rform.noticeId = row.noticeId;
+      rform.content = row.content;
+      rform.description = row.description;
+      rform.type = row.type + "";
+      rform.noticeName = row.noticeName;
+      rform.keyword = row.keyword;
+      rform.file = row.file;
+      if (row.state) {
+        rform.state = 0;
+      } else {
+        rform.state = 1;
+      }
+      api
+        .updateNoticeData(rform)
         .then(res => {
-          // _this.isFail = false;
-          // _this.isLoading = false;
-          // console.log(res);
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            this.$message({
+              showClose: true,
+              message: "编辑成功",
+              type: "success"
+            });
+            this.initTable()
+          } else {
+            this.$message({
+              showClose: true,
+              message: "编辑失败",
+              type: "warning"
+            });
+          }
         })
-        .catch(_ => {
-          Message({
-            showClose: true,
-            message: "上传错误",
-            type: "error"
-          });
-          // _this.isLoading = false;
-          // _this.isFail = true;
-        });
+        .catch(_ => {});
     }
   },
   created() {

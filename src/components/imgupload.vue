@@ -19,7 +19,7 @@
     </div>
     <input
       type="file"
-      ref="file"
+      ref="imgFile"
       hidden
       @change="uploadFile"
       :multiple="this.limited>1?true:false"
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     handleUpload() {
-      this.$refs.file.click();
+      this.$refs.imgFile.click();
     },
     handleDelete(index) {
       this.fileUrl.splice(index, 1);
@@ -85,10 +85,10 @@ export default {
       let _this = this;
       _this.percentage = 0;
 
-      let files = this.$refs.file.files;
+      let files = this.$refs.imgFile.files;
       if (files.length == 0) {
         //非空
-        this.$message.error("上传文件不能大于5M");
+        this.$message.error("上传文件不能为空");
         return;
       }
       for (let i = 0; i < files.length; i++) {
@@ -116,8 +116,8 @@ export default {
           let fd = new FormData();
           fd.append("file", files[0]);
           http
-            .getRequestUpload("/factory/upload", fd, res => {
-              console.log(res)
+            .getRequestUpload("/common/uploadImage", fd, res => {
+              console.log(res);
               let loaded = res.loaded;
               let total = res.total;
               this.percentage = (loaded / total) * 100;
@@ -141,7 +141,7 @@ export default {
               // _this.isLoading = false;
               // _this.isFail = true;
             });
-          this.$refs.file.value = ''
+          this.$refs.imgFile.value = "";
         }
       }
     },

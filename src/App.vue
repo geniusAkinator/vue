@@ -542,4 +542,7 @@ input:focus + .el-input__suffix {
 .el-tree-node__label{
   margin-left: 10px
 }
+.el-select-dropdown.el-popper{
+  z-index: 9999 !important;
+}
 </style>

@@ -45,6 +45,9 @@ Vue.prototype.$cookies = cookies;
 Vue.prototype.AJAX_HELP = ajaxHelp
 Vue.prototype.GLOBAL = global
 
+// axios.defaults.withCredentials = true
+
+
 router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
     sessionStorage.removeItem('token');

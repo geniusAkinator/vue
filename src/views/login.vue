@@ -19,7 +19,8 @@
         <el-form-item>
           <el-checkbox v-model="remember" class="remember">保持登录</el-checkbox>
         </el-form-item>
-        <p style="color:#fff;line-height:50px;">测试账号：admin/admin</p>
+        <p style="color:#fff;line-height:50px;">超级管理员：admin/admin</p>
+        <p style="color:#fff;line-height:50px;">普通用户：user/user</p>
       </el-form>
     </el-main>
     <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
@@ -179,8 +180,10 @@ export default {
     this.$store.dispatch("home/initAside");
   },
   mounted() {
-    this.getCookies();
+    this.$store.dispatch("home/clearAside");
+    // this.getCookies();
   },
+  
   components: {
     MyVerifyCode
   }

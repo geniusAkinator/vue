@@ -75,14 +75,15 @@
         </template>
       </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="factoryId" label="工厂ID" width="150"></el-table-column>
+      <el-table-column prop="factoryId" label="工厂ID" width="80"></el-table-column>
       <el-table-column prop="factoryName" label="工厂名称"></el-table-column>
       <el-table-column prop="address" label="工厂地址"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="220px">
+      <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
           <el-button size="mini">厂区</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" type="primary" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -111,7 +112,7 @@ import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
-      loading:true,
+      loading: true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -276,6 +277,12 @@ export default {
           // _this.isLoading = false;
           // _this.isFail = true;
         });
+    },
+    handleDetail() {
+      this.$router.push({
+        name: "工厂详情",
+        // params: { pId: row.menuId, pName: row.name }
+      });
     }
   },
   created() {
@@ -299,7 +306,7 @@ export default {
   margin-bottom: 0;
   width: 50%;
 }
-.img{
+.img {
   max-height: 100px;
 }
 </style>

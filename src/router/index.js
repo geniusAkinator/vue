@@ -9,6 +9,7 @@ import Factory from '@/views/factory/index'
 import Sensor from '@/views/sensor/index'
 import Statistic from '@/views/statistic/index'
 import FactoryAdd from '@/views/factory/add'
+import FactoryDetail from '@/views/factory/detail'
 import SensorAdd from '@/views/sensor/add'
 import SensorType from '@/views/sensor/type'
 import SensorTypeAdd from '@/views/sensor/typeAdd'
@@ -100,6 +101,11 @@ export default new Router({
           path: 'factory',
           name: '工厂管理',
           component: Factory,
+        },
+        {
+          path: 'factoryDetail',
+          name: '工厂详情',
+          component: FactoryDetail,
         },
       ]
     },

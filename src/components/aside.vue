@@ -71,7 +71,11 @@ export default {
       this.$router.push({ path: "/" + e.path });
     }
   },
-  mounted() {}
+  mounted() {
+    setTimeout(() => {
+      this.menu = this.$store.state.home.menu
+    }, 300);
+  }
 };
 </script>
 

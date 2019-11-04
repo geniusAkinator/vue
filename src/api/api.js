@@ -173,7 +173,7 @@ export const getAllRoleData = params => { //获取所有角色信息（不分页
     });
 };
 
-export const getRoleMenuData = params =>{ //获取值
+export const getRoleMenuData = params => { //获取值
     return request({
         url: '/role/hasRoleMenu',
         params: params,
@@ -532,19 +532,10 @@ export const delEmployeeData = params => {  //删除人员信息
     });
 }
 
-/**
- *公告管理
- */
-export const getNoticeData = params => { //获取公告信息
-    return request({
-        url: '/notice/noticeList',
-        params: params,
-        method: "GET"
-    });
-}
+
 
 /**
- *
+ * 登录相关
  */
 export const login = params => { //登录
     return request({
@@ -562,10 +553,53 @@ export const logout = params => { //注销
     })
 }
 
-export const verifyCode = params =>{ //验证码
+export const verifyCode = params => { //验证码
     return request({
         url: '/user/verifyCode',
         params: params,
         method: "GET"
+    });
+}
+
+/**
+ *公告管理
+ */
+export const addNoticeData = params => { //添加公告信息
+    return request({
+        url: '/notice/addNotice',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const delNoticeData = params => {  //删除公告信息
+    return request({
+        url: '/notice/deleteNotice',
+        params: params,
+        method: "DELETE"
+    });
+}
+
+export const getNoticeData = params => { //获取公告信息
+    return request({
+        url: '/notice/noticeList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const getNoticeDetail = params => { //获取公告详情
+    return request({
+        url: '/notice/noticeDetail',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const updateNoticeData = params => { //修改人员信息
+    return request({
+        url: '/notice/updateNotice',
+        data: params,
+        method: "POST"
     });
 }

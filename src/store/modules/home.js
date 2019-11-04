@@ -30,7 +30,7 @@ const actions = { //可异步
         commit('removeTab', payload)
     },
     updateIndex({ commit }, payload) {
-        commit('updIndex', payload)
+        commit('updateIndex', payload)
     },
     initBreadcrumb({ commit }, payload) {
         commit('initBreadcrumb', payload)
@@ -45,38 +45,61 @@ const actions = { //可异步
         commit('closeAllTabs')
     },
     initAside({ commit }) {
-        let arr = []
+        let aList = [];
+        let arr = [];
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+        api
+            .getRoleMenuData({ roleId: userInfo.role.roleId })
+            .then(res => {
+                if (res.code === 200) {
+                    let content = res.data;
+                    content.map((item, i) => {
+                        aList.push(item.menu.menuId);
+                    });
+
+                }
+            })
+            .catch(_ => { });
+        console.log("AAA", userInfo.role.roleId, aList)
         api
             .getAllMenuData()
             .then(res => {
                 if (res.code === 200) {
                     let _data = res.data;
                     console.log(_data);
-                    _data.map((item, i) => {
-                        let temp1 = {};
-                        if (item.menu.state) {
-                            temp1.name = item.menu.name;
-                            temp1.icon = item.menu.icon;
-                            temp1.children = [];
-                            item.children.map((citem, j) => {
-                                let temp2 = {}
-                                if (citem.menu.state) {
-                                    temp2.name = citem.menu.name;
-                                    temp2.path = citem.menu.url;
-                                    temp1.children.push(temp2)
+                    aList.map((aitem) => {
+                        _data.map((item, i) => {
+                            if (aitem == item.menu.menuId) {
+                                let temp1 = {};
+                                if (item.menu.state) {
+                                    temp1.name = item.menu.name;
+                                    temp1.icon = item.menu.icon;
+                                    temp1.children = [];
+                                    item.children.map((citem, j) => {
+                                        if (aitem == item.menu.menuId) {
+                                            let temp2 = {}
+                                            if (citem.menu.state) {
+                                                temp2.name = citem.menu.name;
+                                                temp2.path = citem.menu.url;
+                                                temp1.children.push(temp2)
+                                            }
+                                        }
+                                    });
+                                    arr.push(temp1)
                                 }
-                            });
-                            arr.push(temp1)
-                        }
+                            }
+                        });
+                    })
 
-                    });
                     commit('initAside', arr)
                 }
             })
             .catch(_ => {
                 console.log(_)
             });
-
+    },
+    clearAside({ commit }) {
+        commit('clearAside');
     }
 }
 
@@ -171,7 +194,7 @@ const mutations = { //同步
         state.tabIndex = list.length + ''; //更新当前索引，激活当最后一项
         state.tabList = list; //更新state中tab的值
     },
-    updIndex(state, payload) {
+    updateIndex(state, payload) {
         state.tabIndex = payload; //更新当前索引
     },
     initTab(state, payload) { //所有的值都初始化
@@ -390,6 +413,9 @@ const mutations = { //同步
         //         ]
         //     }]
         // state.menu = list
+    },
+    clearAside(state) {
+        state.menu = []
     }
 }
 export default {

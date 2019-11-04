@@ -293,7 +293,7 @@
 </template>
 
 <script>
-import MyUpload from "@/components/upload";
+import MyUpload from "@/components/imgupload";
 import MyQrcode from "@/components/qrcode";
 export default {
   data() {

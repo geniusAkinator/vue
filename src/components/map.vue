@@ -124,7 +124,6 @@ export default {
       clickIndex: 0,
       state3: "",
       imgUrl: baseURL
-      // restaurants: []
     };
   },
   props: {

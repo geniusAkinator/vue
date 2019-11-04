@@ -76,6 +76,9 @@ export default {
       });
       window.open(href, "_blank");
     }
+  },
+  mounted() {
+    
   }
 };
 </script>
