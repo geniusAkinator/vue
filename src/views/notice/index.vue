@@ -46,7 +46,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="noticeId" label="公告ID" width="80"></el-table-column>
-      <el-table-column prop="noticeName" label="公告名称"></el-table-column>
+      <el-table-column prop="noticeName" label="公告标题"></el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">{{ !scope.row.state ? '未通过' : '已通过' }}</template>
       </el-table-column>
@@ -234,7 +234,7 @@ export default {
       }, 1000);
     },
     handleCheck(index, row) {
-      console.log(row);
+      // console.log(row);
       let rform = {};
       rform.noticeId = row.noticeId;
       rform.content = row.content;
@@ -257,7 +257,7 @@ export default {
               message: "编辑成功",
               type: "success"
             });
-            this.initTable()
+            this.initTable();
           } else {
             this.$message({
               showClose: true,

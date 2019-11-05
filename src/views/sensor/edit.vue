@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="所属工厂" prop="factory">
+      <el-form-item label="所属工厂" prop="factory.factoryId">
         <el-select v-model="form.factory.factoryId" placeholder="请选择所属工厂">
           <el-option
             v-for="item in coptions"
@@ -14,7 +14,7 @@
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
-      <el-form-item label="设备型号">
+      <el-form-item label="设备型号" prop="transducerType.ttId">
         <el-select v-model="form.transducerType.ttId" placeholder="请选择设备型号">
           <el-option
             v-for="item in options"
@@ -111,13 +111,19 @@ export default {
       isShow: true,
       rules: {
         //表单验证规则
+       "factory.factoryId": [
+          { required: true, message: "请输入所属工厂", trigger: "change" }
+        ],
         deviceNumber: [
           { required: true, message: "请输入设备编号", trigger: "blur" }
         ],
         expirationDate: [
           { required: true, message: "请选择日期时间", trigger: "change" }
         ],
-        pos: [{ required: true, validator: validatePos, trigger: "change" }]
+        pos: [{ required: true, validator: validatePos, trigger: "change" }],
+        "transducerType.ttId": [
+          { required: true, message: "请输入设备型号", trigger: "change" }
+        ]
       }
     };
   },

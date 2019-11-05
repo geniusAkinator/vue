@@ -45,9 +45,14 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="departmentId" label="部门ID" width="150"></el-table-column>
+      <el-table-column prop="departmentId" label="部门ID" width="80"></el-table-column>
       <el-table-column prop="departmentName" label="部门名称"></el-table-column>
       <el-table-column prop="leader" label="负责人"></el-table-column>
+      <el-table-column label="手机号">
+        <template slot-scope="scope">
+          <span :title="scope.row.phone">{{mobileEncrypt(scope.row.phone)}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -112,6 +117,9 @@ export default {
       this.Listform.pageSize = e;
       //重载表格
       this.initTable();
+    },
+    mobileEncrypt(str){
+      return mobileEncrypt(str)
     },
     handleCurrentChange(e) {
       //分页切换
@@ -213,20 +221,20 @@ export default {
     },
     initTable() {
       //初始化表格数据
-        api
-          .getDepartmentData(this.Listform)
-          .then(res => {
-            if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-              let _data = res.data;
-              console.log(_data);
-              this.tableData = _data.content;
-              this.total = _data.total;
-            }
-          })
-          .catch(_ => {});
-        setTimeout(() => {
-          this.loading = false;
-        }, 1000);
+      api
+        .getDepartmentData(this.Listform)
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            console.log(_data);
+            this.tableData = _data.content;
+            this.total = _data.total;
+          }
+        })
+        .catch(_ => {});
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     }
   },
   created() {

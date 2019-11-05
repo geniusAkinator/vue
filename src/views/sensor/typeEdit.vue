@@ -1,10 +1,10 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="90px">
-      <el-form-item label="型号名称">
+      <el-form-item label="型号名称" prop="name">
         <el-input v-model="form.name" placeholder="请输入型号名称"></el-input>
       </el-form-item>
-      <el-form-item label="设备类型">
+      <el-form-item label="设备类型" prop="type">
         <el-select v-model="form.type" placeholder="请选择设备类型">
           <el-option
             v-for="item in options"
@@ -70,7 +70,10 @@ export default {
           label: "甲醛"
         }
       ],
-      rules: {}
+      rules: {
+        name: [{ required: true, message: "请输入型号名称", trigger: "blur" }],
+        type: [{ required: true, message: "请选择设备类型", trigger: "change" }]
+      }
     };
   },
   methods: {

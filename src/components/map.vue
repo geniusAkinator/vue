@@ -131,7 +131,7 @@ export default {
   },
   watch: {
     list(val, oldVal) {
-      console.log(val);
+      // console.log(val);
     },
     clickIndex(val, oldVal) {
       setTimeout(() => {

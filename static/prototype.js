@@ -1,3 +1,4 @@
+// 扩充
 // String.prototype.colorHex = function () { //RBG转HEX
 //     // RGB颜色值的正则
 //     var reg = /^(rgb|RGB)/;
@@ -240,4 +241,4 @@
 //     return arr;
 // }
 // Array.prototype.min = function () { return Math.min.apply(null, this) } // 求数组中最小值
-// Array.prototype.max = function () { return Math.max.apply(null, this) } // 求数组中最大值
+// Array.prototype.max = function () { return Math.max.apply(null, this) } // 求数组中最大值00 

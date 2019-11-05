@@ -50,14 +50,21 @@
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>姓名: {{ scope.row.name }}</p>
-            <p>身份证: {{ scope.row.idCard }}</p>
-            <p>手机号: {{ scope.row.phone }}</p>
+            <p>
+              身份证:
+              <span :title="scope.row.idCard">{{ idCardEncrypt(scope.row.idCard) }}</span>
+            </p>
+            <p>
+              手机号:
+              <span :title="scope.row.phone">{{ mobileEncrypt(scope.row.phone) }}</span>
+            </p>
             <div slot="reference" class="name-wrapper">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </div>
           </el-popover>
         </template>
       </el-table-column>
+      <el-table-column prop="duty" label="职务"></el-table-column>
       <el-table-column prop="sex" label="性别">
         <template slot-scope="scope">{{ !scope.row.sex ? '男' : '女' }}</template>
       </el-table-column>
@@ -244,6 +251,12 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 1000);
+    },
+    mobileEncrypt(str) {
+      return mobileEncrypt(str);
+    },
+    idCardEncrypt(str) {
+      return idCardEncrypt(str);
     }
   },
   created() {

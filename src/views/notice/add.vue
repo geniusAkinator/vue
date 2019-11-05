@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="所属工厂">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form-item label="所属工厂" prop="factory.factoryId">
         <el-select v-model="form.factory.factoryId" placeholder="请选择所属工厂">
           <el-option
             v-for="item in coptions"
@@ -11,10 +11,10 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="公告名称">
-        <el-input v-model="form.noticeName" placeholder="请输入公告名称"></el-input>
+      <el-form-item label="公告标题" prop="noticeName">
+        <el-input v-model="form.noticeName" placeholder="请输入公告标题"></el-input>
       </el-form-item>
-      <el-form-item label="公告类型">
+      <el-form-item label="公告类型" prop="type">
         <el-select v-model="form.type" placeholder="请选择公告类型">
           <el-option
             v-for="item in toptions"
@@ -44,7 +44,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item label="查询关键字">
+      <el-form-item label="查询关键字" prop="keyword">
         <el-input v-model="form.keyword" placeholder="请输入查询关键字"></el-input>
         <span class="help-block">用|分隔符隔开</span>
       </el-form-item>
@@ -77,7 +77,16 @@ export default {
       },
       editorOption: config.editorOption,
       isShow: false,
-      rules: {},
+      rules: {
+        "factory.factoryId": [
+          { required: true, message: "请选择所属工厂", trigger: "change" }
+        ],
+        noticeName: [
+          { required: true, message: "请输入公告标题", trigger: "blur" }
+        ],
+        type: [{ required: true, message: "请选择公告类型", trigger: "change" }],
+        keyword: [{ required: true, message: "请选择查询关键字", trigger: "change" }]
+      },
       cform: {
         pageNum: 1,
         pageSize: 0
@@ -176,12 +185,12 @@ export default {
 </script>
 
 <style>
-.readonly input[readonly="readonly"]{
+.readonly input[readonly="readonly"] {
   background: #f5f7fa;
   border-color: #e4e7ed;
   color: #c0c4cc;
 }
-.readonly .el-input-group__append{
+.readonly .el-input-group__append {
   background: #fff;
 }
 </style>

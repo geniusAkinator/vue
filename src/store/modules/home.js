@@ -67,29 +67,21 @@ const actions = { //可异步
                 if (res.code === 200) {
                     let _data = res.data;
                     console.log(_data);
-                    aList.map((aitem) => {
-                        _data.map((item, i) => {
-                            if (aitem == item.menu.menuId) {
-                                let temp1 = {};
-                                if (item.menu.state) {
-                                    temp1.name = item.menu.name;
-                                    temp1.icon = item.menu.icon;
-                                    temp1.children = [];
-                                    item.children.map((citem, j) => {
-                                        if (aitem == item.menu.menuId) {
-                                            let temp2 = {}
-                                            if (citem.menu.state) {
-                                                temp2.name = citem.menu.name;
-                                                temp2.path = citem.menu.url;
-                                                temp1.children.push(temp2)
-                                            }
-                                        }
-                                    });
-                                    arr.push(temp1)
-                                }
+                    _data.map((item, i) => {
+                        let temp1 = {};
+                        temp1.name = item.menu.name;
+                        temp1.icon = item.menu.icon;
+                        temp1.children = [];
+                        item.children.map((citem, j) => {
+                            let temp2 = {}
+                            if (citem.menu.state) {
+                                temp2.name = citem.menu.name;
+                                temp2.path = citem.menu.url;
+                                temp1.children.push(temp2)
                             }
                         });
-                    })
+                        arr.push(temp1)
+                    });
 
                     commit('initAside', arr)
                 }
@@ -254,7 +246,6 @@ const mutations = { //同步
         state.tabIndex = "1"
     },
     initAside(state, payload) {
-        console.log("payload", "adfadsf")
         state.menu = Object.assign({}, payload)
         // list = [
         //     {

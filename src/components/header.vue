@@ -27,7 +27,7 @@
       </el-dropdown>
       <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
-          <span class="userName">您好,&nbsp;&nbsp;admin</span>
+          <span class="userName">您好,&nbsp;&nbsp;{{username}}</span>
           <el-avatar icon="el-icon-user-solid" :size="28" shape="square">user</el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -44,7 +44,7 @@ import api from "@/api/index";
 export default {
   data() {
     return {
-      username: ""
+      username: this.$store.state.user.userInfo.account
     };
   },
   methods: {
@@ -55,10 +55,9 @@ export default {
           api
             .logout(this.form)
             .then(res => {
-              console.log(res);
+              // console.log(res);
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 sessionStorage.removeItem("token");
-                sessionStorage.removeItem("userInfo");
                 _this.$router.push("/login", () => {});
               }
             })
@@ -78,7 +77,9 @@ export default {
     }
   },
   mounted() {
-    
+    setTimeout(() => {
+      this.username = this.$store.state.user.userInfo.account
+    }, 600);
   }
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="工厂名称">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form-item label="工厂名称" prop="factoryName">
         <el-input v-model="form.factoryName"></el-input>
       </el-form-item>
-      <el-form-item label="工厂类型">
+      <el-form-item label="工厂类型" prop="factoryType">
         <el-select v-model="form.factoryType" placeholder="请选择工厂类型">
           <el-option
             v-for="item in options"
@@ -14,12 +14,12 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="省/市/区">
+      <el-form-item label="省/市/区" prop="province">
         <keep-alive>
           <my-city-picker :pcd.sync="form.province" @sendPCD="getPCD"></my-city-picker>
         </keep-alive>
       </el-form-item>
-      <el-form-item label="工厂地址">
+      <el-form-item label="工厂地址" prop="address">
         <el-input v-model="form.address"></el-input>
       </el-form-item>
       <el-form-item label="经纬度" prop="pos">
@@ -57,8 +57,8 @@
           <my-map-picker :region="nowRegion" v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="LOGO">
-        <el-input class="readonly" v-model="form.picture" :readonly="true"></el-input>
+      <el-form-item label="LOGO" prop="picture">
+        <el-input class="readonly" v-model="form.picture" placeholder="请上传图片" :readonly="true"></el-input>
         <my-upload
           :limited="limited"
           :image="img"
@@ -66,14 +66,16 @@
           @sendDelIndex="getDelIndex"
         ></my-upload>
       </el-form-item>
-      <el-form-item label="负责人">
+      <el-form-item label="负责人" prop="leader">
         <el-input v-model="form.leader"></el-input>
       </el-form-item>
-      <el-form-item label="手机号">
+      <el-form-item label="手机号" prop="phone">
         <el-input v-model="form.phone" type="number"></el-input>
+        <span class="help-block">列：18855522777</span>
       </el-form-item>
-      <el-form-item label="办公电话">
+      <el-form-item label="办公电话" prop="tel">
         <el-input v-model="form.tel"></el-input>
+        <span class="help-block">列：0222-2222222</span>
       </el-form-item>
       <el-form-item label="公司简介">
         <quill-editor
@@ -103,10 +105,38 @@ import baseURL from "@/utils/baseUrl";
 import { Loading } from "element-ui";
 export default {
   data() {
-    var validatePos = (rule, value, callback) => {
-      if (this.form.lat === "" || this.form.lat === "") {
+    let validatePos = (rule, value, callback) => {
+      if (this.form.latitude === 0 || this.form.longitude === 0) {
         callback(new Error("请选择经纬度"));
       } else {
+        callback();
+      }
+    };
+    let validateProvince = (rule, value, callback) => {
+      if (this.form.province === "") {
+        callback(new Error("请选择省/市/区"));
+      } else {
+        callback();
+      }
+    };
+    let validateTel = (rule, value, callback) => {
+      if (this.form.tel === "") {
+        callback(new Error("电话不能为空"));
+      } else {
+        if (!isTel(this.form.tel)) {
+          callback(new Error("电话格式不正确"));
+        } else {
+          callback();
+        }
+      }
+    };
+    let validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入手机号码"));
+      } else {
+        if (!isPhone(value)) {
+          callback(new Error("手机号码格式不正确"));
+        }
         callback();
       }
     };
@@ -188,12 +218,23 @@ export default {
       editorOption: config.editorOption,
       isShow: true,
       rules: {
-        name: [{ required: true, message: "请输入工厂名称", trigger: "blur" }],
+        factoryName: [
+          { required: true, message: "请输入工厂名称", trigger: "blur" }
+        ],
         pos: [{ required: true, validator: validatePos, trigger: "change" }],
-        type: [
+        factoryType: [
           { required: true, message: "请选择工厂类型", trigger: "change" }
         ],
-        address: [{ required: true, message: "请输入地址", trigger: "blur" }]
+        address: [{ required: true, message: "请输入地址", trigger: "blur" }],
+        province: [
+          { required: true, validator: validateProvince, trigger: "change" }
+        ],
+        picture: [{ required: true, message: "请上传LOGO", trigger: "change" }],
+        leader: [
+          { required: true, message: "请输入负责人名称", trigger: "blur" }
+        ],
+        tel: [{ required: true, validator: validateTel, trigger: "blur" }],
+        phone: [{ required: true, validator: validatePhone, trigger: "blur" }]
       },
       nowRegion: ""
     };
@@ -292,7 +333,7 @@ export default {
             for (let key in _data) {
               this.form[key] = _data[key];
             }
-            console.log("data", this.form);
+            this.nowRegion = _data["province"].split(",")[0];
           }
         })
         .catch(_ => {});

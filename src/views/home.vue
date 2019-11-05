@@ -93,6 +93,7 @@ export default {
       }
     }
   },
+
   mounted: function() {
     let _this = this;
     let user = sessionStorage.getItem("userInfo");

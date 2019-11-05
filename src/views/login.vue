@@ -47,6 +47,7 @@ export default {
     getCode(e) {
       this.code = e;
       console.log(this.code);
+      this.form.vcode = e;
     },
     handleLogin() {
       this.verityForm();
@@ -100,6 +101,7 @@ export default {
             }
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+            this.$store.dispatch("user/setUserInfo", userInfo);
             this.$router.push("/", () => {});
           } else if (res.code == this.AJAX_HELP.CODE_RESPONSE_FAILURE) {
             this.$message({
@@ -174,16 +176,17 @@ export default {
       this.$cookies.remove(`currentPassword`);
     }
   },
-  destroyed() {
-    this.$store.dispatch("home/initTab");
-    this.$store.dispatch("home/initBreadcrumb");
-    this.$store.dispatch("home/initAside");
-  },
+  destroyed() {},
   mounted() {
     this.$store.dispatch("home/clearAside");
     // this.getCookies();
   },
-  
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch("home/initTab");
+    this.$store.dispatch("home/initBreadcrumb");
+    this.$store.dispatch("home/initAside");
+    next();
+  },
   components: {
     MyVerifyCode
   }
