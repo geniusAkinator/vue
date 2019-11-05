@@ -22,7 +22,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所属工厂">
+      <el-form-item label="所属工厂" prop="factoryId">
         <el-select v-model="form.factoryId" placeholder="请选择所属工厂">
           <el-option
             v-for="item in coptions"
@@ -38,10 +38,10 @@
           <el-radio label="0">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="姓名">
+      <el-form-item label="姓名" prop="trueName">
         <el-input v-model="form.trueName"></el-input>
       </el-form-item>
-      <el-form-item label="手机号">
+      <el-form-item label="手机号" prop="mobilePhone">
         <el-input v-model="form.mobilePhone"></el-input>
       </el-form-item>
       <el-form-item label="备注">
@@ -59,7 +59,7 @@
 import api from "@/api/index";
 export default {
   data() {
-    var validatePwd = (rule, value, callback) => {
+    let validatePwd = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
@@ -69,7 +69,7 @@ export default {
         callback();
       }
     };
-    var validateCPwd = (rule, value, callback) => {
+    let validateCPwd = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
       } else if (value !== this.form.password) {
@@ -78,7 +78,7 @@ export default {
         callback();
       }
     };
-    var validateAccount = (rule, value, callback) => {
+    let validateAccount = (rule, value, callback) => {
       api
         .getAccountIsExist({ account: value })
         .then(res => {
@@ -95,6 +95,16 @@ export default {
         })
         .catch(_ => {});
     };
+    let validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入手机号码"));
+      } else {
+        if (!isPhone(value)) {
+          callback(new Error("手机号码格式不正确"));
+        }
+        callback();
+      }
+    };
     return {
       loading: false,
       form: {
@@ -102,11 +112,11 @@ export default {
         state: "1",
         password: "",
         cpwd: "",
-        roleId: 0,
+        roleId: "",
         trueName: "",
         mobilePhone: "",
         remark: "",
-        factoryId: 0
+        factoryId: ""
       },
       coptions: [],
       roptions: [],
@@ -116,10 +126,15 @@ export default {
           { required: true, validator: validateAccount, trigger: "blur" }
         ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
-        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }]
-        // roleId: [
-        //   { required: true, message: "请选择所属角色", trigger: "change" }
-        // ],
+        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
+        factoryId: [{ required: true, message: "请选择所属工厂", trigger: "change" }],
+        roleId: [
+          { required: true, message: "请选择所属角色", trigger: "change" }
+        ],
+        trueName:[
+          { required: true, message: "请输入姓名", trigger: "blur" },
+        ],
+        mobilePhone:[{ required: true, validator: validatePhone, trigger: "blur" }],
       }
     };
   },

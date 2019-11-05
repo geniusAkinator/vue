@@ -85,8 +85,13 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="transducerId" label="传感器ID" width="150"></el-table-column>
+      <el-table-column prop="factory.factoryName" label="所属工厂" ></el-table-column>
       <el-table-column prop="deviceNumber" label="设备编号"></el-table-column>
-      <el-table-column prop="state" label="设备状态"></el-table-column>
+      <el-table-column label="设备状态">
+        <template slot-scope="scope">
+          <span :v-if="scope.row.deviceStatus == null">未知</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="270px">
         <template slot-scope="scope">
           <!-- <el-button size="mini" @click="handleSet(scope.$index, scope.row)">配置</el-button> -->
@@ -119,7 +124,7 @@ import api from "@/api/index";
 export default {
   data() {
     return {
-      loading:true,
+      loading: true,
       Listform: {
         //表格请求params
         pageNum: 1,
@@ -134,7 +139,7 @@ export default {
       loading: true,
       did: "",
       eid: 0,
-      index:""
+      index: ""
     };
   },
   methods: {
@@ -150,8 +155,8 @@ export default {
       //重载表格
       this.initTable();
     },
-    handleEdit(idx,row) {
-      this.eid = row.transducerId
+    handleEdit(idx, row) {
+      this.eid = row.transducerId;
       //编辑数据
       let index = this.$layer.iframe({
         content: {
@@ -165,7 +170,7 @@ export default {
         target: ".el-main"
       });
       this.$layer.full(index);
-      this.index = index
+      this.index = index;
     },
     handleExport() {
       //导出数据
@@ -230,14 +235,14 @@ export default {
         .then(res => {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data.content)
+            console.log(_data.content);
             this.tableData = _data.content;
             this.total = _data.total;
           }
         })
         .catch(_ => {});
       setTimeout(() => {
-        this.loading = false
+        this.loading = false;
       }, 1000);
     },
     handleSelectionChange(e) {

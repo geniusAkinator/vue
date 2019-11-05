@@ -603,3 +603,11 @@ export const updateNoticeData = params => { //修改人员信息
         method: "POST"
     });
 }
+
+export const checkSession = params =>{ //验证session
+    return request({
+        url:'/auth/check',
+        data:params,
+        method:"POST"
+    })
+}

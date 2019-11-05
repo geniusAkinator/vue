@@ -46,6 +46,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="noticeId" label="公告ID" width="80"></el-table-column>
+      <el-table-column prop="factory.factoryName" label="所属工厂"></el-table-column>
       <el-table-column prop="noticeName" label="公告标题"></el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">{{ !scope.row.state ? '未通过' : '已通过' }}</template>

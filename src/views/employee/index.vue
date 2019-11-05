@@ -46,6 +46,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="employeeId" label="ID" width="150"></el-table-column>
+      <el-table-column prop="department.departmentName" label="部门名称" width="150"></el-table-column>
       <el-table-column prop="name" label="名称" width="100">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -107,6 +108,11 @@ export default {
         //表格请求params
         pageNum: 1,
         pageSize: 25
+      },
+      dform:{
+        pageNum: 1,
+        pageSize: 0,
+        factoryName: ""
       },
       total: 0,
       tableData: [],
@@ -238,7 +244,7 @@ export default {
     initTable() {
       //初始化表格数据
       api
-        .getEmployeeData(this.Listform)
+        .getEmployeeData(this.dform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;

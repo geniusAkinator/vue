@@ -46,6 +46,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="departmentId" label="部门ID" width="80"></el-table-column>
+      <el-table-column prop="factory.factoryName" label="所属工厂"></el-table-column>
       <el-table-column prop="departmentName" label="部门名称"></el-table-column>
       <el-table-column prop="leader" label="负责人"></el-table-column>
       <el-table-column label="手机号">
@@ -118,8 +119,8 @@ export default {
       //重载表格
       this.initTable();
     },
-    mobileEncrypt(str){
-      return mobileEncrypt(str)
+    mobileEncrypt(str) {
+      return mobileEncrypt(str);
     },
     handleCurrentChange(e) {
       //分页切换

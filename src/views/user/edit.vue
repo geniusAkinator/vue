@@ -4,7 +4,7 @@
       <el-form-item label="账号名称">
         <el-input v-model="form.account" class="readonly" :readonly="true"></el-input>
       </el-form-item>
-      <el-form-item label="所属角色">
+      <el-form-item label="所属角色" prop="roleId">
         <el-select v-model="form.roleId" placeholder="请选择所属角色">
           <el-option
             v-for="item in roptions"
@@ -30,10 +30,10 @@
           <el-radio label="0">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="姓名">
+      <el-form-item label="姓名" prop="trueName">
         <el-input v-model="form.trueName"></el-input>
       </el-form-item>
-      <el-form-item label="手机号">
+      <el-form-item label="手机号" prop="mobilePhone">
         <el-input v-model="form.mobilePhone"></el-input>
       </el-form-item>
       <el-form-item label="备注">
@@ -52,41 +52,16 @@ import api from "@/api/index";
 import { Loading } from "element-ui";
 export default {
   data() {
-    var validatePwd = (rule, value, callback) => {
+    let validatePhone = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("请输入手机号码"));
       } else {
-        if (this.form.cpwd !== "") {
-          this.$refs.form.validateField("cpwd");
+        if (!isPhone(value)) {
+          callback(new Error("手机号码格式不正确"));
         }
         callback();
       }
     };
-    var validateCPwd = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.form.password) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
-    // var validateAccount = (rule, value, callback) => {
-    //   api
-    //     .getAccountIsExist({ account: value })
-    //     .then(res => {
-    //       console.log(res);
-    //       if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-    //         this.isFound = res.data.isFound;
-    //         if (!res.data.isFound) {
-    //           callback();
-    //         } else {
-    //           callback(new Error("此账号名已被占用"));
-    //         }
-    //       }
-    //     })
-    //     .catch(_ => {});
-    // };
     return {
       form: {
         userId: this.$parent.eid,
@@ -101,15 +76,13 @@ export default {
       coptions: [],
       roptions: [],
       rules: {
-        // account: [
-        //   { required: true, message: "请输入账户名称", trigger: "blur" },
-        //   { required: true, validator: validateAccount, trigger: "blur" }
-        // ],
-        password: [{ required: true, validator: validatePwd, trigger: "blur" }],
-        cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }]
-        // roleId: [
-        //   { required: true, message: "请选择所属角色", trigger: "change" }
-        // ],
+        roleId: [
+          { required: true, message: "请选择所属角色", trigger: "change" }
+        ],
+        trueName: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+        mobilePhone: [
+          { required: true, validator: validatePhone, trigger: "blur" }
+        ]
       }
     };
   },
