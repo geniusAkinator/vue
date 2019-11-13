@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- 表格操作 -->
-    <div class="table-tool">
+    <!-- <div class="table-tool">
       <el-button-group>
         <el-button type="danger" size="small" icon="el-icon-delete">批量删除</el-button>
         <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
@@ -42,9 +42,9 @@
         </template>
       </my-search-tool>
       <div class="table-tool-others"></div>
-    </div>
+    </div> -->
     <!-- 表格 -->
-    <el-table stripe border :data="tableData" align="center" style="width: 100%">
+    <!-- <el-table stripe border :data="tableData" align="center" style="width: 100%">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="150"></el-table-column>
       <el-table-column prop="factory" label="所属工厂"></el-table-column>
@@ -56,8 +56,8 @@
           <el-button size="mini" @click="handleHistory(scope.$index, tableData)">巡更记录</el-button>
         </template>
       </el-table-column>
-    </el-table>
-    <div class="pagination">
+    </el-table> -->
+    <!-- <div class="pagination">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -68,7 +68,8 @@
         layout="prev,pager,next,jumper,total,sizes"
         :total="400"
       ></el-pagination>
-    </div>
+    </div> -->
+
   </div>
 </template>
 <script>

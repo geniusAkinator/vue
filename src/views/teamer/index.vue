@@ -16,7 +16,7 @@
         <template slot="content">
           <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
             <el-form-item label="关键字" size="small">
-              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：部门名称）"></el-input>
+              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：团队名称）"></el-input>
             </el-form-item>
           </el-form>
         </template>
@@ -45,9 +45,9 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="departmentId" label="部门ID" width="80"></el-table-column>
+      <el-table-column prop="departmentId" label="团队ID" width="80"></el-table-column>
       <el-table-column prop="factory.factoryName" label="所属工厂"></el-table-column>
-      <el-table-column prop="departmentName" label="部门名称"></el-table-column>
+      <el-table-column prop="departmentName" label="团队名称"></el-table-column>
       <el-table-column prop="leader" label="负责人"></el-table-column>
       <el-table-column label="手机号">
         <template slot-scope="scope">
@@ -78,8 +78,8 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyDepartmentAdd from "@/views/department/add";
-import MyDepartmentEdit from "@/views/department/edit";
+import MyDepartmentAdd from "@/views/teamer/add";
+import MyDepartmentEdit from "@/views/teamer/edit";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 export default {
@@ -138,7 +138,7 @@ export default {
         },
         shade: true,
         area: ["500px", "500px"],
-        title: "新增部门信息",
+        title: "新增团队信息",
         target: ".el-main"
       });
       this.index = index;
@@ -153,7 +153,7 @@ export default {
         },
         shade: true,
         area: ["500px", "500px"],
-        title: "编辑部门信息",
+        title: "编辑团队信息",
         target: ".el-main"
       });
       this.index = index;
@@ -240,7 +240,7 @@ export default {
     },
     handleToEmployee(idx, row) {
       this.$router.push({
-        name: "人员管理",
+        name: "团队成员管理",
         params: { dId: row.departmentId, dName: row.departmentName }
       });
     }

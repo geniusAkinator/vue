@@ -44,6 +44,15 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="到期时间" prop="expirationDate">
+        <el-date-picker
+          v-model="form.expirationDate"
+          type="datetime"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择日期时间"
+        ></el-date-picker>
+      </el-form-item>
       <!-- prop="pos" -->
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
@@ -80,15 +89,7 @@
           <my-map-picker v-show="isShow" @sendPoint="getPoint"></my-map-picker>
         </el-collapse-transition>
       </el-form-item>
-      <el-form-item label="到期时间" prop="expirationDate">
-        <el-date-picker
-          v-model="form.expirationDate"
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择日期时间"
-        ></el-date-picker>
-      </el-form-item>
+
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -310,8 +311,10 @@ export default {
       });
     }
   },
-  created() {
-    this.initForm();
+  mounted() {
+    this.$nextTick(() => {
+      this.initForm();
+    });
   },
   components: {
     MyMapPicker

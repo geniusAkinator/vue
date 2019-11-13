@@ -140,7 +140,7 @@
               </el-button>
             </div>
             <div class="text item">
-              <my-echart-line :id="echart"></my-echart-line>
+              <!-- <my-echart-line :id="echart"></my-echart-line> -->
             </div>
           </el-card>
         </el-col>

@@ -35,9 +35,9 @@ export default {
     let _this = this;
     _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     _this.option = {
-      color: _this.colors,
+      // color: _this.colors,
       title: {
-        text: "标题标题标题",
+        text: "",
         show: true,
         x: "10px",
         y: "10px",

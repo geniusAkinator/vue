@@ -46,7 +46,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="employeeId" label="ID" width="150"></el-table-column>
-      <el-table-column prop="department.departmentName" label="所属部门" width="150"></el-table-column>
+      <el-table-column prop="department.departmentName" label="所属团队" width="150"></el-table-column>
       <el-table-column prop="name" label="名称" width="100">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -107,7 +107,7 @@ export default {
       Listform: {
         //表格请求params
         pageNum: 1,
-        pageSize: 25,
+        pageSize: 0,
         departmentId: 0
       },
       total: 0,
@@ -132,8 +132,18 @@ export default {
         this.layerInitWidth = layer.offsetWidth;
         this.layerInitHeight = layer.offsetHeight;
       }
+    },
+    $route: function(newVal, oldVal) {
+      let name = newVal.name;
+      if (name == "人员管理") {
+        this.Listform.departmentId = this.$route.params.departmentId;
+        this.dId = this.$route.params.dId;
+        this.dName = this.$route.params.dName;
+        this.initTable();
+      }
     }
   },
+
   methods: {
     handleSizeChange(e) {
       //分页大小改变

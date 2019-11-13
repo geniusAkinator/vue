@@ -12,10 +12,6 @@
               <span class="state_name">报警状态</span>
               <span class="state_value">10</span>
             </li>
-            <li class="state_item">
-              <span class="state_name">设备状态</span>
-              <span class="state_value">10</span>
-            </li>
           </ul>
         </el-col>
         <el-col :span="8">
@@ -66,6 +62,8 @@
 </template>
 
 <script>
+import api from "@/api/index";
+import { Loading } from "element-ui";
 export default {
   data() {
     return {
@@ -82,11 +80,29 @@ export default {
           state: 0,
           date: "2016-05-02 09:00"
         }
-      ]
+      ],
+      sensor: {}
     };
   },
+  watch:{
+    $route: function(newVal, oldVal) {
+      console.log("进来")
+    }
+  },
   methods: {
-    init() {}
+    init() {
+      let sId = this.$route.params.sId;
+      api.getSensorDetail({ id: sId }).then(res => {
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          let sensorInfo = _data.transducer;
+          for (let key in sensorInfo) {
+            this.sensor[key] = sensorInfo[key];
+          }
+          console.log(this.sensor);
+        }
+      });
+    }
   },
   mounted() {
     this.init();

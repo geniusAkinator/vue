@@ -36,12 +36,13 @@ import Menu from '@/views/menu/index'
 import MenuSub from '@/views/menu/mindex'
 import Record from '@/views/record/index'
 import Nav from '@/views/nav/index'
-import Department from '@/views/department/index'
+import Teamer from '@/views/teamer/index'
 import Employee from '@/views/employee/index'
 import Notice from '@/views/notice/index'
 import Building from '@/views/building/index'
 import Floor from '@/views/floor/index'
 import SensorDetail from '@/views/sensor/detail'
+import Display from '@/views/display/index'
 
 Vue.use(Router)
 
@@ -137,10 +138,15 @@ export default new Router({
           component: SensorType
         },
         {
-          path:'sensorDetail',
+          path:'sensorDetail/:sId',
           name:'传感器详情',
           component:SensorDetail
-        }
+        },
+        {
+          path: 'display',
+          name: '传感器展示',
+          component: Display
+        },
       ]
     },
     {
@@ -149,13 +155,13 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: 'department',
-          name: '部门管理',
-          component: Department,
+          path: 'teamer',
+          name: '团队管理',
+          component: Teamer,
         },
         {
-          path: 'employee/:dId/:dName',
-          name: '人员管理',
+          path: 'teamerMember/:dId/:dName',
+          name: '团队成员管理',
           component: Employee
         },
       ]
