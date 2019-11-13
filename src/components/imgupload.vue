@@ -83,36 +83,37 @@ export default {
     },
     uploadFile() {
       let _this = this;
+      let files = _this.$refs.imgFile.files;
       _this.percentage = 0;
-
-      let files = this.$refs.imgFile.files;
+      console.log(files);
       if (files.length == 0) {
         //非空
-        this.$message.error("上传文件不能为空");
+        _this.$message.error("上传文件不能为空");
         return;
       }
       for (let i = 0; i < files.length; i++) {
+        let title = files[i].name;
         if (files[i].size > 5 * 1024 * 1024) {
           //上传文件大小限制
-          this.$message.error("上传文件不能大于5M");
+          _this.$message.error("上传文件不能大于5M");
           return;
         }
         let reader = new FileReader();
         reader.addEventListener("load", () => {
           let item = {};
           item.url = reader.result;
-          item.title = files[i].name;
-          if (this.fileUrl.length > this.limited - 1) {
-            this.$message.error("上传文件不能超过九个");
+          item.title = title;
+          if (_this.fileUrl.length > _this.limited - 1) {
+            _this.$message.error("上传文件不能超过九个");
             return;
           }
-          this.fileUrl.push(item);
+          _this.fileUrl.push(item);
         });
         reader.readAsDataURL(files[i]);
 
-        this.isShow = true;
+        _this.isShow = true;
 
-        if (this.limited == 1) {
+        if (_this.limited == 1) {
           let fd = new FormData();
           fd.append("file", files[0]);
           http
@@ -120,16 +121,16 @@ export default {
               console.log(res);
               let loaded = res.loaded;
               let total = res.total;
-              this.percentage = (loaded / total) * 100;
+              _this.percentage = (loaded / total) * 100;
             })
             .then(res => {
               // _this.isFail = false;
               // _this.isLoading = false;
               // console.log(res);
-              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              if (res.code == _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 let _data = res.data;
                 console.log(_data);
-                this.$emit("sendImage", _data);
+                _this.$emit("sendImage", _data);
               }
             })
             .catch(_ => {
@@ -141,7 +142,7 @@ export default {
               // _this.isLoading = false;
               // _this.isFail = true;
             });
-          this.$refs.imgFile.value = "";
+          _this.$refs.imgFile.value = "";
         }
       }
     },

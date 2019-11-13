@@ -65,7 +65,7 @@
       <el-table-column fixed type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
-            <el-form-item label="图片">
+            <el-form-item label="LOGO">
               <img class="img" :src="imgUrl+props.row.picture" alt />
             </el-form-item>
             <el-form-item label="公司简介">
@@ -77,10 +77,21 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="factoryId" label="工厂ID" width="80"></el-table-column>
       <el-table-column prop="factoryName" label="工厂名称"></el-table-column>
-      <el-table-column prop="address" label="工厂地址"></el-table-column>
+      <el-table-column label="地址">
+        <el-table-column label="省份">
+          <template slot-scope="scope">{{scope.row.province.split(',')[0]}}</template>
+        </el-table-column>
+        <el-table-column prop="city" label="市区">
+          <template slot-scope="scope">{{scope.row.province.split(',')[1]}}</template>
+        </el-table-column>
+        <el-table-column prop="city" label="区县">
+          <template slot-scope="scope">{{scope.row.province.split(',')[2]}}</template>
+        </el-table-column>
+        <el-table-column prop="address" label="地址" width="300"></el-table-column>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
-          <el-button size="mini">厂区</el-button>
+          <el-button size="mini" @click="handleToBuilding(scope.$index, scope.row)">楼宇</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           <el-button size="mini" type="primary" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
@@ -282,6 +293,12 @@ export default {
       this.$router.push({
         name: "工厂详情",
         params: { fId: row.factoryId }
+      });
+    },
+    handleToBuilding(index, row) {
+      this.$router.push({
+        name: "楼宇管理",
+        params: { fId: row.factoryId,fName:row.factoryName}
       });
     }
   },

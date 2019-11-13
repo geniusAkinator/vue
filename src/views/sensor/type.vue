@@ -65,7 +65,14 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="ttId" label="传感器ID" width="150"></el-table-column>
-      <el-table-column prop="name" label="传感器类型名称"></el-table-column>
+      <el-table-column prop="name" label="传感器型号"></el-table-column>
+      <el-table-column label="设备类型">
+        <template slot-scope="scope">
+          <div v-for="(item,index) in options" :key="index">
+            <span v-if="item.value == scope.row.type">{{item.label}}</span>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" width="250px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleConfig(scope.$index, scope.row)">技术参数</el-button>
@@ -113,7 +120,37 @@ export default {
       did: "",
       cid: 0,
       eid: 0,
-      index: ""
+      index: "",
+      options: [
+        {
+          value: 1,
+          label: "温湿度"
+        },
+        {
+          value: 2,
+          label: "烟雾"
+        },
+        {
+          value: 3,
+          label: "二氧化碳"
+        },
+        {
+          value: 4,
+          label: "可燃气体"
+        },
+        {
+          value: 5,
+          label: "水压"
+        },
+        {
+          value: 6,
+          label: "水深"
+        },
+        {
+          value: 7,
+          label: "甲醛"
+        }
+      ]
     };
   },
   watch: {

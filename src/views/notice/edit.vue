@@ -11,8 +11,8 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="公告名称" prop="noticeName">
-        <el-input v-model="form.noticeName" placeholder="请输入公告名称"></el-input>
+      <el-form-item label="公告标题" prop="noticeName">
+        <el-input v-model="form.noticeName" placeholder="请输入公告标题"></el-input>
       </el-form-item>
       <el-form-item label="公告类型" prop="type">
         <el-select v-model="form.type" placeholder="请选择公告类型">

@@ -2,9 +2,37 @@
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="所属工厂" prop="factory.factoryId">
-        <el-select v-model="form.factory.factoryId" placeholder="请选择所属工厂">
+        <el-select
+          v-model="form.factory.factoryId"
+          @change="handleSelectFactory"
+          placeholder="请选择所属工厂"
+        >
           <el-option
             v-for="item in coptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="所属楼宇" prop="building.buildingId">
+        <el-select
+          v-model="form.building.buildingId"
+          @change="handleSelectBuilding"
+          placeholder="请选择所属楼宇"
+        >
+          <el-option
+            v-for="item in boptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="所属楼层" prop="floor.floorId">
+        <el-select v-model="form.floor.floorId" placeholder="请选择所属楼层">
+          <el-option
+            v-for="item in foptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -92,6 +120,16 @@ export default {
         pageNum: 1,
         pageSize: 0
       },
+      bform: {
+        factoryId: 0,
+        pageNum: 1,
+        pageSize: 0
+      },
+      fform: {
+        buildingId: 0,
+        pageNum: 1,
+        pageSize: 0
+      },
       form: {
         transducerId: this.$parent.eid,
         //提交数据
@@ -103,15 +141,23 @@ export default {
           ttId: 0
         },
         factory: {
-          factoryId: 0
+          factoryId: ""
+        },
+        building: {
+          buildingId: ""
+        },
+        floor: {
+          floorId: ""
         }
       },
       options: [],
       coptions: [],
+      boptions: [],
+      foptions: [],
       isShow: true,
       rules: {
         //表单验证规则
-       "factory.factoryId": [
+        "factory.factoryId": [
           { required: true, message: "请输入所属工厂", trigger: "change" }
         ],
         deviceNumber: [
@@ -123,9 +169,25 @@ export default {
         pos: [{ required: true, validator: validatePos, trigger: "change" }],
         "transducerType.ttId": [
           { required: true, message: "请输入设备型号", trigger: "change" }
+        ],
+        "building.buildingId": [
+          { required: true, message: "请输入所属楼宇", trigger: "change" }
+        ],
+        "floor.floorId": [
+          { required: true, message: "请输入所属楼层", trigger: "change" }
         ]
       }
     };
+  },
+  watch: {
+    "form.factory.factoryId": function(nVal, oVal) {
+      this.bform.factoryId = nVal;
+      this.getBuildingList();
+    },
+    "form.building.buildingId": function(nVal, oVal) {
+      this.fform.buildingId = nVal;
+      this.getFloorList();
+    }
   },
   methods: {
     handleSubmit(form) {
@@ -217,23 +279,70 @@ export default {
       //表单回显
       api.getSensorDetail({ id: this.form.transducerId }).then(res => {
         if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-          let _data = res.data;
-          console.log(_data);
+          let _data = res.data.transducer;
+          let _bdata = res.data.building;
+          console.log("ddd", _data);
           this.form.deviceNumber = _data.deviceNumber;
           this.form.expirationDate = _data.expirationDate;
           this.form.latitude = _data.latitude;
           this.form.longitude = _data.longitude;
           this.form.transducerType.ttId = _data.transducerType.ttId;
           this.form.factory.factoryId = _data.factory.factoryId;
-
-          // for (let key in _data) {
-          //   this.form[key] = _data[key];
-          // }
+          this.form.building.buildingId = _bdata.buildingId;
+          this.form.floor.floorId = _data.floor.floorId;
+          console.log(_data.floor.floorId);
+          console.log(this.form);
         }
       });
       setTimeout(() => {
         loadingInstance.close();
       }, 600);
+    },
+    getBuildingList() {
+      let _this = this;
+      api
+        .getBuildingData(_this.bform)
+        .then(res => {
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            let content = _data.content;
+            console.log(_data);
+            content.map((item, i) => {
+              if (!item.state) {
+                let temp = {};
+                temp.label = item.name;
+                temp.value = item.buildingId;
+                this.boptions.push(temp);
+              }
+            });
+          }
+        })
+        .catch(_ => {});
+    },
+    getFloorList() {
+      let _this = this;
+      api.getFloorData(_this.fform).then(res => {
+        if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          let content = _data.content;
+          content.map((item, i) => {
+            if (!item.state) {
+              let temp = {};
+              temp.label = item.name;
+              temp.value = item.floorId;
+              this.foptions.push(temp);
+            }
+          });
+        }
+      });
+    },
+    handleSelectFactory(e) {
+      this.form.building.buildingId = "";
+      this.boptions = [];
+    },
+    handleSelectBuilding(e) {
+      this.form.floor.floorId = "";
+      this.foptions = [];
     }
   },
   mounted() {

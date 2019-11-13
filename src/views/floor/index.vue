@@ -16,7 +16,7 @@
         <template slot="content">
           <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
             <el-form-item label="关键字" size="small">
-              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：人员名称）"></el-input>
+              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：楼层名称）"></el-input>
             </el-form-item>
           </el-form>
         </template>
@@ -45,35 +45,11 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="employeeId" label="ID" width="150"></el-table-column>
-      <el-table-column prop="department.departmentName" label="所属部门" width="150"></el-table-column>
-      <el-table-column prop="name" label="名称" width="100">
-        <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>姓名: {{ scope.row.name }}</p>
-            <p>
-              身份证:
-              <span :title="scope.row.idCard">{{ idCardEncrypt(scope.row.idCard) }}</span>
-            </p>
-            <p>
-              手机号:
-              <span :title="scope.row.phone">{{ mobileEncrypt(scope.row.phone) }}</span>
-            </p>
-            <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.name }}</el-tag>
-            </div>
-          </el-popover>
-        </template>
-      </el-table-column>
-      <el-table-column prop="duty" label="职务"></el-table-column>
-      <el-table-column prop="sex" label="性别">
-        <template slot-scope="scope">{{ !scope.row.sex ? '男' : '女' }}</template>
-      </el-table-column>
-      <el-table-column prop="state" label="状态">
-        <template slot-scope="scope">{{ !scope.row.state ? '在职' : '离职' }}</template>
-      </el-table-column>
-      <el-table-column prop="joinTime" label="入职时间" width="180px"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="140px">
+      <el-table-column prop="floorId" label="楼层ID" width="80"></el-table-column>
+      <el-table-column prop="building.name" label="楼宇名称"></el-table-column>
+      <el-table-column prop="floorName" label="楼层名称"></el-table-column>
+      <el-table-column prop="level" label="当前楼层"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -96,23 +72,20 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyEmployeeAdd from "@/views/employee/add";
-import MyEmployeeEdit from "@/views/employee/edit";
+import MyFloorAdd from "@/views/floor/add";
+import MyFloorEdit from "@/views/floor/edit";
 import api from "@/api/index";
-import utils from "@/utils/utils";
+import http from "@/utils/http";
+import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
+      //表格请求params
       loading: true,
       Listform: {
-        //表格请求params
-        pageNum: 1,
-        pageSize: 25
-      },
-      dform:{
         pageNum: 1,
         pageSize: 0,
-        factoryName: ""
+        buildingId: this.$route.params.bId
       },
       total: 0,
       tableData: [],
@@ -123,18 +96,10 @@ export default {
       did: "",
       eid: 0,
       index: "",
-      layerInitWidth: 0,
-      layerInitHeight: 0
+      imgUrl: baseURL,
+      bId: 0,
+      bName: ""
     };
-  },
-  watch: {
-    index: function(newVal, oldVal) {
-      let layer = document.querySelector("#" + newVal);
-      if (layer != null) {
-        this.layerInitWidth = layer.offsetWidth;
-        this.layerInitHeight = layer.offsetHeight;
-      }
-    }
   },
   methods: {
     handleSizeChange(e) {
@@ -152,28 +117,27 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyEmployeeAdd, //传递的组件对象
+          content: MyFloorAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
         shade: true,
-        area: ["500px", "500px"],
-        title: "新增人员信息",
+        area: ["600px", "600px"],
+        title: "新增楼层信息",
         target: ".el-main"
       });
-      this.index = index;
     },
     handleEdit(idx, row) {
-      this.eid = row.employeeId;
+      this.eid = row.floorId;
       let index = this.$layer.iframe({
         content: {
-          content: MyEmployeeEdit, //传递的组件对象
+          content: MyFloorEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
         shade: true,
-        area: ["500px", "500px"],
-        title: "编辑人员信息",
+        area: ["600px", "600px"],
+        title: "编辑楼层信息",
         target: ".el-main"
       });
       this.index = index;
@@ -195,25 +159,16 @@ export default {
       } else if (command == "excel") {
       }
     },
-    handleUpload(command) {
-      console.log("上传");
-      if (command == "template") {
-        //下载模板
-      } else if (command == "upload") {
-        console.log("上传");
-        this.$refs.file.click();
-      }
-    },
     handleSelectionChange(e) {
       let did = "";
       e.forEach(function(item) {
-        did = did + item.employeeId + ",";
+        did = did + item.floorId + ",";
       });
       this.did = did.substr(0, did.length - 1);
     },
     handleDelete(index, row) {
       //删除单行
-      this.did = row.employeeId + "";
+      this.did = row.floorId + "";
       this.delRow();
     },
     handleDeleteMore() {
@@ -225,7 +180,7 @@ export default {
       _this
         .$confirm("确认删除")
         .then(_ => {
-          api.delEmployeeData({ ids: _this.did }).then(res => {
+          api.delFloorData({ ids: _this.did }).then(res => {
             if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
@@ -243,46 +198,28 @@ export default {
     },
     initTable() {
       //初始化表格数据
-      api
-        .getEmployeeData(this.dform)
-        .then(res => {
-          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            let _data = res.data;
-            console.log(_data);
-            this.tableData = _data.content;
-            this.total = _data.total;
-          }
-        })
-        .catch(_ => {});
+        api
+          .getFloorData(this.Listform)
+          .then(res => {
+            if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              let _data = res.data;
+              console.log(_data);
+              this.tableData = _data.content;
+              this.total = _data.total;
+            }
+          })
+          .catch(_ => {});
       setTimeout(() => {
         this.loading = false;
       }, 1000);
-    },
-    mobileEncrypt(str) {
-      return mobileEncrypt(str);
-    },
-    idCardEncrypt(str) {
-      return idCardEncrypt(str);
     }
   },
   created() {
+    this.bId = this.$route.params.bId;
+    this.bName = this.$route.params.bName;
     this.initTable();
   },
-  mounted() {
-    window.addEventListener("resize", () => {
-      if (this.index == "") {
-        return;
-      }
-      let layer = document.querySelector("#" + this.index);
-      if (layer != null) {
-        utils.resizeLayer(
-          this.index,
-          this.layerInitWidth,
-          this.layerInitHeight
-        );
-      }
-    });
-  },
+  mounted() {},
   beforeMount() {},
   components: {
     MySearchTool
@@ -298,5 +235,8 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+}
+.img {
+  max-height: 100px;
 }
 </style>

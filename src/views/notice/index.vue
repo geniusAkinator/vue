@@ -48,8 +48,21 @@
       <el-table-column prop="noticeId" label="公告ID" width="80"></el-table-column>
       <el-table-column prop="factory.factoryName" label="所属工厂"></el-table-column>
       <el-table-column prop="noticeName" label="公告标题"></el-table-column>
+      <el-table-column prop="type" label="公告类型">
+        <template slot-scope="scope">
+          <div v-for="(item,key) in options" :key="key">
+            <span v-if="item.value==scope.row.type">
+              {{item.label}}
+            </span>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="state" label="状态">
-        <template slot-scope="scope">{{ !scope.row.state ? '未通过' : '已通过' }}</template>
+        <template slot-scope="scope">
+          <span
+            :class="!scope.row.state ? 'danger' : 'success'"
+          >{{ !scope.row.state ? '未通过' : '已通过' }}</span>
+        </template>
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
@@ -107,7 +120,17 @@ export default {
       labelPosition: "left",
       did: "",
       eid: 0,
-      index: ""
+      index: "",
+      options: [
+        {
+          value: "1",
+          label: "通知公告"
+        },
+        {
+          value: "2",
+          label: "综合信息"
+        }
+      ]
     };
   },
   methods: {
@@ -289,5 +312,11 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+}
+.success {
+  color: #67c23a;
+}
+.danger {
+  color: #f56c6c;
 }
 </style>

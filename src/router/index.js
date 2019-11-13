@@ -39,7 +39,9 @@ import Nav from '@/views/nav/index'
 import Department from '@/views/department/index'
 import Employee from '@/views/employee/index'
 import Notice from '@/views/notice/index'
-
+import Building from '@/views/building/index'
+import Floor from '@/views/floor/index'
+import SensorDetail from '@/views/sensor/detail'
 
 Vue.use(Router)
 
@@ -107,6 +109,16 @@ export default new Router({
           name: '工厂详情',
           component: FactoryDetail,
         },
+        {
+          path: 'factoryBuilding/:fId/:fName',
+          name: '楼宇管理',
+          component: Building,
+        },
+        {
+          path:'floor/:bId/:bName',
+          name:'楼层管理',
+          component:Floor
+        }
       ]
     },
     {
@@ -124,6 +136,11 @@ export default new Router({
           name: '传感器型号管理',
           component: SensorType
         },
+        {
+          path:'sensorDetail',
+          name:'传感器详情',
+          component:SensorDetail
+        }
       ]
     },
     {

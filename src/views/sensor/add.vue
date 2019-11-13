@@ -11,6 +11,26 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="所属楼宇" prop="building.buildingId">
+        <el-select v-model="form.building.buildingId" placeholder="请选择所属楼宇">
+          <el-option
+            v-for="item in boptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="所属楼层" prop="floor.floorId">
+        <el-select v-model="form.floor.floorId" placeholder="请选择所属楼层">
+          <el-option
+            v-for="item in foptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
@@ -97,6 +117,16 @@ export default {
         pageNum: 1,
         pageSize: 0
       },
+      bform: {
+        factoryId: 0,
+        pageNum: 1,
+        pageSize: 0
+      },
+      fform: {
+        buildingId: 0,
+        pageNum: 1,
+        pageSize: 0
+      },
       form: {
         //提交数据
         deviceNumber: "",
@@ -108,10 +138,18 @@ export default {
         },
         factory: {
           factoryId: ""
+        },
+        building: {
+          buildingId: ""
+        },
+        floor: {
+          floorId: ""
         }
       },
       options: [],
       coptions: [],
+      boptions: [],
+      foptions: [],
       isShow: true,
       rules: {
         //表单验证规则
@@ -127,9 +165,29 @@ export default {
         pos: [{ required: true, validator: validatePos, trigger: "change" }],
         "transducerType.ttId": [
           { required: true, message: "请输入设备型号", trigger: "change" }
+        ],
+        "building.buildingId": [
+          { required: true, message: "请输入所属楼宇", trigger: "change" }
+        ],
+        "floor.floorId": [
+          { required: true, message: "请输入所属楼层", trigger: "change" }
         ]
       }
     };
+  },
+  watch: {
+    "form.factory.factoryId": function(nVal, oVal) {
+      this.bform.factoryId = nVal;
+      this.form.building.buildingId = "";
+      this.boptions = [];
+      this.getBuildingList();
+    },
+    "form.building.buildingId": function(nVal, oVal) {
+      this.fform.buildingId = nVal;
+      this.form.floor.floorId = "";
+      this.foptions = [];
+      this.getFloorList();
+    }
   },
   methods: {
     handleSubmit(form) {
@@ -178,7 +236,7 @@ export default {
     initForm() {
       let _this = this;
       api
-        .getSensorTypeData(this.sform)
+        .getSensorTypeData(_this.sform)
         .then(res => {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
@@ -195,9 +253,9 @@ export default {
         })
         .catch(_ => {});
       api
-        .getFactoryData(this.cform)
+        .getFactoryData(_this.cform)
         .then(res => {
-          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          if (res.code == _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             console.log(_data);
             let content = _data.content;
@@ -206,12 +264,50 @@ export default {
                 let temp = {};
                 temp.label = item.factoryName;
                 temp.value = item.factoryId;
-                this.coptions.push(temp);
+                _this.coptions.push(temp);
               }
             });
           }
         })
         .catch(_ => {});
+    },
+    getBuildingList() {
+      let _this = this;
+      api
+        .getBuildingData(_this.bform)
+        .then(res => {
+          if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            let content = _data.content;
+            console.log(_data);
+            content.map((item, i) => {
+              if (!item.state) {
+                let temp = {};
+                temp.label = item.name;
+                temp.value = item.buildingId;
+                this.boptions.push(temp);
+              }
+            });
+          }
+        })
+        .catch(_ => {});
+    },
+    getFloorList() {
+      let _this = this;
+      api.getFloorData(_this.fform).then(res => {
+        if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          let content = _data.content;
+          content.map((item, i) => {
+            if (!item.state) {
+              let temp = {};
+              temp.label = item.name;
+              temp.value = item.floorId;
+              this.foptions.push(temp);
+            }
+          });
+        }
+      });
     }
   },
   created() {

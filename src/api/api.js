@@ -611,3 +611,90 @@ export const checkSession = params =>{ //验证session
         method:"POST"
     })
 }
+
+/**
+ *楼宇管理 
+ */
+export const getBuildingData = params => { //获取楼宇信息
+    return request({
+        url: '/building/buildingList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const delBuildingData = params => {  //删除楼宇信息
+    return request({
+        url: '/building/deleteBuilding',
+        params: params,
+        method: "DELETE"
+    });
+}
+
+export const addBuildingData = params => { //添加楼宇信息
+    return request({
+        url: '/building/addBuilding',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const updateBuildingData = params => { //修改楼宇信息
+    return request({
+        url: '/building/updateBuilding',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const getBuildingDetail = params => { //获取楼宇信息
+    return request({
+        url: '/building/buildingDetail',
+        params: params,
+        method: "GET"
+    });
+}
+
+/**
+ *楼层管理 
+ */
+
+export const getFloorData = params => { //获取楼层管理 
+    return request({
+        url: '/floor/floorList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const delFloorData = params => {  //删除楼层管理 
+    return request({
+        url: '/floor/deleteFloor',
+        params: params,
+        method: "DELETE"
+    });
+}
+
+export const addFloorData = params => { //添加楼层管理 
+    return request({
+        url: '/floor/addFloor',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const updateFloorData = params => { //修改楼层管理 
+    return request({
+        url: '/floor/updateFloor',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const getFloorDetail = params => { //获取楼宇信息
+    return request({
+        url: '/floor/floorDetail',
+        params: params,
+        method: "GET"
+    });
+}
