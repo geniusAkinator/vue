@@ -1,15 +1,11 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="所属部门" prop="department.departmentId">
-        <el-select v-model="form.department.departmentId">
-          <el-option
-            v-for="(item,index) in doption"
-            :key="index"
-            :label="item.departmentName"
-            :value="item.departmentId"
-          ></el-option>
-        </el-select>
+      <!-- <el-form-item label="所属部门" prop="department.departmentId">
+        
+      </el-form-item> -->
+      <el-form-item label="所属部门">
+        <el-input v-model="this.$parent.dName" class="readonly" :readonly="true"></el-input>
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -85,7 +81,7 @@ export default {
       form: {
         name: "",
         department: {
-          departmentId: ""
+          departmentId: this.$parent.dId
         },
         idCard: "",
         sex: 0,
@@ -96,9 +92,9 @@ export default {
         joinTime: ""
       },
       rules: {
-        "department.departmentId": [
-          { required: true, message: "请选择所属部门", trigger: "change" }
-        ],
+        // "department.departmentId": [
+        //   { required: true, message: "请选择所属部门", trigger: "change" }
+        // ],
         name: [{ required: true, message: "请输入人员名称", trigger: "blur" }],
         idCard: [
           { required: true, validator: validateIdCard, trigger: "blur" }

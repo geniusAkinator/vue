@@ -54,8 +54,9 @@
           <span :title="scope.row.phone">{{mobileEncrypt(scope.row.phone)}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="220px">
+      <el-table-column label="操作" fixed="right" width="240px">
         <template slot-scope="scope">
+          <el-button size="mini" @click="handleToEmployee(scope.$index, scope.row)">人员管理</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -236,6 +237,12 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 1000);
+    },
+    handleToEmployee(idx, row) {
+      this.$router.push({
+        name: "人员管理",
+        params: { dId: row.departmentId, dName: row.departmentName }
+      });
     }
   },
   created() {

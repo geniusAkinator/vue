@@ -154,7 +154,7 @@ export default new Router({
           component: Department,
         },
         {
-          path: 'employee',
+          path: 'employee/:dId/:dName',
           name: '人员管理',
           component: Employee
         },

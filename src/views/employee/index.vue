@@ -107,12 +107,8 @@ export default {
       Listform: {
         //表格请求params
         pageNum: 1,
-        pageSize: 25
-      },
-      dform:{
-        pageNum: 1,
-        pageSize: 0,
-        factoryName: ""
+        pageSize: 25,
+        departmentId: 0
       },
       total: 0,
       tableData: [],
@@ -124,7 +120,9 @@ export default {
       eid: 0,
       index: "",
       layerInitWidth: 0,
-      layerInitHeight: 0
+      layerInitHeight: 0,
+      dId: 0,
+      dName: ""
     };
   },
   watch: {
@@ -243,8 +241,9 @@ export default {
     },
     initTable() {
       //初始化表格数据
+      this.Listform.departmentId = this.$route.params.dId;
       api
-        .getEmployeeData(this.dform)
+        .getEmployeeData(this.Listform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
@@ -266,6 +265,8 @@ export default {
     }
   },
   created() {
+    this.dId = this.$route.params.dId;
+    this.dName = this.$route.params.dName;
     this.initTable();
   },
   mounted() {

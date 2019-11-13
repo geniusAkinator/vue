@@ -1,15 +1,8 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="所属部门" prop="department.departmentId">
-        <el-select v-model="form.department.departmentId">
-          <el-option
-            v-for="(item,index) in doption"
-            :key="index"
-            :label="item.departmentName"
-            :value="item.departmentId"
-          ></el-option>
-        </el-select>
+      <el-form-item label="所属部门">
+        <el-input v-model="this.$parent.dName" class="readonly" :readonly="true"></el-input>
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -85,7 +78,7 @@ export default {
       doption: [],
       form: {
         department: {
-          departmentId: ""
+          departmentId: this.$parent.dId
         },
         employeeId: this.$parent.eid,
         name: "",
