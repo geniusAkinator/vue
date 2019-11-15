@@ -84,7 +84,7 @@
       </el-tab-pane>
       <el-tab-pane label="故障详情">
         <el-card class="state-card" shadow="hover">
-          <el-row :gutter="20">
+          <el-row :gutter="20" class="info-panel">
             <el-col :span="12">
               <ul class="info_block">
                 <li class="info_item">
@@ -493,5 +493,11 @@ export default {
 }
 .info_name{
   font-weight: bold;
+}
+.info-panel{
+  margin-bottom: 20px;
+  background: #ebeef5;
+  padding: 10px;
+  border-radius: 5px;
 }
 </style>
