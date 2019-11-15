@@ -51,6 +51,11 @@ export default {
           color: "#8b969c"
         }
       },
+      legend: {
+        orient: "vertical",
+        x: "right",
+        data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+      },
       series: [
         {
           name: "访问来源",

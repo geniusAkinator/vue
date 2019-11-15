@@ -39,6 +39,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="点位置">
+        <my-pos-picker :img="floorImg" :pos="pos" @sendPos="getPos"></my-pos-picker>
+      </el-form-item>
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
@@ -55,7 +58,6 @@
       <el-form-item label="到期时间" prop="expirationDate">
         <el-date-picker v-model="form.expirationDate" type="datetime" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
-      <!-- prop="pos" -->
       <el-form-item label="经纬度">
         <el-row class="form-map-picker">
           <el-col :span="10">
@@ -100,6 +102,7 @@
 </template>
 <script>
 import MyMapPicker from "@/components/mappicker";
+import MyPosPicker from "@/components/pospicker";
 import api from "@/api/index";
 import { Loading } from "element-ui";
 export default {
@@ -148,13 +151,21 @@ export default {
         },
         floor: {
           floorId: ""
-        }
+        },
+        xaxis: 0,
+        yaxis: 0
       },
       options: [],
       coptions: [],
       boptions: [],
       foptions: [],
-      isShow: true,
+      isShow: false,
+      floorList: [],
+      floorImg: "",
+      pos: {
+        xAxis: "",
+        yAxis: ""
+      },
       rules: {
         //表单验证规则
         "factory.factoryId": [
@@ -187,6 +198,17 @@ export default {
     "form.building.buildingId": function(nVal, oVal) {
       this.fform.buildingId = nVal;
       this.getFloorList();
+    },
+    "form.floor.floorId": function(nVal, oVal) {
+      let list = this.floorList;
+      let floorImg = "";
+      list.map((item, i) => {
+        console.log(item);
+        if (item.floorId == nVal) {
+          floorImg = item.picture;
+        }
+      });
+      this.floorImg = floorImg;
     }
   },
   methods: {
@@ -280,18 +302,21 @@ export default {
       api.getSensorDetail({ id: this.form.transducerId }).then(res => {
         if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data.transducer;
-          let _bdata = res.data.building;
-          console.log("ddd", _data);
           this.form.deviceNumber = _data.deviceNumber;
           this.form.expirationDate = _data.expirationDate;
           this.form.latitude = _data.latitude;
           this.form.longitude = _data.longitude;
           this.form.transducerType.ttId = _data.transducerType.ttId;
           this.form.factory.factoryId = _data.factory.factoryId;
-          this.form.building.buildingId = _bdata.buildingId;
+          this.form.building.buildingId = _data.floor.building.buildingId;
           this.form.floor.floorId = _data.floor.floorId;
-          console.log(_data.floor.floorId);
-          console.log(this.form);
+          this.form.xaxis = _data.xaxis;
+          this.form.yaxis = _data.yaxis;
+          this.$set(this.pos, "xAxis", _data.xaxis + "%");
+          this.$set(this.pos, "yAxis", _data.yaxis + "%");
+          // this.pos.xAxis = _data.xaxis + "%";
+          // this.pos.yAxis = _data.yaxis + "%";
+          console.log("_data", _data);
         }
       });
       setTimeout(() => {
@@ -325,12 +350,21 @@ export default {
         if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
           let content = _data.content;
+          _this.floorList = content;
+          let floorImg = "";
+          _this.floorList.map((item, i) => {
+            console.log(item);
+            if (item.floorId == this.form.floor.floorId) {
+              floorImg = item.picture;
+            }
+          });
+          this.floorImg = floorImg;
           content.map((item, i) => {
             if (!item.state) {
               let temp = {};
               temp.label = item.name;
               temp.value = item.floorId;
-              this.foptions.push(temp);
+              _this.foptions.push(temp);
             }
           });
         }
@@ -343,6 +377,10 @@ export default {
     handleSelectBuilding(e) {
       this.form.floor.floorId = "";
       this.foptions = [];
+    },
+    getPos(e) {
+      this.form.xaxis = e.xAxis;
+      this.form.yaxis = e.yAxis;
     }
   },
   mounted() {
@@ -351,7 +389,8 @@ export default {
     });
   },
   components: {
-    MyMapPicker
+    MyMapPicker,
+    MyPosPicker
   }
 };
 </script>

@@ -84,9 +84,9 @@ export default {
       sensor: {}
     };
   },
-  watch:{
+  watch: {
     $route: function(newVal, oldVal) {
-      console.log("进来")
+      
     }
   },
   methods: {
@@ -164,7 +164,6 @@ export default {
 }
 .not_found {
   width: 100%;
-  height: 100%;
   text-align: center;
   display: flex;
   justify-content: center;

@@ -31,6 +31,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="点位置">
+        <my-pos-picker :img="floorImg" @sendPos="getPos"></my-pos-picker>
+      </el-form-item>
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>
@@ -99,6 +102,7 @@
 </template>
 <script>
 import MyMapPicker from "@/components/mappicker";
+import MyPosPicker from "@/components/pospicker";
 import api from "@/api/index";
 export default {
   data() {
@@ -145,13 +149,17 @@ export default {
         },
         floor: {
           floorId: ""
-        }
+        },
+        xaxis: 0,
+        yaxis: 0
       },
       options: [],
       coptions: [],
       boptions: [],
       foptions: [],
       isShow: true,
+      floorList: [],
+      floorImg: "",
       rules: {
         //表单验证规则
         "factory.factoryId": [
@@ -188,6 +196,18 @@ export default {
       this.form.floor.floorId = "";
       this.foptions = [];
       this.getFloorList();
+    },
+    "form.floor.floorId": function(nVal, oVal) {
+      console.log(nVal);
+      let list = this.floorList;
+      let floorImg = "";
+      list.map((item, i) => {
+        console.log(item);
+        if (item.floorId == nVal) {
+          floorImg = item.picture;
+        }
+      });
+      this.floorImg = floorImg;
     }
   },
   methods: {
@@ -280,13 +300,12 @@ export default {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let content = _data.content;
-            console.log(_data);
             content.map((item, i) => {
               if (!item.state) {
                 let temp = {};
                 temp.label = item.name;
                 temp.value = item.buildingId;
-                this.boptions.push(temp);
+                _this.boptions.push(temp);
               }
             });
           }
@@ -299,16 +318,22 @@ export default {
         if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
           let content = _data.content;
+          this.floorList = content;
           content.map((item, i) => {
             if (!item.state) {
               let temp = {};
               temp.label = item.name;
               temp.value = item.floorId;
-              this.foptions.push(temp);
+              _this.foptions.push(temp);
             }
           });
         }
       });
+    },
+    getPos(e) {
+      console.log(e);
+      this.form.xaxis = e.xAxis;
+      this.form.yaxis = e.yAxis;
     }
   },
   mounted() {
@@ -317,7 +342,8 @@ export default {
     });
   },
   components: {
-    MyMapPicker
+    MyMapPicker,
+    MyPosPicker
   }
 };
 </script>

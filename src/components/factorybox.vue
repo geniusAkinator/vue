@@ -92,7 +92,7 @@ export default {
 #desktop_factory {
   display: flex;
 }
-ul{
+ul {
   list-style-type: none;
 }
 </style>

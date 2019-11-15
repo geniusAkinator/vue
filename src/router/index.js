@@ -43,6 +43,7 @@ import Building from '@/views/building/index'
 import Floor from '@/views/floor/index'
 import SensorDetail from '@/views/sensor/detail'
 import Display from '@/views/display/index'
+import DisplayInfo from '@/views/display/detail'
 
 Vue.use(Router)
 
@@ -144,9 +145,14 @@ export default new Router({
         },
         {
           path: 'display',
-          name: '传感器展示',
+          name: '传感器信息',
           component: Display
         },
+        {
+          path: 'displayInfo',
+          name: '传感器展示',
+          component: DisplayInfo
+        }
       ]
     },
     {

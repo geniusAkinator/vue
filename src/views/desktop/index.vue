@@ -120,7 +120,7 @@
                 </div>
                 <div class="tips-item">
                   <i class="circle info"></i>
-                  通讯中断（失联）
+                  离线
                 </div>
               </div>
               <my-calendar class="calendar" :list="calList"></my-calendar>

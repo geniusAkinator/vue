@@ -81,10 +81,10 @@ export default {
         });
     }
   },
-  props:{
-    region:{
-      type:String,
-      default:"江苏"
+  props: {
+    region: {
+      type: String,
+      default: "江苏"
     }
   },
   methods: {
