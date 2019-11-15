@@ -134,13 +134,13 @@ export default {
       }
     },
     $route: function(newVal, oldVal) {
-      let name = newVal.name;
-      if (name == "人员管理") {
-        this.Listform.departmentId = this.$route.params.departmentId;
-        this.dId = this.$route.params.dId;
-        this.dName = this.$route.params.dName;
-        this.initTable();
-      }
+      // let name = newVal.name;
+      // if (name == "人员管理") {
+      //   this.Listform.departmentId = this.$route.params.departmentId;
+      //   this.dId = this.$route.params.dId;
+      //   this.dName = this.$route.params.dName;
+      //   this.initTable();
+      // }
     }
   },
 
@@ -295,6 +295,10 @@ export default {
     });
   },
   beforeMount() {},
+  beforeRouteLeave(to, from, next) {
+    this.$destroy();
+    next();
+  },
   components: {
     MySearchTool
   }

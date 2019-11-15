@@ -61,7 +61,7 @@ import utils from "@/utils/utils";
 export default {
   data() {
     return {
-      loading:true,
+      loading: true,
       Listform: {
         //表格请求params
         pId: 0,
@@ -104,13 +104,13 @@ export default {
       }
     },
     $route: function(newVal, oldVal) {
-      let name = newVal.name;
-      if (name == "菜单管理") {
-        this.Listform.pId = this.$route.params.pId;
-        this.pId = this.$route.params.pId;
-        this.pName = this.$route.params.pName;
-        this.initTable();
-      }
+      // let name = newVal.name;
+      // if (name == "菜单管理") {
+      //   this.Listform.pId = this.$route.params.pId;
+      //   this.pId = this.$route.params.pId;
+      //   this.pName = this.$route.params.pName;
+      //   this.initTable();
+      // }
     }
   },
   methods: {
@@ -225,6 +225,10 @@ export default {
         );
       }
     });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$destroy();
+    next();
   },
   components: {}
 };

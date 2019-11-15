@@ -142,7 +142,6 @@ export default {
         .then(res => {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data.floor;
-            console.log(_data);
             for (let key in _data) {
               this.form[key] = _data[key];
             }

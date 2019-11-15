@@ -307,7 +307,7 @@ export default {
           this.form.latitude = _data.latitude;
           this.form.longitude = _data.longitude;
           this.form.transducerType.ttId = _data.transducerType.ttId;
-          this.form.factory.factoryId = _data.factory.factoryId;
+          this.form.factory.factoryId = _data.floor.building.factory.factoryId;
           this.form.building.buildingId = _data.floor.building.buildingId;
           this.form.floor.floorId = _data.floor.floorId;
           this.form.xaxis = _data.xaxis;

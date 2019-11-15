@@ -16,25 +16,31 @@
         </el-col>
         <el-col :span="8">
           <ul class="info_block">
-            <li class="info_item">
+            <!-- <li class="info_item">
               <span class="info_name">位置</span>
-              <span class="info_value">AAA工厂-BBB楼宇-CCC楼层</span>
-            </li>
-            <li class="info_item">
-              <span class="info_name">位置描述</span>
-              <span class="info_value">智慧消防展厅独立烟感</span>
-            </li>
+              <span
+                class="info_value"
+              >{{sensor.floor.building.factory.factoryName}}---{{sensor.floor.building.name}}---{{sensor.floor.floorName}}</span>
+            </li>-->
           </ul>
         </el-col>
         <el-col :span="8">
           <ul class="info_block">
             <li class="info_item">
               <span class="info_name">设备型号</span>
-              <span class="info_value">XXXXX</span>
+              <span class="info_value">{{sensor.transducerType.name}}</span>
             </li>
             <li class="info_item">
-              <span class="info_name">更新时间</span>
-              <span class="info_value">2019-11-06 02:20:57</span>
+              <span class="info_name">设备类型</span>
+              <span class="info_value">
+                <div v-for="(item,index) in options" :key="index">
+                  <span v-if="item.value == sensor.transducerType.type">{{item.label}}</span>
+                </div>
+              </span>
+            </li>
+            <li class="info_item">
+              <span class="info_name">到期时间</span>
+              <span class="info_value">{{sensor.expirationDate}}</span>
             </li>
           </ul>
         </el-col>
@@ -52,7 +58,17 @@
           </div>
         </el-col>
         <el-col :span="12">
-          <div class="floor_img">
+          <div ref="floorImg" class="floor_img_content" v-if="sensor.floor.picture!=''">
+            <img class="floor_img" :src="imgUrl+sensor.floor.picture" />
+            <img
+              ref="marker"
+              :style="{left:`${sensor.xaxis}%`,top:`${sensor.yaxis}%`}"
+              class="floor_img_marker"
+              :src="icon"
+              alt
+            />
+          </div>
+          <div class="floor_img_content" v-if="sensor.floor.picture==''">
             <div class="not_found">暂无楼层图，请先到工厂管理中添加</div>
           </div>
         </el-col>
@@ -64,6 +80,7 @@
 <script>
 import api from "@/api/index";
 import { Loading } from "element-ui";
+import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
@@ -81,17 +98,106 @@ export default {
           date: "2016-05-02 09:00"
         }
       ],
-      sensor: {}
+      options: [
+        {
+          value: 1,
+          label: "温湿度"
+        },
+        {
+          value: 2,
+          label: "烟雾"
+        },
+        {
+          value: 3,
+          label: "二氧化碳"
+        },
+        {
+          value: 4,
+          label: "可燃气体"
+        },
+        {
+          value: 5,
+          label: "水压"
+        },
+        {
+          value: 6,
+          label: "水深"
+        },
+        {
+          value: 7,
+          label: "甲醛"
+        }
+      ],
+      sensor: {
+        createDateTime: "",
+        deviceNumber: "",
+        deviceStatus: 0,
+        expirationDate: "",
+        factory: {
+          address: "",
+          createDateTime: "",
+          description: "",
+          factoryId: 0,
+          factoryName: "",
+          factoryType: 0,
+          latitude: 0,
+          leader: "",
+          longitude: 0,
+          phone: "",
+          picture: "",
+          province: "",
+          tel: "",
+          updateDateTime: ""
+        },
+        floor: {
+          building: {
+            area: 0,
+            buildingId: 0,
+            createtime: "",
+            factory: {
+              address: "",
+              createDateTime: "",
+              description: "",
+              factoryId: 0,
+              factoryName: "",
+              factoryType: 0,
+              latitude: 0,
+              leader: "",
+              longitude: 0,
+              phone: "",
+              picture: "",
+              province: "",
+              tel: "",
+              updateDateTime: ""
+            },
+            name: "",
+            picture: "",
+            underLevel: 0,
+            updatetime: "",
+            upperLevel: 0
+          },
+          floorId: 0,
+          floorName: "",
+          picture: "",
+          createtime: "",
+          updatetime: ""
+        },
+        latitude: 0,
+        longitude: 0,
+        transducerId: 0,
+        transducerType: { ttId: 0, name: "", state: 0, type: 0 },
+        xaxis: 0,
+        yaxis: 0
+      },
+      imgUrl: baseURL,
+      icon: require("@/assets/map-marker.png")
     };
   },
-  watch: {
-    $route: function(newVal, oldVal) {
-      
-    }
-  },
+  watch: {},
   methods: {
     init() {
       let sId = this.$route.params.sId;
+      console.log(sId);
       api.getSensorDetail({ id: sId }).then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
@@ -99,18 +205,35 @@ export default {
           for (let key in sensorInfo) {
             this.sensor[key] = sensorInfo[key];
           }
-          console.log(this.sensor);
+          console.log("sensor", this.sensor);
         }
       });
     }
   },
-  mounted() {
+  created() {
+    console.log("create");
     this.init();
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$destroy();
+    next();
+  },
+  destroyed() {
+    console.log("destroyed");
   }
 };
 </script>
 
 <style>
+.floor_img_content {
+  min-height: 100px;
+  width: 100%;
+  border: 1px solid #dcdfe6;
+  overflow: hidden;
+  cursor: crosshair;
+  position: relative;
+  line-height: 0;
+}
 .state_block {
   list-style-type: none;
   display: flex;
@@ -158,7 +281,6 @@ export default {
   margin-top: 20px;
 }
 .floor_img {
-  height: 400px;
   width: 100%;
   border: 1px solid #ebeef5;
 }
@@ -176,5 +298,12 @@ export default {
 }
 .state_table .cell {
   text-align: center;
+}
+.floor_img_marker {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 </style>
