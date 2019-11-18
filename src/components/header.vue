@@ -3,7 +3,8 @@
   <el-header class="app-header">
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="/">看板</el-menu-item>
+      <el-menu-item index="/platform">看板</el-menu-item>
+      <el-menu-item index="/main">选择主体</el-menu-item>
     </el-menu>
     <!-- 个人信息 -->
     <div class="app-header-userinfo">
@@ -67,13 +68,20 @@ export default {
     },
     handleClose(key, keyPath) {},
     handleSelect(key, keyPath) {
+      console.log(key, keyPath);
       var _this = this;
       // _this.$router.push("/Platform", () => {});
-      const { href } = this.$router.resolve({
-        name: "平台",
-        params: {}
-      });
-      window.open(href, "_blank");
+      if (key == "/platform") {
+        const { href } = this.$router.resolve({
+          name: "平台",
+          params: {}
+        });
+        window.open(href, "_blank");
+      } else if (key == "/main") {
+        this.$router.push({
+          name: "主体选择"
+        });
+      }
     },
     toSetting() {
       this.$router.push("/sysset", () => {});

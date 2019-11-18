@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <el-row :gutter="10">
-      <el-button>切换主体</el-button>
       <el-row :gutter="10" class="statistics">
         <el-col :sm="6">
           <div class="sta_item">
@@ -189,7 +188,6 @@ import MyFactoryBox from "@/components/factorybox";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 import MyEchartLine from "@/components/eline";
-
 export default {
   data() {
     return {
@@ -213,7 +211,8 @@ export default {
   methods: {
     resizeChart() {
       this.myCharts.resize();
-    }
+    },
+
   },
   created() {
     //数据统计
@@ -360,4 +359,5 @@ export default {
     margin-bottom: 20px;
   }
 }
+
 </style>

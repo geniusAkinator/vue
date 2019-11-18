@@ -5,13 +5,13 @@
         <el-col :span="8">
           <ul class="state_block">
             <li class="state_item">
-              <div class="circle">0</div>
+              <div class="border-circle">0</div>
             </li>
             <li class="state_item">
-              <div class="circle warning">0</div>
+              <div class="border-circle warning">0</div>
             </li>
             <li class="state_item">
-              <div class="circle danger">0</div>
+              <div class="border-circle danger">0</div>
             </li>
           </ul>
         </el-col>
@@ -256,18 +256,19 @@ export default {
   height: 100%;
   line-height: 102px;
 }
-.circle {
+.border-circle {
   width: 100px;
   height: 100px;
   border: 2px solid #409eff;
   text-align: center;
   line-height: 100px;
+  border-radius: 50%;
 }
-.circle.danger {
+.border-circle.danger {
   border: 2px solid #f56c6c;
   background: #fff;
 }
-.circle.warning {
+.border-circle.warning {
   border: 2px solid #e6a23c;
   background: #fff;
 }

@@ -47,6 +47,7 @@ import DisplayInfo from '@/views/display/detail'
 import Main from '@/views/main/index'
 import Alarm from '@/views/alarm/index'
 import AlarmDetail from '@/views/alarm/detail'
+import MainList from '@/views/main/list'
 
 Vue.use(Router)
 
@@ -126,8 +127,13 @@ export default new Router({
         },
         {
           path: 'main',
-          name: '其他主体',
+          name: '平台主体',
           component: Main,
+        },
+        {
+          path:'mainList',
+          name:'主体选择',
+          component:MainList
         }
       ]
     },

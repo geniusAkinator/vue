@@ -22,18 +22,15 @@ export default {
     list: {}
   },
   methods: {
-    go() {
-      this.$router.push({ name: "HelloWorld" });
-    },
     handleBack() {
-      history.go(-1)
+      history.go(-1);
     }
   }
 };
 </script>
 <style scpoed>
 .el-breadcrumb {
-  padding:15px 20px;
+  padding: 15px 20px;
 }
 .back {
   position: absolute;

@@ -118,6 +118,7 @@ export default {
         title: "新增主体信息",
         target: ".el-main"
       });
+      this.$layer.full(index);
     },
     handleEdit(idx, row) {
       this.eid = row.floorId;
@@ -133,6 +134,7 @@ export default {
         target: ".el-main"
       });
       this.index = index;
+      this.$layer.full(index);
     },
     handleExport() {},
     handleReset() {

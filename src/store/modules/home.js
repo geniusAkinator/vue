@@ -68,21 +68,22 @@ const actions = { //可异步
                     let _data = res.data;
                     console.log(_data);
                     _data.map((item, i) => {
-                        let temp1 = {};
-                        temp1.name = item.menu.name;
-                        temp1.icon = item.menu.icon;
-                        temp1.children = [];
-                        item.children.map((citem, j) => {
-                            let temp2 = {}
-                            if (citem.menu.state) {
-                                temp2.name = citem.menu.name;
-                                temp2.path = citem.menu.url;
-                                temp1.children.push(temp2)
-                            }
-                        });
-                        arr.push(temp1)
+                        if (item.menu.state && aList.indexOf(item.menu.menuId) != '-1') {
+                            let temp1 = {};
+                            temp1.name = item.menu.name;
+                            temp1.icon = item.menu.icon;
+                            temp1.children = [];
+                            item.children.map((citem, j) => {
+                                let temp2 = {}
+                                if (citem.menu.state && aList.indexOf(citem.menu.menuId) != '-1') {
+                                    temp2.name = citem.menu.name;
+                                    temp2.path = citem.menu.url;
+                                    temp1.children.push(temp2)
+                                }
+                            });
+                            arr.push(temp1)
+                        }
                     });
-
                     commit('initAside', arr)
                 }
             })

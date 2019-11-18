@@ -6,11 +6,11 @@
           <ul class="alarm-block">
             <li>
               <span class="info_name">实时待处理火警数</span>
-              <div class="circle warning">0</div>
+              <div class="border-circle warning">0</div>
             </li>
             <li>
               <span class="info_name">累计火警数</span>
-              <div class="circle danger">0</div>
+              <div class="border-circle danger">0</div>
             </li>
           </ul>
         </el-col>
@@ -160,7 +160,7 @@ export default {
   width: 100%;
   padding: 50px 0;
 }
-.info_name+.circle{
+.info_name+.border-circle{
     margin-top: 20px;
 }
 </style>
