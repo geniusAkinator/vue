@@ -11,7 +11,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="部门名称" prop="departmentName">
+      <el-form-item label="团队名称" prop="departmentName">
         <el-input v-model="form.departmentName"></el-input>
       </el-form-item>
       <el-form-item label="负责人" prop="leader">
@@ -84,7 +84,7 @@ export default {
           { required: true, message: "请选择所属工厂", trigger: "change" }
         ],
         departmentName: [
-          { required: true, message: "请输入部门名称", trigger: "blur" }
+          { required: true, message: "请输入团队名称", trigger: "blur" }
         ],
         leader: [
           { required: true, message: "请输入负责人名称", trigger: "blur" }

@@ -447,9 +447,9 @@ export const delSysLogData = params => {  //删除日志信息
 }
 
 /**
- *部门管理(department)
+ *团队管理(department)
  */
-export const getDepartmentData = params => { //获取部门信息
+export const getDepartmentData = params => { //获取团队管信息
     return request({
         url: '/department/departmentList',
         params: params,
@@ -457,7 +457,7 @@ export const getDepartmentData = params => { //获取部门信息
     });
 }
 
-export const addDepartmentData = params => { //添加部门信息
+export const addDepartmentData = params => { //添加团队信息
     return request({
         url: '/department/addDepartment',
         data: params,
@@ -465,7 +465,7 @@ export const addDepartmentData = params => { //添加部门信息
     });
 }
 
-export const updateDepartmentData = params => { //修改部门信息
+export const updateDepartmentData = params => { //修改团队信息
     return request({
         url: '/department/updateDepartment',
         data: params,
@@ -473,7 +473,7 @@ export const updateDepartmentData = params => { //修改部门信息
     });
 }
 
-export const getDepartmentDetail = params => { //获取部门信息详情
+export const getDepartmentDetail = params => { //获取团队信息详情
     return request({
         url: '/department/departmentDetail',
         params: params,
@@ -481,7 +481,7 @@ export const getDepartmentDetail = params => { //获取部门信息详情
     });
 }
 
-export const delDepartmentData = params => {  //删除部门信息
+export const delDepartmentData = params => {  //删除团队信息
     return request({
         url: '/department/deleteDepartment',
         params: params,
@@ -604,11 +604,11 @@ export const updateNoticeData = params => { //修改人员信息
     });
 }
 
-export const checkSession = params =>{ //验证session
+export const checkSession = params => { //验证session
     return request({
-        url:'/auth/check',
-        data:params,
-        method:"POST"
+        url: '/auth/check',
+        data: params,
+        method: "POST"
     })
 }
 

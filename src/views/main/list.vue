@@ -10,6 +10,22 @@
         </el-image>
         <span class="name">阿米华晟</span>
       </li>
+      <li class="main-item">
+        <el-image :src="src">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
+        <span class="name">阿米华晟</span>
+      </li>
+      <li class="main-item">
+        <el-image :src="src">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
+        <span class="name">阿米华晟</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -33,6 +49,8 @@ export default {
   background: #efefef;
   border-radius: 5px;
   cursor: pointer;
+  float: left;
+  margin-right: 20px;
 }
 .main-item span {
   width: 100%;

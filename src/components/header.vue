@@ -4,7 +4,7 @@
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="/platform">看板</el-menu-item>
-      <el-menu-item index="/main">选择主体</el-menu-item>
+      <el-menu-item index="/main">切换主体</el-menu-item>
     </el-menu>
     <!-- 个人信息 -->
     <div class="app-header-userinfo">

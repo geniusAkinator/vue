@@ -1,7 +1,7 @@
 <template>
   <div class="container form">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px">
-      <el-form-item label="所属部门">
+      <el-form-item label="所属团队">
         <el-input v-model="this.$parent.dName" class="readonly" :readonly="true"></el-input>
       </el-form-item>
       <el-form-item label="名称" prop="name">
@@ -92,7 +92,7 @@ export default {
       },
       rules: {
         "department.departmentId": [
-          { required: true, message: "请选择所属部门", trigger: "change" }
+          { required: true, message: "请选择所属团队", trigger: "change" }
         ],
         name: [{ required: true, message: "请输入人员名称", trigger: "blur" }],
         idCard: [
