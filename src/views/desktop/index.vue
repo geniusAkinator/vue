@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <el-row :gutter="10">
+      <el-button>切换主体</el-button>
       <el-row :gutter="10" class="statistics">
         <el-col :sm="6">
           <div class="sta_item">
@@ -269,7 +270,6 @@ export default {
         }
       ]
     };
-  
   },
   components: {
     MyMap,

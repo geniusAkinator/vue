@@ -491,13 +491,17 @@ export default {
 .res button {
   margin-right: 10px;
 }
-.info_name{
+.info_name {
   font-weight: bold;
 }
-.info-panel{
+.info-panel {
   margin-bottom: 20px;
   background: #ebeef5;
   padding: 10px;
   border-radius: 5px;
+}
+.not_found {
+  height: 100%;
+  line-height: 102px;
 }
 </style>

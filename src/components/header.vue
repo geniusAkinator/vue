@@ -32,7 +32,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>我的消息</el-dropdown-item>
-          <el-dropdown-item>设置</el-dropdown-item>
+          <el-dropdown-item @click.native="toSetting">设置</el-dropdown-item>
           <el-dropdown-item divided @click.native="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -74,11 +74,14 @@ export default {
         params: {}
       });
       window.open(href, "_blank");
+    },
+    toSetting() {
+      this.$router.push("/sysset", () => {});
     }
   },
   mounted() {
     setTimeout(() => {
-      this.username = this.$store.state.user.userInfo.account
+      this.username = this.$store.state.user.userInfo.account;
     }, 600);
   }
 };

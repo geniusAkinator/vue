@@ -16,7 +16,7 @@
         <template slot="content">
           <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
             <el-form-item label="关键字" size="small">
-              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：楼层名称）"></el-input>
+              <el-input v-model="Listform.factoryName" placeholder="请输入关键字（列：主体名称）"></el-input>
             </el-form-item>
           </el-form>
         </template>
@@ -45,11 +45,8 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="floorId" label="楼层ID" width="80"></el-table-column>
-      <el-table-column prop="building.name" label="楼宇名称"></el-table-column>
-      <el-table-column prop="floorName" label="楼层名称"></el-table-column>
-      <el-table-column prop="level" label="当前楼层"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="260px">
+      <el-table-column prop="name" label="主体名称"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="220px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -72,11 +69,10 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyFloorAdd from "@/views/floor/add";
-import MyFloorEdit from "@/views/floor/edit";
+import MyMainAdd from "@/views/main/add";
+import MyMainEdit from "@/views/main/edit";
 import api from "@/api/index";
 import http from "@/utils/http";
-import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
@@ -84,8 +80,7 @@ export default {
       loading: true,
       Listform: {
         pageNum: 1,
-        pageSize: 0,
-        buildingId: this.$route.params.bId
+        pageSize: 0
       },
       total: 0,
       tableData: [],
@@ -95,10 +90,7 @@ export default {
       labelPosition: "left",
       did: "",
       eid: 0,
-      index: "",
-      imgUrl: baseURL,
-      bId: 0,
-      bName: ""
+      index: ""
     };
   },
   methods: {
@@ -117,13 +109,13 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyFloorAdd, //传递的组件对象
+          content: MyMainAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
         shade: true,
         area: ["600px", "600px"],
-        title: "新增楼层信息",
+        title: "新增主体信息",
         target: ".el-main"
       });
     },
@@ -131,13 +123,13 @@ export default {
       this.eid = row.floorId;
       let index = this.$layer.iframe({
         content: {
-          content: MyFloorEdit, //传递的组件对象
+          content: MyMainEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
         shade: true,
         area: ["600px", "600px"],
-        title: "编辑楼层信息",
+        title: "编辑主体信息",
         target: ".el-main"
       });
       this.index = index;
@@ -199,7 +191,7 @@ export default {
     initTable() {
       //初始化表格数据
       api
-        .getFloorData(this.Listform)
+        .getMainData(this.Listform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
@@ -215,8 +207,6 @@ export default {
     }
   },
   created() {
-    this.bId = this.$route.params.bId;
-    this.bName = this.$route.params.bName;
     this.initTable();
   },
   mounted() {},

@@ -211,7 +211,7 @@ export default {
     jump() {
       this.$router.push({
         name: "传感器详情",
-        params: { sId: 19 }
+        params: { sId: 22 }
       });
     }
   }

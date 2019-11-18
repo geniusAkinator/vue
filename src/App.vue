@@ -527,23 +527,26 @@ input:focus + .el-input__suffix {
 .verity .el-form-item__content {
   display: flex;
 }
-.verity img{
+.verity img {
   cursor: pointer;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-.verity input{
+.verity input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.el-table--border th, .el-table__fixed-right-patch{
-  border-bottom: 1px solid #EBEEF5 !important;
+.el-table--border th,
+.el-table__fixed-right-patch {
+  border-bottom: 1px solid #ebeef5 !important;
 }
-.el-tree-node__label{
-  margin-left: 10px
+.el-tree-node__label {
+  margin-left: 10px;
 }
-.el-select-dropdown.el-popper{
+.el-select-dropdown.el-popper {
   z-index: 9999 !important;
 }
-
+.el-aside {
+  z-index: 1000px;
+}
 </style>

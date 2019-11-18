@@ -395,7 +395,7 @@ export default {
 <style>
 .sysset-footer {
   position: fixed;
-  left: 200px;
+  left: 0;
   right: 0;
   bottom: 0;
   padding: 10px 20px;
@@ -403,6 +403,7 @@ export default {
   border-top: 1px solid #e7e7e7;
   display: flex;
   justify-content: flex-end;
+  z-index: 10;
 }
 .color-picker {
   display: flex;

@@ -698,3 +698,18 @@ export const getFloorDetail = params => { //获取楼宇信息
         method: "GET"
     });
 }
+
+
+/**
+ *平台主体
+ */
+
+
+export const getMainData = params => { //获取平台主体
+    return request({
+        url: '/main/mainList',
+        params: params,
+        method: "GET"
+    });
+}
+

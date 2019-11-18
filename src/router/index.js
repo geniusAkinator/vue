@@ -44,6 +44,9 @@ import Floor from '@/views/floor/index'
 import SensorDetail from '@/views/sensor/detail'
 import Display from '@/views/display/index'
 import DisplayInfo from '@/views/display/detail'
+import Main from '@/views/main/index'
+import Alarm from '@/views/alarm/index'
+import AlarmDetail from '@/views/alarm/detail'
 
 Vue.use(Router)
 
@@ -117,9 +120,14 @@ export default new Router({
           component: Building,
         },
         {
-          path:'floor/:bId/:bName',
-          name:'楼层管理',
-          component:Floor
+          path: 'floor/:bId/:bName',
+          name: '楼层管理',
+          component: Floor
+        },
+        {
+          path: 'main',
+          name: '其他主体',
+          component: Main,
         }
       ]
     },
@@ -139,9 +147,9 @@ export default new Router({
           component: SensorType
         },
         {
-          path:'sensorDetail/:sId',
-          name:'传感器详情',
-          component:SensorDetail
+          path: 'sensorDetail/:sId',
+          name: '传感器详情',
+          component: SensorDetail
         },
         {
           path: 'display',
@@ -169,6 +177,23 @@ export default new Router({
           path: 'teamerMember/:dId/:dName',
           name: '团队成员管理',
           component: Employee
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '火警管理',
+      component: Home,
+      children: [
+        {
+          path: 'alarm',
+          name: '火警预览',
+          component: Alarm,
+        },
+        {
+          path: 'alarmDetail',
+          name: '火警详情',
+          component: AlarmDetail,
         },
       ]
     },
