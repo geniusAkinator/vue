@@ -49,6 +49,8 @@ import Alarm from '@/views/alarm/index'
 import AlarmDetail from '@/views/alarm/detail'
 import MainList from '@/views/main/list'
 import Message from '@/views/message/index'
+import Hazard from '@/views/hazard/index'
+import HazardDetail from '@/views/hazard/detail'
 
 Vue.use(Router)
 
@@ -132,9 +134,9 @@ export default new Router({
           component: Main,
         },
         {
-          path:'mainList',
-          name:'主体选择',
-          component:MainList
+          path: 'mainList',
+          name: '主体选择',
+          component: MainList
         }
       ]
     },
@@ -260,6 +262,23 @@ export default new Router({
           path: 'record',
           name: '巡检记录',
           component: Record
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '隐患管理',
+      component: Home,
+      children: [
+        {
+          path: 'hazard',
+          name: '隐患总览',
+          component: Hazard
+        },
+        {
+          path: 'hazardDetail',
+          name: '隐患详情',
+          component: HazardDetail
         },
       ]
     },

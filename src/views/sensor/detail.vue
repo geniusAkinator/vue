@@ -208,11 +208,15 @@
               </ul>
             </el-col>
             <el-col :span="16">
-              <div class="res">
-                <el-button type="primary" round>指派</el-button>
-                <el-button round>忽略</el-button>
+              <div class=".action-list">
+                <div class="solve">
+                  <div class="assign">
+                    <el-button type="primary" size="mini">指派</el-button>
+                    <el-button size="mini">忽略</el-button>
+                  </div>
+                  <div class="resolution">解决方法</div>
+                </div>
               </div>
-              <div class="resolution">解决方法</div>
             </el-col>
           </el-row>
         </el-card>
@@ -458,6 +462,7 @@ export default {
   padding: 10px;
   overflow: hidden;
   overflow-y: scroll;
+  border: 2px solid #efefef;
 }
 .group-name {
   font-size: 22px;
@@ -474,23 +479,7 @@ export default {
 .action-detail-list li {
   margin-bottom: 10px;
 }
-.resolution {
-  background: #ebeef5;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 14px;
-  margin-top: 20px;
-}
-.res {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.res button {
-  margin-right: 10px;
-}
+
 .info_name {
   font-weight: bold;
 }
@@ -503,5 +492,14 @@ export default {
 .not_found {
   height: 100%;
   line-height: 102px;
+}
+
+.action-list::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+.action-list::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
 }
 </style>

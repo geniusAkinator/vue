@@ -127,20 +127,22 @@ export default {
         ],
         password: [{ required: true, validator: validatePwd, trigger: "blur" }],
         cpwd: [{ required: true, validator: validateCPwd, trigger: "blur" }],
-        factoryId: [{ required: true, message: "请选择所属工厂", trigger: "change" }],
+        factoryId: [
+          { required: true, message: "请选择所属工厂", trigger: "change" }
+        ],
         roleId: [
           { required: true, message: "请选择所属角色", trigger: "change" }
         ],
-        trueName:[
-          { required: true, message: "请输入姓名", trigger: "blur" },
-        ],
-        mobilePhone:[{ required: true, validator: validatePhone, trigger: "blur" }],
+        trueName: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+        mobilePhone: [
+          { required: true, validator: validatePhone, trigger: "blur" }
+        ]
       }
     };
   },
   watch: {
-    "form.account": function(val,oldVal) {
-      this.loading = true
+    "form.account": function(val, oldVal) {
+      this.loading = true;
     }
   },
   methods: {

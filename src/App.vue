@@ -550,4 +550,15 @@ input:focus + .el-input__suffix {
 .my-aside {
   z-index: 1000;
 }
+
+.resolution {
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: 20px;
+}
+.solve {
+  background: #ebeef5;
+  padding: 20px;
+}
 </style>

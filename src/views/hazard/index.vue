@@ -5,11 +5,11 @@
         <el-col :span="8">
           <ul class="hazard-block">
             <li>
-              <span class="info_name">实时待处理火警数</span>
+              <span class="info_name">待处理隐患数</span>
               <div class="border-circle warning">0</div>
             </li>
             <li>
-              <span class="info_name">累计火警数</span>
+              <span class="info_name">累计隐患数</span>
               <div class="border-circle danger">0</div>
             </li>
           </ul>
@@ -17,19 +17,15 @@
         <el-col :span="8">
           <ul class="hazard-block">
             <li>
-              <span class="info_name">火警最多防火分区</span>
-              <span class="info_value">默认防火分区</span>
-            </li>
-            <li>
-              <span class="info_name">超时率</span>
-              <span class="info_value">20.16%</span>
+              <span class="info_name">隐患处理平均用时</span>
+              <span class="info_value">7天19小时12分钟</span>
             </li>
           </ul>
         </el-col>
         <el-col :span="8">
           <ul class="hazard-block">
             <li>
-              <span class="info_name">火警误报最多设备类型</span>
+              <span class="info_name">最常见隐患</span>
               <span class="info_value">智能烟感</span>
             </li>
           </ul>
@@ -46,9 +42,42 @@
           style="width: 100%"
           v-loading="loading"
         >
-          <el-table-column prop="area" label="防火分区" width="80"></el-table-column>
-          <el-table-column prop="device" label="报警设备"></el-table-column>
-          <el-table-column prop="count" label="报警点位数"></el-table-column>
+          <el-table-column prop="id" label="ID" width="80"></el-table-column>
+          <el-table-column prop="area" label="隐患内容"></el-table-column>
+          <el-table-column prop="device" label="隐患类型"></el-table-column>
+          <el-table-column prop="datetime" label="上报时间"></el-table-column>
+          <el-table-column label="操作" fixed="right" width="100px">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pagination">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :hide-on-single-page="isPaging"
+            :current-page="currentPage"
+            :page-sizes="[25, 50, 75, 100]"
+            :page-size="Listform.pageSize"
+            layout="prev,pager,next,jumper,total,sizes"
+            :total="total"
+          ></el-pagination>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="处理中">
+        <el-table
+          stripe
+          border
+          :data="tableData"
+          align="center"
+          style="width: 100%"
+          v-loading="loading"
+        >
+          <el-table-column prop="id" label="ID" width="80"></el-table-column>
+          <el-table-column prop="area" label="隐患内容"></el-table-column>
+          <el-table-column prop="device" label="隐患类型"></el-table-column>
+          <el-table-column prop="datetime" label="上报时间"></el-table-column>
           <el-table-column label="操作" fixed="right" width="100px">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
@@ -77,11 +106,10 @@
           style="width: 100%"
           v-loading="loading"
         >
-          <el-table-column prop="area" label="防火分区" width="80"></el-table-column>
-          <el-table-column prop="device" label="报警设备"></el-table-column>
-          <el-table-column prop="count" label="报警点位数"></el-table-column>
-          <el-table-column prop="handler" label="处理人"></el-table-column>
-          <el-table-column prop="dateTime" label="处理时间"></el-table-column>
+          <el-table-column prop="id" label="ID" width="80"></el-table-column>
+          <el-table-column prop="area" label="隐患内容"></el-table-column>
+          <el-table-column prop="device" label="隐患类型"></el-table-column>
+          <el-table-column prop="datetime" label="上报时间"></el-table-column>
           <el-table-column label="操作" fixed="right" width="100px">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
@@ -126,7 +154,7 @@ export default {
     initTable() {},
     handleDetail() {
       this.$router.push({
-        name: "火警详情"
+        name: "隐患详情"
       });
     }
   },

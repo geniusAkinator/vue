@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-select v-model="value" placeholder="请选择">
+    <el-select v-model="value" placeholder="请选择" size="mini">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
     <el-card class="box-card" shadow="hover" style="margin-top:20px">
@@ -150,7 +150,8 @@ export default {
           value: "BBB",
           label: "BBB"
         },
-      ]
+      ],
+      value:""
     };
   },
   methods: {

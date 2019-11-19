@@ -2,11 +2,8 @@
   <div class="container">
     <el-card class="state-card" shadow="hover">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="12">
           <ul class="state_block">
-            <li class="state_item">
-              <div class="border-circle">0</div>
-            </li>
             <li class="state_item">
               <div class="border-circle warning">0</div>
             </li>
@@ -15,31 +12,19 @@
             </li>
           </ul>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="12">
           <ul class="info_block">
             <li class="info_item">
-              <span class="info_name">首次上报时间</span>
+              <span class="info_name">隐患类型</span>
+              <span class="info_value">未处理故障设备大于该设备总数的20%</span>
+            </li>
+            <li class="info_item">
+              <span class="info_name">隐患位置</span>
+              <span class="info_value">创建建筑虚拟点位</span>
+            </li>
+            <li class="info_item">
+              <span class="info_name">上报时间</span>
               <span class="info_value">2019-11-16 13:59:24</span>
-            </li>
-            <li class="info_item">
-              <span class="info_name">最后上报时间</span>
-              <span class="info_value">2019-11-16 13:59:24</span>
-            </li>
-          </ul>
-        </el-col>
-        <el-col :span="8">
-          <ul class="info_block">
-            <li class="info_item">
-              <span class="info_name">处理人</span>
-              <span class="info_value">刘XX</span>
-            </li>
-            <li class="info_item">
-              <span class="info_name">处理时间</span>
-              <span class="info_value">2019-11-16 13:59:24</span>
-            </li>
-            <li class="info_item">
-              <span class="info_name">处理结果</span>
-              <span class="info_value">确认火灾</span>
             </li>
           </ul>
         </el-col>
@@ -48,32 +33,22 @@
     <div class="state_record">
       <el-row :gutter="20">
         <el-col :span="12">
-          <div class="grid-content">
-            <el-table class="state_table" :data="tableData" border stripe style="width: 100%">
-              <el-table-column prop="id" label="id"></el-table-column>
-              <el-table-column prop="number" label="点位号"></el-table-column>
-              <el-table-column prop="type" label="设备类型"></el-table-column>
-              <el-table-column prop="des" label="位置描述"></el-table-column>
-              <el-table-column prop="date" label="首次上报时间"></el-table-column>
-              <el-table-column prop="date" label="最后上报时间"></el-table-column>
-              <el-table-column prop="count" label="上报次数"></el-table-column>
-            </el-table>
-            <el-pagination class="state_paging" background layout="prev, pager, next" :total="200"></el-pagination>
-          </div>
+          <span class="timeline_title">处理过程</span>
+          <el-timeline :reverse="reverse">
+            <el-timeline-item
+              v-for="(activity, index) in activities"
+              :key="index"
+              :timestamp="activity.timestamp"
+            >{{activity.content}}</el-timeline-item>
+          </el-timeline>
         </el-col>
         <el-col :span="12">
-          <!-- <div ref="floorImg" class="detail_img_content" v-if="sensor.floor.picture!=''">
-            <img class="floor_img" :src="imgUrl+sensor.floor.picture" />
-            <img
-              ref="marker"
-              :style="{left:`${sensor.xaxis}%`,top:`${sensor.yaxis}%`}"
-              class="floor_img_marker"
-              :src="icon"
-              alt
-            />
-          </div>-->
-          <div class="detail_img_content">
-            <div class="not_found">暂无楼层图，请先到工厂管理中添加</div>
+          <div class="solve">
+            <div class="assign">
+              <el-button type="primary" size="mini">指派</el-button>
+              <el-button size="mini">忽略</el-button>
+            </div>
+            <div class="resolution">解决方法</div>
           </div>
         </el-col>
       </el-row>
@@ -84,26 +59,23 @@
 <script>
 import api from "@/api/index";
 import { Loading } from "element-ui";
-import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
-      tableData: [
+      activities: [
         {
-          state: 0,
-          date: "2016-05-02 09:00"
+          content: "系统上报",
+          timestamp: "2018-04-15"
         },
         {
-          state: 0,
-          date: "2016-05-02 09:00"
+          content: "系统上报",
+          timestamp: "2018-04-13"
         },
         {
-          state: 0,
-          date: "2016-05-02 09:00"
+          content: "系统上报",
+          timestamp: "2018-04-11"
         }
-      ],
-      imgUrl: baseURL,
-      icon: require("@/assets/map-marker.png")
+      ]
     };
   },
   watch: {},
@@ -137,8 +109,10 @@ export default {
   padding: 0;
 }
 .state_item {
-  display: block;
+  display: flex;
   flex: 1;
+  justify-content: center;
+  align-items: center;
 }
 .state_name {
   display: block;
@@ -210,7 +184,7 @@ export default {
   padding: 10px;
   overflow: hidden;
   overflow-y: scroll;
- 
+  border: 1px solid #efefef;
 }
 .group-name {
   font-size: 22px;
@@ -226,23 +200,6 @@ export default {
 }
 .action-detail-list li {
   margin-bottom: 10px;
-}
-.resolution {
-  background: #ebeef5;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 14px;
-  margin-top: 20px;
-}
-.res {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.res button {
-  margin-right: 10px;
 }
 
 .info-panel {
@@ -270,5 +227,10 @@ export default {
 .border-circle.warning {
   border: 2px solid #e6a23c;
   background: #fff;
+}
+.timeline_title {
+  padding: 10px 20px;
+  display: block;
+  font-weight: bold;
 }
 </style>

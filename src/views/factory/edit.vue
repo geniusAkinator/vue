@@ -71,11 +71,9 @@
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
         <el-input v-model="form.phone" type="number"></el-input>
-        <span class="help-block">列：18855522777</span>
       </el-form-item>
       <el-form-item label="办公电话" prop="tel">
         <el-input v-model="form.tel"></el-input>
-        <span class="help-block">列：0222-2222222</span>
       </el-form-item>
       <el-form-item label="公司简介">
         <quill-editor

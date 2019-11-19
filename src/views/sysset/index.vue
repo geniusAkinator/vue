@@ -285,6 +285,50 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
+      <el-tab-pane label="监控接入" name="ninth">
+        <el-form ref="form" :model="cameraForm" :label-width="labelWidth">
+          <el-form-item label="视频监控平台">
+            <el-radio-group v-model="cameraForm.cameraType">
+              <el-radio :label="0">国标28181</el-radio>
+              <el-radio :label="1">乐橙云</el-radio>
+              <el-radio :label="2">ONVIF</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="协议版本">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入协议版本"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP服务器ID">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP服务器ID"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP服务器域">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP服务器域"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP服务器地址">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP服务器地址"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP服务器端口">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP服务器端口"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP用户名">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP用户名"></el-input>
+          </el-form-item>
+          <el-form-item label="SIP用户认证ID">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入SIP用户认证ID"></el-input>
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input v-model="cameraForm.password" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码">
+            <el-input v-model="cameraForm.cpwd" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="注册有效期">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入注册有效期"></el-input>
+          </el-form-item>
+          <el-form-item label="最大心跳超时">
+            <el-input v-model="cameraForm.deviceNumber" placeholder="请输入注册有效期"></el-input>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
     <div class="sysset-footer" v-if="activeName!='first'">
       <el-button type="primary" icon="el-icon-check" size="small">保存</el-button>
@@ -373,6 +417,12 @@ export default {
         pwd: "",
         logo: "",
         copyright: ""
+      },
+      cameraForm: {
+        factory: {
+          factoryId: ""
+        },
+        cameraType: 0
       },
       labelWidth: "130px"
     };

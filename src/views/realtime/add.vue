@@ -1,6 +1,6 @@
 <template>
   <div class="container form">
-    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="130px">
       <el-form-item label="所属工厂" prop="factory.factoryId">
         <el-select v-model="form.factory.factoryId">
           <el-option
@@ -11,20 +11,33 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="团队名称" prop="departmentName">
-        <el-input v-model="form.departmentName"></el-input>
+      <el-form-item label="所属楼宇">
+        <el-select>
+          <el-option></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="负责人" prop="leader">
-        <el-input v-model="form.leader"></el-input>
+      <el-form-item label="所属楼层">
+        <el-select>
+          <el-option></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="手机号码" prop="phone">
-        <el-input v-model="form.phone"></el-input>
+      <el-form-item label="点位置">
+        <my-pos-picker :img="floorImg" @sendPos="getPos"></my-pos-picker>
       </el-form-item>
-      <el-form-item label="座机号码" prop="tel">
-        <el-input v-model="form.tel"></el-input>
+      <el-form-item label="设备名称">
+        <el-input v-model="form.deviceNumber" placeholder="请输入设备名称"></el-input>
       </el-form-item>
-      <el-form-item label="备注">
-        <el-input v-model="form.remark" type="textarea"></el-input>
+      <el-form-item label="设备ID">
+        <el-input v-model="form.deviceNumber" placeholder="请输入设备ID"></el-input>
+      </el-form-item>
+      <el-form-item label="设备类型">
+        <el-input v-model="form.deviceNumber" placeholder="请输入设备类型"></el-input>
+      </el-form-item>
+      <el-form-item label="设备描述">
+        <el-input v-model="form.deviceNumber" placeholder="请输入设备描述"></el-input>
+      </el-form-item>
+      <el-form-item label="设备配置">
+        <el-input v-model="form.deviceNumber" type="textarea" placeholder="请输入设备配置"></el-input>
       </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
@@ -36,59 +49,23 @@
 
 <script>
 import api from "@/api/index";
+import MyPosPicker from "@/components/pospicker";
 export default {
   data() {
-    let validatePhone = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入手机号码"));
-      } else {
-        if (!isPhone(value)) {
-          callback(new Error("手机号码格式不正确"));
-        }
-        callback();
-      }
-    };
-    let validateTel = (rule, value, callback) => {
-      if (this.form.tel === "") {
-        callback(new Error("电话不能为空"));
-      } else {
-        if (!isTel(this.form.tel)) {
-          callback(new Error("电话格式不正确"));
-        } else {
-          callback();
-        }
-      }
-    };
     return {
       Listform: {
         //表格请求params
         pageNum: 1,
-        pageSize: 0,
-        factoryName: ""
+        pageSize: 0
       },
       foption: [],
+      form: {},
+      rules: {},
       form: {
         factory: {
           factoryId: ""
         },
-        departmentName: "",
-        tel: "",
-        remark: "",
-        phone: "",
-        leader: ""
-      },
-      rules: {
-        "factory.factoryId": [
-          { required: true, message: "请选择所属工厂", trigger: "change" }
-        ],
-        departmentName: [
-          { required: true, message: "请输入团队名称", trigger: "blur" }
-        ],
-        leader: [
-          { required: true, message: "请输入负责人名称", trigger: "blur" }
-        ],
-        phone: [{ required: true, validator: validatePhone, trigger: "blur" }],
-        tel: [{ required: true, validator: validateTel, trigger: "blur" }]
+        cameraType: 0
       }
     };
   },
@@ -151,7 +128,10 @@ export default {
   created() {
     this.initForm();
   },
-  mounted() {}
+  mounted() {},
+  components: {
+    MyPosPicker
+  }
 };
 </script>
 
