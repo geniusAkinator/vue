@@ -8,7 +8,7 @@
     </el-menu>
     <!-- 个人信息 -->
     <div class="app-header-userinfo">
-      <el-dropdown trigger="hover" :hide-on-click="false">
+      <!-- <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
           <i class="el-icon-chat-dot-round el-icon--right"></i>
         </span>
@@ -25,14 +25,14 @@
           <el-dropdown-item>信息1</el-dropdown-item>
           <el-dropdown-item>信息2</el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown>-->
       <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
           <span class="userName">您好,&nbsp;&nbsp;{{username}}</span>
           <el-avatar icon="el-icon-user-solid" :size="28" shape="square">user</el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>我的消息</el-dropdown-item>
+          <el-dropdown-item @click.native="toMessage">我的消息</el-dropdown-item>
           <el-dropdown-item @click.native="toSetting">设置</el-dropdown-item>
           <el-dropdown-item divided @click.native="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
@@ -82,6 +82,9 @@ export default {
           name: "主体选择"
         });
       }
+    },
+    toMessage() {
+      this.$router.push("/message", () => {});
     },
     toSetting() {
       this.$router.push("/sysset", () => {});

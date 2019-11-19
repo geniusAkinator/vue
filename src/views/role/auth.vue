@@ -106,12 +106,17 @@ export default {
                 let ctemp = {};
                 ctemp.id = citem.menu.menuId;
                 ctemp.label = citem.menu.name;
-                ctemp.disabled = citem.menu.state ? false : true;
+                if (temp.disabled) {
+                  ctemp.disabled = true;
+                } else {
+                  ctemp.disabled = citem.menu.state ? false : true;
+                }
                 cdata.push(ctemp);
               });
               temp.children = cdata;
               data.push(temp);
             });
+            console.log(data);
             this.data = data;
           } else {
           }

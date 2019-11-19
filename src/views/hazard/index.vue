@@ -3,7 +3,7 @@
     <el-card class="state-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="8">
-          <ul class="alarm-block">
+          <ul class="hazard-block">
             <li>
               <span class="info_name">实时待处理火警数</span>
               <div class="border-circle warning">0</div>
@@ -15,7 +15,7 @@
           </ul>
         </el-col>
         <el-col :span="8">
-          <ul class="alarm-block">
+          <ul class="hazard-block">
             <li>
               <span class="info_name">火警最多防火分区</span>
               <span class="info_value">默认防火分区</span>
@@ -27,7 +27,7 @@
           </ul>
         </el-col>
         <el-col :span="8">
-          <ul class="alarm-block">
+          <ul class="hazard-block">
             <li>
               <span class="info_name">火警误报最多设备类型</span>
               <span class="info_value">智能烟感</span>
@@ -140,20 +140,20 @@ export default {
 .table {
   margin-top: 20px;
 }
-.alarm-block {
+.hazard-block {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.alarm-block {
+.hazard-block {
   display: flex;
   justify-content: space-around;
 }
-.alarm-block li span {
+.hazard-block li span {
   text-align: center;
   display: block;
 }
-.alarm-block .info_value {
+.hazard-block .info_value {
   font-size: 30px;
   text-align: center;
   font-weight: bold;

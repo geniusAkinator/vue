@@ -1,8 +1,11 @@
 <template>
   <div class="container">
+    <el-select v-model="value" placeholder="请选择">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    </el-select>
     <el-card class="box-card" shadow="hover" style="margin-top:20px">
       <div slot="header" class="clearfix">
-        <span>探测器状态分析报告</span>
+        <span>XXX分析报告</span>
         <el-button class="header_right" type="text">
           <el-radio-group v-model="labelPos" size="small">
             <el-radio-button label="monthly">月报</el-radio-button>
@@ -137,7 +140,17 @@ export default {
       searchForm: {},
       labelPosition: "left",
       labelPos: "weekly",
-      tableData2: []
+      tableData2: [],
+      options: [
+        {
+          value: "AAA",
+          label: "AAA"
+        },
+        {
+          value: "BBB",
+          label: "BBB"
+        },
+      ]
     };
   },
   methods: {

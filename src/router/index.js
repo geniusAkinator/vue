@@ -48,6 +48,7 @@ import Main from '@/views/main/index'
 import Alarm from '@/views/alarm/index'
 import AlarmDetail from '@/views/alarm/detail'
 import MainList from '@/views/main/list'
+import Message from '@/views/message/index'
 
 Vue.use(Router)
 
@@ -283,6 +284,18 @@ export default new Router({
           path: 'nav',
           name: '默认导航',
           component: Nav
+        },
+      ]
+    },
+    {
+      path: '/',
+      name: '信息管理',
+      component: Home,
+      children: [
+        {
+          path: 'message',
+          name: '消息中心',
+          component: Message
         },
       ]
     },

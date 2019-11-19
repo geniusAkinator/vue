@@ -6,8 +6,8 @@
       </el-form-item>
       <el-form-item label="状态">
         <el-radio-group v-model="form.state">
-          <el-radio label="0">启动</el-radio>
-          <el-radio label="1">禁用</el-radio>
+          <el-radio :label="0">启动</el-radio>
+          <el-radio :label="1">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
       <div class="add-footer">
@@ -26,7 +26,7 @@ export default {
     return {
       form: {
         name: "",
-        state: "1",
+        state: 1,
         roleId: this.$parent.eid
       },
       rules: {
@@ -71,11 +71,12 @@ export default {
       this.$parent.$layer.closeAll();
     },
     initForm() {
-      api.getAllMenuData().then(res => {
-        console.log(res)
-      }).catch(_=>{
-
-      });
+      api
+        .getAllMenuData()
+        .then(res => {
+          console.log(res);
+        })
+        .catch(_ => {});
       api
         .getRoleDetail({ roleId: this.form.roleId })
         .then(res => {

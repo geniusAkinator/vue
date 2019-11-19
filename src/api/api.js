@@ -707,7 +707,15 @@ export const getFloorDetail = params => { //获取楼宇信息
 
 export const getMainData = params => { //获取平台主体
     return request({
-        url: '/main/mainList',
+        url: '/main/mainData',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const getMessageData = params => { //
+    return request({
+        url: '/message/messageData',
         params: params,
         method: "GET"
     });

@@ -71,10 +71,10 @@
               :src="icon"
               alt
             />
-          </div>
-          <div class="detail_img_content" v-if="sensor.floor.picture==''">
+          </div> -->
+          <div class="detail_img_content">
             <div class="not_found">暂无楼层图，请先到工厂管理中添加</div>
-          </div>-->
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -243,9 +243,7 @@ export default {
 .res button {
   margin-right: 10px;
 }
-.info_name {
-  font-weight: bold;
-}
+
 .info-panel {
   margin-bottom: 20px;
   background: #ebeef5;

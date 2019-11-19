@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="floorImg" class="floor_img_content" v-if="img!=''" @click="handleClick($event)">
+    <div ref="floorImg" class="floor_img_content" v-if="img!=''" @click.stop="handleClick($event)">
       <img class="floor_img" :src="imgUrl+img" />
       <img
         ref="marker"
@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     handleClick(e) {
+      console.log(e)
       let _marker = this.$refs.marker;
       let _img = this.$refs.floorImg;
       let x = e.offsetX - _marker.offsetWidth / 2;
