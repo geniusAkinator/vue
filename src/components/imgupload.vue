@@ -168,6 +168,7 @@ export default {
   font-size: 30px;
   cursor: pointer;
   float: left;
+  margin-left: 1px;
 }
 .pre-img {
   width: 110px;

@@ -25,8 +25,9 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="content" label="标题内容"></el-table-column>
-      <el-table-column prop="noticeName" label="时间"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="220px">
+      <el-table-column prop="type" label="类型"></el-table-column>
+      <el-table-column prop="datetime" label="时间"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="120px">
         <template slot-scope="scope">
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>

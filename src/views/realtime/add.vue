@@ -66,7 +66,8 @@ export default {
           factoryId: ""
         },
         cameraType: 0
-      }
+      },
+      floorImg:""
     };
   },
   methods: {
@@ -123,6 +124,9 @@ export default {
           }
         })
         .catch(_ => {});
+    },
+    getPos(){
+
     }
   },
   created() {

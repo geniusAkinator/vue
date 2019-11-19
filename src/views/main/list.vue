@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-input placeholder="请输入查询关键词"></el-input>
+    <el-input placeholder="请输入查询关键词" size="mini"></el-input>
     <ul class="main-list">
       <li class="main-item">
         <el-image :src="src">

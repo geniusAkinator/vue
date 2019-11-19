@@ -26,6 +26,9 @@
           <el-dropdown-item>信息2</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>-->
+      <span class="el-dropdown-link" @click="handleFullScreen">
+        <i class="el-icon-full-screen el-icon--right"></i>
+      </span>
       <el-dropdown trigger="hover" :hide-on-click="false">
         <span class="el-dropdown-link">
           <span class="userName">您好,&nbsp;&nbsp;{{username}}</span>
@@ -42,6 +45,7 @@
 </template>
 <script>
 import api from "@/api/index";
+import utils from "@/utils/utils";
 export default {
   data() {
     return {
@@ -88,6 +92,14 @@ export default {
     },
     toSetting() {
       this.$router.push("/sysset", () => {});
+    },
+    handleFullScreen() {
+      //全屏操作
+      if (!utils.isFullScreen()) {
+        utils.fullScreen();
+      } else {
+        utils.exitFullScreen();
+      }
     }
   },
   mounted() {
@@ -144,7 +156,7 @@ export default {
 .userName {
   margin-right: 10px;
 }
-.app-header-userinfo .el-dropdown i {
+.app-header-userinfo i {
   font-size: 20px;
   margin-right: 20px;
   margin-top: 3px;
