@@ -60,13 +60,11 @@ const actions = { //可异步
                 }
             })
             .catch(_ => { });
-        console.log("AAA", userInfo.role.roleId, aList)
         api
             .getAllMenuData()
             .then(res => {
                 if (res.code === 200) {
                     let _data = res.data;
-                    console.log(_data);
                     _data.map((item, i) => {
                         if (item.menu.state && aList.indexOf(item.menu.menuId) != '-1') {
                             let temp1 = {};
@@ -159,7 +157,7 @@ const mutations = { //同步
                 let newTab = {};     //构造tab项对象
                 newTab.title = newVal.name; //显示的名称
                 newTab.name = (list.length + 1).toString(); //设定的name，用于tab-remove事件获取
-                newTab.close = "closable";  //除了图标页，其他可关闭
+                newTab.close = "closable";  //除了desktop，其他可关闭
                 newTab.path = newPath;      //存储路由路径用于切换跳转
                 state.tabList.push(newTab);  //新增tab操作
                 state.tabIndex = (list.length).toString(); //更新当前激活tab索引
@@ -248,163 +246,6 @@ const mutations = { //同步
     },
     initAside(state, payload) {
         state.menu = Object.assign({}, payload)
-        // list = [
-        //     {
-        //         name: "监控管理",
-        //         icon: "el-icon-video-camera",
-        //         children: [
-        //             {
-        //                 name: "实时监控",
-        //                 path: "realtime"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         name: "主体管理",
-        //         icon: "el-icon-office-building",
-        //         children: [
-        //             {
-        //                 name: "工厂管理",
-        //                 path: "factory"
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         name: "设备管理",
-        //         icon: "el-icon-set-up",
-        //         children: [
-        //             {
-        //                 name: "传感器管理",
-        //                 path: "sensor"
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         name: "单位管理",
-        //         icon: "el-icon-s-cooperation",
-        //         children: [
-        //             {
-        //                 name: "部门管理",
-        //                 path: "department"
-        //             },
-        //             {
-        //                 name: "人员管理",
-        //                 path: "employee"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         name: "安全管理",
-        //         icon: "el-icon-camera",
-        //         children: [
-        //             {
-        //                 name: "巡更分布",
-        //                 path: "patrol"
-        //             },
-        //             {
-        //                 name: "巡更路线",
-        //                 path: "proute"
-        //             },
-        //             {
-        //                 name: "巡更类别",
-        //                 path: "ptype"
-        //             },
-        //             {
-        //                 name: "巡更项目",
-        //                 path: "project"
-        //             },
-        //             {
-        //                 name: "巡更计划",
-        //                 path: "plan"
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         name: "成员管理",
-        //         icon: "el-icon-user",
-        //         children: [
-        //             {
-        //                 name: "成员管理",
-        //                 path: "member"
-        //             },
-        //             {
-        //                 name: "绑定管理",
-        //                 path: "bind"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         name: "信息管理",
-        //         icon: "el-icon-document",
-        //         children: [
-        //             {
-        //                 name: "公告管理",
-        //                 path: "notice"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         name: "页面管理",
-        //         icon: "el-icon-mobile-phone",
-        //         children: [
-        //             {
-        //                 name: "默认导航",
-        //                 path: "nav"
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         name: "统计分析",
-        //         icon: "el-icon-data-analysis",
-        //         children: [
-        //             {
-        //                 name: "统计报表",
-        //                 path: "statistic"
-        //             },
-        //             {
-        //                 name: "系统体检",
-        //                 path: "check"
-        //             }
-        //         ]
-        //     }, {
-        //         name: "设置管理",
-        //         icon: "el-icon-setting",
-        //         children: [
-        //             {
-        //                 name: "栏目菜单",
-        //                 path: "menu"
-        //             },
-        //             {
-        //                 name: "角色管理",
-        //                 path: "role"
-        //             },
-        //             {
-        //                 name: "用户管理",
-        //                 path: "user"
-        //             },
-        //             {
-        //                 name: "系统日志",
-        //                 path: "syslog"
-        //             },
-        //             {
-        //                 name: "计划任务",
-        //                 path: "worker"
-        //             },
-        //             {
-        //                 name: "系统配置",
-        //                 path: "sysset"
-        //             },
-        //             {
-        //                 name: "系统维护",
-        //                 path: "update"
-        //             },
-        //             {
-        //                 name: "系统帮助",
-        //                 path: "help"
-        //             }
-        //         ]
-        //     }]
-        // state.menu = list
     },
     clearAside(state) {
         state.menu = []

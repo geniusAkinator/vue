@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import home from './modules/home'
 import theme from './modules/theme'
 import user from './modules/user'
+import geo from './modules/geo'
 import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex);
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
     modules: {
         home,
         theme,
-        user
+        user,
+        geo
     },
     strict: debug,
     plugins: [

@@ -7,7 +7,6 @@
         <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
-          <!-- <router-link :to="{ name: 'Test' }">Home</router-link> -->
           <transition name="myfade" mode="out-in">
             <keep-alive>
               <router-view v-if="isRouterAlive"></router-view>
@@ -104,6 +103,7 @@ export default {
     _this.$nextTick(() => {
       window.addEventListener("resize", utils.throttle(_this.autoChange, 100));
     });
+    this.$store.dispatch("geo/initGeo");
   },
   components: {
     MyAside,

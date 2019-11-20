@@ -721,3 +721,16 @@ export const getMessageData = params => { //
     });
 }
 
+export const getGeoData = params => {
+    return http.getRequestJsonp({  //jsonp获取数据
+        url: 'http://api.map.baidu.com/reverse_geocoding/v3/?',
+        data: params,
+    });
+};
+
+export const getWeatherData = params => {
+    return http.getRequestJsonp({  //jsonp获取数据
+        url: 'https://www.tianqiapi.com/api/?',
+        data: params,
+    });
+}

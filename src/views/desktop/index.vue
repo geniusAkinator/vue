@@ -85,10 +85,10 @@
               <i class="el-icon-receiving"></i>
               <span>数据概览</span>
             </div>
-            <div class="text">
-              <el-carousel indicator-position="outside" arrow="never" height="150px">
-                <el-carousel-item v-for="item in 4" :key="item">
-                  <h3 class="small">{{ item }}</h3>
+            <div class="text item">
+              <el-carousel indicator-position="outside" arrow="never">
+                <el-carousel-item>
+                  <my-weather></my-weather>
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -191,6 +191,7 @@ import MyCalendar from "@/components/calendar";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 import MyEchartLine from "@/components/eline";
+import MyWeather from "@/components/weather";
 export default {
   data() {
     return {
@@ -231,6 +232,7 @@ export default {
       .catch(_ => {});
   },
   mounted() {
+    let _this = this;
     api
       .getFactoryData(this.Listform)
       .then(res => {
@@ -275,7 +277,8 @@ export default {
   components: {
     MyMap,
     MyCalendar,
-    MyEchartLine
+    MyEchartLine,
+    MyWeather
   }
 };
 </script>
