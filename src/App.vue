@@ -561,4 +561,35 @@ input:focus + .el-input__suffix {
   background: #ebeef5;
   padding: 20px;
 }
+.el-menu-item-group ul li {
+  background: rgb(39, 52, 70) !important;
+}
+.el-submenu .el-menu-item:hover {
+  color: #fff !important;
+}
+.el-submenu__title:hover {
+  color: #fff !important;
+  background-color: rgb(49, 65, 88) !important;
+}
+.box-card .el-carousel .el-carousel__indicators {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  bottom: auto;
+  padding: 13px 20px;
+  border-bottom: 0;
+}
+.box-card .el-carousel {
+  position: initial;
+}
+.box-card .el-carousel .el-carousel__button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+.box-card .el-carousel .el-carousel__button.is-active {
+  background: #999;
+}
 </style>

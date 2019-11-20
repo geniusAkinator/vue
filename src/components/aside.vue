@@ -7,7 +7,12 @@
     >
       <div class="app-side-logo">
         <router-link :to="'desktop'">
-          <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
+          <template v-if="isCollapse">
+            <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
+          </template>
+          <template v-if="!isCollapse">
+            <span class="platform_name">智慧消防平台</span>
+          </template>
         </router-link>
       </div>
       <div class="app-side-menu">
@@ -71,9 +76,7 @@ export default {
       this.$router.push({ path: "/" + e.path });
     }
   },
-  beforeMount() {
-   
-  },
+  beforeMount() {},
   mounted() {
     setTimeout(() => {
       this.menu = this.$store.state.home.menu;
@@ -137,4 +140,17 @@ export default {
 .app-side-logo img {
   cursor: pointer;
 }
+.platform_name {
+  height: 60px;
+  line-height: 60px;
+  display: block;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  font-size: 16px;
+}
+.app-side-logo a {
+  text-decoration: none;
+}
+
 </style>

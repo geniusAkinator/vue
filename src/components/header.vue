@@ -3,7 +3,7 @@
   <el-header class="app-header">
     <!-- 头部菜单 -->
     <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="/platform">看板</el-menu-item>
+      <el-menu-item index="/platform">平台看板</el-menu-item>
       <el-menu-item index="/main">切换主体</el-menu-item>
     </el-menu>
     <!-- 个人信息 -->
@@ -26,7 +26,12 @@
           <el-dropdown-item>信息2</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>-->
-      <span class="el-dropdown-link" @click="handleFullScreen">
+      <span class="nav-item" @click="toMessage">
+        <el-badge is-dot class="item">
+          <i class="el-icon-message el-icon--right"></i>
+        </el-badge>
+      </span>
+      <span class="nav-item" @click="handleFullScreen">
         <i class="el-icon-full-screen el-icon--right"></i>
       </span>
       <el-dropdown trigger="hover" :hide-on-click="false">
@@ -35,8 +40,8 @@
           <el-avatar icon="el-icon-user-solid" :size="28" shape="square">user</el-avatar>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="toMessage">我的消息</el-dropdown-item>
-          <el-dropdown-item @click.native="toSetting">设置</el-dropdown-item>
+          <el-dropdown-item @click.native="toBasic">基本资料</el-dropdown-item>
+          <el-dropdown-item @click.native="toSetting">系统配置</el-dropdown-item>
           <el-dropdown-item divided @click.native="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -90,6 +95,7 @@ export default {
     toMessage() {
       this.$router.push("/message", () => {});
     },
+    toBasic() {},
     toSetting() {
       this.$router.push("/sysset", () => {});
     },
@@ -158,7 +164,9 @@ export default {
 }
 .app-header-userinfo i {
   font-size: 20px;
-  margin-right: 20px;
-  margin-top: 3px;
+  margin-left: 20px;
+}
+.nav-item + .el-dropdown {
+  margin-left: 20px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-card class="state-card" shadow="hover">
+    <el-card class="state-card">
       <el-row :gutter="20">
         <el-col :span="8">
           <ul class="state_block">
@@ -210,7 +210,6 @@ export default {
   padding: 10px;
   overflow: hidden;
   overflow-y: scroll;
- 
 }
 .group-name {
   font-size: 22px;

@@ -83,10 +83,14 @@
           <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-receiving"></i>
-              <span>项目信息</span>
+              <span>数据概览</span>
             </div>
             <div class="text">
-              <my-factory-box></my-factory-box>
+              <el-carousel indicator-position="outside" arrow="never" height="150px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                  <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+              </el-carousel>
             </div>
           </el-card>
         </el-col>
@@ -96,7 +100,7 @@
           <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-s-promotion"></i>
-              <span>历史</span>
+              <span>日历</span>
             </div>
             <div class="text">
               <!-- <ul class="fast_box">
@@ -184,7 +188,6 @@
 <script>
 import MyMap from "@/components/map";
 import MyCalendar from "@/components/calendar";
-import MyFactoryBox from "@/components/factorybox";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 import MyEchartLine from "@/components/eline";
@@ -211,8 +214,7 @@ export default {
   methods: {
     resizeChart() {
       this.myCharts.resize();
-    },
-
+    }
   },
   created() {
     //数据统计
@@ -273,7 +275,6 @@ export default {
   components: {
     MyMap,
     MyCalendar,
-    MyFactoryBox,
     MyEchartLine
   }
 };
@@ -359,5 +360,8 @@ export default {
     margin-bottom: 20px;
   }
 }
-
+.sta_item:hover {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
 </style>

@@ -3,7 +3,7 @@
     <el-select v-model="value" placeholder="请选择" size="mini">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
-    <el-card class="box-card" shadow="hover" style="margin-top:20px">
+    <el-card class="box-card"    style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>XXX分析报告</span>
         <el-button class="header_right" type="text">

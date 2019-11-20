@@ -2,7 +2,7 @@
   <div class="container">
     <el-tabs type="border-card">
       <el-tab-pane label="传感器详情">
-        <el-card class="state-card" shadow="hover">
+        <el-card class="state-card"   >
           <el-row :gutter="20">
             <el-col :span="8">
               <ul class="state_block">
@@ -83,7 +83,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="故障详情">
-        <el-card class="state-card" shadow="hover">
+        <el-card class="state-card"   >
           <el-row :gutter="20" class="info-panel">
             <el-col :span="12">
               <ul class="info_block">

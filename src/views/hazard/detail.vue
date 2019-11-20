@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-card class="state-card" shadow="hover">
+    <el-card class="state-card"   >
       <el-row :gutter="20">
         <el-col :span="12">
           <ul class="state_block">
