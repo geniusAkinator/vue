@@ -9,10 +9,8 @@ const getters = {}
 
 const actions = {
     initGeo({ commit }) {
-        let _this = this;
         let geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (r) {
-            console.log(global.BAIDU_MAP_AK);
             if (this.getStatus() == BMAP_STATUS_SUCCESS) {
                 api
                     .getGeoData({
@@ -22,7 +20,6 @@ const actions = {
                         output: "json"
                     })
                     .then(res => {
-                        console.log(res)
                         if (res.status == BMAP_STATUS_SUCCESS) {
                             commit('initGeo', res.result)
                         }

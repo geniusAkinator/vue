@@ -2,15 +2,41 @@
   <div class="weather">
     <div class="wea-item" v-for="(item,index) in wdata" :key="index">
       <div class="wea_split"></div>
-
-      <i class="el-icon-sunny"></i>
+      <div class="wea_hover"></div>
+      <!-- xue, lei, shachen, wu, bingbao, yun, yu, yin, qing -->
+      <div
+        v-if="item.wea_img == 'bingbao'"
+        class="wea_icon"
+        :style="{background:`url(${icon1}) no-repeat center`,backgroundSize:'cover'}"
+      ></div>
+      <div
+        v-if="item.wea_img == 'shachen'"
+        class="wea_icon"
+        :style="{background:`url(${icon2}) no-repeat center`,backgroundSize:'cover'}"
+      ></div>
+      <div
+        v-if="item.wea_img == 'wu'"
+        class="wea_icon"
+        :style="{background:`url(${icon3}) no-repeat center`,backgroundSize:'cover'}"
+      ></div>
+      <div
+        v-if="item.wea_img == 'xue'"
+        class="wea_icon"
+        :style="{background:`url(${icon4}) no-repeat center`,backgroundSize:'cover'}"
+      ></div>
+      <i class="el-icon-lightning" v-if="item.wea_img == 'lei'"></i>
+      <i class="el-icon-sunny" v-if="item.wea_img == 'qing'"></i>
+      <i class="el-icon-light-rain" v-if="item.wea_img == 'yu'"></i>
+      <i class="el-icon-cloudy" v-if="item.wea_img == 'yin'"></i>
+      <i class="el-icon-cloudy-and-sunny" v-if="item.wea_img == 'yun'"></i>
       <span>{{item.week}}</span>
       <span>{{item.date}}</span>
       <span>{{item.tem}}</span>
       <span>{{item.tem2}}~{{item.tem1}}</span>
       <span class="wea">{{item.wea}}</span>
       <span>{{item.win[0]}}{{item.win_speed}}</span>
-      <div class="quality" v-if="index == 0">{{item.air}}{{item.air_level}}</div>
+      <div class="quality" v-if="index == 0">{{item.air}}&nbsp;&nbsp;{{item.air_level}}</div>
+      <div class="wea_bg daytime"></div>
     </div>
   </div>
 </template>
@@ -22,56 +48,10 @@ export default {
     return {
       adcode: this.$store.state.geo.geo.addressComponent.adcode,
       wdata: {},
-      wea_icon: [
-        {
-          icon: "el-icon-light-rain",
-          wea_img: "yu"
-        },
-        {
-          icon: "el-icon-lightning",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-heavy-rain",
-          wea_img: "yu"
-        },
-        {
-          icon: "el-icon-sunrise",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-sunrise-1",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-sunset",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-sunny",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-cloudy",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-partly-cloudy",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-cloudy-and-sunny",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-moon",
-          wea_img: ""
-        },
-        {
-          icon: "el-icon-moon-night",
-          wea_img: ""
-        }
-      ]
+      icon1: require("@/assets/bingbao.png"),
+      icon2: require("@/assets/shachen.png"),
+      icon3: require("@/assets/wu.png"),
+      icon4: require("@/assets/xue.png")
     };
   },
   mounted() {
@@ -97,13 +77,37 @@ export default {
   display: flex;
   position: relative;
   height: 100%;
+  color: #fff;
+}
+.wea_bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.wea_bg.daytime {
+  background-image: -webkit-linear-gradient(
+    top,
+    rgb(13, 104, 188),
+    rgb(114, 173, 224)
+  );
+}
+.wea_bg.evening {
   background-image: -webkit-linear-gradient(
     top,
     rgb(57, 73, 132),
     rgb(204, 102, 110) 60%,
     rgb(238, 182, 109)
   );
-  color: #fff;
+}
+.wea_bg.cloudy {
+  background-image: -webkit-linear-gradient(
+    top,
+    rgb(72, 86, 99),
+    rgb(161, 184, 202)
+  );
 }
 .wea-item {
   position: relative;
@@ -141,5 +145,37 @@ export default {
   background: #fff;
   filter: alpha(opacity=15);
   opacity: 0.15;
+}
+.wea-item i {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: auto;
+  font-size: 50px;
+}
+.wea_icon {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin: auto;
+  background-position: 50px 50px;
+}
+.wea_hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+.wea-item:hover .wea_hover {
+  background-image: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0.015),
+    rgba(255, 255, 255, 0.15)
+  );
+}
+.wea-item{
+    cursor: pointer;
 }
 </style>

@@ -86,9 +86,15 @@
               <span>数据概览</span>
             </div>
             <div class="text item">
-              <el-carousel indicator-position="outside" arrow="never">
+              <el-carousel indicator-position="outside" arrow="never" :autoplay="false">
                 <el-carousel-item>
                   <my-weather></my-weather>
+                </el-carousel-item>
+                <el-carousel-item>
+                  bbb
+                </el-carousel-item>
+                <el-carousel-item>
+                  ccc
                 </el-carousel-item>
               </el-carousel>
             </div>
