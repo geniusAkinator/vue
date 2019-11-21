@@ -139,7 +139,7 @@ export default {
         this.form.password + "",
         "secretKey"
       );
-      console.log(cipherAccount);
+      // console.log(cipherAccount);
       // let exDate = new Date(); // 获取时间
       // exDate.setTime(exDate.getTime() + 24 * 60 * 60 * 1000 * exDays); // 保存的天数
       // this.$cookies.config(exDate);

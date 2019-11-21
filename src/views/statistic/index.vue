@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <el-select v-model="value" placeholder="请选择" size="mini">
+    <!-- <el-select v-model="value" placeholder="请选择" size="mini">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
     </el-select>
-    <el-card class="box-card"    style="margin-top:20px">
+    <el-card class="box-card" style="margin-top:20px">
       <div slot="header" class="clearfix">
         <span>XXX分析报告</span>
         <el-button class="header_right" type="text">
@@ -13,7 +13,6 @@
           </el-radio-group>
         </el-button>
       </div>
-      <!-- 表格操作 -->
       <div class="table-tool">
         <my-search-tool>
           <template slot="content">
@@ -56,7 +55,6 @@
           </div>
         </div>
       </div>
-      <!-- 表格 -->
       <el-table
         stripe
         border
@@ -126,6 +124,86 @@
         <el-table-column prop="shot" label="短路总报警"></el-table-column>
         <el-table-column prop="disconnection" label="断路总报警"></el-table-column>
       </el-table>
+    </el-card>-->
+    <el-card class="box-card" shadow="hover">
+      <div slot="header" class="clearfix">
+        <span>1.消防安全评分</span>
+      </div>
+      <div class="text item">
+        <p class="statistics">您管理的智慧消防{{nowMonth?nowMonth:12}}月平均消防安全评分40分，请继续加强消防加强消防安全管理。</p>
+        <div id="rate_chart"></div>
+      </div>
+    </el-card>
+    <el-card class="box-card" shadow="hover">
+      <div slot="header" class="clearfix">
+        <span>2.故障</span>
+      </div>
+      <div class="text item">
+        <p class="statistics">{{nowMonth?nowMonth:12}}月智慧消防共发现故障38起，完成故障维修1起，平均维修时间7小时。</p>
+        <div id="breakdown_chart"></div>
+        <span class="title">故障频发点位</span>
+        <el-table stripe border :data="tableData" align="center" style="width: 100%">
+          <el-table-column prop="name" label="点位号"></el-table-column>
+          <el-table-column prop="name" label="点位描述"></el-table-column>
+          <el-table-column prop="name" label="设备地址"></el-table-column>
+          <el-table-column prop="name" label="故障上报次数"></el-table-column>
+          <el-table-column prop="name" label="备注"></el-table-column>
+        </el-table>
+        <div class="pagination">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :hide-on-single-page="isPaging"
+            :current-page="currentPage"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="prev,pager,next,jumper,total,sizes"
+            :total="400"
+          ></el-pagination>
+        </div>
+      </div>
+    </el-card>
+    <el-card class="box-card" shadow="hover">
+      <div slot="header" class="clearfix">
+        <span>3.隐患</span>
+      </div>
+      <div class="text item">
+        <p class="statistics">{{nowMonth?nowMonth:12}}月智慧消防共发现隐患38起，完成隐患维修1起，平均维修时间7小时。</p>
+        <div id="hazard_chart"></div>
+      </div>
+    </el-card>
+    <el-card class="box-card" shadow="hover">
+      <div slot="header" class="clearfix">
+        <span>4.人员统计</span>
+      </div>
+      <div class="text item">
+        <p class="statistics">{{nowMonth?nowMonth:12}}月共有8人参与到智慧消防日常管理中，所有工作人员共在云平台中处理故障5次，处理隐患2次。</p>
+        <el-table stripe border :data="tableData" align="center" style="width: 100%">
+          <el-table-column prop="name" label="人员姓名"></el-table-column>
+          <el-table-column prop="name" label="处理故障"></el-table-column>
+          <el-table-column prop="name" label="处理隐患"></el-table-column>
+        </el-table>
+        <div class="pagination">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :hide-on-single-page="isPaging"
+            :current-page="currentPage"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="prev,pager,next,jumper,total,sizes"
+            :total="400"
+          ></el-pagination>
+        </div>
+      </div>
+    </el-card>
+    <el-card class="box-card" shadow="hover">
+      <div slot="header" class="clearfix">
+        <span>5.服务统计</span>
+      </div>
+      <div class="text item">
+        <p class="statistics">{{nowMonth?nowMonth:12}}月共使用应用内推送234次，使用短信23条，我们将继续结成为您提供优质的服务。</p>
+      </div>
     </el-card>
   </div>
 </template>
@@ -134,35 +212,203 @@ import MySearchTool from "@/components/searchtool";
 export default {
   data() {
     return {
-      tableData: [],
-      isPaging: false,
-      currentPage: 1,
-      searchForm: {},
-      labelPosition: "left",
-      labelPos: "weekly",
-      tableData2: [],
-      options: [
-        {
-          value: "AAA",
-          label: "AAA"
-        },
-        {
-          value: "BBB",
-          label: "BBB"
-        },
-      ],
-      value:""
+      rcharts: {},
+      bcharts: {},
+      hcharts: {},
+      nowMonth: 0,
+      isPaging: true,
+      currentPage: 0,
+      tableData: []
     };
   },
   methods: {
-    handleRowClick() {},
     handleSizeChange() {},
     handleCurrentChange() {},
-    handleClick() {},
-    handleReset() {
-      this.searchForm = {};
+    resizeRateChart() {
+      this.rcharts.resize();
     },
-    handleSearch() {}
+    resizeBreakdownChart() {
+      this.bcharts.resize();
+    },
+    resizeHazardChart() {
+      this.hcharts.resize();
+    },
+    initRateChart() {
+      this.rcharts = echarts.init(document.getElementById(`rate_chart`));
+      let nowDate = new Date();
+      let nowYear = nowDate.getFullYear();
+      let nowMonth = nowDate.getMonth();
+      let base = new Date(2019, 0, 0);
+      let now = {};
+      if (nowMonth) {
+        now = new Date(nowYear, nowMonth - 1, 0);
+      } else {
+        now = new Date(nowYear - 1, 11, 0);
+      }
+      this.nowMonth = nowMonth;
+      let date = []; //时间轴
+      let data = [Math.random() * 300]; //纵坐标（值）
+      let days = base.getDate(); //获取天数
+      for (var i = 1; i <= days; i++) {
+        now.setDate(now.getDate() + 1);
+        date.push([now.getDate() < 10 ? "0" + now.getDate() : now.getDate()]);
+        data.push(Math.round(Math.random() * 20 + 10));
+      }
+      let option = {
+        tooltip: {
+          trigger: "axis",
+          position: function(pt) {
+            return [pt[0], "10%"];
+          }
+        },
+        legend: {
+          data: ["安全评分"]
+        },
+        title: {
+          left: "left",
+          text: "消防安全评分"
+        },
+        toolbox: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: "none"
+            },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: date
+        },
+        yAxis: {
+          type: "value",
+          boundaryGap: [0, "100%"]
+        },
+        dataZoom: [
+          {
+            type: "inside",
+            start: 0,
+            end: 100
+          },
+          {
+            start: 0,
+            end: 10,
+            handleIcon:
+              "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z",
+            handleSize: "80%",
+            handleStyle: {
+              color: "#fff",
+              shadowBlur: 3,
+              shadowColor: "rgba(0, 0, 0, 0.6)",
+              shadowOffsetX: 2,
+              shadowOffsetY: 2
+            }
+          }
+        ],
+        series: [
+          {
+            name: "安全评分",
+            type: "line",
+            smooth: false,
+            symbol: "none",
+            sampling: "average",
+            itemStyle: {
+              color: "rgb(255, 70, 131)"
+            },
+            data: data
+          }
+        ]
+      };
+      this.rcharts.setOption(option);
+      window.addEventListener("resize", this.resizeRateChart);
+    },
+    initBreakdownChart() {
+      this.hcharts = echarts.init(document.getElementById(`breakdown_chart`));
+      let option = {
+        legend: {},
+        tooltip: {},
+        title: {
+          left: "left",
+          text: "故障统计"
+        },
+        dataset: {
+          dimensions: ["name", "上月", "本月"],
+          source: [
+            {
+              name: "故障",
+              上月: 43.3,
+              本月: 85.8
+            },
+            { name: "忽略故障", 上月: 83.1, 本月: 73.4 },
+            {
+              name: "复位故障",
+              上月: 86.4,
+              本月: 65.2
+            },
+            {
+              name: "维修故障",
+              上月: 72.4,
+              本月: 53.9
+            }
+          ]
+        },
+        xAxis: { type: "category" },
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+      };
+
+      this.hcharts.setOption(option);
+      window.addEventListener("resize", this.resizeBreakdownChart);
+    },
+    initHazardChart() {
+      this.bcharts = echarts.init(document.getElementById(`hazard_chart`));
+      let option = {
+        legend: {},
+        tooltip: {},
+        title: {
+          left: "left",
+          text: "隐患统计"
+        },
+        dataset: {
+          dimensions: ["name", "上月", "本月"],
+          source: [
+            {
+              name: "隐患",
+              上月: 43.3,
+              本月: 85.8
+            },
+            { name: "忽略隐患", 上月: 83.1, 本月: 73.4 },
+            {
+              name: "复位隐患",
+              上月: 86.4,
+              本月: 65.2
+            },
+            {
+              name: "解决隐患",
+              上月: 72.4,
+              本月: 53.9
+            }
+          ]
+        },
+        xAxis: { type: "category" },
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+      };
+
+      this.bcharts.setOption(option);
+      window.addEventListener("resize", this.resizeHazardChart);
+    }
+  },
+  mounted() {
+    this.initRateChart();
+    this.initBreakdownChart();
+    this.initHazardChart();
   },
   components: {
     MySearchTool
@@ -179,5 +425,29 @@ export default {
 } */
 .el-table thead {
   background: #f5f7fa !important;
+}
+.el-card + .el-card {
+  margin-top: 20px;
+}
+#rate_chart {
+  width: 100%;
+  height: 400px;
+}
+#breakdown_chart {
+  width: 100%;
+  height: 400px;
+}
+#hazard_chart {
+  width: 100%;
+  height: 400px;
+}
+.statistics {
+  font-size: 20px;
+}
+.text.item .title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: block
 }
 </style>

@@ -35,7 +35,7 @@ import Record from '@/views/record/index'
 import Nav from '@/views/nav/index'
 import Teamer from '@/views/teamer/index'
 import Employee from '@/views/employee/index'
-import Notice from '@/views/notice/index'
+import Post from '@/views/post/index'
 import Building from '@/views/building/index'
 import Floor from '@/views/floor/index'
 import SensorDetail from '@/views/sensor/detail'
@@ -285,9 +285,9 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: 'notice',
+          path: 'post',
           name: '公告管理',
-          component: Notice
+          component: Post
         },
       ]
     },

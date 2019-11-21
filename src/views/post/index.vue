@@ -97,8 +97,8 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyNoticeAdd from "@/views/notice/add";
-import MyNoticeEdit from "@/views/notice/edit";
+import MyPostAdd from "@/views/post/add";
+import MyPostEdit from "@/views/post/edit";
 import api from "@/api/index";
 import http from "@/utils/http";
 import baseURL from "@/utils/baseUrl";
@@ -149,7 +149,7 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyNoticeAdd, //传递的组件对象
+          content: MyPostAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
@@ -164,7 +164,7 @@ export default {
       this.eid = row.noticeId;
       let index = this.$layer.iframe({
         content: {
-          content: MyNoticeEdit, //传递的组件对象
+          content: MyPostEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },

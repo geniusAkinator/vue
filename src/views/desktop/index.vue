@@ -90,12 +90,8 @@
                 <el-carousel-item>
                   <my-weather></my-weather>
                 </el-carousel-item>
-                <el-carousel-item>
-                  bbb
-                </el-carousel-item>
-                <el-carousel-item>
-                  ccc
-                </el-carousel-item>
+                <el-carousel-item>bbb</el-carousel-item>
+                <el-carousel-item>ccc</el-carousel-item>
               </el-carousel>
             </div>
           </el-card>
@@ -294,7 +290,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.text.item {
+.box-card .text.item {
   width: 100%;
   height: 300px;
 }
