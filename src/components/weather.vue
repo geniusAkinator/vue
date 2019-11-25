@@ -1,7 +1,7 @@
 <template>
   <div class="weather">
     <template v-for="(item,index) in wdata">
-      <div class="wea-item" :key="index" @mouseenter="handleHover(item)" @mouseleave="handle">
+      <div class="wea-item" :key="index" @mouseenter="handleHover(item)">
         <div class="wea_split"></div>
         <div class="wea_hover"></div>
         <!-- xue, lei, shachen, wu, bingbao, yun, yu, yin, qing -->

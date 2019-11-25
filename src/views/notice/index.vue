@@ -18,8 +18,14 @@
       <el-form-item label="故障处理通知超时">
         <el-switch v-model="form.isNotify"></el-switch>
         <div v-if="form.isNotify">
+          <ul class="member_ul">
+            <li v-for="(item,index) in elist" :key="index">
+              <span>{{item.label}}</span>
+              <i class="el-icon-close" @click="handleDel(index)"></i>
+            </li>
+          </ul>
           <el-button
-            size="mini"
+            size="medium"
             icon="el-icon-plus"
             round
             @click="handleNotifyClick"
@@ -37,18 +43,31 @@
       <el-form-item label="隐患处理通知超时">
         <el-switch v-model="form.isNotifyHazard"></el-switch>
         <div v-if="form.isNotifyHazard">
-          <el-button size="mini" icon="el-icon-plus" round></el-button>
+          <ul class="member_ul">
+            <li v-for="(item,index) in hlist" :key="index">
+              <span>{{item.label}}</span>
+              <i class="el-icon-close" @click="handleHazardDel(index)"></i>
+            </li>
+          </ul>
+          <el-button
+            size="medium"
+            icon="el-icon-plus"
+            round
+            @click="handleHazardNotifyClick"
+            ref="notifyBtn"
+          ></el-button>
         </div>
       </el-form-item>
     </el-form>
     <div class="sysset-footer">
       <el-button type="primary" icon="el-icon-check" size="small">保存</el-button>
     </div>
-    <div class="picker-content">
-      <transition name="myFadeRight" mode="out-in">
-        <my-member-picker v-show="show" v-clickoutside="handleClose" @sendMember="getMember"></my-member-picker>
-      </transition>
-    </div>
+    <!-- <div class="picker-content">
+      <transition name="myFadeRight" mode="out-in"></transition>
+    </div>-->
+    <el-drawer :visible.sync="drawer" :direction="direction" :before-close="handleBeforeClose">
+      <my-member-picker v-clickoutside="handleClose" :list="nlist" @sendMember="getMember"></my-member-picker>
+    </el-drawer>
   </div>
 </template>
 
@@ -65,17 +84,43 @@ export default {
         isNotifyHazard: false
       },
       num: 1,
-      show: false
+      show: false,
+      elist: [],
+      hlist: [],
+      drawer: false,
+      direction: "rtl",
+      nlist: [],
+      which: ""
     };
   },
   methods: {
+    handleBeforeClose(done) {
+      done();
+    },
     handleChange() {},
     handleNotifyClick() {
-      this.show = true;
+      this.drawer = true;
+      this.nlist = this.elist;
+      this.which = "first";
+    },
+    handleHazardNotifyClick() {
+      this.drawer = true;
+      this.nlist = this.hlist;
+      this.which = "second";
     },
     handleClose(e) {},
     getMember(e) {
-      console.log(e);
+      if (this.which == "first") {
+        this.elist = e;
+      } else if (this.which == "second") {
+        this.hlist = e;
+      }
+    },
+    handleDel(e) {
+      this.elist.splice(e, 1);
+    },
+    handleHazardDel(e) {
+      this.hlist.splice(e, 1);
     }
   },
   components: {
@@ -85,14 +130,14 @@ export default {
 </script>
 
 <style>
-.picker-content {
+/* .picker-content {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 53px;
   width: 300px;
   z-index: 999;
-}
+} */
 .sysset-footer {
   position: fixed;
   left: 0;
@@ -112,5 +157,40 @@ export default {
 .myFadeRight-enter, .myFadeRight-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform: translateX(300px);
+}
+.member_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float: left;
+}
+.member_ul li {
+  border: 1px solid #dcdfe6;
+  float: left;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative;
+}
+.member_ul li span {
+  line-height: 0 !important;
+  padding: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+}
+
+.member_ul li i:hover {
+  background: #ff0000;
+  color: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+.member_ul i {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.el-dialog__wrapper {
+  z-index: 999999 !important;
 }
 </style>

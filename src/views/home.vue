@@ -88,11 +88,13 @@ export default {
       if (cwidth < 1024) {
         this.isCollapse = true;
       } else {
-        if (!this.isCollapse) this.isCollapse = false;
+        if (this.isCollapse) this.isCollapse = false;
       }
     }
   },
-
+  created() {
+    this.$store.dispatch("home/initAside");
+  },
   mounted: function() {
     let _this = this;
     let user = sessionStorage.getItem("userInfo");

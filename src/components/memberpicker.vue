@@ -1,5 +1,6 @@
 <template>
   <div class="member-picker">
+    <i></i>
     <el-input v-model="keyword" placeholder="请输入内容" size="medium"></el-input>
     <ul class="teamer_list">
       <template v-for="(item,index) in teamerList">
@@ -54,6 +55,32 @@ export default {
       teamerList: []
     };
   },
+  props: {
+    list: {
+      type: Array
+    }
+  },
+  watch: {
+    list: {
+      immediate: true,
+      handler(nVal, oVal) {
+        let list = nVal;
+        let arr = [];
+        list.map((item, i) => {
+          arr.push(item.id);
+        });
+        this.teamerList.map((item, i) => {
+          item.children.map((citem, j) => {
+            if (arr.indexOf(citem.id) != "-1") {
+              citem.checked = true;
+            } else {
+              citem.checked = false;
+            }
+          });
+        });
+      }
+    }
+  },
   methods: {
     handleClick(index) {
       this.eform.departmentId = this.teamerList[index].id;
@@ -89,7 +116,15 @@ export default {
     },
     handleSubClick() {},
     handleCheckboxClick(mitem) {
-      this.$emit("sendMember", mitem);
+      let arr = [];
+      this.teamerList.map((item, i) => {
+        item.children.map((citem, j) => {
+          if (citem.checked) {
+            arr.push(citem);
+          }
+        });
+      });
+      this.$emit("sendMember", arr);
     }
   },
   mounted() {
@@ -106,6 +141,7 @@ export default {
             temp.id = item.departmentId;
             temp.isCollapsed = false;
             temp.isFirst = true;
+            temp.children = [];
             arr.push(temp);
           });
           this.teamerList = arr;
@@ -130,6 +166,7 @@ export default {
   border-left: 1px solid #e7e7e7;
   background-image: url("../assets/texture.png");
   color: #000;
+  z-index: 9999;
 }
 .teamer_list {
   list-style-type: none;
