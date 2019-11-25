@@ -1,7 +1,7 @@
 <template>
   <div class="weather">
     <template v-for="(item,index) in wdata">
-      <div class="wea-item" :key="index" @mouseenter="handleHover(item)">
+      <div class="wea-item" :key="index" @mouseenter="handleHover(item)" @mouseleave="handle">
         <div class="wea_split"></div>
         <div class="wea_hover"></div>
         <!-- xue, lei, shachen, wu, bingbao, yun, yu, yin, qing -->
@@ -48,7 +48,7 @@ import api from "@/api/index";
 export default {
   data() {
     return {
-      adcode: this.$store.state.geo.geo.addressComponent.adcode,
+      adcode: this.nowAdCode,
       wdata: {},
       icon1: require("@/assets/bingbao.png"),
       icon2: require("@/assets/shachen.png"),
@@ -56,6 +56,11 @@ export default {
       icon4: require("@/assets/xue.png"),
       bg: "daytime"
     };
+  },
+  watch: {
+    nowAdCode: function() {
+      return this.$store.getters["geo/nowAdCode"];
+    }
   },
   methods: {
     initData() {
@@ -111,7 +116,7 @@ export default {
   top: 0;
   bottom: 0;
   z-index: -1;
-  transition:all 0.3s ease-in-out 
+  transition: all 0.3s ease-in-out;
 }
 .wea_bg.daytime {
   background-image: -webkit-linear-gradient(

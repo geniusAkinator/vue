@@ -592,4 +592,7 @@ input:focus + .el-input__suffix {
 .box-card .el-carousel .el-carousel__button.is-active {
   background: #999;
 }
+.box-card.no-padding .el-card__body{
+  padding: 0
+}
 </style>

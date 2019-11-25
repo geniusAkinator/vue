@@ -1,28 +1,32 @@
 <template>
   <div class="member-picker">
-    <el-input v-model="keyword" placeholder="请输入内容" size="mini"></el-input>
+    <el-input v-model="keyword" placeholder="请输入内容" size="medium"></el-input>
     <ul class="teamer_list">
       <template v-for="(item,index) in teamerList">
         <li
-          :class="item.isCollapsed?'teamer_item collapsed':'teamer_item expanded'"
+          :class="item.isCollapsed?'team_row collapsed':'team_row expanded'"
           :key="index"
           @click="handleClick(index)"
         >
-          <div>
-            <i class="el-icon-plus"></i>
-            <i class="el-icon-minus"></i>
+          <div class="team_item">
+            <i class="el-icon-circle-plus-outline"></i>
+            <i class="el-icon-remove-outline"></i>
             <span class="teamer_name">{{item.label}}</span>
           </div>
           <el-collapse-transition>
             <ul class="member_list" v-show="item.isCollapsed">
               <li
-                class="member_item"
+                class="member_row"
                 v-for="(mitem,idx) in item.children"
                 :key="idx"
                 @click.stop="handleSubClick"
               >
-                <span class="member_name">{{mitem.label}}</span>
-                <el-tag type="info">{{mitem.duty}}</el-tag>
+                <div class="member_item">
+                  <el-checkbox v-model="mitem.checked" @change="handleCheckboxClick(mitem)">
+                    <span class="member_name">{{mitem.label}}</span>
+                    <span class="member_duty">{{mitem.duty}}</span>
+                  </el-checkbox>
+                </div>
               </li>
             </ul>
           </el-collapse-transition>
@@ -53,12 +57,19 @@ export default {
   methods: {
     handleClick(index) {
       this.eform.departmentId = this.teamerList[index].id;
+      this.$set(
+        this.teamerList[index],
+        "isCollapsed",
+        !this.teamerList[index].isCollapsed
+      );
+      if (!this.teamerList[index].isFirst) {
+        return;
+      }
       api
         .getEmployeeData(this.eform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data.content);
             if (_data.content.length) {
               let arr = [];
               _data.content.map((item, i) => {
@@ -66,20 +77,20 @@ export default {
                 temp.id = item.employeeId;
                 temp.label = item.name;
                 temp.duty = item.duty;
+                temp.checked = false;
                 arr.push(temp);
               });
               this.$set(this.teamerList[index], "children", arr);
-              this.$set(
-                this.teamerList[index],
-                "isCollapsed",
-                !this.teamerList[index].isCollapsed
-              );
+              this.$set(this.teamerList[index], "isFirst", false);
             }
           }
         })
         .catch(_ => {});
     },
-    handleSubClick() {}
+    handleSubClick() {},
+    handleCheckboxClick(mitem) {
+      this.$emit("sendMember", mitem);
+    }
   },
   mounted() {
     api
@@ -87,12 +98,17 @@ export default {
       .then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
-          this.teamerList = _data.content;
-          this.teamerList.map((item, i) => {
-            this.$set(this.teamerList[i], "label", item.departmentName);
-            this.$set(this.teamerList[i], "id", item.departmentId);
-            this.$set(this.teamerList[i], "isCollapsed", false);
+          let list = _data.content;
+          let arr = [];
+          list.map((item, i) => {
+            let temp = {};
+            temp.label = item.departmentName;
+            temp.id = item.departmentId;
+            temp.isCollapsed = false;
+            temp.isFirst = true;
+            arr.push(temp);
           });
+          this.teamerList = arr;
         }
       })
       .catch(_ => {});
@@ -107,13 +123,13 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #87cebb;
+  background: #fff;
   padding: 10px;
   overflow: hidden;
   overflow-y: scroll;
   border-left: 1px solid #e7e7e7;
   background-image: url("../assets/texture.png");
-  color: #fff;
+  color: #000;
 }
 .teamer_list {
   list-style-type: none;
@@ -122,9 +138,8 @@ export default {
 }
 .teamer_list > li {
   display: block;
-  padding: 10px;
+  padding-top: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #fff;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -khtml-user-select: none; /* Konqueror */
@@ -132,16 +147,16 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
-.teamer_item.expanded i.el-icon-minus {
+.team_row.expanded i.el-icon-remove-outline {
   display: none;
 }
-.teamer_item.expanded i.el-icon-plus {
+.team_row.expanded i.el-icon-circle-plus-outline {
   display: inline-block;
 }
-.teamer_item.collapsed i.el-icon-minus {
+.team_row.collapsed i.el-icon-remove-outline {
   display: inline-block;
 }
-.teamer_item.collapsed i.el-icon-plus {
+.team_row.collapsed i.el-icon-circle-plus-outline {
   display: none;
 }
 .member_list {
@@ -162,7 +177,59 @@ export default {
   user-select: none;
   margin-top: 10px;
 }
-.teamer_name{
-    font-weight: bold;
+.teamer_name {
+  font-weight: bold;
+}
+.team_item {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px;
+  background: #fff;
+}
+.member_list::before {
+  content: "";
+  display: block;
+  width: 1px;
+  background: #999;
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  bottom: 10px;
+}
+.team_row,
+.member_row {
+  position: relative;
+}
+.member_row::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #999;
+  position: absolute;
+  left: 10px;
+  top: 25px;
+  bottom: 10px;
+  width: 31px;
+}
+.member_item {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px;
+  background: #fff;
+}
+
+.member_duty {
+  float: right;
+  color: #999;
+  font-size: 12px;
+}
+.member_item .el-checkbox {
+  width: 100%;
+}
+.el-checkbox__label {
+  width: calc(100% - 20px);
+}
+.member_item .el-checkbox__inner {
+  border-radius: 50%;
 }
 </style>

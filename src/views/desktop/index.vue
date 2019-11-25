@@ -73,14 +73,14 @@
       </el-row>
       <el-col :md="16">
         <el-col :md="24">
-          <el-card class="box-card" shadow="hover">
+          <el-card class="box-card no-padding" shadow="hover">
             <div class="text item" style="height:700px">
               <my-map :list.sync="geoList"></my-map>
             </div>
           </el-card>
         </el-col>
         <el-col :md="24" style="margin-top:10px">
-          <el-card class="box-card" shadow="hover">
+          <el-card class="box-card no-padding" shadow="hover">
             <div slot="header" class="clearfix">
               <i class="el-icon-receiving"></i>
               <span>数据概览</span>
@@ -369,4 +369,5 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+
 </style>

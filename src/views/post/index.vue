@@ -51,9 +51,7 @@
       <el-table-column prop="type" label="公告类型">
         <template slot-scope="scope">
           <div v-for="(item,key) in options" :key="key">
-            <span v-if="item.value==scope.row.type">
-              {{item.label}}
-            </span>
+            <span v-if="item.value==scope.row.type">{{item.label}}</span>
           </div>
         </template>
       </el-table-column>

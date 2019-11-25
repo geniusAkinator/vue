@@ -46,7 +46,7 @@
     </div>
     <div class="picker-content">
       <transition name="myFadeRight" mode="out-in">
-        <my-member-picker v-show="show" v-clickoutside="handleClose"></my-member-picker>
+        <my-member-picker v-show="show" v-clickoutside="handleClose" @sendMember="getMember"></my-member-picker>
       </transition>
     </div>
   </div>
@@ -73,10 +73,9 @@ export default {
     handleNotifyClick() {
       this.show = true;
     },
-    handleClose(e) {
-      console.log(e.target);
-      console.log(this.$refs.notifyBtn)
-      //   this.show = false;
+    handleClose(e) {},
+    getMember(e) {
+      console.log(e);
     }
   },
   components: {

@@ -5,7 +5,11 @@ const state = {
     geo: {}
 }
 
-const getters = {}
+const getters = {
+    nowAdCode: state => {
+        return state.geo.addressComponent.adcode
+    }
+}
 
 const actions = {
     initGeo({ commit }) {
