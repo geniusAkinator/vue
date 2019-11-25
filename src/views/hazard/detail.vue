@@ -75,7 +75,8 @@ export default {
           content: "系统上报",
           timestamp: "2018-04-11"
         }
-      ]
+      ],
+      reverse:""
     };
   },
   watch: {},

@@ -101,7 +101,7 @@ export default {
           //ajax提交
           console.log(this.form);
           api
-            .addDepartmentData(this.form)
+            .addTeamerData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功

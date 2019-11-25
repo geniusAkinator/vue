@@ -9,8 +9,8 @@
         </el-col>
         <el-col :span="12">
           <div class="check-top">
-            <span class="tips big">您还没有体检，建议立即体检！</span>
-            <span class="tips">系统可能存在风险，建议及时体检</span>
+            <span class="tip big">您还没有体检，建议立即体检！</span>
+            <span class="tip">系统可能存在风险，建议及时体检</span>
             <el-button type="success" round>开始检测</el-button>
           </div>
         </el-col>
@@ -91,11 +91,11 @@ export default {
   float: left;
   margin-top: 80px;
 }
-.tips {
+.tip {
   display: block;
   width: 100%;
 }
-.tips.big {
+.tip.big {
   font-size: 30px;
 }
 .check_ul {

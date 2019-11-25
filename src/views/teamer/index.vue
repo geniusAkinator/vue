@@ -78,8 +78,8 @@
 </template>
 <script>
 import MySearchTool from "@/components/searchtool";
-import MyDepartmentAdd from "@/views/teamer/add";
-import MyDepartmentEdit from "@/views/teamer/edit";
+import MyTeamerAdd from "@/views/teamer/add";
+import MyTeamerEdit from "@/views/teamer/edit";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 export default {
@@ -132,7 +132,7 @@ export default {
     handleAdd() {
       var index = this.$layer.iframe({
         content: {
-          content: MyDepartmentAdd, //传递的组件对象
+          content: MyTeamerAdd, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
@@ -147,7 +147,7 @@ export default {
       this.eid = row.departmentId;
       let index = this.$layer.iframe({
         content: {
-          content: MyDepartmentEdit, //传递的组件对象
+          content: MyTeamerEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: {} //props
         },
@@ -205,7 +205,7 @@ export default {
       _this
         .$confirm("确认删除")
         .then(_ => {
-          api.delDepartmentData({ ids: _this.did }).then(res => {
+          api.delTeamerData({ ids: _this.did }).then(res => {
             if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
               _this.$message({
                 showClose: true,
@@ -224,7 +224,7 @@ export default {
     initTable() {
       //初始化表格数据
       api
-        .getDepartmentData(this.Listform)
+        .getTeamerData(this.Listform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;

@@ -130,8 +130,8 @@ export default {
     };
   },
   methods: {},
-  beforeCreate(){
-    this.$store.dispatch("theme/initThemeList")
+  beforeCreate() {
+    this.$store.dispatch("theme/initThemeList");
   },
   mounted() {
     new Swiper(".swiper-container", {
@@ -390,6 +390,6 @@ export default {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
-  transform: translateX("-50%")
+  transform: translateX("-50%");
 }
 </style>

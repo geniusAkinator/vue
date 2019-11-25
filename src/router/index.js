@@ -48,6 +48,7 @@ import MainList from '@/views/main/list'
 import Message from '@/views/message/index'
 import Hazard from '@/views/hazard/index'
 import HazardDetail from '@/views/hazard/detail'
+import Notice from '@/views/notice/index'
 
 Vue.use(Router)
 
@@ -386,6 +387,11 @@ export default new Router({
           path: 'help',
           name: '系统帮助',
           component: Help
+        },
+        {
+          path: 'notice',
+          name: '通知管理',
+          component: Notice
         },
       ]
     },

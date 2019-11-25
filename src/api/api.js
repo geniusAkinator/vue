@@ -447,9 +447,9 @@ export const delSysLogData = params => {  //删除日志信息
 }
 
 /**
- *团队管理(department)
+ *团队管理(Teamer)
  */
-export const getDepartmentData = params => { //获取团队管信息
+export const getTeamerData = params => { //获取团队管信息
     return request({
         url: '/department/departmentList',
         params: params,
@@ -457,23 +457,23 @@ export const getDepartmentData = params => { //获取团队管信息
     });
 }
 
-export const addDepartmentData = params => { //添加团队信息
+export const addTeamerData = params => { //添加团队信息
     return request({
-        url: '/department/addDepartment',
+        url: '/department/addTeamer',
         data: params,
         method: "POST"
     });
 }
 
-export const updateDepartmentData = params => { //修改团队信息
+export const updateTeamerData = params => { //修改团队信息
     return request({
-        url: '/department/updateDepartment',
+        url: '/department/updateTeamer',
         data: params,
         method: "POST"
     });
 }
 
-export const getDepartmentDetail = params => { //获取团队信息详情
+export const getTeamerDetail = params => { //获取团队信息详情
     return request({
         url: '/department/departmentDetail',
         params: params,
@@ -481,9 +481,9 @@ export const getDepartmentDetail = params => { //获取团队信息详情
     });
 }
 
-export const delDepartmentData = params => {  //删除团队信息
+export const delTeamerData = params => {  //删除团队信息
     return request({
-        url: '/department/deleteDepartment',
+        url: '/department/deleteTeamer',
         params: params,
         method: "DELETE"
     });

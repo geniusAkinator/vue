@@ -103,7 +103,7 @@ export default {
           //ajax提交
           console.log(this.form);
           api
-            .updateDepartmentData(this.form)
+            .updateTeamerData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 // 编辑成功
@@ -154,7 +154,7 @@ export default {
         .catch(_ => {});
       //表单回显
       api
-        .getDepartmentDetail({ id: this.form.departmentId })
+        .getTeamerDetail({ id: this.form.departmentId })
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
