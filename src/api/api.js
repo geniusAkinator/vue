@@ -309,7 +309,7 @@ export const getFactoryDetail = params => { //获取工厂详情
  */
 export const getSensorData = params => { //获取传感器信息
     return request({
-        url: '/transducer/transducerList',
+        url: '/transducerType/transducerTypeAllTransducer',
         params: params,
         method: "GET"
     });
@@ -734,3 +734,34 @@ export const getWeatherData = params => {
         data: params,
     });
 }
+
+/**
+ *传感器系统 
+ */
+
+export const getSensorSysData = params => { //获取平台主体
+    return request({
+        url: '/system/systemList',
+        params: params,
+        method: "GET"
+    });
+}
+
+export const addSensorSysData = params => { //添加传感器系统 
+    return request({
+        url: '/system/addSystem',
+        data: params,
+        method: "POST"
+    });
+}
+
+export const updateSensorSysData = params => { //修改楼层管理 
+    return request({
+        url: '/system/updateSystem',
+        data: params,
+        method: "POST"
+    });
+}
+
+
+

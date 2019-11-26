@@ -164,7 +164,7 @@ export default new Router({
           component: Display
         },
         {
-          path: 'displayInfo',
+          path: 'displayInfo/:sId/:sName',
           name: '传感器展示',
           component: DisplayInfo
         }

@@ -1,9 +1,30 @@
 <template>
   <div class="container">
     <el-row :gutter="20">
-      <el-col :span="8" v-for="index of 6" :key="index">
-        <div class="sys-block" @click="jump">
-          <div class="block-title">风控系统</div>
+      <el-col :span="8">
+        <div class="add_block" @click="handleAddSys">
+          <i class="el-icon-plus"></i>
+        </div>
+      </el-col>
+      <el-col :span="8" v-for="(item,index) of list" :key="index">
+        <div class="sys-block" @click="jump(item)">
+          <div class="block-title">
+            {{item.name}}
+            <el-button-group class="sys-op">
+              <el-button
+                type="primary"
+                size="small"
+                icon="el-icon-edit"
+                @click.stop="handleEditSys(index,item)"
+              ></el-button>
+              <el-button
+                type="danger"
+                size="small"
+                icon="el-icon-delete"
+                @click.stop="handleDelSys(index,item)"
+              ></el-button>
+            </el-button-group>
+          </div>
           <div class="block-content">
             <el-carousel :interval="5000">
               <el-carousel-item v-for="idx of 3" :key="idx">
@@ -46,18 +67,92 @@
 
 <script>
 import MyEchartLine from "@/components/eline";
+import MySensorSysAdd from "@/views/display/sadd";
+import MySensorSysEdit from "@/views/display/sedit";
+import utils from "@/utils/utils";
+import api from "@/api/index";
 export default {
   data() {
     return {
-      echart: "el"
+      echart: "el",
+      index: "",
+      list: []
     };
   },
-  methods: {
-    jump() {
-      this.$router.push({
-        name: "传感器展示"
-      });
+  watch: {
+    index: function(newVal, oldVal) {
+      let layer = document.querySelector("#" + newVal);
+      if (layer != null) {
+        this.layerInitWidth = layer.offsetWidth;
+        this.layerInitHeight = layer.offsetHeight;
+      }
     }
+  },
+  methods: {
+    jump(row) {
+      this.$router.push({
+        name: "传感器展示",
+        params: { sId: row.systemId, sName: row.name }
+      });
+    },
+    handleAddSys() {
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorSysAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "新增传感器系统",
+        target: ".el-main"
+      });
+      this.index = index;
+    },
+    handleEditSys(index, item) {
+      let idx = this.$layer.iframe({
+        content: {
+          content: MySensorSysEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "编辑传感器系统",
+        target: ".el-main"
+      });
+      this.index = idx;
+    },
+    handleDelSys(index, item) {},
+    init() {
+      api
+        .getSensorSysData()
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.list = _data.content;
+          }
+        })
+        .catch(_ => {});
+    }
+  },
+  created() {
+    this.init();
+  },
+  mounted() {
+    window.addEventListener("resize", () => {
+      if (this.index == "") {
+        return;
+      }
+      let layer = document.querySelector("#" + this.index);
+      if (layer != null) {
+        utils.resizeLayer(
+          this.index,
+          this.layerInitWidth,
+          this.layerInitHeight
+        );
+      }
+    });
   },
   components: {
     MyEchartLine
@@ -69,7 +164,10 @@ export default {
 .sys-block {
   border: 1px solid #efefef;
   cursor: pointer;
-  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.sys-block:hover .sys-op {
+  display: block;
 }
 .block-title {
   padding: 10px 20px;
@@ -147,5 +245,27 @@ export default {
 }
 .state-ul li .left {
   display: block;
+}
+.add_block {
+  width: 100%;
+  height: 250px;
+  border: 1px solid #999;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.sys-op {
+  float: right;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+.block-title {
+  overflow: hidden;
+  line-height: 32px;
 }
 </style>

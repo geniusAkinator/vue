@@ -226,7 +226,7 @@ export default {
                   message: "添加成功",
                   type: "success"
                 });
-                this.$parent.initTable();
+                this.$parent.initSensor();
                 this.closeDialog();
               } else {
                 //添加失败

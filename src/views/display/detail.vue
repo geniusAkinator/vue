@@ -2,11 +2,23 @@
   <div class="container">
     <el-row :gutter="20">
       <el-col :span="8">
-        <div class="type-item current">
-          <div class="type-img"></div>
+        <div class="add_type_block" @click="handleAddType">
+          <i class="el-icon-plus"></i>
+        </div>
+      </el-col>
+      <el-col :span="8" v-for="(item,index) of tlist" :key="index">
+        <div
+          :class="item.checked?'type-item current':'type-item'"
+          @click="handleClickSensor(index,item)"
+        >
+          <el-image class="type-img">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
           <div class="type-content">
             <div class="type-title">
-              <span>烟感</span>
+              <span>{{item.name}}</span>
               <span>全部点位9</span>
             </div>
             <ul class="state-ul">
@@ -25,63 +37,9 @@
                 <span class="right">9</span>
               </li>
             </ul>
-            <div class="border-down-empty">
+            <!-- <div class="border-down-empty">
               <span></span>
-            </div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="type-item">
-          <div class="type-img"></div>
-          <div class="type-content">
-            <div class="type-title">
-              <span>烟感</span>
-              <span>全部点位9</span>
-            </div>
-            <ul class="state-ul">
-              <li>
-                <span class="left">正常</span>
-                <div class="bar">
-                  <div class="now-bar"></div>
-                </div>
-                <span class="right">3</span>
-              </li>
-              <li>
-                <span class="left">异常</span>
-                <div class="bar error">
-                  <div class="now-bar"></div>
-                </div>
-                <span class="right">9</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="type-item">
-          <div class="type-img"></div>
-          <div class="type-content">
-            <div class="type-title">
-              <span>烟感</span>
-              <span>全部点位9</span>
-            </div>
-            <ul class="state-ul">
-              <li>
-                <span class="left">正常</span>
-                <div class="bar">
-                  <div class="now-bar"></div>
-                </div>
-                <span class="right">3</span>
-              </li>
-              <li>
-                <span class="left">异常</span>
-                <div class="bar error">
-                  <div class="now-bar"></div>
-                </div>
-                <span class="right">9</span>
-              </li>
-            </ul>
+            </div>-->
           </div>
         </div>
       </el-col>
@@ -112,22 +70,27 @@
           </div>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6" v-for="index of 12" :key="index">
+          <el-col :span="6">
+            <div class="add_senser_block" @click="handleAddSensor">
+              <i class="el-icon-plus"></i>
+            </div>
+          </el-col>
+          <el-col :span="6" v-for="(item,index) of list" :key="index">
             <div class="display-item" @click="jump">
-              <span class="display-title">智慧消防独立烟感</span>
+              <span class="display-title">名字名字名字</span>
               <div class="display-light"></div>
               <ul class="info-list">
                 <li>
                   <i class="el-icon-location"></i>
-                  <span>智能烟感</span>
+                  <span>{{item.floor.building.factory.factoryName}}-{{item.floor.building.name}}-{{item.floor.floorName}}</span>
                 </li>
                 <li>
                   <i class="el-icon-warning-outline"></i>
-                  <span>智能烟感</span>
+                  <span>{{item.name}}</span>
                 </li>
                 <li>
                   <i class="el-icon-time"></i>
-                  <span>2019-11-20 00:00:00</span>
+                  <span>{{item.expirationDate}}</span>
                 </li>
                 <li>
                   <i class="el-icon-phone"></i>
@@ -158,7 +121,7 @@
           </div>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6" v-for="index of 12" :key="index">
+          <el-col :span="6" v-for="index of 0" :key="index">
             <div class="display-item warning">
               <span class="display-title">智慧消防独立烟感</span>
               <div class="display-light"></div>
@@ -189,23 +152,51 @@
         </el-row>
       </el-tab-pane>
       <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
         class="display-paging"
         background
         layout="prev, pager, next ,total"
-        :total="1000"
+        :total="total"
       ></el-pagination>
     </el-tabs>
   </div>
 </template>
 
 <script>
+import MySensorTypeAdd from "@/views/display/tadd";
+import MySensorAdd from "@/views/sensor/add";
+import api from "@/api/index";
 export default {
   data() {
     return {
+      tform: {
+        pageNum: 1,
+        pageSize: 0
+      },
+      sform: {
+        pageNum: 0,
+        pageSize: 25,
+        transducerTypeId: 0
+      },
+      systemName: this.$route.params.sName,
       searchForm: {
         keyWord: ""
-      }
+      },
+      tlist: [],
+      list: [],
+      total: 0
     };
+  },
+  watch: {
+    tlist: {
+      handler(newName, oldName) {
+        // this.sform.transducerTypeId = this.tlist[0].ttId;
+        // this.initSensor();
+        // console.log("has change", this.sform);
+      },
+      deep: true
+    }
   },
   methods: {
     jump() {
@@ -213,7 +204,101 @@ export default {
         name: "传感器详情",
         params: { sId: 22 }
       });
+    },
+    handleAddType() {
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorTypeAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "新增传感器类型",
+        target: ".el-main"
+      });
+    },
+    handleAddSensor() {
+      let index = this.$layer.iframe({
+        content: {
+          content: MySensorAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "新增传感器",
+        target: ".el-main"
+      });
+      this.$layer.full(index);
+    },
+    handleClickSensor(index, row) {
+      console.log(index, row);
+      this.tlist.map((item, i) => {
+        item.checked = false;
+      });
+      this.tlist[index].checked = true;
+      this.sform.transducerTypeId = row.ttId;
+      this.initSensor();
+    },
+    initSensorType() {
+      api
+        .getSensorTypeData(this.tform)
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            let list = _data.content;
+            console.log("aaa", _data);
+            list.map((item, i) => {
+              if (i == 0) {
+                item.checked = true;
+                this.sform.transducerTypeId = item.ttId;
+              } else {
+                item.checked = false;
+              }
+            });
+            this.tlist = list;
+            console.log(this.tlist);
+          }
+        })
+        .catch(_ => {});
+      setTimeout(() => {
+        this.initSensor();
+      }, 200);
+    },
+    initSensor() {
+      console.log("ssss", this.sform);
+      api.getSensorData(this.sform).then(res => {
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          let list = _data.content;
+          let total = _data.total;
+          this.list = list;
+          this.total = total;
+          console.log(this.total);
+        }
+      });
+    },
+    handleSizeChange(e) {
+      //分页大小改变
+      this.Listform.pageSize = e;
+      //重载表格
+      this.initSensor();
+    },
+    handleCurrentChange(e) {
+      //分页切换
+      this.Listform.pageNum = e;
+      //重载表格
+      this.initSensor();
     }
+  },
+  created() {
+    this.initSensorType();
+  },
+  mounted() {},
+  beforeRouteLeave(to, from, next) {
+    this.$destroy();
+    next();
   }
 };
 </script>
@@ -225,7 +310,7 @@ export default {
 .display-item {
   background: #f0f0f0;
   padding: 20px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   position: relative;
   cursor: pointer;
 }
@@ -307,6 +392,11 @@ export default {
 .type-item.current {
   border: 1px solid #efefef;
   cursor: pointer;
+  height: 98px;
+}
+.type-item .type-title {
+  display: flex;
+  justify-content: space-between;
 }
 .type-item.current .type-title {
   display: flex;
@@ -319,8 +409,11 @@ export default {
   display: block;
   width: 100px;
   height: 100px;
-  background: green;
+  background: #fff;
   margin-right: 10px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 100px;
 }
 .type-content {
   flex: 1;
@@ -338,6 +431,7 @@ export default {
 }
 .state-ul li .left {
   display: block;
+  width: 34px;
 }
 .state-ul li .right {
   display: block;
@@ -347,6 +441,7 @@ export default {
 }
 .type-item {
   cursor: pointer;
+  margin-bottom: 20px;
 }
 .bar {
   width: 80%;
@@ -362,6 +457,9 @@ export default {
   background: #f56c6c;
   width: 60%;
 }
+.type-item.current .border-down-empty {
+  display: block;
+}
 .border-down-empty {
   position: absolute;
   bottom: -10px;
@@ -373,6 +471,7 @@ export default {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 10px solid #78839d;
+  display: none;
 }
 .border-down-empty span {
   display: block;
@@ -389,5 +488,31 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+}
+.add_type_block {
+  width: 100%;
+  height: 138px;
+  border: 1px solid #999;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  float: left;
+}
+.add_senser_block {
+  width: 100%;
+  height: 177px;
+  border: 1px solid #999;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  float: left;
 }
 </style>
