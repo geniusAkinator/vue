@@ -128,6 +128,17 @@
     <el-card class="box-card" shadow="hover">
       <div slot="header" class="clearfix">
         <span>1.消防安全评分</span>
+        <div class="header_right">
+          <el-date-picker
+            v-model="datetime"
+            size="medium"
+            type="month"
+            placeholder="选择日期时间"
+            class="datetime"
+            value-format="yyyy-MM"
+            @change="handleSelect"
+          ></el-date-picker>
+        </div>
       </div>
       <div class="text item">
         <p class="statistics">您管理的智慧消防{{nowMonth?nowMonth:12}}月平均消防安全评分40分，请继续加强消防加强消防安全管理。</p>
@@ -218,10 +229,27 @@ export default {
       nowMonth: 0,
       isPaging: true,
       currentPage: 0,
-      tableData: []
+      tableData: [],
+      datetime: "",
+      nowYear: 2019,
+      nowMonth: 1
     };
   },
+  watch: {
+    datetime(newVal, oldVal) {
+      if (newVal == null) {
+        return;
+      }
+      let dtime = newVal;
+      let y = dtime.split("-")[0];
+      let m = dtime.split("-")[1];
+      this.nowYear = y;
+      this.nowMonth = m;
+      this.initRateChart();
+    }
+  },
   methods: {
+    handleSelect() {},
     handleSizeChange() {},
     handleCurrentChange() {},
     resizeRateChart() {
@@ -235,17 +263,15 @@ export default {
     },
     initRateChart() {
       this.rcharts = echarts.init(document.getElementById(`rate_chart`));
-      let nowDate = new Date();
-      let nowYear = nowDate.getFullYear();
-      let nowMonth = nowDate.getMonth();
-      let base = new Date(2019, 0, 0);
+      let nYear = this.nowYear;
+      let nMonth = this.nowMonth;
+      let base = new Date(nYear, nMonth, 0);
       let now = {};
-      if (nowMonth) {
-        now = new Date(nowYear, nowMonth - 1, 0);
+      if (nMonth) {
+        now = new Date(nYear, nMonth - 1, 0);
       } else {
-        now = new Date(nowYear - 1, 11, 0);
+        now = new Date(nYear - 1, 11, 0);
       }
-      this.nowMonth = nowMonth;
       let date = []; //时间轴
       let data = [Math.random() * 300]; //纵坐标（值）
       let days = base.getDate(); //获取天数
@@ -403,9 +429,17 @@ export default {
 
       this.bcharts.setOption(option);
       window.addEventListener("resize", this.resizeHazardChart);
+    },
+    initPreMonth() {
+      let nowDate = new Date();
+      let nYear = nowDate.getFullYear();
+      let nMonth = nowDate.getMonth();
+      this.nowYear = nYear;
+      this.nowMonth = nMonth;
     }
   },
   mounted() {
+    this.initPreMonth();
     this.initRateChart();
     this.initBreakdownChart();
     this.initHazardChart();
@@ -449,5 +483,8 @@ export default {
   font-size: 20px;
   margin-bottom: 10px;
   display: block;
+}
+.datetime {
+  margin-top: 10px;
 }
 </style>
