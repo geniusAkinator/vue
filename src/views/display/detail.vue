@@ -11,7 +11,11 @@
           :class="item.checked?'type-item current':'type-item'"
           @click="handleClickSensor(index,item)"
         >
-          <el-image class="type-img">
+          <div class="type-op">
+            <i class="el-icon-edit" @click.stop="handleEditType(index,item)"></i>
+            <i class="el-icon-delete" @click.stop="handleDelType(index,item)"></i>
+          </div>
+          <el-image :src="imgUrl+item.img" fit="cover" class="type-img">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -21,6 +25,7 @@
               <span>{{item.name}}</span>
               <span>全部点位9</span>
             </div>
+
             <ul class="state-ul">
               <li>
                 <span class="left">正常</span>
@@ -77,6 +82,10 @@
           </el-col>
           <el-col :span="6" v-for="(item,index) of list" :key="index">
             <div class="display-item" @click="jump">
+              <div class="sensor-op">
+                <i class="el-icon-edit" @click.stop="handleEditSensor(index,item)"></i>
+                <i class="el-icon-delete" @click.stop="handleDelSensor(index,item)"></i>
+              </div>
               <span class="display-title">名字名字名字</span>
               <div class="display-light"></div>
               <ul class="info-list">
@@ -165,8 +174,11 @@
 
 <script>
 import MySensorTypeAdd from "@/views/display/tadd";
+import MySensorTypeEdit from "@/views/display/tedit";
 import MySensorAdd from "@/views/sensor/add";
+import MySensorEdit from "@/views/sensor/edit";
 import api from "@/api/index";
+import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
@@ -185,7 +197,10 @@ export default {
       },
       tlist: [],
       list: [],
-      total: 0
+      total: 0,
+      eid: 0,
+      index: "",
+      imgUrl: baseURL
     };
   },
   watch: {
@@ -240,6 +255,75 @@ export default {
       this.tlist[index].checked = true;
       this.sform.transducerTypeId = row.ttId;
       this.initSensor();
+    },
+    handleEditType(index, item) {
+      let idx = this.$layer.iframe({
+        content: {
+          content: MySensorTypeEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "编辑传感器类型",
+        target: ".el-main"
+      });
+      this.index = idx;
+      this.eid = item.ttId;
+    },
+    handleDelType(index, item) {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delSensorTypeData({ ids: item.ttId }).then(res => {
+            if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initSensor();
+              _this.did = "";
+            }
+          });
+        })
+        .catch(_ => {});
+    },
+    handleEditSensor(index, item) {
+      let idx = this.$layer.iframe({
+        content: {
+          content: MySensorEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "新增传感器",
+        target: ".el-main"
+      });
+      this.eid = item.transducerId;
+      this.index = idx;
+      this.$layer.full(idx);
+    },
+    handleDelSensor(index, item) {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delSensorData({ ids: item.transducerId }).then(res => {
+            if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.initSensor();
+              _this.did = "";
+            }
+          });
+        })
+        .catch(_ => {});
     },
     initSensorType() {
       api
@@ -384,6 +468,9 @@ export default {
   left: 15px;
 }
 .type-item {
+  height: 102px;
+}
+.type-item {
   padding: 20px;
   background: #efefef;
   display: flex;
@@ -395,15 +482,11 @@ export default {
   height: 100px;
 }
 .type-item .type-title {
-  display: flex;
-  justify-content: space-between;
+  margin-top: 8px;
 }
 .type-item.current .type-title {
-  display: flex;
-  justify-content: space-between;
   font-weight: bold;
-  font-size: 16px;
-  margin-top: 8px;
+  font-size: 14px;
 }
 .type-img {
   display: block;
@@ -491,7 +574,7 @@ export default {
 }
 .add_type_block {
   width: 100%;
-  height: 138px;
+  height: 140px;
   border: 1px solid #999;
   color: #999;
   display: flex;
@@ -514,5 +597,28 @@ export default {
   cursor: pointer;
   margin-bottom: 20px;
   float: left;
+}
+.type-item {
+  position: relative;
+}
+.type-op {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  display: none;
+}
+.type-item:hover .type-op {
+  display: block;
+}
+.sensor-op {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  display: none;
+}
+.display-item:hover .sensor-op {
+  display: block;
 }
 </style>

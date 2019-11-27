@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <el-card class="state-card"   >
-      <el-row :gutter="20">
+    <el-card class="state-card">
+      <!-- <el-row :gutter="20">
         <el-col :span="8">
           <ul class="hazard-block">
             <li>
@@ -30,7 +30,7 @@
             </li>
           </ul>
         </el-col>
-      </el-row>
+      </el-row> -->
     </el-card>
     <el-tabs class="table" type="border-card">
       <el-tab-pane label="待处理">

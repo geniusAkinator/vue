@@ -81,7 +81,7 @@ export default {
       echart: "el",
       index: "",
       list: [],
-      eid: 0
+      eid: 0,
     };
   },
   watch: {
@@ -279,7 +279,7 @@ export default {
 }
 .add_block {
   width: 100%;
-  height: 250px;
+  height: 253px;
   border: 1px solid #999;
   color: #999;
   display: flex;

@@ -9,7 +9,12 @@
       </el-form-item>
       <el-form-item label="缩略图">
         <el-input class="readonly" v-model="form.img" placeholder="请上传缩略图" :readonly="true"></el-input>
-        <my-upload :limited="limited" @sendImage="getImage" @sendDelIndex="getDelIndex"></my-upload>
+        <my-upload
+          :limited="limited"
+          :image="img"
+          @sendImage="getImage"
+          @sendDelIndex="getDelIndex"
+        ></my-upload>
       </el-form-item>
     </el-form>
     <div class="add-footer">
@@ -21,11 +26,14 @@
 
 <script>
 import MyUpload from "@/components/imgupload";
+import { Loading } from "element-ui";
 import api from "@/api/index";
+import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
       form: {
+        ttId: this.$parent.eid,
         system: {
           name: this.$parent.systemName,
           systemId: this.$parent.sform.transducerTypeId
@@ -33,8 +41,29 @@ export default {
         name: "",
         img: ""
       },
-      limited: 1
+      limited: 1,
+      img: []
     };
+  },
+  watch: {
+    "form.img": {
+      handler: function(newValue, oldValue) {
+        if (newValue == "") {
+          return;
+        }
+        let arr = newValue.split(",");
+        let imgList = [];
+        arr.map((item, i) => {
+          let temp = {};
+          temp.title = item.replace("/images/", "");
+          temp.url = baseURL + item;
+          imgList.push(temp);
+        });
+        this.img = imgList;
+        console.log(this.img);
+      },
+      deep: true
+    }
   },
   methods: {
     handleSubmit(form) {
@@ -45,22 +74,22 @@ export default {
           //ajax提交
           console.log(this.form);
           api
-            .addSensorTypeData(this.form)
+            .updateSensorTypeData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-                //添加成功
+                //编辑成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.initSensorType();
                 this.closeDialog();
               } else {
-                //添加失败
+                //编辑失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }
@@ -92,7 +121,32 @@ export default {
       this.form.img = picString
         .substr(0, picString.length - 1)
         .replace(/^\s+|\s+$/g, "");
+    },
+    initForm() {
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
+      let _this = this;
+      api
+        .getSensorTypeDetail({ id: this.form.ttId })
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            for (let key in _data) {
+              this.form[key] = _data[key];
+            }
+          }
+        })
+        .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     }
+  },
+  mounted() {
+    this.initForm();
   },
   components: {
     MyUpload

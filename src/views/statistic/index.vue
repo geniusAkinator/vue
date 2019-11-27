@@ -448,6 +448,6 @@ export default {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 10px;
-  display: block
+  display: block;
 }
 </style>
