@@ -92,7 +92,7 @@ export default {
       }
     }
   },
-  created() {
+  beforeCreate() {
     this.$store.dispatch("home/initAside");
   },
   mounted: function() {

@@ -29,7 +29,11 @@
             <el-carousel :interval="5000">
               <el-carousel-item v-for="idx of 3" :key="idx">
                 <div class="sys-item">
-                  <div class="sys-img"></div>
+                  <el-image class="type-img">
+                    <div slot="error" class="image-slot">
+                      <i class="el-icon-picture-outline"></i>
+                    </div>
+                  </el-image>
                   <div class="sys-content">
                     <div class="sys-title">
                       <span>烟感</span>
@@ -76,7 +80,8 @@ export default {
     return {
       echart: "el",
       index: "",
-      list: []
+      list: [],
+      eid: 0
     };
   },
   watch: {
@@ -122,8 +127,29 @@ export default {
         target: ".el-main"
       });
       this.index = idx;
+      this.eid = item.systemId;
     },
-    handleDelSys(index, item) {},
+    handleDelSys(index, item) {
+      let _this = this;
+      _this
+        .$confirm("确认删除")
+        .then(_ => {
+          api.delSensorSysData({ ids: item.systemId }).then(res => {
+            if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              _this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success"
+              });
+              _this.init(); //重新加载
+              this.did = "";
+            }
+          });
+        })
+        .catch(_ => {
+          this.did = "";
+        });
+    },
     init() {
       api
         .getSensorSysData()
@@ -190,11 +216,16 @@ export default {
 .state-name {
   font-size: 24px;
 }
-.sys-img {
+.type-img {
+  display: block;
   width: 100px;
   height: 100px;
-  background: green;
+  background: #fff;
   margin-right: 10px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 100px;
+  border: 1px solid #999;
 }
 .sys-item {
   display: flex;

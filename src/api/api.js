@@ -755,7 +755,7 @@ export const addSensorSysData = params => { //添加传感器系统
     });
 }
 
-export const updateSensorSysData = params => { //修改楼层管理 
+export const updateSensorSysData = params => { //修改传感器系统 
     return request({
         url: '/system/updateSystem',
         data: params,
@@ -764,4 +764,18 @@ export const updateSensorSysData = params => { //修改楼层管理
 }
 
 
+export const getSensorSysDetail = params => { //获取传感器系统 
+    return request({
+        url: '/system/systemDetail',
+        params: params,
+        method: "GET"
+    });
+}
 
+export const delSensorSysData = params => {  //删除传感器系统  
+    return request({
+        url: '/system/deleteSystem',
+        params: params,
+        method: "DELETE"
+    });
+}

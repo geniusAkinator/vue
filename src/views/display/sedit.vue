@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="系统名称">
+    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form-item label="系统名称" prop="name">
         <el-input v-model="form.name" placeholder="系统名称"></el-input>
       </el-form-item>
       <el-form-item label="系统描述">
@@ -16,12 +16,17 @@
 </template>
 <script>
 import api from "@/api/index";
+import { Loading } from "element-ui";
 export default {
   data() {
     return {
       form: {
         name: "",
-        description: ""
+        description: "",
+        systemId: this.$parent.eid
+      },
+      rules: {
+        name: [{ required: true, message: "请输入系统名称", trigger: "blur" }]
       }
     };
   },
@@ -37,19 +42,19 @@ export default {
             .updateSensorSysData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-                //添加成功
+                //编辑成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.init();
                 this.closeDialog();
               } else {
-                //添加失败
+                //编辑失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }
@@ -66,10 +71,39 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
+    },
+    initForm() {
+      let options = {
+        target: document.querySelector(`#${this.$parent.index}`),
+        text: "加载中"
+      };
+      let loadingInstance = Loading.service(options);
+      let _this = this;
+      console.log(this.form.systemId);
+      api
+        .getSensorSysDetail({ id: this.form.systemId })
+        .then(res => {
+          if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            for (let key in _data) {
+              this.form[key] = _data[key];
+            }
+          }
+        })
+        .catch(_ => {});
+      setTimeout(() => {
+        loadingInstance.close();
+      }, 600);
     }
+  },
+  mounted() {
+    this.initForm();
   }
 };
 </script>
 
 <style>
+.container {
+  width: calc(100% - 40px);
+}
 </style>

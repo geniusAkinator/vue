@@ -101,19 +101,19 @@ export default {
             .updateBuildingData(this.form)
             .then(res => {
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-                //添加成功
+                //编辑成功
                 this.$message({
                   showClose: true,
-                  message: "添加成功",
+                  message: "编辑成功",
                   type: "success"
                 });
                 this.$parent.initTable();
                 this.closeDialog();
               } else {
-                //添加失败
+                //编辑失败
                 this.$message({
                   showClose: true,
-                  message: "添加失败",
+                  message: "编辑失败",
                   type: "warning"
                 });
               }

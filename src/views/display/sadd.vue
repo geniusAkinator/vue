@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="系统名称">
-        <el-input v-model="form.name" placeholder="系统名称" ></el-input>
+    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form-item label="系统名称" prop="name">
+        <el-input v-model="form.name" placeholder="系统名称"></el-input>
       </el-form-item>
       <el-form-item label="系统描述">
         <el-input v-model="form.description" type="textarea" placeholder="系统描述"></el-input>
@@ -22,6 +22,9 @@ export default {
       form: {
         name: "",
         description: ""
+      },
+      rules: {
+        name: [{ required: true, message: "请输入系统名称", trigger: "blur" }]
       }
     };
   },
@@ -72,4 +75,7 @@ export default {
 </script>
 
 <style>
+.container {
+  width: calc(100% - 40px);
+}
 </style>

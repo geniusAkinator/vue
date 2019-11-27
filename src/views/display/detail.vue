@@ -392,7 +392,7 @@ export default {
 .type-item.current {
   border: 1px solid #efefef;
   cursor: pointer;
-  height: 98px;
+  height: 100px;
 }
 .type-item .type-title {
   display: flex;
