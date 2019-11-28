@@ -3,7 +3,7 @@
     <el-container>
       <my-aside :isCollapse="isCollapse" @parentCollapseChange="collapseChange"></my-aside>
       <el-container style="flex-direction:column">
-        <my-header></my-header>
+        <my-header @parentDrawerChange="showDrawer"></my-header>
         <my-tabs :tabList="tabList" :currentIndex="currentIndex"></my-tabs>
         <my-breadcrumb v-if="isShow" :list="breadcrumbList"></my-breadcrumb>
         <el-main class="app-body">
@@ -12,6 +12,14 @@
               <router-view v-if="isRouterAlive"></router-view>
             </keep-alive>
           </transition>
+          <el-drawer
+            :visible.sync="drawer"
+            :direction="direction"
+            :before-close="handleBeforeClose"
+            :size="drawerSize"
+          >
+            <my-main-picker></my-main-picker>
+          </el-drawer>
         </el-main>
       </el-container>
     </el-container>
@@ -23,6 +31,7 @@ import MyAside from "@/components/Aside";
 import MyHeader from "@/components/Header";
 import MyTabs from "@/components/Tabs";
 import MyBreadcrumb from "@/components/breadcrumb";
+import MyMainPicker from "@/components/mainpicker";
 import utils from "@/utils/utils";
 export default {
   data() {
@@ -30,7 +39,10 @@ export default {
       username: "",
       isCollapse: false,
       isUniqueOpen: true,
-      isRouterAlive: true
+      isRouterAlive: true,
+      drawer: false,
+      direction: "ltr",
+      drawerSize: "350px"
     };
   },
   provide() {
@@ -90,6 +102,12 @@ export default {
       } else {
         if (this.isCollapse) this.isCollapse = false;
       }
+    },
+    handleBeforeClose(done) {
+      done();
+    },
+    showDrawer() {
+      this.drawer = true;
     }
   },
   beforeCreate() {
@@ -111,7 +129,8 @@ export default {
     MyAside,
     MyHeader,
     MyTabs,
-    MyBreadcrumb
+    MyBreadcrumb,
+    MyMainPicker
   }
 };
 </script>
@@ -133,5 +152,8 @@ export default {
 .myfade-enter, .myfade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
   /* transform: translateY(80px); */
+}
+.el-dialog__wrapper {
+  z-index: 999999 !important;
 }
 </style>

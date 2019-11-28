@@ -44,7 +44,6 @@ import DisplayInfo from '@/views/display/detail'
 import Main from '@/views/main/index'
 import Alarm from '@/views/alarm/index'
 import AlarmDetail from '@/views/alarm/detail'
-import MainList from '@/views/main/list'
 import Message from '@/views/message/index'
 import Hazard from '@/views/hazard/index'
 import HazardDetail from '@/views/hazard/detail'
@@ -130,11 +129,6 @@ export default new Router({
           path: 'main',
           name: '平台主体',
           component: Main,
-        },
-        {
-          path: 'mainList',
-          name: '主体选择',
-          component: MainList
         }
       ]
     },

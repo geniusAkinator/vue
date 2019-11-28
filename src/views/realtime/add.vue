@@ -13,12 +13,22 @@
       </el-form-item>
       <el-form-item label="所属楼宇">
         <el-select>
-          <el-option></el-option>
+          <el-option
+            v-for="(item,index) in foption"
+            :key="index"
+            :label="item.factoryName"
+            :value="item.factoryId"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="所属楼层">
         <el-select>
-          <el-option></el-option>
+          <el-option
+            v-for="(item,index) in foption"
+            :key="index"
+            :label="item.factoryName"
+            :value="item.factoryId"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="点位置">
@@ -67,7 +77,7 @@ export default {
         },
         cameraType: 0
       },
-      floorImg:""
+      floorImg: ""
     };
   },
   methods: {
@@ -125,9 +135,7 @@ export default {
         })
         .catch(_ => {});
     },
-    getPos(){
-
-    }
+    getPos() {}
   },
   created() {
     this.initForm();

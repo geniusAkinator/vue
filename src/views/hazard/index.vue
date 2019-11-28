@@ -1,148 +1,120 @@
 <template>
   <div class="container">
-    <el-card class="state-card">
-      <!-- <el-row :gutter="20">
-        <el-col :span="8">
-          <ul class="hazard-block">
-            <li>
-              <span class="info_name">待处理隐患数</span>
-              <div class="border-circle warning">0</div>
-            </li>
-            <li>
-              <span class="info_name">累计隐患数</span>
-              <div class="border-circle danger">0</div>
-            </li>
-          </ul>
-        </el-col>
-        <el-col :span="8">
-          <ul class="hazard-block">
-            <li>
-              <span class="info_name">隐患处理平均用时</span>
-              <span class="info_value">7天19小时12分钟</span>
-            </li>
-          </ul>
-        </el-col>
-        <el-col :span="8">
-          <ul class="hazard-block">
-            <li>
-              <span class="info_name">最常见隐患</span>
-              <span class="info_value">智能烟感</span>
-            </li>
-          </ul>
-        </el-col>
-      </el-row> -->
-    </el-card>
-    <el-tabs class="table" type="border-card">
-      <el-tab-pane label="待处理">
-        <el-table
-          stripe
-          border
-          :data="tableData"
-          align="center"
-          style="width: 100%"
-          v-loading="loading"
-        >
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="area" label="隐患内容"></el-table-column>
-          <el-table-column prop="device" label="隐患类型"></el-table-column>
-          <el-table-column prop="datetime" label="上报时间"></el-table-column>
-          <el-table-column label="操作" fixed="right" width="100px">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="pagination">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :hide-on-single-page="isPaging"
-            :current-page="currentPage"
-            :page-sizes="[25, 50, 75, 100]"
-            :page-size="Listform.pageSize"
-            layout="prev,pager,next,jumper,total,sizes"
-            :total="total"
-          ></el-pagination>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="处理中">
-        <el-table
-          stripe
-          border
-          :data="tableData"
-          align="center"
-          style="width: 100%"
-          v-loading="loading"
-        >
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="area" label="隐患内容"></el-table-column>
-          <el-table-column prop="device" label="隐患类型"></el-table-column>
-          <el-table-column prop="datetime" label="上报时间"></el-table-column>
-          <el-table-column label="操作" fixed="right" width="100px">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="pagination">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :hide-on-single-page="isPaging"
-            :current-page="currentPage"
-            :page-sizes="[25, 50, 75, 100]"
-            :page-size="Listform.pageSize"
-            layout="prev,pager,next,jumper,total,sizes"
-            :total="total"
-          ></el-pagination>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="已处理">
-        <el-table
-          stripe
-          border
-          :data="tableData"
-          align="center"
-          style="width: 100%"
-          v-loading="loading"
-        >
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="area" label="隐患内容"></el-table-column>
-          <el-table-column prop="device" label="隐患类型"></el-table-column>
-          <el-table-column prop="datetime" label="上报时间"></el-table-column>
-          <el-table-column label="操作" fixed="right" width="100px">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="pagination">
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :hide-on-single-page="isPaging"
-            :current-page="currentPage"
-            :page-sizes="[25, 50, 75, 100]"
-            :page-size="Listform.pageSize"
-            layout="prev,pager,next,jumper,total,sizes"
-            :total="total"
-          ></el-pagination>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
+    <div class="table-tool">
+      <my-search-tool>
+        <template slot="content">
+          <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
+            <el-form-item label="关键字" size="small">
+              <el-date-picker
+                v-model="Listform.datetimerange"
+                type="datetimerange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :picker-options="pickerOptions"
+              ></el-date-picker>
+            </el-form-item>
+            <el-form-item label="所属代理" size="small">
+              <el-select v-model="Listform.mainId" placeholder="请选择所属代理">
+                <el-option
+                  v-for="item in moptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="所属工厂" size="small">
+              <el-select v-model="Listform.mainId" placeholder="请选择所属工厂">
+                <el-option
+                  v-for="item in foptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+        </template>
+        <template slot="end">
+          <el-button size="small" @click="handleReset">重置</el-button>
+          <el-button size="small" type="primary" @click="handleSearch">查询</el-button>
+        </template>
+      </my-search-tool>
+      <div class="table-tool-others"></div>
+    </div>
+    <el-table
+      stripe
+      border
+      :data="tableData"
+      align="center"
+      style="width: 100%"
+      v-loading="loading"
+    >
+      <el-table-column prop="id" label="隐患ID" width="80"></el-table-column>
+      <el-table-column prop="area" label="隐患内容"></el-table-column>
+      <el-table-column prop="device" label="隐患类型"></el-table-column>
+      <el-table-column prop="datetime" label="上报时间"></el-table-column>
+      <el-table-column prop="datetime" label="工厂名称"></el-table-column>
+      <el-table-column prop="datetime" label="设备ID"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="200px">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" @click="handleNotice(scope.$index, scope.row)">通知</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
+import MySearchTool from "@/components/searchtool";
 export default {
   data() {
     return {
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      },
       tableData: [{}],
       loading: false,
       Listform: {
         pageNum: 1,
-        pageSize: 25
+        pageSize: 25,
+        factoryId: "",
+        mainId: "",
+        datetimerange: ""
       },
+      moptions: [],
+      foptions: [],
+      labelPosition: "left",
       isPaging: false,
       currentPage: 1,
       total: 0
@@ -156,10 +128,16 @@ export default {
       this.$router.push({
         name: "隐患详情"
       });
-    }
+    },
+    handleNotice() {},
+    handleReset() {},
+    handleSearch() {}
   },
   mounted() {
     this.initTable();
+  },
+  components: {
+    MySearchTool
   }
 };
 </script>

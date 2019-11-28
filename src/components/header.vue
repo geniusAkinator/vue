@@ -87,9 +87,10 @@ export default {
         });
         window.open(href, "_blank");
       } else if (key == "/main") {
-        this.$router.push({
-          name: "主体选择"
-        });
+        // this.$router.push({
+        //   name: "主体选择"
+        // });
+        this.$emit("parentDrawerChange", "");
       }
     },
     toMessage() {

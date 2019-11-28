@@ -1,6 +1,5 @@
 <template>
   <div class="member-picker">
-    <i></i>
     <el-input v-model="keyword" placeholder="请输入内容" size="medium"></el-input>
     <ul class="teamer_list">
       <template v-for="(item,index) in teamerList">
@@ -15,7 +14,7 @@
             <span class="teamer_name">{{item.label}}</span>
           </div>
           <el-collapse-transition>
-            <ul class="member_list" v-show="item.isCollapsed">
+            <ul class="member_list" v-show="!item.isCollapsed">
               <li
                 class="member_row"
                 v-for="(mitem,idx) in item.children"
@@ -139,7 +138,7 @@ export default {
             let temp = {};
             temp.label = item.departmentName;
             temp.id = item.departmentId;
-            temp.isCollapsed = false;
+            temp.isCollapsed = true;
             temp.isFirst = true;
             temp.children = [];
             arr.push(temp);
@@ -184,16 +183,16 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
-.team_row.expanded i.el-icon-remove-outline {
+.team_row.collapsed i.el-icon-remove-outline {
   display: none;
 }
-.team_row.expanded i.el-icon-circle-plus-outline {
-  display: inline-block;
-}
-.team_row.collapsed i.el-icon-remove-outline {
-  display: inline-block;
-}
 .team_row.collapsed i.el-icon-circle-plus-outline {
+  display: inline-block;
+}
+.team_row.expanded i.el-icon-remove-outline {
+  display: inline-block;
+}
+.team_row.expanded i.el-icon-circle-plus-outline {
   display: none;
 }
 .member_list {
@@ -204,7 +203,6 @@ export default {
 .member_list li {
   display: block;
   cursor: pointer;
-  padding: 5px;
   padding-left: 40px;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */

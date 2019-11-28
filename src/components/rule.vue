@@ -24,7 +24,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -72,7 +71,7 @@ export default {
   watch: {
     nowRule: {
       handler: function(newValue, oldValue) {
-        this.$emit("getNewItem", {item:newValue,index:this.index});
+        this.$emit("getNewItem", { item: newValue, index: this.index });
       },
       deep: true
     }
