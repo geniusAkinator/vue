@@ -111,7 +111,7 @@ export default new Router({
           component: Factory,
         },
         {
-          path: 'factoryDetail/:fId',
+          path: 'factoryDetail',
           name: '工厂详情',
           component: FactoryDetail,
         },

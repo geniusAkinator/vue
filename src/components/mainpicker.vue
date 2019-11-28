@@ -103,6 +103,9 @@ export default {
     },
     handleSelectFactory(idx1, idx2, item) {
       console.log(idx1, idx2, item);
+      this.$router.push({
+        name: "工厂详情"
+      });
     }
   }
 };
