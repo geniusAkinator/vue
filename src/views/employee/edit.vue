@@ -156,7 +156,7 @@ export default {
       };
       let loadingInstance = Loading.service(options);
       api
-        .getDepartmentData(this.Listform)
+        .getTeamerData(this.Listform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;

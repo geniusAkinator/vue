@@ -146,7 +146,7 @@ export default {
     handleChange() {},
     initForm() {
       api
-        .getDepartmentData(this.Listform)
+        .getTeamerData(this.Listform)
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
