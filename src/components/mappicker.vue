@@ -75,7 +75,6 @@ export default {
         })
         .then(res => {
           if (res.status == 0) {
-            console.log(res.result);
             this.data = res.result;
           }
         });

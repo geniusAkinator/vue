@@ -79,13 +79,11 @@ export default {
       this.$emit("sendDelIndex", index);
     },
     handleDownload(index) {
-      console.log(index);
     },
     uploadFile() {
       let _this = this;
       let files = _this.$refs.imgFile.files;
       _this.percentage = 0;
-      console.log(files);
       if (files.length == 0) {
         //非空
         _this.$message.error("上传文件不能为空");
@@ -118,7 +116,6 @@ export default {
           fd.append("file", files[0]);
           http
             .getRequestUpload("/common/uploadImage", fd, res => {
-              console.log(res);
               let loaded = res.loaded;
               let total = res.total;
               _this.percentage = (loaded / total) * 100;
@@ -129,7 +126,6 @@ export default {
               // console.log(res);
               if (res.code == _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 let _data = res.data;
-                console.log(_data);
                 _this.$emit("sendImage", _data);
               }
             })

@@ -86,7 +86,6 @@ export default {
           imgList.push(temp);
         });
         this.img = imgList;
-        console.log(this.img);
       },
       deep: true
     }
@@ -96,7 +95,6 @@ export default {
       //提交
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateBuildingData(this.form)
             .then(res => {

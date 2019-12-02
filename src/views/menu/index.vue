@@ -126,7 +126,6 @@ export default {
       this.initTable();
     },
     handleCurrentChange(e) {
-      console.log(e);
       this.Listform.pageNum = e;
       this.initTable();
     },
@@ -150,14 +149,12 @@ export default {
         did = did + item.menuId + ",";
       });
       this.did = did.substr(0, did.length - 1);
-      console.log(this.did);
     },
     handleDeleteMore() {
       this.delRow();
     },
     handleMenu(index, row) {
       // this.$router.push("menuSub", () => {});
-      console.log(row);
       this.$router.push({
         name: "菜单管理",
         params: { pId: row.menuId, pName: row.name }
@@ -167,10 +164,8 @@ export default {
       api
         .getMenuData(this.Listform)
         .then(res => {
-          console.log(res);
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log("data", res);
             this.total = _data.total; //显示数量
             this.tableData = _data.content; //表格数据
           } else {

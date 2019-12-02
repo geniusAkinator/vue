@@ -91,7 +91,7 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
+         
           api
             .updateUserData(this.form)
             .then(res => {
@@ -143,7 +143,6 @@ export default {
             // for (let key in _data) {
             //   this.form[key] = _data[key];
             // }
-            console.log(_data);
             this.form.account = _data.userInfo.account;
             this.form.state = _data.userInfo.state + "";
             this.form.trueName = _data.userInfo.trueName;
@@ -151,7 +150,6 @@ export default {
             this.form.remark = _data.userInfo.remark;
             this.form.roleId = _data.userInfo.role.roleId;
             this.form.factoryId = _data.factory.factoryId;
-            console.log(this.form);
           } else {
           }
         })

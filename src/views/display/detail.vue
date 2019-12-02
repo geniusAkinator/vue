@@ -248,7 +248,6 @@ export default {
       this.$layer.full(index);
     },
     handleClickSensor(index, row) {
-      console.log(index, row);
       this.tlist.map((item, i) => {
         item.checked = false;
       });
@@ -332,7 +331,6 @@ export default {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let list = _data.content;
-            console.log("aaa", _data);
             list.map((item, i) => {
               if (i == 0) {
                 item.checked = true;
@@ -342,7 +340,6 @@ export default {
               }
             });
             this.tlist = list;
-            console.log(this.tlist);
           }
         })
         .catch(_ => {});
@@ -351,7 +348,6 @@ export default {
       }, 200);
     },
     initSensor() {
-      console.log("ssss", this.sform);
       api.getSensorData(this.sform).then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
@@ -359,7 +355,6 @@ export default {
           let total = _data.total;
           this.list = list;
           this.total = total;
-          console.log(this.total);
         }
       });
     },

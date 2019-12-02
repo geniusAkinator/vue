@@ -77,7 +77,6 @@ export default {
     },
     handleClose(key, keyPath) {},
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
       var _this = this;
       // _this.$router.push("/Platform", () => {});
       if (key == "/platform") {

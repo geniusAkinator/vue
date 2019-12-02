@@ -57,7 +57,6 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateMenuData(this.form)
             .then(res => {

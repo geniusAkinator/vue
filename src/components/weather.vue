@@ -73,7 +73,6 @@ export default {
           version: "v1"
         })
         .then(res => {
-          console.log(res.data);
           this.wdata = res.data;
         })
         .catch(_ => {});

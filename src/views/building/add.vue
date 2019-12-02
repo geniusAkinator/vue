@@ -68,7 +68,6 @@ export default {
       //提交
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .addBuildingData(this.form)
             .then(res => {

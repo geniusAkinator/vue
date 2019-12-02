@@ -113,7 +113,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .updateEmployeeData(this.form)
             .then(res => {
@@ -161,7 +160,6 @@ export default {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.doption = _data.content;
-            console.log(this.doption);
           }
         })
         .catch(_ => {});
@@ -172,7 +170,6 @@ export default {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let employee = _data.employee;
-            console.log(employee);
             this.form.department.departmentId =
               employee.department.departmentId;
             this.form.name = employee.name;

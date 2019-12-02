@@ -87,13 +87,10 @@ export default {
       api
         .getAllMenuData()
         .then(res => {
-          console.log(aList);
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let content = res.data;
             let data = [];
-            console.log(content);
             content.map((item, i) => {
-              console.log(item);
               let temp = {};
               temp.id = item.menu.menuId;
               temp.label = item.menu.name;

@@ -86,7 +86,6 @@ const actions = { //可异步
                 }
             })
             .catch(_ => {
-                console.log(_)
             });
     },
     clearAside({ commit }) {

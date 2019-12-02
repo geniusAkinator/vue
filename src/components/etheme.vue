@@ -22,11 +22,12 @@
           ></li>
         </ul>
       </div>
-      <div class="theme" 
+      <div
+        class="theme"
         slot="reference"
         :class="nowIndex == index?'current':''"
         @click="handleClick(index)"
-        >
+      >
         <span
           class="theme-item"
           :style="{background:`linear-gradient(135deg,${item.color[0]} 0%, ${item.color[0]} 50%,${item.color[item.color.length-1]} 51%,${item.color[item.color.length-1]} 100%)`}"
@@ -40,17 +41,17 @@
 export default {
   data() {
     return {
-      list: this.$store.state.theme.themeList,
+      list: this.$store.state.theme.themeList
     };
   },
-  computed:{
-    nowIndex:function(){
-      return this.$store.state.theme.themeIndex
+  computed: {
+    nowIndex: function() {
+      return this.$store.state.theme.themeIndex;
     }
   },
-  methods:{
-    handleClick(index){
-      this.$store.dispatch("theme/updateIndex",index)
+  methods: {
+    handleClick(index) {
+      this.$store.dispatch("theme/updateIndex", index);
     }
   },
   mounted() {
@@ -59,7 +60,6 @@ export default {
     let temp = arr.map((value, index, array) => {
       return (value = "#" + value);
     });
-    console.log(temp);
   }
 };
 </script>

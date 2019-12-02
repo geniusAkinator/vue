@@ -99,7 +99,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .addTeamerData(this.form)
             .then(res => {
@@ -142,7 +141,6 @@ export default {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.foption = _data.content;
-            console.log(this.foption);
           }
         })
         .catch(_ => {});

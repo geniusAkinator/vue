@@ -183,17 +183,14 @@ export default {
         did = did + item.userId + ",";
       });
       this.did = did.substr(0, did.length - 1);
-      console.log(this.did);
     },
     initTable() {
       let _this = this;
       api
         .getUserData(this.Listform)
         .then(res => {
-          console.log(res);
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log("data", res);
             this.total = _data.total; //显示数量
             this.tableData = _data.content; //表格数据
           } else {

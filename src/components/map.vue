@@ -164,17 +164,14 @@ export default {
       if (zoom >= 4) {
         vlat = 20 / Math.pow(2, zoom - 4);
       }
-      console.log(`zoom:${zoom},vlat:${vlat}`);
       this.map.panTo(
         new BMap.Point(arr[index].longitude, arr[index].latitude + vlat)
       );
       this.clickIndex = index;
-      console.log(arr);
       this.$emit("update:list", arr);
     },
     querySearch(queryString, cb) {
       var list = this.list;
-
       var results = queryString
         ? list.filter(this.createFilter(queryString))
         : list;

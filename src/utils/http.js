@@ -36,7 +36,6 @@ const HttpRequest = {
     //     })
     // },
     getRequestUpload(url, data , callback) { //文件上传
-        console.log(baseURL, url, data)
         return new Promise((resolve, reject) => {
             // axios.post(baseURL + url, data, {
             //     headers: {

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
 import MyUpload from "@/components/imgupload";
 export default {
   data() {
@@ -67,13 +66,9 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
-    },
-    getPoint(e) {
-      console.log(e);
     }
   },
   components: {
-    MyMapPicker,
     MyUpload
   }
 };

@@ -93,7 +93,6 @@ export default {
     };
   },
   methods: {
-    handleClick(index) {},
     handleToggle(index) {
       this.$set(
         this.mainList[index],
@@ -102,10 +101,14 @@ export default {
       );
     },
     handleSelectFactory(idx1, idx2, item) {
-      console.log(idx1, idx2, item);
       this.$router.push({
-        name: "工厂详情"
+        name: "工厂管理"
       });
+      setTimeout(() => {
+        this.$router.push({
+          name: "工厂详情"
+        });
+      }, 600);
     }
   }
 };

@@ -86,7 +86,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .addMainData(this.form)
             .then(res => {
@@ -126,7 +125,6 @@ export default {
     onEditorChange() {},
     initForm() {},
     getFile(e) {
-      console.log(e);
       this.form.file = e;
     },
     getPoint(e) {
