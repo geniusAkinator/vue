@@ -86,7 +86,7 @@
               <span>数据概览</span>
             </div>
             <div class="text item">
-              <el-carousel indicator-position="outside" arrow="never" :autoplay="false">
+              <el-carousel indicator-position="outside" arrow="never" :autoplay="false" :height="'500px'">
                 <el-carousel-item>
                   <my-weather></my-weather>
                 </el-carousel-item>
@@ -292,7 +292,7 @@ export default {
 }
 .box-card .text.item {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
 }
 .fast_box li {
   list-style: none;

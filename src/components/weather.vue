@@ -1,45 +1,48 @@
 <template>
   <div class="weather">
-    <template v-for="(item,index) in wdata">
-      <div class="wea-item" :key="index" @mouseenter="handleHover(item)">
-        <div class="wea_split"></div>
-        <div class="wea_hover"></div>
-        <!-- xue, lei, shachen, wu, bingbao, yun, yu, yin, qing -->
-        <div
-          v-if="item.wea_img == 'bingbao'"
-          class="wea_icon"
-          :style="{background:`url(${icon1}) no-repeat center`,backgroundSize:'cover'}"
-        ></div>
-        <div
-          v-if="item.wea_img == 'shachen'"
-          class="wea_icon"
-          :style="{background:`url(${icon2}) no-repeat center`,backgroundSize:'cover'}"
-        ></div>
-        <div
-          v-if="item.wea_img == 'wu'"
-          class="wea_icon"
-          :style="{background:`url(${icon3}) no-repeat center`,backgroundSize:'cover'}"
-        ></div>
-        <div
-          v-if="item.wea_img == 'xue'"
-          class="wea_icon"
-          :style="{background:`url(${icon4}) no-repeat center`,backgroundSize:'cover'}"
-        ></div>
-        <i class="el-icon-lightning" v-if="item.wea_img == 'lei'"></i>
-        <i class="el-icon-sunny" v-if="item.wea_img == 'qing'"></i>
-        <i class="el-icon-light-rain" v-if="item.wea_img == 'yu'"></i>
-        <i class="el-icon-cloudy" v-if="item.wea_img == 'yin'"></i>
-        <i class="el-icon-cloudy-and-sunny" v-if="item.wea_img == 'yun'"></i>
-        <span>{{item.week}}</span>
-        <span>{{item.date}}</span>
-        <span>{{item.tem}}</span>
-        <span>{{item.tem2}}~{{item.tem1}}</span>
-        <span class="wea">{{item.wea}}</span>
-        <span>{{item.win[0]}}{{item.win_speed}}</span>
-        <div class="quality" v-if="index == 0">{{item.air}}&nbsp;&nbsp;{{item.air_level}}</div>
-      </div>
-    </template>
+    <div class="weather_row">
+      <template v-for="(item,index) in wdata">
+        <div class="wea-item" :key="index" @mouseenter="handleHover(item)">
+          <div class="wea_split"></div>
+          <div class="wea_hover"></div>
+          <!-- xue, lei, shachen, wu, bingbao, yun, yu, yin, qing -->
+          <div
+            v-if="item.wea_img == 'bingbao'"
+            class="wea_icon"
+            :style="{background:`url(${icon1}) no-repeat center`,backgroundSize:'cover'}"
+          ></div>
+          <div
+            v-if="item.wea_img == 'shachen'"
+            class="wea_icon"
+            :style="{background:`url(${icon2}) no-repeat center`,backgroundSize:'cover'}"
+          ></div>
+          <div
+            v-if="item.wea_img == 'wu'"
+            class="wea_icon"
+            :style="{background:`url(${icon3}) no-repeat center`,backgroundSize:'cover'}"
+          ></div>
+          <div
+            v-if="item.wea_img == 'xue'"
+            class="wea_icon"
+            :style="{background:`url(${icon4}) no-repeat center`,backgroundSize:'cover'}"
+          ></div>
+          <i class="el-icon-lightning" v-if="item.wea_img == 'lei'"></i>
+          <i class="el-icon-sunny" v-if="item.wea_img == 'qing'"></i>
+          <i class="el-icon-light-rain" v-if="item.wea_img == 'yu'"></i>
+          <i class="el-icon-cloudy" v-if="item.wea_img == 'yin'"></i>
+          <i class="el-icon-cloudy-and-sunny" v-if="item.wea_img == 'yun'"></i>
+          <span>{{item.week}}</span>
+          <span>{{item.date}}</span>
+          <span>{{item.tem}}</span>
+          <span>{{item.tem2}}~{{item.tem1}}</span>
+          <span class="wea">{{item.wea}}</span>
+          <span>{{item.win[0]}}{{item.win_speed}}</span>
+          <div class="quality" v-if="index == 0">{{item.air}}&nbsp;&nbsp;{{item.air_level}}</div>
+        </div>
+      </template>
+    </div>
     <div :class="`wea_bg ${bg}`"></div>
+    <div id="weatherChart"></div>
   </div>
 </template>
 
@@ -54,7 +57,8 @@ export default {
       icon2: require("@/assets/shachen.png"),
       icon3: require("@/assets/wu.png"),
       icon4: require("@/assets/xue.png"),
-      bg: "daytime"
+      bg: "daytime",
+      myCharts: {}
     };
   },
   watch: {
@@ -64,6 +68,7 @@ export default {
   },
   methods: {
     initData() {
+      //初始化天气数据
       api
         .getWeatherData({
           //获取一周天气
@@ -74,6 +79,7 @@ export default {
         })
         .then(res => {
           this.wdata = res.data;
+          this.initWeatherChart();
         })
         .catch(_ => {});
     },
@@ -92,20 +98,73 @@ export default {
       } else {
         this.bg = "evening"; //夜晚
       }
+    },
+    resizeChart() {
+      this.myCharts.resize();
+    },
+    initWeatherChart() {
+      this.myCharts = echarts.init(document.getElementById("weatherChart"));
+      let hours = this.wdata[0].hours;
+      let data = [];
+      let tdata = [];
+      hours.map((item, i) => {
+        console.log(item);
+        data.push(item.day);
+        tdata.push(item.tem.replace("℃", ""));
+      });
+      let option = {
+        color: ["#fff"],
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          axisLine: {
+            lineStyle: {
+              color: "#fff" //轴颜色
+            }
+          },
+          data: data
+        },
+        yAxis: {
+          axisLine: {
+            lineStyle: {
+              color: "#fff" //轴颜色
+            }
+          },
+          type: "value"
+        },
+        grid: {
+          left: "3%",
+          right: "3%",
+          bottom: "0",
+          containLabel: true
+        },
+        series: [
+          {
+            data: tdata,
+            type: "line",
+            areaStyle: {}
+          }
+        ]
+      };
+      this.myCharts.setOption(option);
     }
   },
   mounted() {
     this.initData();
     this.setWeatherBg();
+
+    window.addEventListener("resize", this.resizeChart);
   }
 };
 </script>
 
 <style>
 .weather {
+  height: 500px;
+}
+.weather_row {
   display: flex;
   position: relative;
-  height: 100%;
   color: #fff;
 }
 .wea_bg {
@@ -143,7 +202,8 @@ export default {
   position: relative;
   display: block;
   flex: 1;
-  padding: 60px 0;
+  padding: 40px 0;
+  padding-bottom: 0;
 }
 .wea-item span {
   display: block;
@@ -158,18 +218,19 @@ export default {
   min-width: 38px;
   border-radius: 3px;
   background-color: #82c91e;
-  width: 45px;
+  width: 50px;
   padding: 5px;
   margin: auto;
   margin-top: 12px;
   text-align: center;
-  padding: 0 6px;
+  padding: 5px 6px;
   color: #fff;
+  font-size: 12px;
 }
 .wea_split {
   position: absolute;
   left: 0px;
-  top: 42px;
+  top: 25px;
   width: 1px;
   height: 215px;
   background: #fff;
@@ -194,7 +255,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  bottom: 0;
+  bottom: -30px;
   right: 0;
   z-index: 1;
 }
@@ -207,5 +268,9 @@ export default {
 }
 .wea-item {
   cursor: pointer;
+}
+#weatherChart {
+  width: 100%;
+  height: 200px;
 }
 </style>

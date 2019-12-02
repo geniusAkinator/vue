@@ -1,6 +1,6 @@
 <template>
   <div id="theme">
-    <span>主题:</span>
+    <span style="width:40px;">主题:</span>
     <el-popover
       placement="top-start"
       width="176"
@@ -82,6 +82,7 @@ export default {
 #theme > span {
   font-weight: bold;
   color: #666;
+  display: block;
 }
 .theme.current {
   border: 1px solid #e43c59;

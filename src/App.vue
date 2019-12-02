@@ -595,4 +595,5 @@ input:focus + .el-input__suffix {
 .box-card.no-padding .el-card__body{
   padding: 0
 }
+
 </style>

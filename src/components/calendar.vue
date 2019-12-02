@@ -85,7 +85,7 @@ export default {
   background: rgb(233, 233, 235);
 }
 .current.is-selected p {
-  background: #000;
+  background: #409eff;
   color: #fff;
   border-radius: 50%;
   text-align: center;

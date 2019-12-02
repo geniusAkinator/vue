@@ -13,12 +13,13 @@
             </keep-alive>
           </transition>
           <el-drawer
+            ref="mainDrawer"
             :visible.sync="drawer"
             :direction="direction"
             :before-close="handleBeforeClose"
             :size="drawerSize"
           >
-            <my-main-picker></my-main-picker>
+            <my-main-picker @send="closeDrawer"></my-main-picker>
           </el-drawer>
         </el-main>
       </el-container>
@@ -81,7 +82,6 @@ export default {
     "$store.state.home.tabList": function(newVal, oldVal) {
       let list = this.tabList;
       this.$router.push(list[this.currentIndex - 1].path, () => {});
-      // this.$router.push(this.currentIndex,()=>{})
     }
   },
   methods: {
@@ -108,6 +108,10 @@ export default {
     },
     showDrawer() {
       this.drawer = true;
+    },
+    closeDrawer() {
+      console.log("close drawer");
+      this.$refs.mainDrawer.closeDrawer();
     }
   },
   beforeCreate() {
@@ -156,4 +160,5 @@ export default {
 .el-dialog__wrapper {
   z-index: 999999 !important;
 }
+
 </style>

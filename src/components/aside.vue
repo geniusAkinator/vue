@@ -11,6 +11,7 @@
             <img src="@/assets/logo.png" :width="isCollapse ? '60' : '60'" height="60" />
           </template>
           <template v-if="!isCollapse">
+            <img src="@/assets/logo.png" height="60" />
             <span class="platform_name">智慧消防平台</span>
           </template>
         </router-link>
@@ -139,6 +140,30 @@ export default {
 }
 .app-side-logo img {
   cursor: pointer;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.app-side-logo a {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.app-side-logo span {
+  display: block;
+  position: relative;
+}
+.app-side-logo span::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: -10px;
+  width: 1px;
+  background: rgb(186, 198, 213) 
 }
 .platform_name {
   height: 60px;
@@ -152,5 +177,4 @@ export default {
 .app-side-logo a {
   text-decoration: none;
 }
-
 </style>

@@ -39,9 +39,9 @@
       <div class="map-item" v-if="isMap">
         <my-echart-map></my-echart-map>
       </div>
-      <div class="map-item" v-if="!isMap">
+      <!-- <div class="map-item" v-if="!isMap">
         <my-echart-earth></my-echart-earth>
-      </div>
+      </div>-->
       <div class="swiper-container" id="swiper">
         <div class="swiper-wrapper">
           <div v-for="(item,index) in swiper" :key="index" class="swiper-slide">
@@ -75,9 +75,9 @@
       <div :class="isMap?'current':''" @click="isMap=true">
         <i class="iconfont icon-diqu"></i>
       </div>
-      <div :class="isMap?'':'current'" @click="isMap=false">
+      <!-- <div :class="isMap?'':'current'" @click="isMap=false">
         <i class="iconfont icon-diqiu"></i>
-      </div>
+      </div>-->
     </div>
     <div class="my-theme" v-drag>
       <my-echart-theme></my-echart-theme>

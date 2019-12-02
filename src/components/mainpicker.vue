@@ -101,6 +101,7 @@ export default {
       );
     },
     handleSelectFactory(idx1, idx2, item) {
+      this.$emit("send", "");
       this.$router.push({
         name: "工厂管理"
       });

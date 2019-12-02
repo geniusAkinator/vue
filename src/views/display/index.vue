@@ -81,7 +81,7 @@ export default {
       echart: "el",
       index: "",
       list: [],
-      eid: 0,
+      eid: 0
     };
   },
   watch: {
@@ -242,9 +242,6 @@ export default {
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
-}
-.el-carousel__container {
-  height: 200px;
 }
 .bar {
   width: 80%;
