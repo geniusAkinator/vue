@@ -151,7 +151,6 @@ export default {
       };
       let loadingInstance = Loading.service(options);
       let _this = this;
-      console.log(this.form.buildingId);
       api
         .getBuildingDetail({ id: this.form.buildingId })
         .then(res => {

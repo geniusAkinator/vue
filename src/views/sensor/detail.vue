@@ -362,9 +362,6 @@ export default {
   beforeRouteLeave(to, from, next) {
     this.$destroy();
     next();
-  },
-  destroyed() {
-    console.log("destroyed");
   }
 };
 </script>

@@ -300,9 +300,7 @@ export default {
   created() {
     api
       .getPCD({ pId: 0 })
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(_ => {});
   },
   components: {

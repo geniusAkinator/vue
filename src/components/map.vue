@@ -187,9 +187,7 @@ export default {
       let index = item.factoryId - 1;
       this.openInfoWindow(index);
     },
-    handleIconClick(ev) {
-      console.log(ev);
-    },
+    handleIconClick(ev) {},
     jump(index, item) {
       this.$router.push({
         name: "工厂管理"

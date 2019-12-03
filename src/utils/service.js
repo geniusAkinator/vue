@@ -22,7 +22,6 @@ Request.interceptors.request.use(config => {
     let token = "";
     token = sessionStorage.getItem('token')
     if (token) {
-        // console.log(token)
         config.headers.Authorization = token
     }
     return config

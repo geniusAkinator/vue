@@ -37,7 +37,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .updateSensorSysData(this.form)
             .then(res => {
@@ -61,7 +60,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -79,7 +77,6 @@ export default {
       };
       let loadingInstance = Loading.service(options);
       let _this = this;
-      console.log(this.form.systemId);
       api
         .getSensorSysDetail({ id: this.form.systemId })
         .then(res => {

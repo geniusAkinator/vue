@@ -203,16 +203,6 @@ export default {
       imgUrl: baseURL
     };
   },
-  watch: {
-    tlist: {
-      handler(newName, oldName) {
-        // this.sform.transducerTypeId = this.tlist[0].ttId;
-        // this.initSensor();
-        // console.log("has change", this.sform);
-      },
-      deep: true
-    }
-  },
   methods: {
     jump(index, item) {
       this.$router.push({

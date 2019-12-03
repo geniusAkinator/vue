@@ -60,7 +60,6 @@ export default {
           imgList.push(temp);
         });
         this.img = imgList;
-        console.log(this.img);
       },
       deep: true
     }
@@ -72,7 +71,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .updateSensorTypeData(this.form)
             .then(res => {
@@ -96,7 +94,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

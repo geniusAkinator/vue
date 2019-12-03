@@ -65,7 +65,6 @@ export default {
           api
             .logout(this.form)
             .then(res => {
-              // console.log(res);
               if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 sessionStorage.removeItem("token");
                 _this.$router.push("/login", () => {});

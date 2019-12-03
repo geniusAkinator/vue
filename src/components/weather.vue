@@ -79,7 +79,6 @@ export default {
         })
         .then(res => {
           this.wdata = res.data;
-          console.log(this.wdata);
           this.initWeatherChart();
         })
         .catch(_ => {});

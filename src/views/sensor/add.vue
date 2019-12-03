@@ -275,7 +275,6 @@ export default {
         .then(res => {
           if (res.code == _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             let content = _data.content;
             content.map((item, i) => {
               if (!item.state) {
@@ -328,7 +327,6 @@ export default {
       });
     },
     getPos(e) {
-      console.log(e);
       this.form.xaxis = e.xAxis;
       this.form.yaxis = e.yAxis;
     }

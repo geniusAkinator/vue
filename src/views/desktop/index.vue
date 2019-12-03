@@ -242,7 +242,6 @@ export default {
       .then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
-          console.log(_data);
           _data.content.map((item, i) => {
             item.show = false;
             this.geoList.push(item);

@@ -43,7 +43,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .addSensorTypeData(this.form)
             .then(res => {
@@ -67,7 +66,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
