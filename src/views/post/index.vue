@@ -193,11 +193,9 @@ export default {
       }
     },
     handleUpload(command) {
-      console.log("上传");
       if (command == "template") {
         //下载模板
       } else if (command == "upload") {
-        console.log("上传");
         this.$refs.file.click();
       }
     },
@@ -245,7 +243,6 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             this.tableData = _data.content;
             this.total = _data.total;
           }
@@ -256,7 +253,6 @@ export default {
       }, 1000);
     },
     handleCheck(index, row) {
-      // console.log(row);
       let rform = {};
       rform.noticeId = row.noticeId;
       rform.content = row.content;

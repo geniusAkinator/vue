@@ -118,7 +118,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .updateNoticeData(this.form)
             .then(res => {
@@ -142,7 +141,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -167,7 +165,6 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             let content = _data.content;
             content.map((item, i) => {
               if (!item.state) {
@@ -184,7 +181,6 @@ export default {
         .getNoticeDetail({ id: this.form.noticeId })
         .then(res => {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            console.log(res.data.notice);
             let _data = res.data.notice;
             this.form.content = _data.content;
             this.form.description = _data.description;
@@ -201,7 +197,6 @@ export default {
       }, 600);
     },
     getFile(e) {
-      console.log(e);
       this.form.file = e;
     }
   },

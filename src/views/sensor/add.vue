@@ -198,11 +198,9 @@ export default {
       this.getFloorList();
     },
     "form.floor.floorId": function(nVal, oVal) {
-      console.log(nVal);
       let list = this.floorList;
       let floorImg = "";
       list.map((item, i) => {
-        console.log(item);
         if (item.floorId == nVal) {
           floorImg = item.picture;
         }
@@ -215,7 +213,6 @@ export default {
       //提交
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .addSensorData(this.form)
             .then(res => {

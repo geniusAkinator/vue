@@ -110,7 +110,6 @@ export default {
       this.drawer = true;
     },
     closeDrawer() {
-      console.log("close drawer");
       this.$refs.mainDrawer.closeDrawer();
     }
   },

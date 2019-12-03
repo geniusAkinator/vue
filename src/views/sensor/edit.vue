@@ -203,7 +203,6 @@ export default {
       let list = this.floorList;
       let floorImg = "";
       list.map((item, i) => {
-        console.log(item);
         if (item.floorId == nVal) {
           floorImg = item.picture;
         }
@@ -216,7 +215,6 @@ export default {
       //提交
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateSensorData(this.form)
             .then(res => {
@@ -285,7 +283,6 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             let content = _data.content;
             content.map((item, i) => {
               if (!item.state) {
@@ -316,7 +313,6 @@ export default {
           this.$set(this.pos, "yAxis", _data.yaxis + "%");
           // this.pos.xAxis = _data.xaxis + "%";
           // this.pos.yAxis = _data.yaxis + "%";
-          console.log("_data", _data);
         }
       });
       setTimeout(() => {
@@ -331,7 +327,6 @@ export default {
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let content = _data.content;
-            console.log(_data);
             content.map((item, i) => {
               if (!item.state) {
                 let temp = {};
@@ -353,7 +348,6 @@ export default {
           _this.floorList = content;
           let floorImg = "";
           _this.floorList.map((item, i) => {
-            console.log(item);
             if (item.floorId == this.form.floor.floorId) {
               floorImg = item.picture;
             }

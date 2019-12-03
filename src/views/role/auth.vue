@@ -54,7 +54,6 @@ export default {
           this.closeDialog();
         }
       });
-      // console.log(this.aList);
     },
     handleBack() {
       this.closeDialog();
@@ -113,7 +112,6 @@ export default {
               temp.children = cdata;
               data.push(temp);
             });
-            console.log(data);
             this.data = data;
           } else {
           }

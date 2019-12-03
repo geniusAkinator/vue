@@ -68,7 +68,9 @@ export default {
         factory: [
           { required: true, message: "请选择所属工厂", trigger: "change" }
         ],
-        name: [{ required: true, message: "请输入巡检路线名称", trigger: "blur" }]
+        name: [
+          { required: true, message: "请输入巡检路线名称", trigger: "blur" }
+        ]
       }
     };
   },
@@ -78,7 +80,6 @@ export default {
         if (valid) {
           this.closeDialog();
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -89,9 +90,7 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     },
-    getPoint(e) {
-      console.log(e);
-    }
+    getPoint(e) {}
   },
   components: {}
 };

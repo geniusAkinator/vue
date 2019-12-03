@@ -47,7 +47,6 @@ export default {
         if (valid) {
           this.closeDialog();
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -69,7 +68,6 @@ export default {
       this.form.list.push(temp);
     },
     getDelIndex(e) {
-      console.log(e);
       this.form.list.splice(e, 1);
     },
     getNewItem(e) {

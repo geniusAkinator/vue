@@ -171,7 +171,6 @@ export default {
               }
             })
             .catch(_ => {
-              console.log("dddddd");
             });
         } else {
           return false;

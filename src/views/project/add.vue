@@ -112,7 +112,6 @@ export default {
         if (valid) {
           this.closeDialog();
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

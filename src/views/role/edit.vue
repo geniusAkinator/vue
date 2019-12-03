@@ -74,7 +74,7 @@ export default {
       api
         .getAllMenuData()
         .then(res => {
-          console.log(res);
+         
         })
         .catch(_ => {});
       api

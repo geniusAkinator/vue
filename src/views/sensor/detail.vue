@@ -83,7 +83,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="故障详情">
-        <el-card class="state-card"   >
+        <el-card class="state-card">
           <el-row :gutter="20" class="info-panel">
             <el-col :span="12">
               <ul class="info_block">
@@ -345,7 +345,6 @@ export default {
   methods: {
     init() {
       let sId = this.$route.params.sId;
-      console.log(sId);
       api.getSensorDetail({ id: sId }).then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data;
@@ -353,13 +352,11 @@ export default {
           for (let key in sensorInfo) {
             this.sensor[key] = sensorInfo[key];
           }
-          console.log("sensor", this.sensor);
         }
       });
     }
   },
   created() {
-    console.log("create");
     this.init();
   },
   beforeRouteLeave(to, from, next) {

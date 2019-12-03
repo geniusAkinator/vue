@@ -80,7 +80,6 @@ export default {
     handleSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateSensorTypeData(this.form)
             .then(res => {
@@ -120,7 +119,6 @@ export default {
         text: "加载中"
       };
       let loadingInstance = Loading.service(options);
-      console.log(this.form.id);
       api
         .getSensorTypeDetail({ id: this.form.ttId })
         .then(res => {

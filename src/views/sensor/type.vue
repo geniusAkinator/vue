@@ -224,9 +224,7 @@ export default {
       api
         .getSensorTypeData(this.Listform)
         .then(res => {
-          console.log(res);
           if (res.code === _this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            console.log(res.data);
             let _data = res.data;
             this.tableData = _data.content;
             this.total = _data.total;
@@ -287,7 +285,6 @@ export default {
         did = did + item.ttId + ",";
       });
       this.did = did.substr(0, did.length - 1);
-      console.log(this.did);
     }
   },
   created() {

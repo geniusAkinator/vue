@@ -105,7 +105,6 @@ export default {
       }
     },
     getNewItem(e) {
-      console.log(e);
       for (var st in e.item) {
         this.$set(this.form.standard[e.index], st, e.item[st]);
       }
@@ -123,7 +122,6 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data.content;
-            console.log(_data)
             _data.map((item, i) => {
               let temp = {};
               temp.standardId = item.standardId;
@@ -133,7 +131,6 @@ export default {
               temp.name = item.name;
               temp.type = item.type;
               temp.content = item.content;
-              //   console.log(temp);
               this.form.standard.push(temp);
             });
           }
