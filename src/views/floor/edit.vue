@@ -80,7 +80,6 @@ export default {
       //提交
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           api
             .updateFloorData(this.form)
             .then(res => {

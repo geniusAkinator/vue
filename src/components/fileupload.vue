@@ -31,12 +31,9 @@ export default {
       let fd = new FormData();
       fd.append("file", files[0]);
       http
-        .getRequestUpload("/common/uploadImage", fd, res => {
-          console.log(res);
-        })
+        .getRequestUpload("/common/uploadImage", fd, res => {})
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-            console.log(res);
             let _data = res.data;
             this.$emit("sendFile", _data);
           }
@@ -48,7 +45,6 @@ export default {
             type: "error"
           });
         });
-      console.log(files);
     }
   }
 };

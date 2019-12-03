@@ -204,11 +204,9 @@ export default {
       }
     },
     handleUpload(command) {
-      console.log("上传");
       if (command == "template") {
         //下载模板
       } else if (command == "upload") {
-        console.log("上传");
         this.$refs.file.click();
       }
     },
@@ -256,7 +254,7 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
+
             this.tableData = _data.content;
             this.total = _data.total;
           }
@@ -270,14 +268,13 @@ export default {
       let _this = this;
       let fd = new FormData();
       let file = _this.$refs.file.files[0];
-      console.log(file);
+
       fd.append("file", file);
       http
         .getRequestUpload("/factory/importFile", fd)
         .then(res => {
           // _this.isFail = false;
           // _this.isLoading = false;
-          // console.log(res);
         })
         .catch(_ => {
           Message({

@@ -204,11 +204,9 @@ export default {
       }
     },
     handleUpload(command) {
-      console.log("上传");
       if (command == "template") {
         //下载模板
       } else if (command == "upload") {
-        console.log("上传");
         this.$refs.file.click();
       }
     },

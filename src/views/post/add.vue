@@ -84,8 +84,12 @@ export default {
         noticeName: [
           { required: true, message: "请输入公告标题", trigger: "blur" }
         ],
-        type: [{ required: true, message: "请选择公告类型", trigger: "change" }],
-        keyword: [{ required: true, message: "请选择查询关键字", trigger: "change" }]
+        type: [
+          { required: true, message: "请选择公告类型", trigger: "change" }
+        ],
+        keyword: [
+          { required: true, message: "请选择查询关键字", trigger: "change" }
+        ]
       },
       cform: {
         pageNum: 1,
@@ -111,7 +115,6 @@ export default {
         if (valid) {
           //通过
           //ajax提交
-          console.log(this.form);
           api
             .addNoticeData(this.form)
             .then(res => {
@@ -135,7 +138,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -155,7 +157,6 @@ export default {
         .then(res => {
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             let content = _data.content;
             content.map((item, i) => {
               if (!item.state) {
@@ -170,7 +171,6 @@ export default {
         .catch(_ => {});
     },
     getFile(e) {
-      console.log(e);
       this.form.file = e;
     }
   },

@@ -286,7 +286,6 @@ export default {
             })
             .catch(_ => {});
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -311,7 +310,6 @@ export default {
       this.nowRegion = e.split(",")[0];
     },
     getImage(e) {
-      console.log("image", e);
       this.form.picture = e;
     },
     initForm() {
@@ -321,13 +319,11 @@ export default {
       };
       let loadingInstance = Loading.service(options);
       let _this = this;
-      console.log("id", this.form.factoryId);
       api
         .getFactoryDetail({ factoryId: this.form.factoryId })
         .then(res => {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
-            console.log(_data);
             for (let key in _data) {
               this.form[key] = _data[key];
             }

@@ -161,7 +161,6 @@ export default {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.roptions = _data;
-            console.log(_data);
           } else {
           }
         })
