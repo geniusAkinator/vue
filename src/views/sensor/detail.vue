@@ -2,7 +2,7 @@
   <div class="container">
     <el-tabs type="border-card">
       <el-tab-pane label="传感器详情">
-        <el-card class="state-card"   >
+        <el-card class="state-card" shadow="hover">
           <el-row :gutter="20">
             <el-col :span="8">
               <ul class="state_block">

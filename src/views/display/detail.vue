@@ -81,7 +81,7 @@
             </div>
           </el-col>
           <el-col :span="6" v-for="(item,index) of list" :key="index">
-            <div class="display-item" @click="jump">
+            <div class="display-item" @click="jump(index,item)">
               <div class="sensor-op">
                 <i class="el-icon-edit" @click.stop="handleEditSensor(index,item)"></i>
                 <i class="el-icon-delete" @click.stop="handleDelSensor(index,item)"></i>
@@ -214,10 +214,10 @@ export default {
     }
   },
   methods: {
-    jump() {
+    jump(index, item) {
       this.$router.push({
         name: "传感器详情",
-        params: { sId: 22 }
+        params: { sId: item.transducerId }
       });
     },
     handleAddType() {

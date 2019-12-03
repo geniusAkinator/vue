@@ -595,6 +595,9 @@ input:focus + .el-input__suffix {
 .box-card.no-padding .el-card__body {
   padding: 0;
 }
+.block-content .el-carousel__container{
+  height: 200px;
+}
 /* 移动端样式 */
 @media screen and (max-width: 760px) {
   html {

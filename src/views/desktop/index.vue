@@ -150,9 +150,7 @@
                 </el-radio-group>
               </el-button>
             </div>
-            <div class="text item">
-              <!-- <my-echart-line :id="echart"></my-echart-line> -->
-            </div>
+            <div class="text item"></div>
           </el-card>
         </el-col>
         <el-col :md="24" style="margin-top:10px">
@@ -165,19 +163,19 @@
               <div class="block">
                 <el-timeline>
                   <el-timeline-item timestamp="2019/10/10" placement="top">
-                    <el-card>
+                    <el-card shadow="hover">
                       <h4>修改了什么什么页面</h4>
                       <p>admin 提交于 2019/10/10 20:46</p>
                     </el-card>
                   </el-timeline-item>
                   <el-timeline-item timestamp="2019/10/10" placement="top">
-                    <el-card>
+                    <el-card shadow="hover">
                       <h4>修改了什么什么页面</h4>
                       <p>admin 提交于 2019/10/10 20:46</p>
                     </el-card>
                   </el-timeline-item>
                   <el-timeline-item timestamp="2019/10/10" placement="top">
-                    <el-card>
+                    <el-card shadow="hover">
                       <h4>修改了什么什么页面</h4>
                       <p>admin 提交于 2019/10/10 20:46</p>
                     </el-card>
@@ -197,7 +195,6 @@ import MyMap from "@/components/map";
 import MyCalendar from "@/components/calendar";
 import api from "@/api/index";
 import utils from "@/utils/utils";
-import MyEchartLine from "@/components/eline";
 import MyWeather from "@/components/weather";
 export default {
   data() {
@@ -284,7 +281,6 @@ export default {
   components: {
     MyMap,
     MyCalendar,
-    MyEchartLine,
     MyWeather
   }
 };

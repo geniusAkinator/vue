@@ -114,8 +114,11 @@ export default {
       this.$refs.mainDrawer.closeDrawer();
     }
   },
-  beforeCreate() {
-    this.$store.dispatch("home/initAside");
+  beforeCreate() {},
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.dispatch("home/initAside");
+    });
   },
   mounted: function() {
     let _this = this;
@@ -160,5 +163,4 @@ export default {
 .el-dialog__wrapper {
   z-index: 999999 !important;
 }
-
 </style>

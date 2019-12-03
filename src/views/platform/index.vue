@@ -185,13 +185,13 @@ export default {
   width: 300px;
   position: absolute;
   left: 20px;
-  -webkit-animation: fadeInLeft 2s ease 0s 1 both;
+  animation: fadeInLeft 2s ease 0s 1 both;
 }
 .platform-right {
   width: 300px;
   position: absolute;
   right: 20px;
-  -webkit-animation: fadeInRight 2s ease 0s 1 both;
+  animation: fadeInRight 2s ease 0s 1 both;
 }
 .platform-left,
 .platform-right {
@@ -199,7 +199,7 @@ export default {
   bottom: 40px;
 }
 #swiper {
-  -webkit-animation: fadeInUp 2s ease 0s 1 both;
+  animation: fadeInUp 2s ease 0s 1 both;
 }
 .platform-box {
   border: 1px solid #afafaf;
@@ -274,7 +274,7 @@ export default {
   left: 20px;
   bottom: 20px;
   right: 20px;
-  -webkit-animation: fadeInUp 2s ease 0s 1 both;
+  animation: fadeInUp 2s ease 0s 1 both;
 }
 .border-top,
 .border-bottom {

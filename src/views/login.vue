@@ -21,7 +21,7 @@
         </el-form-item>
       </el-form>
     </el-main>
-    <el-footer>© COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
+    <el-footer>&copy; COPYRIGHT AMHSZG.COM - ALL RIGHTS RESERVED.</el-footer>
   </el-container>
 </template>
 <script>
@@ -44,12 +44,9 @@ export default {
   methods: {
     getCode(e) {
       this.code = e;
-      console.log(this.code);
-      // this.form.vcode = e;
     },
     handleLogin() {
       this.verityForm();
-      // console.log(this.form);
     },
     verityForm() {
       if (this.form.account == "") {
@@ -87,7 +84,6 @@ export default {
       api
         .login(this.form)
         .then(res => {
-          console.log(res);
           if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             let token = _data.token;
@@ -112,22 +108,6 @@ export default {
         .catch(_ => {
           console.log(_);
         });
-      // api
-      //   .verifyCode({ code: this.form.vcode })
-      //   .then(res => {
-      //     console.log(res);
-      //     if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
-      //       if (!res.data) {
-      //         this.$message({
-      //           showClose: true,
-      //           message: "验证码不正确",
-      //           type: "error"
-      //         });
-      //         return;
-      //       }
-      //     }
-      //   })
-      //   .catch(_ => {});
     },
     setCookies() {
       let exDays = 60; //60days
@@ -138,36 +118,31 @@ export default {
       let cipherPassword = this.CryptoJS.AES.encrypt(
         this.form.password + "",
         "secretKey"
-      );
-      // console.log(cipherAccount);
-      // let exDate = new Date(); // 获取时间
-      // exDate.setTime(exDate.getTime() + 24 * 60 * 60 * 1000 * exDays); // 保存的天数
-      // this.$cookies.config(exDate);
+      ).toString();
+      let exDate = new Date(); // 获取时间
+      exDate.setTime(exDate.getTime() + 24 * 60 * 60 * 1000 * exDays); // 保存的天数
+      this.$cookies.config(exDate);
       this.$cookies.set("currentAccount", cipherAccount);
-      // setTimeout(() => {
-      //   console.log(cipherAccount);
-      //
-      //   this.$cookies.set("currentPassword", cipherPassword);
-      // }, 600);
+      this.$cookies.set("currentPassword", cipherPassword);
     },
     getCookies() {
-      console.log(this.$cookies.get("currentPassword"));
-      // let cipherAccount = this.$cookies.get(`currentAccount`);
-      // let cipherPassword = this.$cookies.get(`currentPassword`);
-      // if (cipherAccount != null) {
-      //   let decryptAccount = this.CryptoJS.AES.decrypt(
-      //     cipherAccount,
-      //     `secretKey`
-      //   ).toString(this.CryptoJS.enc.Utf8);
-      //   this.loginForm.account = decryptAccount;
-      // }
-      // if (cipherPassword != null) {
-      //   let decryptPwd = this.CryptoJS.AES.decrypt(
-      //     cipherPassword,
-      //     `secretKey`
-      //   ).toString(this.CryptoJS.enc.Utf8);
-      //   this.loginForm.password = decryptPwd;
-      // }
+      let cipherAccount = this.$cookies.get(`currentAccount`);
+      let cipherPassword = this.$cookies.get(`currentPassword`);
+      if (cipherAccount != null) {
+        let decryptAccount = "";
+        decryptAccount = this.CryptoJS.AES.decrypt(
+          cipherAccount,
+          `secretKey`
+        ).toString(this.CryptoJS.enc.Utf8);
+        this.form.account = decryptAccount;
+      }
+      if (cipherPassword != null) {
+        let decryptPwd = this.CryptoJS.AES.decrypt(
+          cipherPassword,
+          `secretKey`
+        ).toString(this.CryptoJS.enc.Utf8);
+        this.form.password = decryptPwd;
+      }
     },
     clearCookies() {
       this.$cookies.remove(`currentAccount`);
@@ -177,13 +152,14 @@ export default {
   destroyed() {},
   mounted() {
     this.$store.dispatch("home/clearAside");
-    // this.getCookies();
+    this.$nextTick(() => {
+      this.getCookies();
+    });
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
     this.$store.dispatch("home/initAside");
-
     next();
   },
   components: {
