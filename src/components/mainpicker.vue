@@ -1,8 +1,15 @@
 <template>
   <div class="main-picker">
     <div class="main_search">
-      <el-input v-model="keyword" placeholder="请输入内容" size="medium"></el-input>
-      <el-button type="primary" icon="el-icon-plus" size="medium"></el-button>
+      <el-input
+        v-model="keyword"
+        placeholder="请输入内容"
+        size="medium"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        id="inputMain"
+      ></el-input>
+      <el-button type="primary" icon="el-icon-plus" size="medium" id="btnMainAdd"></el-button>
     </div>
     <ul class="main_list">
       <template v-for="(item,index) in mainList">
@@ -93,6 +100,18 @@ export default {
     };
   },
   methods: {
+    handleBlur() {
+      const btn = document.querySelector("#btnMainAdd");
+      const input = document.querySelector("#inputMain");
+      btn.classList.remove("hide");
+      input.classList.remove("filled");
+    },
+    handleFocus() {
+      const btn = document.querySelector("#btnMainAdd");
+      const input = document.querySelector("#inputMain");
+      btn.classList.add("hide");
+      input.classList.add("filled");
+    },
     handleToggle(index) {
       this.$set(
         this.mainList[index],
@@ -245,13 +264,28 @@ export default {
 }
 .main_search {
   display: flex;
+  overflow: hidden;
 }
 .main_search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  transition-property: all;
+  transition-duration: 0.6s;
+  transition-delay: 0.6s;
 }
 .main_search button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  transition-property: all;
+  transition-duration: 0.6s;
+}
+.filled {
+  width: 312px;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+}
+.hide {
+  opacity: 0;
+  transform: scale(0.1);
 }
 </style>

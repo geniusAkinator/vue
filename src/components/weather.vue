@@ -79,6 +79,7 @@ export default {
         })
         .then(res => {
           this.wdata = res.data;
+          console.log(this.wdata);
           this.initWeatherChart();
         })
         .catch(_ => {});
@@ -87,6 +88,8 @@ export default {
       let nowWea = item.wea_img;
       if (nowWea == "yun" || nowWea == "yu") {
         this.bg = "cloudy";
+      } else if (nowWea == "qing") {
+        this.bg = "daytime";
       }
     },
     setWeatherBg() {
@@ -108,7 +111,6 @@ export default {
       let data = [];
       let tdata = [];
       hours.map((item, i) => {
-        console.log(item);
         data.push(item.day);
         tdata.push(item.tem.replace("℃", ""));
       });
@@ -130,19 +132,41 @@ export default {
               color: "#fff" //轴颜色
             }
           },
-          type: "value"
+          type: "value",
+          axisLabel: { formatter: "{value}℃" }
         },
         grid: {
           left: "3%",
           right: "3%",
-          bottom: "0",
+          bottom: "3%",
           containLabel: true
         },
         series: [
           {
             data: tdata,
             type: "line",
-            areaStyle: {}
+            areaStyle: {
+              normal: {
+                color: {
+                  type: "linear",
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: "rgba(255,255,255,0.5)"
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(255,255,255,0.1)"
+                    }
+                  ],
+                  globalCoord: false
+                }
+              }
+            }
           }
         ]
       };
@@ -152,7 +176,6 @@ export default {
   mounted() {
     this.initData();
     this.setWeatherBg();
-
     window.addEventListener("resize", this.resizeChart);
   }
 };
@@ -218,7 +241,7 @@ export default {
   min-width: 38px;
   border-radius: 3px;
   background-color: #82c91e;
-  width: 50px;
+  width: 55px;
   padding: 5px;
   margin: auto;
   margin-top: 12px;
