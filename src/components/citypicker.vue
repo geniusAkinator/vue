@@ -170,7 +170,7 @@ export default {
 .city-picker .el-col:nth-child(3) {
   margin-left: 0;
 }
-.city-picker{
+.city-picker {
   max-width: 800px;
 }
 </style>

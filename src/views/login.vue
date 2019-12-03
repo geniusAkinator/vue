@@ -183,7 +183,7 @@ export default {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
     this.$store.dispatch("home/initAside");
-   
+
     next();
   },
   components: {

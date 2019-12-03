@@ -2,7 +2,7 @@
   <div class="container">
     <el-row :gutter="10">
       <el-row :gutter="10" class="statistics">
-        <el-col :sm="6">
+        <el-col :sm="6" :xs="12">
           <div class="sta_item">
             <i class="el-icon-user"></i>
             <router-link class="item" :to="'factory'">
@@ -19,7 +19,7 @@
             </router-link>
           </div>
         </el-col>
-        <el-col :sm="6">
+        <el-col :sm="6" :xs="12">
           <div class="sta_item">
             <i class="el-icon-link"></i>
             <router-link class="item" :to="'sensor'">
@@ -36,7 +36,7 @@
             </router-link>
           </div>
         </el-col>
-        <el-col :sm="6">
+        <el-col :sm="6" :xs="12">
           <div class="sta_item">
             <i class="el-icon-circle-close"></i>
             <router-link class="item" :to="''">
@@ -53,7 +53,7 @@
             </router-link>
           </div>
         </el-col>
-        <el-col :sm="6">
+        <el-col :sm="6" :xs="12">
           <div class="sta_item">
             <i class="el-icon-s-order"></i>
             <router-link class="item" :to="''">
@@ -86,7 +86,12 @@
               <span>数据概览</span>
             </div>
             <div class="text item">
-              <el-carousel indicator-position="outside" arrow="never" :autoplay="false" :height="'500px'">
+              <el-carousel
+                indicator-position="outside"
+                arrow="never"
+                :autoplay="false"
+                :height="'500px'"
+              >
                 <el-carousel-item>
                   <my-weather></my-weather>
                 </el-carousel-item>

@@ -592,8 +592,34 @@ input:focus + .el-input__suffix {
 .box-card .el-carousel .el-carousel__button.is-active {
   background: #999;
 }
-.box-card.no-padding .el-card__body{
-  padding: 0
+.box-card.no-padding .el-card__body {
+  padding: 0;
 }
-
+/* 移动端样式 */
+@media screen and (max-width: 760px) {
+  html {
+    font-size: 30px;
+  }
+  .el-dropdown .userName {
+    display: none !important;
+  }
+  .el-menu-demo {
+    display: none;
+  }
+  .tab-more {
+    display: none !important;
+  }
+  .el-tabs.el-tabs--card.el-tabs--top {
+    padding-right: 0 !important;
+  }
+  .app-header-userinfo {
+    margin-left: auto;
+  }
+  /* .container {
+    width: 700px !important;
+  } */
+  .el-main {
+    overflow: scroll;
+  }
+}
 </style>

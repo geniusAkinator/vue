@@ -76,7 +76,7 @@
       </el-table-column>
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="factoryId" label="工厂ID" width="80"></el-table-column>
-      <el-table-column prop="factoryName" label="工厂名称"></el-table-column>
+      <el-table-column prop="factoryName" label="工厂名称" width="200"></el-table-column>
       <el-table-column label="地址">
         <el-table-column label="省份">
           <template slot-scope="scope">{{scope.row.province.split(',')[0]}}</template>
@@ -298,7 +298,7 @@ export default {
     handleToBuilding(index, row) {
       this.$router.push({
         name: "楼宇管理",
-        params: { fId: row.factoryId,fName:row.factoryName}
+        params: { fId: row.factoryId, fName: row.factoryName }
       });
     }
   },
