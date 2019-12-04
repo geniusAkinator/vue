@@ -1,3 +1,4 @@
+<!-- 主体选择器 -->
 <template>
   <div class="main-picker">
     <div class="main_search">

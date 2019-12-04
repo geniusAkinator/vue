@@ -1,3 +1,4 @@
+<!-- 成员选择器 -->
 <template>
   <div class="member-picker">
     <el-input v-model="keyword" placeholder="请输入内容" size="medium"></el-input>

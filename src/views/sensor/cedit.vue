@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import MyTechParam from "@/components/form/techParam";
+import MyTechParam from "@/components/form/techparam";
 import api from "@/api/index";
 import { Loading } from "element-ui";
 export default {

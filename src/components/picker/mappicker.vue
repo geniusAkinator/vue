@@ -1,3 +1,4 @@
+<!-- 经纬度拾取器 -->
 <template>
   <div class="map-picker">
     <baidu-map
