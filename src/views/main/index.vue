@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyMainAdd from "@/views/main/add";
 import MyMainEdit from "@/views/main/edit";
 import api from "@/api/index";

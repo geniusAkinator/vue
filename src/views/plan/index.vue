@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyPlanAdd from "@/views/plan/add";
 import api from "@/api/index";
 export default {

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyRoleAdd from "@/views/role/add";
 import MyRoleEdit from "@/views/role/edit";
 import MyRoleAssign from "@/views/role/auth";

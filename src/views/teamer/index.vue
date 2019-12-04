@@ -77,7 +77,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyTeamerAdd from "@/views/teamer/add";
 import MyTeamerEdit from "@/views/teamer/edit";
 import api from "@/api/index";

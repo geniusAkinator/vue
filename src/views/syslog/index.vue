@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import api from "@/api/index";
 export default {
   data() {

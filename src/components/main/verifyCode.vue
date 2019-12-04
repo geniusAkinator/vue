@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vcode">
     <canvas class="verifyCode" id="canvas" @click="handleClick()"></canvas>
   </div>
 </template>
@@ -78,5 +78,6 @@ export default {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   border: 0;
+  cursor: pointer;
 }
 </style>

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import MyEchartBall from "@/components/eball";
+import MyEchartBall from "@/components/echart/eball";
 export default {
   data() {
     return {

@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyFactoryAdd from "@/views/factory/add";
 import api from "@/api/index";
 export default {

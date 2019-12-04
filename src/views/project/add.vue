@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
+import MyMapPicker from "@/components/picker/mappicker";
 export default {
   data() {
     const generateData = _ => {

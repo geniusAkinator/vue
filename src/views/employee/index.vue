@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyEmployeeAdd from "@/views/employee/add";
 import MyEmployeeEdit from "@/views/employee/edit";
 import api from "@/api/index";

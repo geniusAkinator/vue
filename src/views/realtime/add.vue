@@ -59,7 +59,7 @@
 
 <script>
 import api from "@/api/index";
-import MyPosPicker from "@/components/pospicker";
+import MyPosPicker from "@/components/picker/pospicker";
 export default {
   data() {
     return {

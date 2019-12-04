@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 export default {
   data() {
     return {

@@ -337,8 +337,8 @@
 </template>
 
 <script>
-import MyUpload from "@/components/imgupload";
-import MyQrcode from "@/components/qrcode";
+import MyUpload from "@/components/upload/imgupload";
+import MyQrcode from "@/components/common/qrcode";
 export default {
   data() {
     return {

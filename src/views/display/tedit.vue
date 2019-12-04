@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import MyUpload from "@/components/imgupload";
+import MyUpload from "@/components/upload/imgupload";
 import { Loading } from "element-ui";
 import api from "@/api/index";
 import baseURL from "@/utils/baseUrl";

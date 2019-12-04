@@ -113,12 +113,12 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyFactoryAdd from "@/views/factory/add";
 import MyFactoryEdit from "@/views/factory/edit";
 import api from "@/api/index";
 import http from "@/utils/http";
-import MyCityPicker from "@/components/citypicker";
+import MyCityPicker from "@/components/picker/citypicker";
 import baseURL from "@/utils/baseUrl";
 export default {
   data() {

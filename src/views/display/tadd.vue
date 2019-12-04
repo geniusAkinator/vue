@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import MyUpload from "@/components/imgupload";
+import MyUpload from "@/components/upload/imgupload";
 import api from "@/api/index";
 export default {
   data() {

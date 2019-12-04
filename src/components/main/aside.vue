@@ -123,7 +123,7 @@ export default {
   z-index: 99;
 }
 .side_drawer i {
-  background: url("../assets/icon_arrow.png") 0px 0px no-repeat;
+  background: url("../../assets/icon_arrow.png") 0px 0px no-repeat;
   display: block;
   width: 20px;
   height: 60px;
@@ -133,7 +133,7 @@ export default {
   background-position: -22px 1px;
 }
 .side_drawer.isCollapse i {
-  background: url("../assets/icon_arrow.png") 0px -60px no-repeat;
+  background: url("../../assets/icon_arrow.png") 0px -60px no-repeat;
 }
 .side_drawer.isCollapse i:hover {
   background-position: -22px -61px;

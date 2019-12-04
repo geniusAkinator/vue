@@ -101,8 +101,8 @@
   </div>
 </template>
 <script>
-import MyMapPicker from "@/components/mappicker";
-import MyPosPicker from "@/components/pospicker";
+import MyMapPicker from "@/components/picker/mappicker";
+import MyPosPicker from "@/components/picker/pospicker";
 import api from "@/api/index";
 export default {
   data() {

@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import MyEchartLine from "@/components/eline";
+import MyEchartLine from "@/components/echart/eline";
 import MySensorSysAdd from "@/views/display/sadd";
 import MySensorSysEdit from "@/views/display/sedit";
 import utils from "@/utils/utils";

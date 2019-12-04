@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyUserAdd from "@/views/user/add";
 import MyUserEdit from "@/views/user/edit";
 import MyUserPwdUpdate from "@/views/user/uedit.vue";

@@ -82,7 +82,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyProjectAdd from "@/views/project/add";
 import MyProjectFirmAdd from "@/views/project/firmAdd";
 export default {

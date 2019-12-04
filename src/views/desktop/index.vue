@@ -191,11 +191,11 @@
   </div>
 </template>
 <script>
-import MyMap from "@/components/map";
-import MyCalendar from "@/components/calendar";
+import MyMap from "@/components/common/map";
+import MyCalendar from "@/components/common/calendar";
 import api from "@/api/index";
 import utils from "@/utils/utils";
-import MyWeather from "@/components/weather";
+import MyWeather from "@/components/common/weather";
 export default {
   data() {
     return {

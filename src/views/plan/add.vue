@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import MyCycle from "@/components/cycle";
+import MyCycle from "@/components/form/cycle";
 export default {
   data() {
     const generateData = _ => {

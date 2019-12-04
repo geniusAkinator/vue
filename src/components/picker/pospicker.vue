@@ -63,7 +63,7 @@ export default {
       let nowPos = {};
       this.marker.left = _left.toFixed(0) + "%";
       this.marker.top = _top.toFixed(0) + "%";
-      nowPos.xAxis = _left; //数据库对应整形存储interger
+      nowPos.xAxis = _left;
       nowPos.yAxis = _top;
       this.$emit("sendPos", nowPos);
     }

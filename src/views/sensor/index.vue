@@ -129,7 +129,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MySensorAdd from "@/views/sensor/add";
 import MySensorEdit from "@/views/sensor/edit";
 import MySensorTypeAdd from "@/views/sensor/typeAdd";

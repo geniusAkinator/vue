@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import MyMemberPicker from "@/components/memberpicker";
+import MyMemberPicker from "@/components/picker/memberpicker";
 export default {
   data() {
     return {

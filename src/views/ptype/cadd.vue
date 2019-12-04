@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import MyUpload from "@/components/imgupload";
-import MyRule from "@/components/rule";
+import MyUpload from "@/components/upload/imgupload";
+import MyRule from "@/components/form/rule";
 export default {
   data() {
     return {

@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyBuildingAdd from "@/views/building/add";
 import MyBuildingEdit from "@/views/building/edit";
 import api from "@/api/index";

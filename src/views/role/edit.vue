@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
+import MyMapPicker from "@/components/picker/mappicker";
 import api from "@/api/index";
 export default {
   data() {

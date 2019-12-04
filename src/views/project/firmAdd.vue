@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
-import MyUpload from "@/components/imgupload";
+import MyMapPicker from "@/components/picker/mappicker";
+import MyUpload from "@/components/upload/imgupload";
 export default {
   data() {
     return {

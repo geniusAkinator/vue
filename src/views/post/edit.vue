@@ -59,7 +59,7 @@
 <script>
 import api from "@/api/index";
 import { Loading } from "element-ui";
-import MyFileUpload from "@/components/fileupload";
+import MyFileUpload from "@/components/upload/fileupload";
 
 export default {
   data() {

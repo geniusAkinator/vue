@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/mappicker";
-import MyUpload from "@/components/imgupload";
-import MyCityPicker from "@/components/citypicker";
+import MyMapPicker from "@/components/picker/mappicker";
+import MyUpload from "@/components/upload/imgupload";
+import MyCityPicker from "@/components/picker/citypicker";
 import api from "@/api/index";
 export default {
   data() {

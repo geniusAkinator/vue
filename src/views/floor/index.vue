@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyFloorAdd from "@/views/floor/add";
 import MyFloorEdit from "@/views/floor/edit";
 import api from "@/api/index";

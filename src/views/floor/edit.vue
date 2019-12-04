@@ -30,7 +30,7 @@
 </template>
 <script>
 import api from "@/api/index";
-import MyUpload from "@/components/imgupload";
+import MyUpload from "@/components/upload/imgupload";
 import { Loading } from "element-ui";
 import baseURL from "@/utils/baseUrl";
 export default {

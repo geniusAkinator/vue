@@ -58,7 +58,7 @@
 
 <script>
 import api from "@/api/index";
-import MyFileUpload from "@/components/fileupload";
+import MyFileUpload from "@/components/upload/fileupload";
 export default {
   data() {
     return {

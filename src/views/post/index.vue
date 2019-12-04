@@ -94,7 +94,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyPostAdd from "@/views/post/add";
 import MyPostEdit from "@/views/post/edit";
 import api from "@/api/index";

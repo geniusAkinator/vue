@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import MyAside from "@/components/Aside";
-import MyHeader from "@/components/Header";
-import MyTabs from "@/components/Tabs";
-import MyBreadcrumb from "@/components/breadcrumb";
-import MyMainPicker from "@/components/mainpicker";
+import MyAside from "@/components/main/Aside";
+import MyHeader from "@/components/main/Header";
+import MyTabs from "@/components/main/Tabs";
+import MyBreadcrumb from "@/components/main/breadcrumb";
+import MyMainPicker from "@/components/picker/mainpicker";
 import utils from "@/utils/utils";
 export default {
   data() {

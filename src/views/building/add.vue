@@ -38,7 +38,7 @@
 </template>
 <script>
 import api from "@/api/index";
-import MyUpload from "@/components/imgupload";
+import MyUpload from "@/components/upload/imgupload";
 
 export default {
   data() {

@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyPatrolAdd from "@/views/patrol/add";
 export default {
   data() {

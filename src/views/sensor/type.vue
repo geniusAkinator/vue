@@ -96,7 +96,7 @@
   </div>
 </template>
 <script>
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MySensorTypeAdd from "@/views/sensor/typeAdd";
 import MySensorTypeEdit from "@/views/sensor/typeEdit";
 import MySensorTypeConfig from "@/views/sensor/cedit";

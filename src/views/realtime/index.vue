@@ -119,7 +119,7 @@
 </template>
 <script>
 import api from "@/api/index";
-import MySearchTool from "@/components/searchtool";
+import MySearchTool from "@/components/common/searchtool";
 import MyCameraAdd from "@/views/realtime/add";
 export default {
   data() {

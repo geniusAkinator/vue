@@ -14,7 +14,7 @@
           <my-verify-code @sendCode="getCode"></my-verify-code>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin" :loading="logining">登录</el-button>
+          <el-button type="primary" @click="handleLogin" :loading="logining" :disabled="isActive">登录</el-button>
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="remember" class="remember">保持登录</el-checkbox>
@@ -27,7 +27,7 @@
 <script>
 import api from "@/api/index";
 import baseURL from "@/utils/baseUrl";
-import MyVerifyCode from "@/components/verifyCode";
+import MyVerifyCode from "@/components/main/verifyCode";
 export default {
   data() {
     return {
@@ -38,8 +38,29 @@ export default {
         vcode: ""
       },
       remember: true,
-      code: ""
+      code: "",
+      isActive: true
     };
+  },
+  watch: {
+    form: {
+      handler(nVal, oVal) {
+        console.log(nVal);
+        let form = {
+          account: "",
+          password: "",
+          vcode: ""
+        };
+        form = nVal;
+        if (form.account != "" && form.password != "" && form.vcode != "") {
+          this.isActive = false;
+        } else {
+          this.isActive = true;
+        }
+      },
+      deep: true,
+      immediate: true
+    }
   },
   methods: {
     getCode(e) {
@@ -49,30 +70,6 @@ export default {
       this.verityForm();
     },
     verityForm() {
-      if (this.form.account == "") {
-        this.$message({
-          showClose: true,
-          message: "账号名不能为空",
-          type: "error"
-        });
-        return;
-      }
-      if (this.form.password == "") {
-        this.$message({
-          showClose: true,
-          message: "密码不能为空",
-          type: "error"
-        });
-        return;
-      }
-      if (this.form.vcode == "") {
-        this.$message({
-          showClose: true,
-          message: "验证码不能为空",
-          type: "error"
-        });
-        return;
-      }
       if (this.form.vcode != this.code) {
         this.$message({
           showClose: true,

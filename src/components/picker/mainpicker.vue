@@ -146,7 +146,7 @@ export default {
   overflow: hidden;
   overflow-y: scroll;
   border-left: 1px solid #e7e7e7;
-  background-image: url("../assets/texture.png");
+  background-image: url("../../assets/texture.png");
   color: #000;
   z-index: 9999;
 }
