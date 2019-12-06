@@ -73,7 +73,6 @@ export default {
           }
         }
       },
-
       series: [
         {
           name: "一级权重分析",

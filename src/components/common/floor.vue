@@ -3,8 +3,8 @@
     <el-row style="height:100%">
       <el-col :span="4" style="position:relative;height:50%">
         <div class="floor-picker">
-          <i class="el-icon-arrow-up" id="floor-button-next" @click="handleNext"></i>
-          <i class="el-icon-arrow-down" id="floor-button-prev" @click="handlePrev"></i>
+          <!-- <i class="el-icon-arrow-up" id="floor-button-next" @click="handleNext"></i>
+          <i class="el-icon-arrow-down" id="floor-button-prev" @click="handlePrev"></i>-->
           <div
             class="floor-picker-inner"
             @mouseenter="handleMouseEnter"
@@ -27,21 +27,30 @@
         </div>
       </el-col>
       <el-col :span="20">
-        <ul class="building-info">
-          <li class="info-item">
-            <span>建筑面积</span>
-          </li>
-          <li class="info-item">
-            <span>建造高度</span>
-          </li>
-          <li class="info-item">
-            <span>建筑面积</span>
-          </li>
-          <li class="info-item">
-            <span>建筑面积</span>
-          </li>
-        </ul>
-        <div class></div>
+        <div class="info-box">
+          <ul class="building-info">
+            <li class="info-item">
+              <span>建筑面积</span>
+              <span>
+                400m
+                <sup>2</sup>
+              </span>
+            </li>
+            <li class="info-item">
+              <span>建造高度</span>
+              <span>100m</span>
+            </li>
+            <li class="info-item">
+              <span>地上层数</span>
+              <span>20层</span>
+            </li>
+            <li class="info-item">
+              <span>地下层数</span>
+              <span>0</span>
+            </li>
+          </ul>
+          <el-image :src="src"></el-image>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -79,7 +88,9 @@ export default {
           floorName: "8F"
         }
       ],
-      isEnter: false
+      isEnter: false,
+      src:
+        "http://192.168.10.65:8888/images/0a2967e6-53ef-4630-9a47-0bd055ad25fe.jpg"
     };
   },
   computed: {
@@ -183,8 +194,26 @@ export default {
 .floor-item.center {
   color: #222;
 }
+.building-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
 .info-item {
-  display: inline;
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+}
+.info-item span {
+  display: block;
+  text-align: center;
+}
+.info-item span:first-child {
+  font-weight: bold;
+  font-size: 24px;
+}
+.info-item span:last-child {
+  font-size: 20px;
 }
 .floor-picker-inner {
   /* display: flex;
@@ -229,7 +258,7 @@ export default {
   top: 50%;
   left: 20px;
   right: 20px;
-  border-radius: 4px
+  border-radius: 4px;
 }
 .floor-picker-rule {
   box-sizing: border-box;
@@ -244,6 +273,7 @@ export default {
   z-index: 2;
   border-top: solid 1px rgba(0, 0, 0, 0.1);
   border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
 }
 #floor-button-prev {
   cursor: pointer;
@@ -262,5 +292,11 @@ export default {
   z-index: 99;
   left: 50%;
   margin-left: -15px;
+}
+.info-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

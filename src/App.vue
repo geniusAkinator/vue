@@ -595,8 +595,20 @@ input:focus + .el-input__suffix {
 .box-card.no-padding .el-card__body {
   padding: 0;
 }
-.block-content .el-carousel__container{
+.block-content .el-carousel__container {
   height: 200px;
+}
+.box-item .el-table th,
+.box-item .el-table tr {
+  background-color: rgba(9, 66, 161, 0.2) !important;
+  color: #fff;
+  text-align: center;
+}
+.box-item .el-table__row td {
+  text-align: center;
+}
+.box-item .el-table__row:hover td {
+  background-color: rgba(9, 66, 161, 0.8) !important;
 }
 /* 移动端样式 */
 @media screen and (max-width: 760px) {

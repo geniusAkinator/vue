@@ -32,9 +32,10 @@ export default {
         }
       },
       grid: {
+        top: "20%",
         left: "3%",
         right: "3%",
-        bottom: "3%",
+        bottom: "10%",
         containLabel: true
       },
       yAxis: {
