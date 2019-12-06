@@ -1,18 +1,37 @@
 <template>
   <div class="container dark">
-    <el-row :gutter="20" class="platform-box">
-      <el-col :span="8">
+    <div class="platform-top">
+      <div class="swiper-container" id="platform-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">AAAAAA</div>
+          <div class="swiper-slide">BBBBBB</div>
+          <div class="swiper-slide">CCCCCC</div>
+        </div>
+      </div>
+      <div class="total-box">
+        <div class="total-item">
+          <i class="el-icon-warning-outline"></i>
+          <span>故障</span>
+        </div>
+        <div class="total-item">
+          <i class="el-icon-warning-outline"></i>
+          <span>隐患</span>
+        </div>
+      </div>
+    </div>
+    <el-row :gutter="10" class="platform-box">
+      <el-col :span="6">
         <el-col :span="24" class="box-item">
-          <el-col :span="12">
+          <el-col :span="12" class="flex-box">
             <div id="dashboard"></div>
           </el-col>
-          <el-col :span="12">
-            <div class>
-              <div class>
+          <el-col :span="12" class="flex-box">
+            <div class="admin-box">
+              <div class="admin-item">
                 <i class="el-icon-office-building"></i>
                 <span>负责建筑</span>
               </div>
-              <div class>
+              <div class="admin-item">
                 <i class="el-icon-user"></i>
                 <span>管理员</span>
               </div>
@@ -24,14 +43,14 @@
             <ul class="platform-list">
               <li class="platform-item">今日火警</li>
               <li class="platform-item">
-                <i class="el-icon-stopwatch"></i>
+                <i class="el-icon-time"></i>
                 <p>
                   等待处理
                   <span>0</span>个
                 </p>
               </li>
               <li class="platform-item">
-                <i class="el-icon-stopwatch"></i>
+                <i class="el-icon-time"></i>
                 <p>
                   等待处理
                   <span>0</span>个
@@ -50,7 +69,7 @@
             <ul class="platform-list">
               <li class="platform-item title">今日火警</li>
               <li class="platform-item">
-                <i class="el-icon-stopwatch"></i>
+                <i class="el-icon-time"></i>
                 <p>
                   等待处理
                   <span>0</span>个
@@ -100,12 +119,16 @@
           </el-col>
         </el-col>
         <el-col :span="24" class="box-item">
+          <div class="box-item-title">本日设备正常运行统计</div>
           <div id="today_chart"></div>
         </el-col>
       </el-col>
-      <el-col :span="8">
-        <el-col :span="24" class="box-item middle">楼层预览</el-col>
+      <el-col :span="12">
+        <el-col :span="24" class="box-item middle">
+          <my-floor></my-floor>
+        </el-col>
         <el-col :span="24" class="box-item">
+          <div class="box-item-title">事件实时管理</div>
           <el-table :data="tableData" class="platform-table" style="width: 100%">
             <el-table-column prop="datetime" label="时间"></el-table-column>
             <el-table-column prop="pos" label="传感器位置"></el-table-column>
@@ -114,26 +137,32 @@
           </el-table>
         </el-col>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
         <el-col :span="24" class="box-item">
-          <el-col :span="12"></el-col>
-          <el-col :span="12"></el-col>
+          <div class="box-item-title">事件处理率</div>
+          <el-col :span="12" style="height:100%">
+            <my-echart-gauge></my-echart-gauge>
+          </el-col>
+          <el-col :span="12" style="height:100%">
+            <my-echart-gauge></my-echart-gauge>
+          </el-col>
         </el-col>
         <el-col :span="24" class="box-item">
+          <div class="box-item-title">监控在线统计</div>
           <div id="pie_chart"></div>
         </el-col>
         <el-col :span="24" class="box-item">
           <el-col :span="12" style="height:50%">
-            <div id="rchart1"></div>
+            <my-echart-line></my-echart-line>
           </el-col>
           <el-col :span="12" style="height:50%">
-            <div id="rchart2"></div>
+            <my-echart-line></my-echart-line>
           </el-col>
           <el-col :span="12" style="height:50%">
-            <div id="rchart3"></div>
+            <my-echart-line></my-echart-line>
           </el-col>
           <el-col :span="12" style="height:50%">
-            <div id="rchart4"></div>
+            <my-echart-line></my-echart-line>
           </el-col>
         </el-col>
       </el-col>
@@ -142,6 +171,11 @@
 </template>
 
 <script>
+import MyEchartGauge from "@/components/echart/egaugev2";
+import MyEchartLine from "@/components/echart/elinev2";
+import MyFloor from "@/components/common/floor";
+import Swiper from "swiper";
+import "swiper/dist/css/swiper.css";
 export default {
   data() {
     return {
@@ -160,6 +194,8 @@ export default {
   methods: {
     resizeChart() {
       this.tchart.resize();
+      this.pchart.resize();
+      this.bchart.resize();
     },
     initTodayChart() {
       //今日传感器
@@ -218,7 +254,6 @@ export default {
         ]
       };
       this.tchart.setOption(option);
-      window.addEventListener("resize", this.resizeChart);
     },
     initDashboard() {
       //仪表盘
@@ -301,138 +336,12 @@ export default {
       };
       this.bchart.setOption(option);
     },
-    initRealtimeChart() {
-      //
-      this.rchart1 = echarts.init(document.getElementById("rchart1"));
-      let option = {
-        color: ["#fff"],
-        xAxis: {
-          type: "category",
-          axisLine: {
-            lineStyle: {
-              color: "#fff" //轴颜色
-            }
-          }
-        },
-        grid: {
-          top: "15%",
-          left: "3%",
-          right: "3%",
-          bottom: "3%",
-          containLabel: true
-        },
-        yAxis: {
-          type: "value",
-          axisLine: {
-            lineStyle: {
-              color: "#fff" //轴颜色
-            }
-          },
-          splitLine: { show: false } //隐藏网格
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: "line",
-            smooth: true,
-            areaStyle: {
-              normal: {
-                color: {
-                  type: "linear",
-                  x: 0,
-                  y: 0,
-                  x2: 0,
-                  y2: 1,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: "#4D96C2"
-                    },
-                    {
-                      offset: 1,
-                      color: "#085EAA"
-                    }
-                  ],
-                  globalCoord: false
-                }
-              }
-            }
-          }
-        ]
-      };
-      this.rchart1.setOption(option);
-    },
-    initRealtimeChart2() {
-      this.rchart2 = echarts.init(document.getElementById("rchart2"));
-      let option = {
-        color: ["#fff"],
-        xAxis: {
-          type: "category",
-          axisLine: {
-            lineStyle: {
-              color: "#fff" //轴颜色
-            }
-          }
-        },
-        grid: {
-          top: "15%",
-          left: "3%",
-          right: "3%",
-          bottom: "3%",
-          containLabel: true
-        },
-        yAxis: {
-          type: "value",
-          axisLine: {
-            lineStyle: {
-              color: "#fff" //轴颜色
-            }
-          },
-          splitLine: { show: false } //隐藏网格
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: "line",
-            smooth: true,
-            areaStyle: {
-              normal: {
-                color: {
-                  type: "linear",
-                  x: 0,
-                  y: 0,
-                  x2: 0,
-                  y2: 1,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: "#4D96C2"
-                    },
-                    {
-                      offset: 1,
-                      color: "#085EAA"
-                    }
-                  ],
-                  globalCoord: false
-                }
-              }
-            }
-          }
-        ]
-      };
-      this.rchart2.setOption(option);
-    },
     initPieChart() {
       this.pchart = echarts.init(document.getElementById("pie_chart"));
       let option = {
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-          orient: "vertical",
-          left: "left",
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
         },
         series: [
           {
@@ -464,11 +373,21 @@ export default {
   mounted() {
     this.initTodayChart();
     this.initDashboard();
-    this.initRealtimeChart();
-    this.initRealtimeChart2();
     this.initPieChart();
+    new Swiper(".swiper-container", {
+      direction: "vertical",
+      autoplay: {
+        delay: 1200,
+        disableOnInteraction: false
+      }
+    });
+    window.addEventListener("resize", this.resizeChart);
   },
-  components: {}
+  components: {
+    MyEchartGauge,
+    MyEchartLine,
+    MyFloor
+  }
 };
 </script>
 
@@ -488,14 +407,14 @@ export default {
   height: 100%;
 }
 .box-item {
-  height: calc((100% - 40px) / 3);
-  margin-bottom: 20px;
+  height: calc((100% - 80px) / 3);
+  margin-top: 10px;
 }
-.box-item:last-child {
-  margin-bottom: 0;
+.box-item:first-child {
+  margin-top: 50px;
 }
 .middle {
-  height: calc((200% - 20px) / 3);
+  height: calc((200% - 130px) / 3);
 }
 .platform-list {
   list-style-type: none;
@@ -513,15 +432,17 @@ export default {
   width: 100%;
   height: 100%;
 }
-.box-item {
-  border: 1px solid #999;
-}
+/* .box-item {
+  border: 1px solid #fff;
+} */
 .box-item {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  background: rgba(33, 34, 52, 0.6);
+  position: relative;
 }
 .platform-list {
-  background: #1a1f30;
+  background: #fff;
   padding: 10px;
   margin-top: 10px;
   border-radius: 4px;
@@ -529,7 +450,8 @@ export default {
 .platform-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  color: #999;
 }
 .platform-item i {
   margin-right: 10px;
@@ -540,7 +462,6 @@ export default {
   font-size: 12px;
 }
 .platform-item span {
-  color: #fff;
   font-size: 18px;
   margin-right: 5px;
 }
@@ -554,7 +475,7 @@ export default {
   padding: 0;
 }
 #dashboard {
-  width: 250px;
+  width: 100%;
   height: 150px;
 }
 div[id^="rchart"] {
@@ -564,5 +485,67 @@ div[id^="rchart"] {
 #pie_chart {
   height: 100%;
   width: 100%;
+}
+#platform-swiper {
+  width: 300px;
+  height: 30px;
+  margin: 0;
+}
+#platform-swiper .swiper-slide {
+  text-align: left;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  background: initial;
+  padding: 0 10px;
+}
+
+.platform-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+}
+.total-box {
+  margin-left: auto;
+  padding-right: 10px;
+  line-height: 30px;
+}
+.total-item i {
+  background: #ffa678;
+  padding: 2px;
+  border-radius: 4px;
+}
+.total-item {
+  display: inline;
+}
+.flex-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.admin-item i {
+  font-size: 30px;
+}
+.box-item-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  padding: 10px;
 }
 </style>

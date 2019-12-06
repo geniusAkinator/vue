@@ -91,7 +91,7 @@ import MyEchartGauge from "@/components/echart/egauge";
 import MyEchartLine from "@/components/echart/eline";
 import MyEchartEarth from "@/components/echart/earth";
 import MyEchartPie from "@/components/echart/epie";
-import MyClock from "@/components/echart/echart/clock";
+import MyClock from "@/components/common/clock";
 import MyEchartRadar from "@/components/echart/eradar";
 import MyEchartBar from "@/components/echart/ebar";
 import MyHorizontalEchartBar from "@/components/echart/ehbar";
