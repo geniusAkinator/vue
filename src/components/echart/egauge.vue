@@ -14,7 +14,7 @@ export default {
         startAngle: 225, //开始角度
         endAngle: -45 //结束角度
       },
-      option:{}
+      option: {}
     };
   },
   props: {
@@ -34,7 +34,10 @@ export default {
     colors(newVal, oldVal) {
       let _this = this;
       let opt = _this.option;
-      opt.series[0].axisLine.lineStyle.color=[[0.8, _this.colors[0]], [1, "#4f6576"]]
+      opt.series[0].axisLine.lineStyle.color = [
+        [0.8, _this.colors[0]],
+        [1, "#4f6576"]
+      ];
       _this.myCharts.clear();
       _this.myCharts.setOption(opt);
     }
@@ -44,8 +47,8 @@ export default {
     _this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     _this.option = {
       title: {
-        y:"30%",
-        x:"14%",
+        y: "30%",
+        x: "14%",
         text: "接入主数站",
         textStyle: {
           fontWeight: "normal",

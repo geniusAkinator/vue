@@ -91,7 +91,7 @@
               <ul class="info-list">
                 <li>
                   <i class="el-icon-location"></i>
-                  <span>{{item.floor.building.factory.factoryName}}-{{item.floor.building.name}}-{{item.floor.floorName}}</span>
+                  <span>XXXXXXXXXXXXX</span>
                 </li>
                 <li>
                   <i class="el-icon-warning-outline"></i>

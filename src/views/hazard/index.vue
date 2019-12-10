@@ -6,7 +6,7 @@
           <el-form :label-position="labelPosition" ref="form" :model="Listform" label-width="80px">
             <el-form-item label="关键字" size="small">
               <el-date-picker
-                v-model="Listform.datetimerange"
+                v-model="sform.datetimerange"
                 type="datetimerange"
                 range-separator="至"
                 start-placeholder="开始日期"
@@ -15,7 +15,7 @@
               ></el-date-picker>
             </el-form-item>
             <el-form-item label="所属代理" size="small">
-              <el-select v-model="Listform.mainId" placeholder="请选择所属代理">
+              <el-select v-model="sform.mainId" placeholder="请选择所属代理">
                 <el-option
                   v-for="item in moptions"
                   :key="item.value"
@@ -25,7 +25,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="所属工厂" size="small">
-              <el-select v-model="Listform.mainId" placeholder="请选择所属工厂">
+              <el-select v-model="sform.mainId" placeholder="请选择所属工厂">
                 <el-option
                   v-for="item in foptions"
                   :key="item.value"
@@ -51,12 +51,12 @@
       style="width: 100%"
       v-loading="loading"
     >
-      <el-table-column prop="id" label="隐患ID" width="80"></el-table-column>
-      <el-table-column prop="area" label="隐患内容"></el-table-column>
-      <el-table-column prop="device" label="隐患类型"></el-table-column>
-      <el-table-column prop="datetime" label="上报时间"></el-table-column>
-      <el-table-column prop="datetime" label="工厂名称"></el-table-column>
-      <el-table-column prop="datetime" label="设备ID"></el-table-column>
+      <el-table-column prop="hdId" label="隐患ID" width="80"></el-table-column>
+      <el-table-column prop="content" label="隐患内容"></el-table-column>
+      <el-table-column prop="type" label="隐患类型"></el-table-column>
+      <el-table-column prop="currdate" label="上报时间"></el-table-column>
+      <el-table-column prop="factory.factoryName" label="工厂名称"></el-table-column>
+      <el-table-column prop="transducer.deviceNumber" label="设备编号"></el-table-column>
       <el-table-column label="操作" fixed="right" width="200px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleDetail(scope.$index, scope.row)">详情</el-button>
@@ -64,11 +64,24 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :hide-on-single-page="isPaging"
+        :current-page="currentPage"
+        :page-sizes="[25, 50, 75, 100]"
+        :page-size="Listform.pageSize"
+        layout="prev,pager,next,jumper,total,sizes"
+        :total="total"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 import MySearchTool from "@/components/common/searchtool";
+import api from "@/api/index";
 export default {
   data() {
     return {
@@ -103,14 +116,15 @@ export default {
           }
         ]
       },
-      tableData: [{}],
+      tableData: [],
       loading: false,
       Listform: {
         pageNum: 1,
-        pageSize: 25,
-        factoryId: "",
-        mainId: "",
-        datetimerange: ""
+        pageSize: 25
+      },
+      sform: {
+        datetimerange: "",
+        mainId: ""
       },
       moptions: [],
       foptions: [],
@@ -123,7 +137,19 @@ export default {
   methods: {
     handleSizeChange() {},
     handleCurrentChange() {},
-    initTable() {},
+    initTable() {
+      api
+        .getHazardData(this.Listform)
+        .then(res => {
+          if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+            let _data = res.data;
+            this.tableData = _data.content;
+            this.total = _data.total;
+            console.log(this.tableData);
+          }
+        })
+        .catch(_ => {});
+    },
     handleDetail() {
       this.$router.push({
         name: "隐患详情"

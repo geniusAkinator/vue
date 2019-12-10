@@ -138,7 +138,7 @@ export default {
   background: rgba(0, 0, 0, 0);
   text-shadow: 1px 1px 5px #369;
 }
-.clock-container{
+.clock-container {
   padding: 10px 0;
 }
 </style>

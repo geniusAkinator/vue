@@ -779,3 +779,14 @@ export const delSensorSysData = params => {  //删除传感器系统
         method: "DELETE"
     });
 }
+
+/**
+ *隐患管理
+ */
+export const getHazardData = params => { //获取隐患
+    return request({
+        url: '/hiddenDanger/hiddenDangerList',
+        params: params,
+        method: "GET"
+    });
+}

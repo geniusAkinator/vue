@@ -52,6 +52,14 @@ export default {
           data: [820, 932, 901, 934, 1290, 1330, 1320],
           type: "line",
           smooth: true,
+          lineStyle: {
+            color: "#025BE1"
+          },
+          itemStyle: {
+            normal: {
+              color: "#025BE1"
+            }
+          },
           areaStyle: {
             normal: {
               color: {
@@ -63,11 +71,11 @@ export default {
                 colorStops: [
                   {
                     offset: 0,
-                    color: "#4D96C2"
+                    color: "#468efd"
                   },
                   {
                     offset: 1,
-                    color: "#085EAA"
+                    color: "#B4D1FE"
                   }
                 ],
                 globalCoord: false

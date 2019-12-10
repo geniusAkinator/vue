@@ -13,31 +13,41 @@ export default {
       myCharts: {}
     };
   },
+  props: {
+    color: {},
+    data: {}
+  },
   methods: {},
   mounted() {
+    let _this = this;
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
+    let scolor = this.color.scolor;
+    let ecolor = this.color.ecolor;
+    let lcolor = this.color.lcolor;
+    //08BBB7
+    //91D86C
     var dataArr = [
       {
-        value: 91,
-        name: "本周隐患及时处理率"
+        value: this.data.value,
+        name: this.data.label
       }
     ];
     var color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
       {
-        offset: 0,
-        color: "#5CF9FE" // 0% 处的颜色
+        offset: 0.05,
+        color: scolor // 0% 处的颜色
       },
       {
-        offset: 0.17,
-        color: "#468EFD" // 100% 处的颜色
+        offset: 0.3,
+        color: ecolor // 100% 处的颜色
       },
       {
-        offset: 0.9,
-        color: "#468EFD" // 100% 处的颜色
+        offset: 0.8,
+        color: ecolor // 100% 处的颜色
       },
       {
         offset: 1,
-        color: "#5CF9FE" // 100% 处的颜色
+        color: scolor // 100% 处的颜色
       }
     ]);
     var colorSet = [[0.91, color], [1, "#15337C"]];
@@ -77,53 +87,6 @@ export default {
       },
       series: [
         {
-          //内圆
-          type: "pie",
-          radius: "85%",
-          center: ["50%", "50%"],
-          z: 0,
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.RadialGradient(
-                0.5,
-                0.5,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: "rgba(17,24,43,0)"
-                  },
-                  {
-                    offset: 0.5,
-                    // color: '#1E2B57'
-                    color: "rgba(28,42,91,.6)"
-                  },
-                  {
-                    offset: 1,
-                    color: "#141C33"
-                    // color:'rgba(17,24,43,0)'
-                  }
-                ],
-                false
-              ),
-              label: {
-                show: false
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          hoverAnimation: false,
-          label: {
-            show: false
-          },
-          tooltip: {
-            show: false
-          },
-          data: [100]
-        },
-        {
           type: "gauge",
           name: "外层辅助",
           radius: "74%",
@@ -141,22 +104,10 @@ export default {
               value: 1
             }
           ],
-          // data: [{value: 1, name: 90}],
-          title: {
-            show: true,
-            offsetCenter: [0, 30],
-            textStyle: {
-              color: "#fff",
-              fontStyle: "normal",
-              fontWeight: "normal",
-              fontFamily: "微软雅黑",
-              fontSize: 20
-            }
-          },
           axisLine: {
             show: true,
             lineStyle: {
-              color: [[1, "#00FFFF"]],
+              color: [[1, lcolor]], //最外层线的颜色
               width: 2,
               opacity: 1
             }
@@ -165,13 +116,7 @@ export default {
             show: false
           },
           splitLine: {
-            show: true,
-            length: 20,
-            lineStyle: {
-              color: "#051932",
-              width: 0,
-              type: "solid"
-            }
+            show: false
           },
           axisLabel: {
             show: false
@@ -193,7 +138,9 @@ export default {
                 num +
                 "}{white|%}" +
                 "{size|" +
-                "}\n{radius|本周故障及时处理率}"
+                "}\n{radius|" +
+                _this.data.label +
+                "}"
               );
             },
             rich: rich
@@ -206,9 +153,7 @@ export default {
             show: true,
             lineStyle: {
               color: colorSet,
-              width: 25,
-              // shadowBlur: 15,
-              // shadowColor: '#B0C4DE',
+              width: 20,
               shadowOffsetX: 0,
               shadowOffsetY: 0,
               opacity: 1
@@ -223,51 +168,6 @@ export default {
           axisLabel: {
             show: false
           }
-        },
-        {
-          //内圆
-          type: "pie",
-          radius: "56%",
-          center: ["50%", "50%"],
-          z: 1,
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.RadialGradient(
-                0.5,
-                0.5,
-                0.8,
-                [
-                  {
-                    offset: 0,
-                    color: "#4978EC"
-                  },
-                  {
-                    offset: 0.5,
-                    color: "#1E2B57"
-                  },
-                  {
-                    offset: 1,
-                    color: "#141F3D"
-                  }
-                ],
-                false
-              ),
-              label: {
-                show: false
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          hoverAnimation: false,
-          label: {
-            show: false
-          },
-          tooltip: {
-            show: false
-          },
-          data: [100]
         }
       ]
     };

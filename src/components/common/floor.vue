@@ -49,7 +49,7 @@
               <span>0</span>
             </li>
           </ul>
-          <el-image :src="src"></el-image>
+          <el-image class="floor_img" :src="src" :fit="'scale-down'" :style="{height:`${height}px`}"></el-image>
         </div>
       </el-col>
     </el-row>
@@ -92,6 +92,9 @@ export default {
       src:
         "http://192.168.10.65:8888/images/0a2967e6-53ef-4630-9a47-0bd055ad25fe.jpg"
     };
+  },
+  props: {
+    height: ""
   },
   computed: {
     len: function() {
@@ -174,6 +177,7 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .floor-item {
@@ -184,15 +188,16 @@ export default {
   vertical-align: middle;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  font-size: 1pc;
-  color: #888;
+  font-size: 14px;
+  color: #fff;
   white-space: nowrap;
   -webkit-text-overflow: ellipsis;
   text-overflow: ellipsis;
   cursor: default;
 }
 .floor-item.center {
-  color: #222;
+  color: #fff;
+  font-size: 16px;
 }
 .building-info {
   display: flex;
@@ -210,7 +215,7 @@ export default {
 }
 .info-item span:first-child {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
 }
 .info-item span:last-child {
   font-size: 20px;
@@ -248,7 +253,7 @@ export default {
 } */
 .floor-picker {
   position: absolute;
-  background: #ddd;
+  background: #0942a1;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -293,10 +298,20 @@ export default {
   left: 50%;
   margin-left: -15px;
 }
-.info-box{
+.info-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.floor_img {
+  width: 100%;
+  background-color: initial;
+}
+.floor_img .el-image__error {
+  background: initial;
+}
+.floor_img .el-image__inner{
+  height: auto !important
 }
 </style>

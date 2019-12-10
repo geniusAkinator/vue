@@ -10,7 +10,7 @@
         @blur="handleBlur"
         id="inputMain"
       ></el-input>
-      <el-button type="primary" icon="el-icon-plus" size="medium" id="btnMainAdd"></el-button>
+      <el-button type="primary" icon="el-icon-plus" size="medium" id="btnMainAdd" @click="jump"></el-button>
     </div>
     <ul class="main_list">
       <template v-for="(item,index) in mainList">
@@ -130,6 +130,11 @@ export default {
           name: "工厂详情"
         });
       }, 600);
+    },
+    jump() {
+      this.$router.push({
+        name: "平台主体"
+      });
     }
   }
 };
