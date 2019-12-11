@@ -17,13 +17,18 @@ export default {
     color: {},
     data: {}
   },
-  methods: {},
+  methods: {
+    resizeChart() {
+      this.myCharts.resize();
+    }
+  },
   mounted() {
     let _this = this;
     this.myCharts = echarts.init(document.getElementById(`${this.id}`));
     let scolor = this.color.scolor;
     let ecolor = this.color.ecolor;
     let lcolor = this.color.lcolor;
+    let center = ["50%", "55%"];
     //08BBB7
     //91D86C
     var dataArr = [
@@ -53,13 +58,13 @@ export default {
     var colorSet = [[0.91, color], [1, "#15337C"]];
     var rich = {
       white: {
-        fontSize: 40,
+        fontSize: 35,
         color: "#fff",
         fontWeight: "500",
         padding: [20, 0, 0, 0]
       },
       bule: {
-        fontSize: 40,
+        fontSize: 35,
         color: "#fff",
         fontWeight: "500",
         padding: [20, 0, 0, 0]
@@ -68,12 +73,12 @@ export default {
         // lineHeight:80,
         borderWidth: 1,
         borderColor: "#0092F2",
-        fontSize: 14,
+        fontSize: 12,
         color: "#fff",
         backgroundColor: "#1B215B",
         borderRadius: 20,
         textAlign: "center",
-        padding: [10, 10, 10, 10]
+        padding: [8, 10, 10, 10]
       },
       size: {
         height: 100,
@@ -88,6 +93,7 @@ export default {
       series: [
         {
           type: "gauge",
+          center: center,
           name: "外层辅助",
           radius: "74%",
           startAngle: "225",
@@ -124,6 +130,7 @@ export default {
         },
         {
           type: "gauge",
+          center: center,
           radius: "70%",
           startAngle: "225",
           endAngle: "-45",
@@ -173,13 +180,14 @@ export default {
     };
 
     this.myCharts.setOption(option);
+    window.addEventListener("resize", this.resizeChart);
   }
 };
 </script>
 
 <style>
 .echart {
-  width: 280px;
-  height: 280px;
+  width: 100%;
+  height: 100%;
 }
 </style>

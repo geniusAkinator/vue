@@ -526,14 +526,14 @@ export default {
       this.nowDate = `${year}/${_month}/${_day}  ${w}`;
       setInterval(() => {
         this.updateTime();
-      }, 1000 * 6);
+      }, 1000);
     },
     updateTime() {
       let date = new Date();
       let _hour = date.getHours();
       let _min = date.getMinutes();
-      _hour > 10 ? (_hour = _hour) : (_hour = "0" + _hour);
-      _min > 10 ? (_min = _min) : (_min = "0" + _min);
+      // _hour > 10 ? (_hour = _hour) : (_hour = "0" + _hour);
+      _min > 10 ? {} : _min = "0" + _min;
       this.nowTime = `${_hour}:${_min}`;
     }
   },
@@ -569,6 +569,8 @@ export default {
   background: #081b53;
   overflow: hidden;
   color: #fff;
+  min-width: 1500px;
+  min-height: 800px;
 }
 .platform-box {
   height: 100%;
@@ -892,7 +894,7 @@ div[id^="rchart"] {
   position: absolute;
   left: 0;
   right: 0;
-  top: 90px;
+  top: 88px;
   color: #fff;
   z-index: 999;
   margin: 0 auto;
@@ -900,7 +902,8 @@ div[id^="rchart"] {
   overflow: hidden;
   box-sizing: border-box;
   background: rgba(71, 221, 254, 0.5);
-  font-size: 18px;
+  font-size: 14px;
+  padding: 4px 0;
 }
 
 .welcome span {

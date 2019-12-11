@@ -144,7 +144,7 @@ export default {
 <style scoped>
 .el-container {
   height: 100%;
-  transition: all 0.3s ease-in-out
+  transition: all 0.3s ease-in-out;
 }
 .app {
   height: 100%;

@@ -204,7 +204,7 @@ export default {
       this.verityForm();
     },
     verityForm() {
-      if (this.form.vcode != this.code) {
+      if (this.form.vcode.toUpperCase() != this.code) {
         this.$message({
           showClose: true,
           message: "验证码错误",
@@ -354,9 +354,7 @@ export default {
         gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       }
-      window.addEventListener("load", function(event) {
-        init();
-      });
+      init();
       window.addEventListener("resize", function(event) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -369,7 +367,6 @@ export default {
     this.$store.dispatch("home/initTab");
     this.$store.dispatch("home/initBreadcrumb");
     this.$store.dispatch("home/initAside");
-    this.$destroy();
     next();
   },
   components: {
