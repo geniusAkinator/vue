@@ -10,6 +10,14 @@
           <el-radio :label="1">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="权限级别">
+        <el-radio-group v-model="form.level">
+          <el-radio label="0">adminstator（超级管理员）</el-radio>
+          <el-radio label="1">admin（代理商）</el-radio>
+          <el-radio label="2">admin（工厂）</el-radio>
+          <el-radio label="3">user（用户）</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -27,7 +35,8 @@ export default {
       form: {
         name: "",
         state: 1,
-        roleId: this.$parent.eid
+        roleId: this.$parent.eid,
+        level: "0"
       },
       rules: {
         name: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
@@ -73,9 +82,7 @@ export default {
     initForm() {
       api
         .getAllMenuData()
-        .then(res => {
-         
-        })
+        .then(res => {})
         .catch(_ => {});
       api
         .getRoleDetail({ roleId: this.form.roleId })

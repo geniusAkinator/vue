@@ -32,10 +32,11 @@
       <el-table-column label="状态">
         <template slot-scope="scope">{{scope.row.state?'显示':'不显示'}}</template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="220px">
+      <el-table-column label="操作" fixed="right" width="260px">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" @click="handleAddPermission(scope.$index, scope.row)">自定义权限</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -56,6 +57,7 @@
 <script>
 import MySubmenuAdd from "@/views/menu/madd";
 import MySubmenuEdit from "@/views/menu/medit";
+import MyPermissionAdd from "@/views/menu/padd";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 export default {
@@ -204,6 +206,21 @@ export default {
         .catch(_ => {
           this.did = "";
         });
+    },
+    handleAddPermission(index, row) {
+      this.eid = row.menuId;
+      let idx = this.$layer.iframe({
+        content: {
+          content: MyPermissionAdd, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "添加页面权限",
+        target: ".el-main"
+      });
+      this.index = idx;
     }
   },
   created() {

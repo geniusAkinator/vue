@@ -1,63 +1,127 @@
 <template>
   <div class="container">
     <el-form ref="form" :model="form" label-width="140px">
-      <el-form-item label="误报故障自动处理">
-        <el-switch v-model="form.isAutomate"></el-switch>
-        <div v-if="form.isAutomate">
-          <el-input-number v-model="num" @change="handleChange" :min="1" label="描述文字" size="mini"></el-input-number>
-          <span>分钟内不再重复上报，故障自动设置为误报。</span>
-        </div>
-      </el-form-item>
-      <el-form-item label="故障处理超时设置">
-        <el-switch v-model="form.isOvertime"></el-switch>
-        <div v-if="form.isOvertime">
-          <el-input-number v-model="num" @change="handleChange" :min="1" label="描述文字" size="mini"></el-input-number>
-          <span>分钟内不再重复上报，故障自动设置为超时。</span>
-        </div>
-      </el-form-item>
-      <el-form-item label="故障处理通知超时">
-        <el-switch v-model="form.isNotify"></el-switch>
-        <div v-if="form.isNotify">
-          <ul class="member_ul">
-            <li v-for="(item,index) in elist" :key="index">
-              <span>{{item.label}}</span>
-              <i class="el-icon-close" @click="handleDel(index)"></i>
-            </li>
-          </ul>
-          <el-button
-            size="medium"
-            icon="el-icon-plus"
-            round
-            @click="handleNotifyClick"
-            ref="notifyBtn"
-          ></el-button>
-        </div>
-      </el-form-item>
-      <el-form-item label="隐患处理超时设置">
-        <el-switch v-model="form.isOvertimeHazard"></el-switch>
-        <div v-if="form.isOvertimeHazard">
-          <el-input-number v-model="num" @change="handleChange" :min="1" label="描述文字" size="mini"></el-input-number>
-          <span>分钟内不再重复上报，隐患自动设置为超时。</span>
-        </div>
-      </el-form-item>
-      <el-form-item label="隐患处理通知超时">
-        <el-switch v-model="form.isNotifyHazard"></el-switch>
-        <div v-if="form.isNotifyHazard">
-          <ul class="member_ul">
-            <li v-for="(item,index) in hlist" :key="index">
-              <span>{{item.label}}</span>
-              <i class="el-icon-close" @click="handleHazardDel(index)"></i>
-            </li>
-          </ul>
-          <el-button
-            size="medium"
-            icon="el-icon-plus"
-            round
-            @click="handleHazardNotifyClick"
-            ref="notifyBtn"
-          ></el-button>
-        </div>
-      </el-form-item>
+      <el-row>
+        <el-col :span="2">
+          <i class="el-icon-warning-outline notice_icon"></i>
+        </el-col>
+        <el-col :span="22">
+          <el-form-item label="误报故障自动处理">
+            <el-switch v-model="form.isAutomate"></el-switch>
+            <div v-if="form.isAutomate">
+              <el-input-number
+                v-model="num"
+                @change="handleChange"
+                :min="1"
+                label="描述文字"
+                size="mini"
+              ></el-input-number>
+              <span>分钟内不再重复上报，故障自动设置为误报。</span>
+            </div>
+          </el-form-item>
+          <el-form-item label="故障处理超时设置">
+            <el-switch v-model="form.isOvertime"></el-switch>
+            <div v-if="form.isOvertime">
+              <el-input-number
+                v-model="num"
+                @change="handleChange"
+                :min="1"
+                label="描述文字"
+                size="mini"
+              ></el-input-number>
+              <span>分钟内不再重复上报，故障自动设置为超时。</span>
+            </div>
+          </el-form-item>
+          <el-form-item label="故障处理通知超时">
+            <el-switch v-model="form.isNotify"></el-switch>
+            <div v-if="form.isNotify">
+              <div>
+                <el-input-number
+                  v-model="num"
+                  @change="handleChange"
+                  :min="1"
+                  label="描述文字"
+                  size="mini"
+                ></el-input-number>
+                <span>分钟</span>
+              </div>
+              <ul class="member_ul">
+                <span class="member_label">提醒人</span>
+                <li v-for="(item,index) in elist" :key="index">
+                  <span>{{item.label}}</span>
+                  <i class="el-icon-close" @click="handleDel(index)"></i>
+                </li>
+              </ul>
+              <el-button
+                size="medium"
+                icon="el-icon-plus"
+                round
+                @click="handleNotifyClick"
+                ref="notifyBtn"
+              ></el-button>
+            </div>
+          </el-form-item>
+          <div class="divider_line dash"></div>
+          <div class="add_box">
+            <el-button type="primary" icon="el-icon-plus" size="medium">新增规则</el-button>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
+        </el-col>
+        <div class="divider_line"></div>
+        <el-col :span="2">
+          <i class="iconfont icon-iconset0211 notice_icon"></i>
+        </el-col>
+        <el-col :span="22">
+          <el-form-item label="隐患处理超时设置">
+            <el-switch v-model="form.isOvertimeHazard"></el-switch>
+            <div v-if="form.isOvertimeHazard">
+              <el-input-number
+                v-model="num"
+                @change="handleChange"
+                :min="1"
+                label="描述文字"
+                size="mini"
+              ></el-input-number>
+              <span>分钟内不再重复上报，隐患自动设置为超时。</span>
+            </div>
+          </el-form-item>
+          <el-form-item label="隐患处理通知超时">
+            <el-switch v-model="form.isNotifyHazard"></el-switch>
+            <div v-if="form.isNotifyHazard">
+              <div>
+                <el-input-number
+                  v-model="num"
+                  @change="handleChange"
+                  :min="1"
+                  label="描述文字"
+                  size="mini"
+                ></el-input-number>
+                <span>分钟</span>
+              </div>
+              <ul class="member_ul">
+                <span class="member_label">提醒人</span>
+                <li v-for="(item,index) in hlist" :key="index">
+                  <span>{{item.label}}</span>
+                  <i class="el-icon-close" @click="handleHazardDel(index)"></i>
+                </li>
+              </ul>
+              <el-button
+                size="medium"
+                icon="el-icon-plus"
+                round
+                @click="handleHazardNotifyClick"
+                ref="notifyBtn"
+              ></el-button>
+            </div>
+          </el-form-item>
+          <div class="divider_line dash"></div>
+          <div class="add_box">
+            <el-button type="primary" icon="el-icon-plus" size="medium">新增规则</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </el-form>
     <div class="sysset-footer">
       <el-button type="primary" icon="el-icon-check" size="small">保存</el-button>
@@ -192,5 +256,42 @@ export default {
 }
 .el-dialog__wrapper {
   z-index: 999999 !important;
+}
+.divider_line {
+  width: 100%;
+  height: 1px;
+  background: #dcdfe6;
+  float: left;
+  margin-bottom: 20px;
+}
+.divider_line.dash {
+  width: 100%;
+  height: 1px;
+  float: left;
+  margin-bottom: 20px;
+  background: initial;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #dcdfe6,
+    #dcdfe6 8px,
+    #fff 0,
+    #fff 16px
+  );
+}
+.add_box {
+  margin-bottom: 20px;
+}
+.notice_icon {
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+  background: #ffa678;
+  padding: 5px;
+  color: #fff;
+  border-radius: 4px;
+}
+.member_label {
+  margin-right: 10px;
+  float: left;
 }
 </style>

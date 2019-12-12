@@ -23,6 +23,7 @@
           :inactive-value="0"
         ></el-switch>
       </el-form-item>
+
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>

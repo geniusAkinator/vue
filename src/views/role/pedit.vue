@@ -12,54 +12,14 @@
             <div class="crow" v-for="(citem,idx) in item.children" :key="idx">
               <div v-if="citem.menu.state">
                 <span class="cmenu">{{citem.menu.name}}</span>
-                <el-checkbox
-                  v-model="citem.menu.creates"
-                  v-if="isAssign(citem.menu.menuId,'creates')"
-                  border
-                  size="mini"
-                >添加</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.edit"
-                  v-if="isAssign(citem.menu.menuId,'edit')"
-                  border
-                  size="mini"
-                >编辑</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.del"
-                  v-if="isAssign(citem.menu.menuId,'del')"
-                  border
-                  size="mini"
-                >删除</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.view"
-                  v-if="isAssign(citem.menu.menuId,'view')"
-                  border
-                  size="mini"
-                >浏览</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.query"
-                  v-if="isAssign(citem.menu.menuId,'query')"
-                  border
-                  size="mini"
-                >查询</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.export"
-                  v-if="isAssign(citem.menu.menuId,'export')"
-                  border
-                  size="mini"
-                >导出</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.enable"
-                  v-if="isAssign(citem.menu.menuId,'enable')"
-                  border
-                  size="mini"
-                >启用</el-checkbox>
-                <el-checkbox
-                  v-model="citem.menu.audit"
-                  v-if="isAssign(citem.menu.menuId,'audit')"
-                  border
-                  size="mini"
-                >审核</el-checkbox>
+                <el-checkbox v-model="citem.menu.creates" border size="mini">添加</el-checkbox>
+                <el-checkbox v-model="citem.menu.edit" border size="mini">编辑</el-checkbox>
+                <el-checkbox v-model="citem.menu.del" border size="mini">删除</el-checkbox>
+                <el-checkbox v-model="citem.menu.view" border size="mini">浏览</el-checkbox>
+                <el-checkbox v-model="citem.menu.query" border size="mini">查询</el-checkbox>
+                <el-checkbox v-model="citem.menu.export" border size="mini">导出</el-checkbox>
+                <el-checkbox v-model="citem.menu.enable" border size="mini">启用</el-checkbox>
+                <el-checkbox v-model="citem.menu.audit" border size="mini">审核</el-checkbox>
               </div>
             </div>
           </div>
@@ -166,18 +126,18 @@ export default {
       setTimeout(() => {
         loadingInstance.close();
       }, 600);
-    },
-    isAssign(mid, type) {
-      let isShow = false;
-      this.mdata.map((item, i) => {
-        item.children.map((mitem, j) => {
-          if (mitem.menu.menuId == mid) {
-            isShow = mitem.menu[type];
-          }
-        });
-      });
-      return isShow;
     }
+    // isAssign(mid, type) {
+    //   let isShow = false;
+    //   this.mdata.map((item, i) => {
+    //     item.children.map((mitem, j) => {
+    //       if (mitem.menu.menuId == mid) {
+    //         isShow = mitem.menu[type];
+    //       }
+    //     });
+    //   });
+    //   return isShow;
+    // }
   },
   created() {
     this.initForm();

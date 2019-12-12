@@ -82,7 +82,7 @@
 import MySearchTool from "@/components/common/searchtool";
 import MyRoleAdd from "@/views/role/add";
 import MyRoleEdit from "@/views/role/edit";
-import MyRoleAssign from "@/views/role/auth";
+import MyRoleAssign from "@/views/role/pedit";
 import api from "@/api/index";
 import utils from "@/utils/utils";
 export default {
@@ -234,6 +234,7 @@ export default {
         target: ".el-main"
       });
       this.index = idx;
+      this.$layer.full(idx);
     }
   },
   created() {

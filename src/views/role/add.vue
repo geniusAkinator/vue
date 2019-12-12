@@ -10,6 +10,14 @@
           <el-radio label="1">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="权限级别">
+        <el-radio-group v-model="form.level">
+          <el-radio label="0">adminstator（超级管理员）</el-radio>
+          <el-radio label="1">admin（代理商）</el-radio>
+          <el-radio label="2">admin（工厂）</el-radio>
+          <el-radio label="3">user（用户）</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -27,6 +35,7 @@ export default {
       form: {
         name: "",
         state: "1",
+        level: "0"
       },
       rules: {
         name: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
@@ -40,7 +49,7 @@ export default {
           api
             .addRoleData(this.form)
             .then(res => {
-              if (res.code ==  this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+              if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
                 //添加成功
                 this.$message({
                   showClose: true,
@@ -69,7 +78,7 @@ export default {
     },
     closeDialog() {
       this.$parent.$layer.closeAll();
-    },
+    }
   },
   components: {
     MyMapPicker

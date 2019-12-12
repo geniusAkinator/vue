@@ -1,5 +1,28 @@
 <template>
   <div class="container">
+    <el-card class="state-card">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <ul class="state_block">
+            <li class="state_item">
+              <span>待处理统计</span>
+              <div class="border-circle warning">0</div>
+            </li>
+            <li class="state_item">
+              <span>累计处理统计</span>
+              <div class="border-circle danger">0</div>
+            </li>
+          </ul>
+        </el-col>
+        <el-col :span="12">
+          <ul class="info_block">
+            <li class="info_item">
+              <span class="info_name">最常见隐患类型</span>
+            </li>
+          </ul>
+        </el-col>
+      </el-row>
+    </el-card>
     <div class="table-tool">
       <my-search-tool>
         <template slot="content">

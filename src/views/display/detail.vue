@@ -91,7 +91,7 @@
               <ul class="info-list">
                 <li>
                   <i class="el-icon-location"></i>
-                  <span>XXXXXXXXXXXXX</span>
+                  <span>{{item.floor.building.factory.factoryName}}-{{item.floor.building.name}}-{{item.floor.floorName}}</span>
                 </li>
                 <li>
                   <i class="el-icon-warning-outline"></i>
@@ -344,6 +344,7 @@ export default {
           let list = _data.content;
           let total = _data.total;
           this.list = list;
+          console.log(list)
           this.total = total;
         }
       });

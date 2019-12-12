@@ -18,7 +18,7 @@
           <span>故障</span>
         </div>
         <div class="total-item">
-          <i class="el-icon-warning-outline"></i>
+          <i class="iconfont icon-iconset0211"></i>
           <span>隐患</span>
         </div>
       </div>
@@ -533,7 +533,7 @@ export default {
       let _hour = date.getHours();
       let _min = date.getMinutes();
       // _hour > 10 ? (_hour = _hour) : (_hour = "0" + _hour);
-      _min > 10 ? {} : _min = "0" + _min;
+      _min > 10 ? {} : (_min = "0" + _min);
       this.nowTime = `${_hour}:${_min}`;
     }
   },
