@@ -34,6 +34,9 @@
       <el-form-item label="点位置">
         <my-pos-picker :img="floorImg" @sendPos="getPos"></my-pos-picker>
       </el-form-item>
+      <el-form-item label="点位置描述">
+        <el-input v-model="form.devicePos" placeholder="请输入点位置描述"></el-input>
+      </el-form-item>
       <el-form-item label="设备编号" prop="deviceNumber">
         <el-input v-model="form.deviceNumber" placeholder="请输入设备编号"></el-input>
       </el-form-item>

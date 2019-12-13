@@ -230,6 +230,7 @@ import MyEchartLine from "@/components/echart/elinev2";
 import MyFloor from "@/components/common/floor";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.css";
+import api from "@/api/index";
 export default {
   data() {
     return {
@@ -313,6 +314,12 @@ export default {
       gauge2: {
         label: "本周故障及时处理率",
         value: "50"
+      },
+      form: {
+        id: 1
+      },
+      bform: {
+        id: 1 //工厂id
       }
     };
   },
@@ -465,31 +472,42 @@ export default {
       this.bchart.setOption(option);
     },
     initPieChart() {
-      this.pchart = echarts.init(document.getElementById("pie_chart"));
-      let option = {
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            radius: "55%",
-            color: ["#409EFF", "#F56C6C"],
-            center: ["50%", "60%"],
-            data: [{ value: 335, name: "在线" }, { value: 310, name: "离线" }],
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
+      api.getRealtimeStatusData(this.form).then(res => {
+        console.log(res);
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          let _data = res.data;
+          let inline = _data.inLineTT;
+          let offline = _data.offLineTT;
+          this.pchart = echarts.init(document.getElementById("pie_chart"));
+          let option = {
+            tooltip: {
+              trigger: "item",
+              formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series: [
+              {
+                name: "访问来源",
+                type: "pie",
+                radius: "55%",
+                color: ["#409EFF", "#F56C6C"],
+                center: ["50%", "60%"],
+                data: [
+                  { value: inline, name: "在线" },
+                  { value: offline, name: "离线" }
+                ],
+                itemStyle: {
+                  emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: "rgba(0, 0, 0, 0.5)"
+                  }
+                }
               }
-            }
-          }
-        ]
-      };
-      this.pchart.setOption(option);
+            ]
+          };
+          this.pchart.setOption(option);
+        }
+      });
     },
     initDateTime() {
       let date = new Date();
@@ -535,6 +553,13 @@ export default {
       // _hour > 10 ? (_hour = _hour) : (_hour = "0" + _hour);
       _min > 10 ? {} : (_min = "0" + _min);
       this.nowTime = `${_hour}:${_min}`;
+    },
+    initBuilding() {
+      api.getPlatformBuildingData(this.bform).then(res => {
+        if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
+          console.log(res)
+        }
+      });
     }
   },
   mounted() {
@@ -544,6 +569,7 @@ export default {
     this.initDateTime();
     this.resizeTable();
     this.resizeFloor();
+    this.initBuilding();
     new Swiper("#platform-swiper", {
       direction: "vertical",
       autoplay: {

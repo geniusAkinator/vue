@@ -24,6 +24,20 @@
       v-loading="loading"
       @selection-change="handleSelectionChange"
     >
+      <!-- <el-table-column type="expand">
+        <template slot-scope="props">
+          <ul class="permissions-tree">
+            <li v-for="(item,index) in props.row.children" :key="index">
+              <span>{{item.name}}</span>
+              <span>{{item.peimissions}}</span>
+              <div class="btn_box">
+                <el-button size="mini" @click="handleEditPermission(index, item)">编辑</el-button>
+                <el-button size="mini" type="danger" @click="handleDelete(index, item)">删除</el-button>
+              </div>
+            </li>
+          </ul>
+        </template>
+      </el-table-column>-->
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="menuId" label="ID"></el-table-column>
       <el-table-column prop="name" label="菜单名称"></el-table-column>
@@ -94,7 +108,8 @@ export default {
       ],
       index: "",
       did: "", //删除的id
-      eid: 0 //编辑的id
+      eid: 0,//编辑的id
+      path:""
     };
   },
   watch: {
@@ -104,15 +119,6 @@ export default {
         this.layerInitWidth = layer.offsetWidth;
         this.layerInitHeight = layer.offsetHeight;
       }
-    },
-    $route: function(newVal, oldVal) {
-      // let name = newVal.name;
-      // if (name == "菜单管理") {
-      //   this.Listform.pId = this.$route.params.pId;
-      //   this.pId = this.$route.params.pId;
-      //   this.pName = this.$route.params.pName;
-      //   this.initTable();
-      // }
     }
   },
   methods: {
@@ -172,7 +178,9 @@ export default {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
             this.total = _data.total; //显示数量
-            this.tableData = _data.content; //表格数据
+            let _tableData = _data.content;
+            this.tableData = _tableData;
+            console.log(this.tableData);
           }
         })
         .catch(_ => {});
@@ -209,6 +217,7 @@ export default {
     },
     handleAddPermission(index, row) {
       this.eid = row.menuId;
+      this.path = row.url;
       let idx = this.$layer.iframe({
         content: {
           content: MyPermissionAdd, //传递的组件对象
@@ -218,6 +227,21 @@ export default {
         shade: true,
         area: ["600px", "500px"],
         title: "添加页面权限",
+        target: ".el-main"
+      });
+      this.index = idx;
+    },
+    handleEditPermission(index, row) {
+      this.eid = row.menuId;
+      let idx = this.$layer.iframe({
+        content: {
+          content: MyPermissionEdit, //传递的组件对象
+          parent: this, //当前的vue对象
+          data: {} //props
+        },
+        shade: true,
+        area: ["600px", "500px"],
+        title: "编辑页面权限",
         target: ".el-main"
       });
       this.index = idx;
@@ -251,4 +275,41 @@ export default {
 };
 </script>
  <style>
+.permissions-tree {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+.permissions-tree::before {
+  content: "";
+  display: block;
+  width: 1px;
+  background: #ebeef5;
+  position: absolute;
+  left: 0;
+  top: -40px;
+  bottom: 10px;
+}
+.permissions-tree li {
+  margin-top: 20px;
+  display: flex;
+  position: relative;
+}
+.permissions-tree li::before {
+  content: "";
+  display: block;
+  left: 0;
+  top: 50%;
+  margin-top: 10px;
+  height: 1px;
+  width: 30px;
+  background: #ebeef5;
+}
+.permissions-tree li > span {
+  margin-right: 40px;
+}
+.btn_box {
+  margin-left: auto;
+}
 </style>

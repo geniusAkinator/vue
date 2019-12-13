@@ -31,7 +31,7 @@
         <el-checkbox v-model="form.export" label="导出" border></el-checkbox>
         <el-checkbox v-model="form.enable" label="启用" border></el-checkbox>
         <el-checkbox v-model="form.audit" label="审核" border></el-checkbox>
-      </el-form-item> -->
+      </el-form-item>-->
       <div class="add-footer">
         <el-button size="small" type="primary" icon="el-icon-check" @click="handleSubmit('form')">提交</el-button>
         <el-button size="small" icon="el-icon-back" @click="handleBack">返回</el-button>
@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import MyMapPicker from "@/components/picker/mappicker";
-import MyUpload from "@/components/upload/imgupload";
 import api from "@/api/index";
 export default {
   data() {
@@ -103,10 +101,6 @@ export default {
     closeDialog() {
       this.$parent.$layer.closeAll();
     }
-  },
-  components: {
-    MyMapPicker,
-    MyUpload
   }
 };
 </script>

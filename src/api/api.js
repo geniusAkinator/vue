@@ -790,3 +790,24 @@ export const getHazardData = params => { //获取隐患
         method: "GET"
     });
 }
+
+
+/**
+ *大屏展示 
+ */
+export const getRealtimeStatusData = params => { //监控在线统计
+    return request({
+        url: '/platform/totalInline',
+        params: params,
+        method: "GET"
+    })
+}
+
+export const getPlatformBuildingData = params => { //获取所有建筑根据id
+    return request({
+        url: '/platform/showBuilding',
+        params: params,
+        method: "GET"
+    })
+}
+

@@ -42,6 +42,7 @@ export default {
         ids = ids + item.id + ",";
       });
       this.form.ids = ids.substr(0, ids.length - 1);
+      console.log(this.form);
       api.updateRoleMenuData(this.form).then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           //编辑成功
@@ -62,7 +63,7 @@ export default {
       this.$parent.$layer.closeAll();
     },
     handleCheckChange(data, checked, indeterminate) {
-      console.log(data, checked, indeterminate);
+      // console.log(data, checked, indeterminate);
     },
     initForm() {
       let options = {
@@ -79,6 +80,7 @@ export default {
             content.map((item, i) => {
               aList.push(item.menu.menuId);
             });
+            console.log(content);
             this.aList = aList;
           }
         })
@@ -89,6 +91,7 @@ export default {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let content = res.data;
             let data = [];
+            console.log(content);
             content.map((item, i) => {
               let temp = {};
               temp.id = item.menu.menuId;

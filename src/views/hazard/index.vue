@@ -77,7 +77,8 @@
       <el-table-column prop="hdId" label="隐患ID" width="80"></el-table-column>
       <el-table-column prop="content" label="隐患内容"></el-table-column>
       <el-table-column prop="type" label="隐患类型"></el-table-column>
-      <el-table-column prop="currdate" label="上报时间"></el-table-column>
+      <el-table-column prop="currdate" label="首次上报时间"></el-table-column>
+      <el-table-column prop="currdate" label="最新上报时间"></el-table-column>
       <el-table-column prop="factory.factoryName" label="工厂名称"></el-table-column>
       <el-table-column prop="transducer.deviceNumber" label="设备编号"></el-table-column>
       <el-table-column label="操作" fixed="right" width="200px">
