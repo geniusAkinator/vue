@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="welcome">
-      <span>热烈欢迎领导</span>
+      <span>热烈欢迎华哥</span>
     </div>
     <el-row :gutter="10" class="platform-box">
       <el-col :span="6" id="platform-left">

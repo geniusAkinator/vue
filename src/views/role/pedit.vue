@@ -3,21 +3,21 @@
   <div class="container form noSelect">
     <el-form ref="form" :rules="rules" :model="form" label-width="80px" v-if="form.menu.length">
       <div class="pCard" v-for="(item,index) in form.menu" :key="index">
-        <el-card class="box-card" shadow="never" v-if="item.state">
+        <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
             <i :class="item.icon"></i>
             {{item.name}}
           </div>
           <div class="text item">
             <div class="crow" v-for="(citem,idx) in item.children" :key="idx">
-              <div v-if="citem.state">
+              <div>
                 <span class="cmenu">{{citem.name}}</span>
                 <el-checkbox
                   border
                   size="mini"
                   v-for="(pitem,pidx) in citem.children"
                   :key="pidx"
-                  @change="handleClick(pidx,pitem,$event)"
+                  @change="handleClick(pidx,pitem,item,citem,$event)"
                   :checked="isChecked(pidx,pitem)"
                 >{{pitem.name}}</el-checkbox>
               </div>
@@ -141,25 +141,54 @@ export default {
         loadingInstance.close();
       }, 600);
     },
-    handleClick(idx, item, ev) {
+    handleClick(idx, pitem, item, citem, ev) {
       let ids = this.sform.ids;
-      let nowMenuId = item.menuId.toString();
+      let grandMenuId = item.menuId.toString();
+      let parentMenuId = citem.menuId.toString();
+      let nowMenuId = pitem.menuId.toString();
       if (ev) {
         if (ids != "") {
           ids = ids + "," + nowMenuId;
         } else {
           ids = nowMenuId;
         }
+        let temp = [];
+        temp = ids.split(",");
+        if (temp.indexOf(grandMenuId) == "-1") {
+          ids = ids + "," + grandMenuId;
+        }
+        if (temp.indexOf(parentMenuId) == "-1") {
+          ids = ids + "," + parentMenuId;
+        }
         this.sform.ids = ids;
+        console.log(this.sform.ids);
       } else {
-        let temp = ids.split(",");
+        let temp1 = ids.split(",");
+        let temp2 = [];
+
         ids = "";
-        temp.map((tItem, i) => {
+        temp1.map((tItem, i) => {
           if (tItem != nowMenuId) {
-            ids = ids + tItem + ",";
+            temp2.push(tItem);
           }
         });
+        let count = 0;
+        citem.children.map((item, j) => {
+          temp2.map((citem, j) => {
+            if (item.menuId == citem) {
+              count = count + 1;
+            }
+          });
+        });
+        if (count > 0) {
+          temp2.map((item, i) => {
+            if (item != grandMenuId || item != parentMenuId) {
+              ids = ids + item + ",";
+            }
+          });
+        }
         this.sform.ids = ids.substr(0, ids.length - 1);
+        console.log(this.sform.ids);
       }
     },
     isChecked(idx, item) {
