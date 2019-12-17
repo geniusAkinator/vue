@@ -48,25 +48,21 @@ const actions = { //可异步
         let aList = [];
         let arr = [];
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-        // api
-        //     .getRoleMenuData({ roleId: userInfo.role.roleId })
-        //     .then(res => {
-        //         if (res.code === 200) {
-        //             let content = res.data;
-        //             content.map((item, i) => {
-        //                 aList.push(item.menu.menuId);
-        //             });
-
-        //         }
-        //     })
-        //     .catch(_ => { });
         api
-            .getAllMenuData()
+            .getRoleMenuData({ roleId: userInfo.role.roleId })
             .then(res => {
+                if (res.code === 200) {
+                    let content = res.data;
+                    content.map((item, i) => {
+                        aList.push(item.menu.menuId);
+                    });
+                    return api.getAllMenuData()
+                }
+            }).then(res => {
                 if (res.code === 200) {
                     let _data = res.data;
                     _data.map((item, i) => {
-                        //if (item.menu.state) {
+                        if (item.menu.state) {
                             //if (item.menu.state && aList.indexOf(item.menu.menuId) != '-1') {
                             let temp1 = {};
                             temp1.name = item.menu.name;
@@ -74,15 +70,15 @@ const actions = { //可异步
                             temp1.children = [];
                             item.children.map((citem, j) => {
                                 let temp2 = {}
-                                //if (citem.menu.state) {
+                                if (citem.menu.state) {
                                     //if (citem.menu.state && aList.indexOf(citem.menu.menuId) != '-1') {
                                     temp2.name = citem.menu.name;
                                     temp2.path = citem.menu.url;
                                     temp1.children.push(temp2)
-                                //}
+                                }
                             });
                             arr.push(temp1)
-                        //}
+                        }
                     });
                     commit('initAside', arr)
                 }

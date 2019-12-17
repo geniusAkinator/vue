@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-card class="state-card"   >
+    <el-card class="state-card">
       <el-row :gutter="20">
         <el-col :span="12">
           <ul class="state_block">
@@ -50,6 +50,18 @@
             </div>
             <div class="resolution">解决方法</div>
           </div>
+          <el-table
+            stripe
+            border
+            :data="tableData"
+            align="center"
+            style="width: 100%"
+            v-loading="loading"
+          >
+            <el-table-column prop="hdId" label="隐患ID"></el-table-column>
+            <el-table-column prop="hdId" label="隐患ID"></el-table-column>
+            <el-table-column prop="hdId" label="隐患ID"></el-table-column>
+          </el-table>
         </el-col>
       </el-row>
     </div>
@@ -62,6 +74,8 @@ import { Loading } from "element-ui";
 export default {
   data() {
     return {
+      loading: false,
+      tableData: [],
       activities: [
         {
           content: "系统上报",
@@ -76,7 +90,7 @@ export default {
           timestamp: "2018-04-11"
         }
       ],
-      reverse:""
+      reverse: ""
     };
   },
   watch: {},

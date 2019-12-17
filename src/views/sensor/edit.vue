@@ -299,6 +299,7 @@ export default {
       api.getSensorDetail({ id: this.form.transducerId }).then(res => {
         if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           let _data = res.data.transducer;
+          console.log(res.data)
           this.form.deviceNumber = _data.deviceNumber;
           this.form.expirationDate = _data.expirationDate;
           this.form.latitude = _data.latitude;

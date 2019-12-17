@@ -235,4 +235,7 @@ export default {
   border: 2px solid #e6a23c;
   background: #fff;
 }
+.el-card+.table-tool{
+  margin-top: 20px;
+}
 </style>

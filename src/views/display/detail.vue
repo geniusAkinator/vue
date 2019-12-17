@@ -91,7 +91,7 @@
               <ul class="info-list">
                 <li>
                   <i class="el-icon-location"></i>
-                  <span>{{item.floor.building.factory.factoryName}}-{{item.floor.building.name}}-{{item.floor.floorName}}</span>
+                  <span>{{item.factory.factoryName}}-{{item.floor.building.name}}-{{item.floor.floorName}}</span>
                 </li>
                 <li>
                   <i class="el-icon-warning-outline"></i>
@@ -184,7 +184,7 @@ export default {
     return {
       tform: {
         pageNum: 1,
-        pageSize: 0
+        pageSize: 0,
       },
       sform: {
         pageNum: 0,

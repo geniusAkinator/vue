@@ -68,6 +68,12 @@ export default {
         },
         {
           id: 0,
+          label: "导入",
+          value: "import",
+          checked: false
+        },
+        {
+          id: 0,
           label: "导出",
           value: "export",
           checked: false

@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     handleSubmit(form) {
-      console.log(this.sform);
       api.updateRoleMenuData(this.sform).then(res => {
         if (res.code == this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
           //编辑成功
@@ -96,12 +95,9 @@ export default {
               ids = ids + item.menu.menuId + ",";
             });
             this.sform.ids = ids.substr(0, ids.length - 1);
+            return api.getMenuData(this.pform);
           }
         })
-        .catch(_ => {});
-
-      api
-        .getMenuData(this.pform)
         .then(res => {
           if (res.code === this.AJAX_HELP.CODE_RESPONSE_SUCCESS) {
             let _data = res.data;
@@ -161,7 +157,6 @@ export default {
           ids = ids + "," + parentMenuId;
         }
         this.sform.ids = ids;
-        console.log(this.sform.ids);
       } else {
         let temp1 = ids.split(",");
         let temp2 = [];
@@ -188,7 +183,6 @@ export default {
           });
         }
         this.sform.ids = ids.substr(0, ids.length - 1);
-        console.log(this.sform.ids);
       }
     },
     isChecked(idx, item) {

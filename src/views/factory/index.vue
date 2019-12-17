@@ -10,7 +10,13 @@
           :disabled="did==''"
           @click="handleDeleteMore"
         >批量删除</el-button>
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleAdd">添加</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          icon="el-icon-plus"
+          @click="handleAdd"
+          v-permission="`${sign}:add`"
+        >添加</el-button>
         <el-dropdown @command="handleUpload" trigger="click">
           <el-button type="primary" size="small" icon="el-icon-document-add">
             导入
@@ -123,6 +129,7 @@ import baseURL from "@/utils/baseUrl";
 export default {
   data() {
     return {
+      sign: "factory",
       loading: true,
       Listform: {
         //表格请求params

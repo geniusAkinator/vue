@@ -1,3 +1,6 @@
+/**
+ *点击外侧指令 
+ */
 const clickoutside = {
     bind(el, binding, vnode) {
         function documentHandler(e) {
@@ -17,6 +20,9 @@ const clickoutside = {
     }
 };
 
+/**
+ *拖拽指令（无边缘检测） 
+ */
 const drag = {
     bind(el, binding, vnode) {
         let odiv = el;
@@ -37,7 +43,18 @@ const drag = {
     }
 }
 
+/**
+ * 
+ */
+
+const permission = {
+    bind(el, binding, vnode) {
+        console.log(el, binding.value);
+    }
+}
+
 export default {
     clickoutside,
-    drag
+    drag,
+    permission
 }
