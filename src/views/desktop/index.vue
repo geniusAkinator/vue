@@ -110,16 +110,6 @@
               <span>日历</span>
             </div>
             <div class="text">
-              <!-- <ul class="fast_box">
-                <li>
-                  <p>您有处隐患需要您去解决</p>
-                  <router-link :to="'index'">查看</router-link>
-                </li>
-                <li>
-                  <p>您有处隐患需要您去解决</p>
-                  <router-link :to="'index'">查看</router-link>
-                </li>
-              </ul>-->
               <div class="tips">
                 <div class="tips-item">
                   <i class="circle warning"></i>
