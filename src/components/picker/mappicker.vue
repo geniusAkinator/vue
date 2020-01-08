@@ -38,7 +38,6 @@ import BmControl from "vue-baidu-map/components/controls/Control";
 import BmView from "vue-baidu-map/components/map/MapView";
 import BmMarker from "vue-baidu-map/components/overlays/Marker";
 import BmNavigation from "vue-baidu-map/components/controls/Navigation";
-import http from "@/utils/http";
 import api from "@/api/index";
 
 export default {

@@ -21,6 +21,7 @@ Request.interceptors.request.use(config => {
     // config.withCredentials = true
     let token = "";
     token = sessionStorage.getItem('token')
+    console.log(token)
     if (token) {
         config.headers.Authorization = token
     }

@@ -220,6 +220,7 @@ export default {
             let token = _data.token;
             let userInfo = _data.userInfo;
             this.logining = true;
+            console.log(res.data)
             this.clearCookies();
             if (this.remember) {
               this.setCookies();
